@@ -1,8 +1,8 @@
-# Feature 10 · Reports & Analytics
+# Feature 24 · Reports
 
 ## Description
 
-This feature gives HR a Reports page with charts and numbers about their jobs, applicants and hiring progress. HR can look at all jobs or one job and pick a date range. Every number comes from real data and is calculated in code or database queries, never by AI.
+HR gets a Reports page with charts and numbers about their jobs, applicants and hiring progress, for all jobs or one job and a date range. Every number comes from real data and is calculated in code or database queries, never by AI.
 
 ## User Stories
 
@@ -23,7 +23,7 @@ This feature gives HR a Reports page with charts and numbers about their jobs, a
 7. **Screening health:** The share of applications whose `screening_status` is `pending` or `failed`.
 8. **Charts and tables:** Charts use Recharts. Every chart has a "Show as table" option for accessibility.
 9. **Empty states:** Clear messages when there are no jobs or no applicants.
-10. **No AI:** All numbers come from code or database queries. AI is never used.
+10. **No AI:** All numbers come from code or database queries.
 
 ## Screens
 
@@ -43,10 +43,10 @@ This feature gives HR a Reports page with charts and numbers about their jobs, a
 
 ## Data Used
 
-- **`jobs`** (Feature 02): job titles and company.
-- **`applications`** (Feature 03): applied dates, current status and `screening_status`.
-- **`screenings`** (Feature 04): scores and requirements results. A screenings row exists from the first attempt, but its score and results stay empty while screening is `pending` or `failed`.
-- **`status_history`** (Feature 06): stage changes for the funnel and time to hire.
+- **`jobs`** (Feature 05): job titles and company.
+- **`applications`** (Feature 12): applied dates, current status and `screening_status`.
+- **`screenings`** (Feature 15): scores and requirements results. A screenings row exists from the first attempt, but its score and results stay empty while screening is `pending` or `failed`.
+- **`status_history`** (Feature 20): stage changes for the funnel and time to hire.
 - **How they link:** All queries start from the HR user's `company_id` and only read jobs, applications and screenings of that company.
 
 **How each number is calculated:**
@@ -90,6 +90,10 @@ This feature gives HR a Reports page with charts and numbers about their jobs, a
 - [ ] HR only sees their own company's data.
 - [ ] No AI is used for any number.
 
+## User Flows
+
+- Flow 24 · HR views reports
+
 ## Test Cases
 
 - Given ABC Tech has no jobs, when Sara opens Reports, then she sees "Not enough data yet" and no broken or empty charts.
@@ -100,5 +104,5 @@ This feature gives HR a Reports page with charts and numbers about their jobs, a
 
 ## Dependencies
 
-- **Depends on:** Feature 02 (Job Posting), Feature 03 (Candidate Apply Portal), Feature 04 (CV Screening), Feature 05 (Candidate Ranking) and Feature 06 (Hiring Pipeline).
+- **Depends on:** Feature 05 (Post a Job), Feature 12 (Apply with CV), Feature 15 (AI CV Screening), Feature 17 (Ranked Candidates List) and Feature 20 (Hiring Pipeline).
 - **Depended on by:** None.

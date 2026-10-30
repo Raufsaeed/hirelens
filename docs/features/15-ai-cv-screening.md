@@ -1,27 +1,26 @@
-# Feature 04 · CV Screening
+# Feature 15 · AI CV Screening
 
 ## Description
 
-This feature reads each candidate's PDF CV and checks it against the job using Google Gemini. AI only reads and judges: it marks each requirement as found or missing with evidence, gives rubric marks, lists experience and writes a short summary. Code then calculates the score, match percentage and experience years, so results stay consistent and explainable. AI never decides who is hired or rejected.
+Each candidate's PDF CV is checked against the job using Google Gemini. AI only reads and judges: it marks each requirement found or missing with evidence, gives rubric marks, lists experience and writes a short summary. Code then calculates the score, match percentage and experience years, so results stay consistent and explainable. AI never decides who is hired or rejected.
 
 ## User Stories
 
 - As an **HR user**, I want every CV screened automatically against my job, so that I don't have to read hundreds of CVs by hand.
 - As an **HR user**, I want to see evidence from the CV for each requirement, so that I can trust and check the result.
 - As an **HR user**, I want skills matched by meaning, so that "ReactJS" counts as React and good candidates aren't missed.
-- As an **HR user**, I want to retry a failed screening or re-screen after changing requirements, so that every candidate has an up-to-date result.
 - As a **candidate**, I want my personal details kept away from AI, so that I'm judged only on my skills, experience and education.
 
 ## Functional Requirements
 
 1. **When it runs:**
-   - Automatically after each application (Feature 03).
-   - When HR clicks "Retry screening" (Feature 05).
-   - When HR clicks "Re-screen candidates" after editing requirements (Feature 02).
+   - Automatically after each application (Feature 12).
+   - When HR clicks "Retry screening" (Feature 16).
+   - When HR clicks "Re-screen candidates" after editing requirements (Feature 06).
 2. **Status updates:** Screening status moves from `queued` to `processing` to `done`, or to `pending` or `failed`.
 3. **Extract text:** Text is read from the PDF with pdf-parse.
-4. **Unreadable CV:** If there is almost no text (fewer than 200 characters), the status becomes `failed` with "CV could not be read" so HR can review the CV by hand.
-5. **Remove personal details:** Before anything goes to AI, the code removes name, email, phone, links to photos and addresses. The cleaned text is saved for later use, for example by Feature 08.
+4. **Unreadable CV:** If there is almost no text (fewer than 200 characters), the status becomes `failed` with "CV could not be read" so HR can review the CV by hand (Feature 16).
+5. **Remove personal details:** Before anything goes to AI, the code removes name, email, phone, links to photos and addresses. The cleaned text is saved for later use, for example by Feature 23.
 6. **Send to Gemini:** The cleaned CV text and the job (title, required years, degree, requirements with must/nice) are sent using four separate prompts (see AI Details).
 7. **Code calculates:**
    - The total score out of 100
@@ -35,21 +34,18 @@ This feature reads each candidate's PDF CV and checks it against the job using G
 
 ## Screens
 
-This feature mostly runs in the background. HR sees its results on screens from Features 02 and 05.
+This feature runs in the background. HR sees its results on Features 17 and 19.
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
 | Candidates List (screening badge) | Each candidate's screening status next to their name. | N/A | "Queued" or "Screening…" badge | "Pending" with "Retry screening"; "CV could not be read" | Score and match percentage shown |
 | Candidate Detail (screening panel) | Score breakdown, requirements found and missing, experience items, summary. | N/A | "Screening in progress" with a spinner | "Screening pending" with Retry; "CV could not be read" with "Open original CV" | Full screening results shown |
-| Edit Job (re-screen progress) | Progress while re-screening after a requirements change. | N/A | "Re-screening 5 of 23…" | "3 candidates could not be screened and are Pending" | "All candidates re-screened" |
 
 ## Input / Output
 
 | Action | Input | Output |
 |--------|-------|--------|
 | Screen a CV | Application ID (CV file and job details are read from the database) | Screening result saved and status `done`, `pending` or `failed` |
-| Retry screening | HR clicks "Retry screening" on one candidate | New result, or still `pending` with a message |
-| Re-screen candidates | HR clicks "Re-screen candidates" after editing requirements | Every candidate for that job screened again with the new requirements |
 
 ## Data Used
 
@@ -72,8 +68,8 @@ This feature mostly runs in the background. HR sees its results on screens from 
   - `model_name`
   - `screened_at`
   - `error_message`
-- **`applications.screening_status`** (Feature 03) is updated as screening runs.
-- **`jobs`** (Feature 02) gives title, required years, degree and requirements.
+- **`applications.screening_status`** (Feature 12) is updated as screening runs.
+- **`jobs`** (Feature 05) gives title, required years, degree and requirements.
 - **How they link:** `screenings.application_id` points to `applications.id`. There is one screening row per application, created on the first attempt and replaced on re-screen.
 
 ## AI Details
@@ -174,7 +170,7 @@ This feature mostly runs in the background. HR sees its results on screens from 
   - "Present" means today, and overlapping months are counted once.
   - In the example, 6 months of internship counts as 3 months. Nov 2025 to today counts in full. The total is about **1.2 years**.
 - **Meets required years:** Relevant years ≥ the job's required years (1.2 ≥ 1 → yes).
-- **Degree match:** Whether the degree the AI found is the same as, or equivalent to, the required degree (BS Computer Science → yes). The degree the AI found is saved as `degree_found`.
+- **Degree match:** Whether the degree the AI found is the same as, or equivalent to, the required degree (BS Computer Science → yes). The degree found is saved as `degree_found`.
 
 **Temperature:** 0.
 
@@ -182,7 +178,7 @@ This feature mostly runs in the background. HR sees its results on screens from 
 
 - The JSON is checked in code against the fixed format (field names, types, mark limits, every job requirement present).
 - If the call fails or the JSON is invalid, the code retries once automatically.
-- If it fails again, screening status becomes `pending`, `error_message` is saved, and HR sees "Retry screening".
+- If it fails again, screening status becomes `pending`, `error_message` is saved, and HR sees "Retry screening" (Feature 16).
 - A raw AI error is never shown to anyone.
 
 **AI limits:**
@@ -193,24 +189,24 @@ This feature mostly runs in the background. HR sees its results on screens from 
 
 ## Business Rules and Permissions
 
-- Screening runs only on the server. The Gemini key is never sent to the browser.
-- Personal details are always removed before any text is sent to AI.
+These AI rules also apply to Features 08 and 23.
+
+- AI runs only on the server. The Gemini key is never sent to the browser.
+- Personal details are always removed before any CV text is sent to AI.
 - All totals, percentages, years and rankings are calculated in code, never by AI.
 - Prompts live only in `prompts/` as `.txt` files.
-- Only HR of the job's company can see screening results or start a retry or re-screen.
-- Candidates never see screening results.
+- Only HR of the job's company can see screening results.
+- Candidates never see screening results (Feature 13).
 - A failed or pending screening never blocks the application or the rest of the candidates list.
 
 ## Error Cases
 
 | Case | Message Shown | What the System Does |
 |------|---------------|----------------------|
-| Scanned PDF or almost no text | "CV could not be read" (HR only) | Sets status `failed`; HR can open the original CV and review it by hand. |
+| Scanned PDF or almost no text | "CV could not be read" (HR only) | Sets status `failed`; HR can open the original CV and review it by hand (Feature 16). |
 | PDF is damaged or can't be opened | "CV could not be read" (HR only) | Sets status `failed` and saves the error message. |
 | Gemini unavailable or times out | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`. |
 | Invalid JSON from AI | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`; saves the error message. |
-| Retry clicked while screening is running | "Screening is already in progress" | Ignores the repeat click. |
-| Some candidates fail during re-screen | "3 candidates could not be screened and are Pending" | Saves the results that worked; marks the rest `pending`. |
 
 ## Acceptance Criteria
 
@@ -222,13 +218,15 @@ This feature mostly runs in the background. HR sees its results on screens from 
 - [ ] The same CV screened twice gets a similar score.
 - [ ] Scanned PDFs are marked "CV could not be read".
 - [ ] AI failure or invalid JSON leads to one automatic retry, then `pending` with "Retry screening".
-- [ ] Retry screening and Re-screen candidates both work.
 - [ ] Candidates never see any screening result.
+
+## User Flows
+
+- Flow 15 · System screens a CV with AI in the background
 
 ## Test Cases
 
 - Given Ali's CV has been screened once with a score of 74, when the same CV is screened again for the same job, then the new score is within a few points of 74.
-- Given Usman uploaded a scanned PDF with no text, when screening runs, then his status is "CV could not be read" and Sara can open the original CV.
 - Given Google Gemini is unavailable, when Ali's application is screened, then the code retries once, the screening status becomes `pending`, and Sara sees "Retry screening".
 - Given Gemini returns text that is not valid JSON, when the code checks the response, then it retries once, then marks the screening `pending` and saves the error message.
 - Given Ali's CV says "ReactJS" and the job requires "React", when screening runs, then React is marked found with the evidence "Developed dashboard components in ReactJS".
@@ -236,5 +234,5 @@ This feature mostly runs in the background. HR sees its results on screens from 
 
 ## Dependencies
 
-- **Depends on:** Feature 02 (Job Posting) and Feature 03 (Candidate Apply Portal).
-- **Depended on by:** Feature 05 (Candidate Ranking), Feature 08 (AI Interview Questions) and Feature 10 (Reports & Analytics).
+- **Depends on:** Feature 05 (Post a Job) and Feature 12 (Apply with CV).
+- **Depended on by:** Feature 06 (Edit Job and Re-screen), Feature 16 (Retry Screening), Feature 17 (Ranked Candidates List), Feature 19 (Candidate Review and Shortlist), Feature 23 (AI Interview Questions) and Feature 24 (Reports).

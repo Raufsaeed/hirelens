@@ -1,8 +1,8 @@
-# Feature 09 · AI Job Description Writer
+# Feature 08 · AI Job Description Writer
 
 ## Description
 
-This feature helps HR write a job description quickly. HR enters the title and a few key points, clicks "Write with AI", and gets a clear draft in the form to edit. Nothing is published until HR checks it and clicks Publish.
+HR enters a title and a few key points, clicks "Write with AI", and gets a draft job description in the form to edit. Nothing is published until HR checks it and clicks Publish.
 
 ## User Stories
 
@@ -14,14 +14,14 @@ This feature helps HR write a job description quickly. HR enters the title and a
 
 ## Functional Requirements
 
-1. **Input:** On the Create Job form (Feature 02), HR enters a title and a few key points, for example "small friendly team, hybrid in Lahore". Requirements already entered in the form are also used.
+1. **Input:** On the Create Job form (Feature 05), HR enters a title and a few key points, for example "small friendly team, hybrid in Lahore". Requirements already in the form are also used.
 2. **Write with AI:** The button works only when there is a title and at least one key point or requirement.
 3. **Send:** The app sends the title, key points, requirements, location, job type, years and degree to Gemini using `prompts/jd-writer.txt`.
 4. **Draft:** The AI returns a description of about 150–250 words with three sections: About the role, Responsibilities, and What we're looking for.
-5. **Suggested requirements:** The AI may suggest extra requirements, but each is clearly labelled "Suggestion". HR can accept or remove each one. Suggestions are never added to the job without HR accepting them.
-6. **Fill the form:** The draft goes into the description box for HR to edit. The note "Review and edit before publishing" is shown.
-7. **Regenerate:** HR can get a new draft. If HR has already edited the text, the app asks before replacing it.
-8. **No auto-publish:** Nothing is published or saved automatically. HR clicks Save as draft or Publish (Feature 02).
+5. **Suggested requirements:** The AI may suggest extra requirements, each clearly labelled "Suggestion". HR can accept or remove each one. Suggestions are never added without HR accepting them.
+6. **Fill the form:** The draft goes into the description box for HR to edit, with the note "Review and edit before publishing".
+7. **Regenerate:** HR can get a new draft. If HR has edited the text, the app asks before replacing it.
+8. **No auto-publish:** Nothing is published or saved automatically. HR clicks Save as draft or Publish (Feature 05).
 
 ## Screens
 
@@ -38,11 +38,11 @@ This feature helps HR write a job description quickly. HR enters the title and a
 | Accept / remove suggestion | Clicks Accept or Remove on a suggestion | Suggestion added to the requirements, or dropped |
 | Regenerate | Clicks Regenerate (confirms if text was edited) | A new draft |
 | Edit | Changes the text by hand | HR's text is kept |
-| Publish | Clicks Publish | Job published with HR's final text (Feature 02) |
+| Publish | Clicks Publish | Job published with HR's final text (Feature 05) |
 
 ## Data Used
 
-- **Nothing new is stored by this feature.** The final description and accepted requirements are saved in the `jobs` table (Feature 02) only when HR saves or publishes.
+- **Nothing new is stored.** The final description and accepted requirements are saved in `jobs` (Feature 05) only when HR saves or publishes.
 - **Inputs read from the form:** title, key points, location, job type, required years, required degree, requirements.
 
 ## AI Details
@@ -84,8 +84,8 @@ This feature helps HR write a job description quickly. HR enters the title and a
 **What the code does after the response:**
 
 - Checks the JSON matches the fixed format.
-- Joins the three sections into the description text and checks it is roughly 150–250 words.
-- Checks that the description only mentions requirements HR entered. Anything else must appear only in `suggested_requirements` with the label `suggestion`.
+- Joins the three sections into the description and checks it is roughly 150–250 words.
+- Checks the description only mentions requirements HR entered. Anything else must appear only in `suggested_requirements` with the label `suggestion`.
 - Shows suggestions separately from the description, each with Accept and Remove.
 
 **Temperature:** 0.7.
@@ -94,20 +94,20 @@ This feature helps HR write a job description quickly. HR enters the title and a
 
 - The code retries once automatically.
 - If it fails again, HR sees "Couldn't write a description right now. You can write it yourself or try again".
-- Anything HR already typed is kept, and HR can still write the description by hand and publish.
+- Anything HR typed is kept, and HR can still write the description by hand and publish.
 - A raw AI error is never shown.
 
 **AI limits:**
 
-- The AI must not add requirements HR did not mention, unless they are clearly labelled as suggestions.
-- It must use inclusive, non-discriminatory language. No age, gender, religion, marital status or similar preferences, and no words like "young" or "native speaker".
+- The AI must not add requirements HR did not mention, unless clearly labelled as suggestions.
+- It must use inclusive, non-discriminatory language: no age, gender, religion, marital status or similar preferences, and no words like "young" or "native speaker".
 
 ## Business Rules and Permissions
 
 - Only HR can use "Write with AI", and only for their own company's jobs.
 - The AI draft is never published automatically. HR must review and publish.
 - Suggested requirements are only added when HR accepts them.
-- The Gemini key is used only in server code. The prompt lives in `prompts/`.
+- The Gemini key and prompt rules from Feature 15 apply.
 
 ## Error Cases
 
@@ -129,6 +129,10 @@ This feature helps HR write a job description quickly. HR enters the title and a
 - [ ] AI failure shows a clear message and HR can still write the description.
 - [ ] The language is inclusive and non-discriminatory.
 
+## User Flows
+
+- Flow 8 · HR writes a job description with AI
+
 ## Test Cases
 
 - Given Sara has entered only the title, when she looks at "Write with AI", then the button is disabled with "Add a title and at least one key point first".
@@ -139,5 +143,5 @@ This feature helps HR write a job description quickly. HR enters the title and a
 
 ## Dependencies
 
-- **Depends on:** Feature 02 (Job Posting).
+- **Depends on:** Feature 05 (Post a Job).
 - **Depended on by:** None.

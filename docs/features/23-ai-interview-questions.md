@@ -1,8 +1,8 @@
-# Feature 08 · AI Interview Questions
+# Feature 23 · AI Interview Questions
 
 ## Description
 
-This feature helps HR prepare for an interview. With one click, AI writes eight questions based on the job and the candidate's CV, including at least one about a skill the candidate is missing. HR can edit the list, and it is saved in the `interview_questions` table, linked to the interview.
+With one click, AI writes eight interview questions based on the job and the candidate's CV, including at least one about a missing skill. HR can edit the list, and it is saved with the interview.
 
 ## User Stories
 
@@ -13,11 +13,11 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 
 ## Functional Requirements
 
-1. **Generate:** On the Candidate Detail or Interview page, HR clicks "Generate questions". The candidate must have a scheduled interview. Otherwise the button shows "Schedule an interview first".
+1. **Generate:** On the Candidate Detail or Interview page, HR clicks "Generate questions". The candidate must have a scheduled interview (Feature 21). Otherwise the button shows "Schedule an interview first".
 2. **What is sent:** The app sends Gemini:
    - The job details
-   - The saved CV text with personal details removed (`screenings.cv_text_clean` from Feature 04)
-   - The missing requirements from Feature 04
+   - The saved CV text with personal details removed (`screenings.cv_text_clean` from Feature 15)
+   - The missing requirements from Feature 15
 
    It uses `prompts/interview-questions.txt`.
 3. **What comes back:** Eight questions:
@@ -27,7 +27,7 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 
    At least one focuses on a missing skill. Each question has a short "what a good answer includes" hint.
 4. **Edit the list:** HR can regenerate the whole list, delete a question or add their own. A question HR adds must have a type: technical, behavioural or project.
-5. **Save:** Questions are saved in the `interview_questions` table, linked to the interview and kept in display order (`position`). HR can open them again later.
+5. **Save:** Questions are saved in `interview_questions`, linked to the interview and kept in display order (`position`). HR can open them again later.
 6. **Personal matters:** Questions must never ask about age, religion, marital status, family plans, health or other personal matters.
 
 ## Screens
@@ -47,9 +47,9 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 
 ## Data Used
 
-- **`jobs`** (Feature 02): title, required years, degree, requirements.
-- **`screenings`** (Feature 04): `cv_text_clean` and the missing items from `requirements_result`.
-- **`interviews`** (Feature 07): the interview the questions belong to.
+- **`jobs`** (Feature 05): title, required years, degree, requirements.
+- **`screenings`** (Feature 15): `cv_text_clean` and the missing items from `requirements_result`.
+- **`interviews`** (Feature 21): the interview the questions belong to.
 - **`interview_questions` table:**
   - `id`
   - `interview_id`
@@ -110,10 +110,9 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 
 - Only HR of the job's company can generate, see or edit questions.
 - Candidates never see the questions.
-- Personal details are removed before any text is sent to AI.
 - Questions never ask about age, religion, marital status or other personal matters.
 - AI only suggests questions. HR decides what to ask and makes every hiring decision.
-- The Gemini key is used only in server code. The prompt lives in `prompts/`.
+- The AI rules from Feature 15 apply (personal details removed, server-only key, prompts in `prompts/`).
 
 ## Error Cases
 
@@ -137,6 +136,10 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 - [ ] Personal details are never sent to AI.
 - [ ] AI failure shows a clear message with Retry, and the page still works.
 
+## User Flows
+
+- Flow 23 · HR generates interview questions with AI
+
 ## Test Cases
 
 - Given Ali has an interview scheduled and is missing REST APIs, when Sara clicks "Generate questions", then she sees eight questions, including one about REST APIs, each with a hint.
@@ -148,5 +151,5 @@ This feature helps HR prepare for an interview. With one click, AI writes eight 
 
 ## Dependencies
 
-- **Depends on:** Feature 04 (CV Screening) and Feature 07 (Interview Management).
+- **Depends on:** Feature 15 (AI CV Screening) and Feature 21 (Interview Scheduling).
 - **Depended on by:** None.

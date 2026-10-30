@@ -19,23 +19,38 @@ HireLens is an AI-powered hiring platform. HR posts a job, and candidates apply 
 
 ## What It Will Do
 
-| # | Module | What It Does | AI? |
-|---|--------|--------------|-----|
-| 1 | Accounts & Roles | Sign up and log in as HR or candidate, each with the right access. | No |
-| 2 | Job Posting | HR creates, edits and shares job posts with clear requirements and an optional application deadline. | No |
-| 3 | Candidate Apply Portal | Candidates open a job link and apply with a PDF CV. | No |
-| 4 | CV Screening | AI checks each CV against the job and gives a score, reasons and missing items. | Yes |
-| 5 | Candidate Ranking | Candidates are sorted by score, with filters and candidate search for HR. | No |
-| 6 | Hiring Pipeline | HR moves candidates through stages; candidates see their status. | No |
-| 7 | Interview Management | HR schedules interviews and records feedback. | No |
-| 8 | AI Interview Questions | AI suggests interview questions based on the job and the candidate's CV. | Yes |
-| 9 | AI Job Description Writer | AI drafts a job description from a few inputs. | Yes |
-| 10 | Reports & Analytics | Charts and numbers on jobs, applicants and hiring progress. | No |
-| 11 | Candidate Profile | Candidates save their details and a default CV to apply faster. | No |
-| 12 | Saved Jobs | Candidates save jobs to apply to later. | No |
-| 13 | Company Page | A public page for each company with About us and its open jobs. | No |
-| 14 | Profile Settings | Users change their name, email and password; candidates can delete their account. | No |
-| 15 | Email Notifications | Emails for applications, status changes, interviews and a daily HR summary. | No |
+| # | Feature | What It Does | AI? |
+|---|---------|--------------|-----|
+| 1 | HR Sign Up | HR signs up and creates their company. | No |
+| 2 | Candidate Sign Up | Candidates sign up, even in the middle of applying. | No |
+| 3 | Login and Logout | Users log in and out; each role reaches only its own pages. | No |
+| 4 | Password Reset | Users reset a forgotten password by email. | No |
+| 5 | Post a Job | HR creates, drafts and publishes a job with a shareable link. | No |
+| 6 | Edit Job and Re-screen | HR edits a job and re-screens candidates if requirements change. | No |
+| 7 | Close, Reopen and Deadline | HR closes or reopens a job; jobs close after their Apply by date. | No |
+| 8 | AI Job Description Writer | AI drafts a job description from a few points. | Yes |
+| 9 | Company Profile and Logo | HR edits the company name, logo, About us, website and location. | No |
+| 10 | Public Company Page | A public page for each company with its open jobs. | No |
+| 11 | Job Search | Anyone browses, searches and opens open jobs. | No |
+| 12 | Apply with CV | Candidates apply to a job with a PDF CV. | No |
+| 13 | My Applications | Candidates track their application status, never their score. | No |
+| 14 | Withdraw and Delete Application Data | Candidates withdraw an application or delete its data. | No |
+| 15 | AI CV Screening | AI checks each CV against the job; code calculates the score. | Yes |
+| 16 | Retry Screening | HR retries a failed screening or reviews an unreadable CV by hand. | No |
+| 17 | Ranked Candidates List | HR sees candidates ranked by score, with filters. | No |
+| 18 | Candidate Search | HR finds a candidate by name or email across all jobs. | No |
+| 19 | Candidate Review and Shortlist | HR reviews a candidate's evidence, adds notes and shortlists or rejects. | No |
+| 20 | Hiring Pipeline | HR moves candidates through hiring stages. | No |
+| 21 | Interview Scheduling | HR schedules, reschedules and cancels interviews. | No |
+| 22 | Interview Feedback | HR records a rating and feedback after an interview. | No |
+| 23 | AI Interview Questions | AI suggests interview questions from the job and the CV. | Yes |
+| 24 | Reports | Charts and numbers on jobs, applicants and hiring progress. | No |
+| 25 | Candidate Profile | Candidates save their details and a default CV. | No |
+| 26 | Saved Jobs | Candidates save jobs to apply to later. | No |
+| 27 | Account Settings | Users change their name, email and password. | No |
+| 28 | Delete Account | Candidates delete their account and all their data. | No |
+| 29 | Candidate Email Updates | Candidates get emails about applications, status and interviews. | No |
+| 30 | HR Daily Summary | HR gets one email listing new applicants. | No |
 
 We use a pre-trained Google Gemini model through an API, with no custom training. AI reads CVs and judges how well they meet each requirement, while scores, match percentages and rankings are calculated in code, so results stay consistent and explainable.
 

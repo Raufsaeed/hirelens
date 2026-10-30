@@ -1,8 +1,8 @@
-# Feature 11 · Candidate Profile
+# Feature 25 · Candidate Profile
 
 ## Description
 
-This feature gives each candidate a profile with their basic details and one default CV. When they apply, the apply form is filled in from the profile and they can use the default CV with one click or upload a different CV for that job only. HR never browses profiles. HR only sees what was submitted with an application.
+Each candidate has a profile with basic details and one default CV. The apply form is filled in from the profile, and the candidate can use the default CV with one click or upload a different CV for one job. HR never browses profiles.
 
 ## User Stories
 
@@ -19,14 +19,13 @@ This feature gives each candidate a profile with their basic details and one def
    - Phone
    - City
    - Short headline (up to 100 characters), for example "Junior React developer"
-   - Default CV (PDF, max 5 MB)
-2. **Upload default CV:** By drag and drop or by choosing a file, with the same checks as applying: PDF only, under 5 MB.
+   - Default CV
+2. **Upload default CV:** By drag and drop or by choosing a file, with the CV rule from Feature 12 (PDF only, under 5 MB).
 3. **Replace default CV:** Uploading a new file replaces the old default CV.
 4. **Delete default CV:** After confirming, the default CV file is removed.
-5. **Prefill when applying:** The apply form (Feature 03) is filled in with the profile's name, email and phone.
-6. **CV choice when applying:** The apply form offers "Use my default CV (ali-cv.pdf)" or "Upload a different CV for this job".
-   - A different CV is used for that application only. It does not change the default CV.
-7. **Submitted CVs are frozen:** When a candidate applies, the CV they choose is copied into that application. Replacing or deleting the default CV later never changes a CV already sent.
+5. **Prefill when applying:** The apply form (Feature 12) is filled in with the profile's name, email and phone.
+6. **CV choice when applying:** The apply form offers "Use my default CV (ali-cv.pdf)" or "Upload a different CV for this job". A different CV is used for that application only and does not change the default CV.
+7. **Submitted CVs are frozen:** When a candidate applies, the chosen CV is copied into that application. Replacing or deleting the default CV later never changes a CV already sent.
 8. **No HR browsing:** HR cannot search, list or open candidate profiles. HR only sees the details and CV submitted with an application.
 9. **Empty profile:** A new candidate sees a prompt to complete their profile. Applying still works without a complete profile.
 
@@ -55,8 +54,8 @@ This feature gives each candidate a profile with their basic details and one def
   - `city`
   - `headline`
   - `default_cv_path`
-- **Storage bucket `cvs`** (Feature 03): the default CV is stored here, privately, at `{candidate_id}/default/{original-file-name}.pdf`.
-- **`applications.cv_file_path`** (Feature 03): points to the copy of the CV sent with each application.
+- **Storage bucket `cvs`** (Feature 12): the default CV is stored here, privately, at `{candidate_id}/default/{original-file-name}.pdf`.
+- **`applications.cv_file_path`** (Feature 12): points to the copy of the CV sent with each application.
 - **How they link:** `default_cv_path` points to a file in `cvs`. When applying, that file is copied to `{candidate_id}/applications/{job_id}/{original-file-name}.pdf` and the copy's path is saved in `applications.cv_file_path`.
 
 ## Business Rules and Permissions
@@ -89,6 +88,10 @@ This feature gives each candidate a profile with their basic details and one def
 - [ ] Replacing or deleting the default CV never changes a CV already sent.
 - [ ] HR cannot browse or open candidate profiles.
 
+## User Flows
+
+- Flow 25 · Candidate sets up a profile and default CV
+
 ## Test Cases
 
 - Given Ali has saved his phone and a default CV, when he opens the apply form for Junior Web Developer at ABC Tech, then his name, email and phone are filled in and "Use my default CV (ali-cv.pdf)" is selected.
@@ -99,5 +102,5 @@ This feature gives each candidate a profile with their basic details and one def
 
 ## Dependencies
 
-- **Depends on:** Feature 01 (Accounts & Roles) and Feature 03 (Candidate Apply Portal).
+- **Depends on:** Feature 02 (Candidate Sign Up) and Feature 12 (Apply with CV).
 - **Depended on by:** None.
