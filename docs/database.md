@@ -449,7 +449,7 @@ While `applications.screening_status` is `pending` or `failed`, the score and re
 | Notification type | `notifications.type` | `application_received`, `status_changed`, `interview_scheduled`, `interview_rescheduled`, `interview_cancelled`, `daily_summary` |
 | Notification status | `notifications.status` | `sent`, `failed` |
 | Experience item type | `screenings.experience_items[].type` | `job`, `internship`, `project` |
-| Rubric part | `screenings.rubric_breakdown[].part` | `skills_match` (max 25), `experience` (25), `education` (15), `structure_formatting` (15), `contact_summary_links` (10), `grammar_clarity` (10) |
+| Rubric part | `screenings.rubric_breakdown[].part` | `skills_match` (max 35), `experience` (40), `education` (10), `structure_formatting` (5), `contact_summary_links` (5), `grammar_clarity` (5) |
 
 **Allowed moves**
 
@@ -494,7 +494,7 @@ It already exists. Never create it again, and never make a public bucket for CVs
 
 ### Bucket `logos` (public)
 
-The user must create it in Supabase. Never store CVs in it.
+It already exists in Supabase. Never create it again, and never store CVs in it.
 
 | File | Path | Saved in |
 |------|------|----------|

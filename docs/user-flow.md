@@ -176,7 +176,7 @@ She may skip a required field such as degree or requirements, so Publish stays b
 **Test cases**
 
 - Given Sara is on the create job form, when she fills in Junior Web Developer with all fields and clicks Publish, then the job is Open, she gets the link `/jobs/abc-tech-junior-web-developer` with "Copy link", and the job appears on her dashboard with 0 applicants.
-- Given Sara is on the create job form, when she clicks Publish without filling in the requirements, then the job is not published and the requirements field is highlighted with "This field is required".
+- Given Sara is on the create job form, when she clicks Publish without filling in the requirements, then the job is not published and she sees "Add at least one requirement".
 - Given Sara is on the create job form, when she sets the Apply by date to yesterday, then she sees "Apply by date can't be in the past" and the job is not published.
 
 ---
@@ -222,8 +222,8 @@ Sara may delete a required field, so Save must be blocked. New requirements make
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | My Jobs (or Pipeline board) | Once the position is filled (Ali Hired, others Rejected, see Flow 20), clicks "Close job". | Asks to confirm, then marks the job Closed. The public link shows "This job is closed". |
-| 2 | Public job detail | Anyone (for example Ali) opens the job link. | Shows "This job is closed and no longer accepting applications" instead of Apply. |
+| 1 | My Jobs (or Pipeline board) | Once the position is filled (Ali Hired, others Rejected, see Flow 20), clicks "Close job". | Asks to confirm, then marks the job Closed. The public link shows "This job is no longer accepting applications". |
+| 2 | Public job detail | Anyone (for example Ali) opens the job link. | Shows "This job is no longer accepting applications" instead of Apply. |
 | 3 | My Jobs | Later, clicks "Reopen job". | Marks the job Open. The public link accepts applications again. |
 | 4 | (System) | Nothing. | When an Open job is read after its Apply by day ends (11:59 pm Pakistan time), the server closes it with the reason "Deadline passed". |
 | 5 | My Jobs | Sees another job as "Closed · Deadline passed" (Apply by was 20 Oct). Clicks Edit, sets Apply by to 30 Oct and saves. | Shows "Deadline extended. The job is open again". The public link shows "Apply by 30 Oct" and Apply. |
@@ -234,7 +234,7 @@ Sara may delete a required field, so Save must be blocked. New requirements make
 |--------|-------|---------|-------|---------|
 | My Jobs | "You have no jobs yet" with "Post your first job" | Skeleton list | "Couldn't load your jobs" with Retry | Jobs with status Open or Closed ("Deadline passed" when that was the reason) and Edit, Close and Reopen actions; "Job closed" or "Job reopened" |
 | Edit job form (deadline) | N/A | Save button spinner | "Apply by date can't be in the past"; "Set a new Apply by date to reopen this job"; "Couldn't save, try again" | "Deadline extended. The job is open again" |
-| Public job detail | N/A | Skeleton of the job page | "This job is closed and no longer accepting applications" | Updated job details with Apply button |
+| Public job detail | N/A | Skeleton of the job page | "This job is no longer accepting applications" | Updated job details with Apply button |
 
 **What could go wrong**
 
@@ -242,10 +242,10 @@ A candidate may be mid-application when the job closes, so Submit must check aga
 
 **Test cases**
 
-- Given Sara has closed the Junior Web Developer job, when Ali opens the job link and tries to apply, then he sees "This job is closed and no longer accepting applications".
+- Given Sara has closed the Junior Web Developer job, when Ali opens the job link and tries to apply, then he sees "This job is no longer accepting applications".
 - Given the job is closed, when Sara clicks "Reopen job", then the status becomes Open and the public link accepts applications again.
 - Given a job was closed because its Apply by date of 20 Oct passed, when Sara sets a new Apply by date of 30 Oct, then the job is Open again and the public link shows the Apply button.
-- Given Ali is Hired and the others are Rejected, when Sara closes the job, then each candidate sees their final status and the job link shows "This job is closed".
+- Given Ali is Hired and the others are Rejected, when Sara closes the job, then each candidate sees their final status and the job link shows "This job is no longer accepting applications".
 
 ---
 
@@ -365,7 +365,7 @@ Showing closed or draft jobs would confuse candidates, so the page must list onl
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
 | Public jobs list | "No open jobs right now", or "No jobs match your search" with "Clear filters" | Skeleton cards | "Couldn't load jobs" with Retry | Matching jobs with Apply by dates |
-| Public job detail | N/A | Skeleton of the job page | "This job could not be found", "This job is closed and no longer accepting applications", or "Applications closed on 20 Oct" | Job details, Apply by date, "3 days left" and Apply button |
+| Public job detail | N/A | Skeleton of the job page | "This job could not be found", "This job is no longer accepting applications", or "Applications closed on 20 Oct" | Job details, Apply by date, "3 days left" and Apply button |
 
 **What could go wrong**
 
@@ -396,7 +396,7 @@ Drafts must never appear in the list or open from a link. The deadline may have 
 
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
-| Apply form | Name and email filled in (plus phone and default CV from his profile) and an empty upload box saying "Drag your PDF CV here or choose a file"; the upload box shows only if there's no default CV | Upload progress bar, then Submit spinner | "Only PDF files are accepted", "File must be under 5 MB", "You have already applied to this job", "This job is closed", "Applications for this job closed on 20 Oct", "This field is required", "Cover note can be up to 500 characters", "Your CV didn't upload, please try again", "Your default CV is no longer available. Please upload a CV" | Application saved and confirmation opens |
+| Apply form | Name and email filled in (plus phone and default CV from his profile) and an empty upload box saying "Drag your PDF CV here or choose a file"; the upload box shows only if there's no default CV | Upload progress bar, then Submit spinner | "Only PDF files are accepted", "File must be under 5 MB", "You have already applied to this job", "This job is no longer accepting applications", "Applications for this job closed on 20 Oct", "This field is required", "Cover note can be up to 500 characters", "Your CV didn't upload, please try again", "Your default CV is no longer available. Please upload a CV" | Application saved and confirmation opens |
 | Confirmation | N/A | N/A | N/A | "Your application has been sent to ABC Tech" with a link to My Applications |
 
 **What could go wrong**
@@ -659,7 +659,7 @@ Sara may trust the score too much, so the page must show the evidence behind eac
 | 1 | Pipeline board | Opens the Junior Web Developer board. | Shows columns Applied, Shortlisted, Interview, Offer, Hired and Rejected, with a card per candidate (name, score, days since applying). |
 | 2 | Pipeline board | Drags Ali from Shortlisted to Interview (on a phone, uses the card's status dropdown). | Opens the schedule interview form (Flow 21). |
 | 3 | Pipeline board | After the interview (Flows 21, 23 and 22), moves Ali to Offer, then later to Hired, confirming the Hired move. | Updates his status and saves a history entry each time. Ali sees "Offer", then "Hired" (Flow 13), and gets a status email (Flow 29). |
-| 4 | Pipeline board | Moves each other candidate to Rejected one by one, confirming each (or selects several cards and rejects them with one confirmation). | Moves each to Rejected and updates their status. Each gets a short status email with no score (Flow 29). |
+| 4 | Pipeline board | Moves each other candidate to Rejected one by one, confirming each. | Moves each to Rejected and updates their status. Each gets a short status email with no score (Flow 29). |
 | 5 | Pipeline board | Sees Usman's card greyed out because he withdrew (Flow 14). | Blocks any move of a withdrawn card. |
 
 When the position is filled, Sara closes the job (Flow 7).
@@ -669,7 +669,7 @@ When the position is filled, Sara closes the job (Flow 7).
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
 | Pipeline board | "No candidates yet" in every column | Skeleton columns | "Couldn't move this candidate, try again" (the card goes back); "Couldn't load the board" with Retry; "This candidate has withdrawn" | Card in its new column; "Ali moved to Interview" |
-| Confirm dialog | N/A | Confirm button spinner | "Couldn't save, try again" | "Move Ali to Hired?" or "Reject 20 candidates?" confirmed; dialog closes and cards move |
+| Confirm dialog | N/A | Confirm button spinner | "Couldn't save, try again" | "Move Ali to Hired?" or "Reject Ayesha?" confirmed; dialog closes and cards move |
 
 **What could go wrong**
 
@@ -733,7 +733,7 @@ Sara may enter a past date or a broken link, or leave both link and address empt
 
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
-| Interview feedback | Blank form | Save button spinner | "Please add a rating and a recommendation" | Feedback saved and shown on the profile; interview marked done |
+| Interview feedback | Blank form | Save button spinner | "Please add a rating and a recommendation" | Feedback saved and shown on the candidate detail page; interview marked done |
 
 **What could go wrong**
 
@@ -1015,8 +1015,6 @@ With no new applicants, no empty email should be sent. Sending may fail, so the 
 
 ## Flows by feature
 
-Feature N in `docs/features/` matches Flow N.
-
 | Feature | Flow |
 |---------|------|
 | 01 · HR Sign Up | 1 |
@@ -1049,5 +1047,3 @@ Feature N in `docs/features/` matches Flow N.
 | 28 · Delete Account | 28 |
 | 29 · Candidate Email Updates | 29 |
 | 30 · HR Daily Summary | 30 |
-
-Every feature from 01 to 30 has exactly one flow.

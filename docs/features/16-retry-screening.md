@@ -60,7 +60,7 @@ HR retries a screening that is Pending, or reviews by hand a CV that could not b
 
 ## Test Cases
 
-- Given Usman uploaded a scanned PDF with no text, when screening runs, then his status is "CV could not be read" and Sara can open the original CV.
+- Given Hira uploaded a scanned PDF with no text, when screening runs, then her status is "CV could not be read" and Sara can open the original CV.
 - Given Bilal is "Pending" and AI is working again, when Sara clicks "Retry screening", then Bilal gets a score and appears in the right place in the ranking.
 - Given AI is still unavailable, when Sara clicks "Retry screening", then Bilal stays "Pending" and she sees "AI is still unavailable, try again in a few minutes".
 

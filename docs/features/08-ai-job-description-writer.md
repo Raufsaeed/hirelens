@@ -27,7 +27,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
-| Create Job form (Write with AI) | Title, key points, requirements, "Write with AI" and Regenerate buttons, description box and suggested requirements. | "Write with AI" disabled with "Add a title and at least one key point first" | "Writing description…" spinner in the description box | "Couldn't write a description right now. You can write it yourself or try again" | Draft in the description box with suggestions shown separately |
+| Create Job form (Write with AI) | Title, key points, requirements, "Write with AI" and Regenerate buttons, description box and suggested requirements. | "Write with AI" disabled with "Add a title and at least one requirement first" | "Writing description…" spinner in the description box | "Couldn't write a description right now. You can write it yourself or try again" | Draft in the description box with suggestions shown separately |
 | Replace draft dialog | "Replace your edited text with a new draft?" with Replace and Cancel. | N/A | N/A | N/A | New draft shown, or the old text kept |
 
 ## Input / Output
@@ -113,7 +113,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 | Case | Message Shown | What the System Does |
 |------|---------------|----------------------|
-| Too little input | "Add a title and at least one key point first" | Keeps the button disabled. |
+| Too little input | "Add a title and at least one requirement first" | Keeps the button disabled. |
 | Gemini unavailable or times out | "Couldn't write a description right now. You can write it yourself or try again" | Retries once first; keeps HR's text. |
 | Invalid JSON | "Couldn't write a description right now. You can write it yourself or try again" | Retries once first; never shows broken text. |
 | Draft mentions a requirement HR didn't give | N/A (HR never sees it) | Retries, so the extra item only appears as a labelled suggestion. |
@@ -135,7 +135,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 ## Test Cases
 
-- Given Sara has entered only the title, when she looks at "Write with AI", then the button is disabled with "Add a title and at least one key point first".
+- Given Sara has entered only the title, when she looks at "Write with AI", then the button is disabled with "Add a title and at least one requirement first".
 - Given Google Gemini is unavailable, when Sara clicks "Write with AI", then she sees "Couldn't write a description right now" and can still type the description and publish.
 - Given AI has written a draft, when Sara edits it and clicks Publish, then the published job shows her edited text, not the original draft.
 - Given Sara entered HTML, CSS, React, Git and REST APIs as requirements, when AI writes the description, then it lists no other skill, degree or experience, and any extra idea (like TypeScript) appears only as a labelled suggestion.

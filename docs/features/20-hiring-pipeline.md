@@ -18,18 +18,17 @@ HR has a board for each job to move candidates through the hiring stages, from A
    - Drag and drop between columns.
    - A status dropdown on each card, for phone and keyboard users.
 3. **Confirmation:** Moving to Rejected or Hired asks for confirmation first.
-4. **Bulk reject:** HR can select several cards and reject them together, with one confirmation.
-5. **Interview step:** Moving to Interview opens the schedule form (Feature 21).
-6. **Status history:** Every status change is saved with who made it, the old status, the new status and when. The first row is saved when the candidate applies (Feature 12).
-7. **Candidate view:** The candidate sees each change in My Applications (Feature 13), with no score, and gets a status email (Feature 29).
-8. **Withdrawn candidates:** They appear greyed out and cannot be moved.
+4. **Interview step:** Moving to Interview opens the schedule form (Feature 21).
+5. **Status history:** Every status change is saved with who made it, the old status, the new status and when. The first row is saved when the candidate applies (Feature 12).
+6. **Candidate view:** The candidate sees each change in My Applications (Feature 13), with no score, and gets a status email (Feature 29).
+7. **Withdrawn candidates:** They appear greyed out and cannot be moved.
 
 ## Screens
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
-| Pipeline Board | Six columns with candidate cards, a status dropdown per card, and bulk select. | "No candidates yet" in every column | Skeleton columns | "Couldn't move this candidate, try again" (the card goes back to where it was); "Couldn't load the board" with Retry | Card shown in its new column; "Ali moved to Interview" |
-| Confirm dialog | "Move Ali to Hired?" or "Reject 20 candidates?" with Confirm and Cancel. | N/A | Confirm button spinner | "Couldn't save, try again" | Dialog closes and cards move |
+| Pipeline Board | Six columns with candidate cards and a status dropdown per card. | "No candidates yet" in every column | Skeleton columns | "Couldn't move this candidate, try again" (the card goes back to where it was); "Couldn't load the board" with Retry | Card shown in its new column; "Ali moved to Interview" |
+| Confirm dialog | "Move Ali to Hired?" or "Reject Ayesha?" with Confirm and Cancel. | N/A | Confirm button spinner | "Couldn't save, try again" | Dialog closes and cards move |
 | Status history panel | The status history of one candidate. | "No changes yet" | Skeleton list | N/A | History updated |
 
 ## Input / Output
@@ -38,7 +37,6 @@ HR has a board for each job to move candidates through the hiring stages, from A
 |---------------|-------------|-------------|
 | Move card | Drags a card or picks a status from the dropdown | New status saved, history entry added, candidate sees the change |
 | Hire / Reject | Moves to Hired or Rejected and confirms | Status saved after confirmation |
-| Bulk reject | Selects cards, clicks Reject, confirms | All selected candidates moved to Rejected |
 
 ## Data Used
 
@@ -76,7 +74,6 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - [ ] Each job has a board with the six columns and a card for every candidate.
 - [ ] Cards can be moved by drag and drop and by the status dropdown.
 - [ ] Moving to Hired or Rejected asks for confirmation.
-- [ ] HR can reject several candidates at once.
 - [ ] Every move is saved in the history with who, from, to and when.
 - [ ] The candidate sees every status change in My Applications, with no score.
 - [ ] Withdrawn candidates appear greyed out and cannot be moved.

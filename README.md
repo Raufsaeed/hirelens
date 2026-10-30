@@ -4,7 +4,7 @@ HireLens is an AI-powered hiring platform for small and medium companies. HR pos
 
 ## Main features
 
-HireLens has 30 features. Each one does one job and matches one user flow (Feature N = Flow N). AI-powered features are marked **(AI)**.
+HireLens has 30 features. Each one does one job and matches one user flow. AI-powered features are marked **(AI)**.
 
 1. **HR Sign Up:** HR signs up and creates their company.
 2. **Candidate Sign Up:** candidates sign up, even in the middle of applying.
@@ -16,7 +16,7 @@ HireLens has 30 features. Each one does one job and matches one user flow (Featu
 8. **AI Job Description Writer (AI):** drafts a job description from a few points.
 9. **Company Profile and Logo:** edit the company name, logo, About us, website and location.
 10. **Public Company Page:** a public page for each company with its open jobs.
-11. **Job Search:** browse, search and open open jobs.
+11. **Job Search:** browse, search and view open jobs.
 12. **Apply with CV:** apply to a job with a PDF CV.
 13. **My Applications:** candidates track their status, never their score.
 14. **Withdraw and Delete Application Data:** withdraw an application or delete its data.
@@ -89,12 +89,14 @@ The app runs only on your own computer (localhost). There is no online hosting y
 | `app/` | Pages and API routes |
 | `components/` | Reusable UI pieces |
 | `lib/` | Logic: Supabase and Gemini clients, PDF text extraction, scoring |
+| `lib/email/` | Sending emails |
+| `emails/` | Email templates |
 
 ## Documentation
 
 - [Product brief](docs/product-brief.md): what HireLens is and who it's for
 - [User flows](docs/user-flow.md): the 30 user journeys, step by step
-- [Feature files](docs/features/): one file per feature, `01` to `30` (Feature N matches Flow N)
+- [Feature files](docs/features/): one file per feature, `01` to `30`
 - [Database](docs/database.md): every table, column and access rule
 - [Design guidelines](design/design-guidelines.md): colours, fonts, components and motion
 - [AGENTS.md](AGENTS.md): rules for AI coding assistants working on this project

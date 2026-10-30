@@ -85,7 +85,7 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 - Given 23 candidates have applied, when Sara opens the Candidates List, then Ayesha (88), Ali (74) and Usman (61) appear in that order with their match percentage, years, degree found and degree match.
 - Given 23 candidates have applied, when Sara sets the minimum score to 95, then she sees "No candidates match these filters" and a "Clear filters" button.
 - Given Ali's screening is pending, when Sara opens the list, then Ali is at the bottom with a "Pending" badge and filtering and opening other candidates still works.
-- Given Ali's CV lists "BS IT" and the job needs BS Computer Science, when Sara opens the Candidates List, then Ali's row shows "BS IT ✗".
+- Given Ali's CV lists "BS Computer Science" and the job needs BS Computer Science, when Sara opens the Candidates List, then Ali's row shows "BS CS ✓".
 
 ## Dependencies
 

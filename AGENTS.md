@@ -14,7 +14,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Always read these before building anything:
   - `docs/product-brief.md`
   - `docs/user-flow.md`
-  - The relevant file in `docs/features/` (there are 30 feature files, `01` to `30`; Feature N matches Flow N in `docs/user-flow.md`)
+  - The relevant file in `docs/features/` (there are 30 feature files, `01` to `30`)
   - `docs/database.md` (when it exists)
   - The `design/` folder
 - Before building or changing any page or component, read `design/design-guidelines.md` and `design/README.md`, then the matching `design/components/<Name>/README.md` and `preview.html`. The previews show the exact look to copy.
@@ -25,6 +25,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Build one feature at a time, and only the feature the user asks for.
 - Before any big change, explain the plan in a few lines first.
 - After each feature, explain exactly how to test it in the browser.
+- If the user asks to build all features at once, still build them one at a time in the build order. After each feature: give any SQL to run in the Supabase SQL Editor, give a short browser test checklist from that feature's test cases, then STOP and wait for the user to reply "next".
 - Never add features that are not in the docs. If something is unclear, ask.
 - Keep explanations simple. The user is a student.
 - Build order: 01, 02, 03, 04, 05, 07, 11, 12, 13, 14, 15, 17, 16, 06, 18, 19, 20, 09, 10, 27, 28, 08, 21, 22, 23, 24, 25, 26, 29, 30.
@@ -54,7 +55,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
   - `SUPABASE_SERVICE_ROLE_KEY` holds the Supabase secret key.
 - Automatic Row Level Security is on in Supabase for every new table in the `public` schema. Every table needs explicit RLS policies, or its data will be blocked.
 - A private storage bucket named `cvs` already exists in Supabase. Never create it again, and never create a public bucket for CVs.
-- A public storage bucket named `logos` holds company logos. The user must create it in Supabase.
+- A public storage bucket named `logos` already exists in Supabase and holds company logos. Never create it again.
   - Images only: PNG or JPG, under 2 MB, at `{company_id}/logo.{png or jpg}`.
   - Only HR of that company can upload or replace a logo. Anyone can read it.
   - Never store CVs in `logos`.
@@ -84,6 +85,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 
 - API keys and secrets go only in `.env.local`. Never hard-code them, print them or use them in frontend code.
 - `.env.local` must be in `.gitignore`.
+- Never open, read, print or edit `.env.local`. Use `.env.example` for variable names. If a key seems missing or wrong, ask the user to check `.env.local`.
 - The Supabase secret / service role key and the Gemini key are used only in server code.
 - `RESEND_API_KEY` lives only in `.env.local` and is used only in server code.
 - Emails never contain scores, AI results or HR notes.

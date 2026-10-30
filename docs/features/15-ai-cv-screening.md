@@ -93,12 +93,12 @@ This feature runs in the background. HR sees its results on Features 17 and 19.
 
 | Part | Max marks |
 |------|-----------|
-| Skills match | 25 |
-| Experience | 25 |
-| Education | 15 |
-| Structure and formatting | 15 |
-| Contact info, summary and links | 10 |
-| Grammar and clarity | 10 |
+| Skills match | 35 |
+| Experience | 40 |
+| Education | 10 |
+| Structure and formatting | 5 |
+| Contact info, summary and links | 5 |
+| Grammar and clarity | 5 |
 
 **Example JSON the AI must return**
 
@@ -107,12 +107,12 @@ This feature runs in the background. HR sees its results on Features 17 and 19.
 ```json
 {
   "rubric": [
-    { "part": "skills_match", "marks": 20, "reason": "Strong HTML, CSS, React and Git; no REST API work shown." },
-    { "part": "experience", "marks": 18, "reason": "About one year of relevant front-end work including an internship." },
-    { "part": "education", "marks": 15, "reason": "BS Computer Science matches the required degree." },
-    { "part": "structure_formatting", "marks": 10, "reason": "Clear sections but long paragraphs in the projects part." },
-    { "part": "contact_summary_links", "marks": 6, "reason": "Has a summary and GitHub link; no portfolio link." },
-    { "part": "grammar_clarity", "marks": 5, "reason": "Several spelling and tense mistakes." }
+    { "part": "skills_match", "marks": 28, "reason": "Strong HTML, CSS, React and Git; no REST API work shown." },
+    { "part": "experience", "marks": 28, "reason": "About one year of relevant front-end work including an internship." },
+    { "part": "education", "marks": 10, "reason": "BS Computer Science matches the required degree." },
+    { "part": "structure_formatting", "marks": 3, "reason": "Clear sections but long paragraphs in the projects part." },
+    { "part": "contact_summary_links", "marks": 3, "reason": "Has a summary and GitHub link; no portfolio link." },
+    { "part": "grammar_clarity", "marks": 2, "reason": "Several spelling and tense mistakes." }
   ]
 }
 ```
@@ -160,7 +160,7 @@ This feature runs in the background. HR sees its results on Features 17 and 19.
 
 **What the code calculates after the response:**
 
-- **Score:** Each rubric mark is checked to be between 0 and its maximum, then the marks are added to make a total out of 100. In the example, 20 + 18 + 15 + 10 + 6 + 5 = **74**.
+- **Score:** Each rubric mark is checked to be between 0 and its maximum, then the marks are added to make a total out of 100. In the example, 28 + 28 + 10 + 3 + 3 + 2 = **74**.
 - **Match percentage:** Requirements found ÷ total requirements. In the example, 4 ÷ 5 = **80%**.
   - Must-have: 4 ÷ 4 = 100%.
   - Nice-to-have: 0 ÷ 1 = 0%.
