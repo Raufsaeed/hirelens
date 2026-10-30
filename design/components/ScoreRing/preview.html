@@ -1,0 +1,24 @@
+<!-- @dsCard group="AI & scoring" height=314 subtitle="0–100 with band label and draw-in animation" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ScoreRing — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-row" style="gap:40px;align-items:center">
+<div class="hl-stack-2" style="align-items:center"><div class="hl-ring" data-score="88"><div class="hl-ring__center"><span class="hl-ring__num">0</span><span class="hl-ring__of">/ 100</span></div></div><span data-band></span><span class="small hl-muted">Ayesha</span></div>
+<div class="hl-stack-2" style="align-items:center"><div class="hl-ring" data-score="74"><div class="hl-ring__center"><span class="hl-ring__num">0</span><span class="hl-ring__of">/ 100</span></div></div><span data-band></span><span class="small hl-muted">Ali</span></div>
+<div class="hl-stack-2" style="align-items:center"><div class="hl-ring hl-ring--md" data-score="61"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div><span data-band></span><span class="small hl-muted">Usman · medium</span></div>
+<div class="hl-stack-2" style="align-items:center"><div class="hl-ring hl-ring--md" data-score="38"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div><span data-band></span><span class="small hl-muted">Example · medium</span></div>
+<div class="hl-stack" style="gap:12px"><span class="hl-caption-tag">Small · tables</span>
+<div class="hl-row-2"><div class="hl-ring hl-ring--sm" data-score="88"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div><strong>Ayesha</strong></div>
+<div class="hl-row-2"><div class="hl-ring hl-ring--sm" data-score="74"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div><strong>Ali</strong></div>
+<div class="hl-row-2"><div class="hl-ring hl-ring--sm" data-score="61"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div><strong>Usman</strong></div></div>
+</div>
+<div class="hl-row" style="margin-top:20px"><button class="hl-btn hl-btn--secondary hl-btn--sm" id="rp"><i data-icon="refresh-cw"></i><span>Replay animation</span></button><span class="small hl-muted">0–49 Poor · 50–69 Average · 70–84 Good · 85–100 Excellent</span></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+document.getElementById('rp').onclick=function(){document.querySelectorAll('.hl-ring[data-score]').forEach(function(r){HireLens.ring(r)})};
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- @dsCard group="Actions" height=276 subtitle="Primary, secondary, ghost, danger, small, icon-only, loading" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Button — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-stack-6">
+<div class="hl-row"><button class="hl-btn hl-btn--primary">Publish job</button><button class="hl-btn hl-btn--secondary">Save draft</button><button class="hl-btn hl-btn--ghost">Cancel</button><button class="hl-btn hl-btn--danger"><i data-icon="trash-2"></i><span>Delete account</span></button></div>
+<div class="hl-row"><button class="hl-btn hl-btn--primary"><i data-icon="plus"></i><span>Post a job</span></button><button class="hl-btn hl-btn--secondary"><i data-icon="copy"></i><span>Copy link</span></button><button class="hl-btn hl-btn--ghost"><i data-icon="sparkles"></i><span>Write with AI</span></button><button class="hl-btn hl-btn--secondary hl-btn--icon" aria-label="Edit job"><i data-icon="pencil"></i></button><button class="hl-btn hl-btn--ghost hl-btn--icon" aria-label="More actions"><i data-icon="more-horizontal"></i></button></div>
+<div class="hl-row"><button class="hl-btn hl-btn--primary hl-btn--sm"><i data-icon="check"></i><span>Shortlist</span></button><button class="hl-btn hl-btn--secondary hl-btn--sm"><i data-icon="refresh-cw"></i><span>Retry screening</span></button><button class="hl-btn hl-btn--danger-ghost hl-btn--sm"><i data-icon="circle-slash"></i><span>Reject</span></button><button class="hl-btn hl-btn--primary" id="ld"><span>Submit application</span></button><button class="hl-btn hl-btn--primary is-loading" aria-busy="true"><span>Publishing</span></button><button class="hl-btn hl-btn--primary" disabled>Submit</button></div>
+<p class="small hl-muted">Hover to lift · press to scale · Tab to see the focus ring · click "Submit application" for the loading state.</p>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var b=document.getElementById('ld');b.onclick=function(){b.classList.add('is-loading');b.setAttribute('aria-busy','true');setTimeout(function(){b.classList.remove('is-loading');b.removeAttribute('aria-busy');HireLens.toast('Application sent','success')},1600)};
+</script>
+</body>
+</html>

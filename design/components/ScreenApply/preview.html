@@ -1,0 +1,28 @@
+<!-- @dsCard group="Sample screens" height=786 width=820 subtitle="Apply form with CV upload states" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ScreenApply — HireLens</title></head>
+<body class="hl">
+<nav class="hl-nav" aria-label="Main"><div class="hl-nav__in" style="max-width:var(--width-hr)"><a class="hl-brand" href="#"><span class="hl-brand__mark"><i data-icon="scan-search"></i></span>HireLens</a><div class="hl-nav__links"><a class="hl-navlink" href="#" aria-current=page><i data-icon="search"></i>Jobs</a><a class="hl-navlink" href="#"><i data-icon="bookmark"></i>Saved Jobs</a><a class="hl-navlink" href="#"><i data-icon="file-text"></i>My Applications</a><a class="hl-navlink" href="#"><i data-icon="user"></i>My Profile</a></div><div class="hl-nav__right"><button class="hl-userbtn hl-hide-compact" aria-haspopup="menu"><span class="hl-avatar">A</span><span class="hl-sr">Ali, account menu</span><i data-icon="chevron-down" class="hl-i16"></i></button><button class="hl-btn hl-btn--ghost hl-btn--icon hl-menubtn" aria-label="Open menu" aria-expanded="false"><i data-icon="menu"></i></button></div></div></nav><main class="hl-container hl-container--form hl-enter hl-stack-6">
+<a class="hl-link hl-link-inline small" href="#"><i data-icon="arrow-left" class="hl-i16"></i>Junior Web Developer</a>
+<div class="hl-stack-2"><h1 class="page-title">Apply to ABC Tech</h1><div class="hl-row-2"><span class="hl-muted">Junior Web Developer · Lahore</span><span class="hl-deadline hl-deadline--soon"><i data-icon="clock"></i>3 days left</span></div></div>
+<form class="hl-card hl-card--pad hl-stack-6" novalidate onsubmit="return false">
+<section class="hl-stack"><h2 class="card-title">Your details</h2>
+<div class="hl-grid-2" style="gap:16px"><div class="hl-field"><label class="hl-label" for="n">Full name</label><div class="hl-control"><i data-icon="user"></i><input class="hl-input" id="n" value="Ali Raza" autocomplete="name"></div></div><div class="hl-field"><label class="hl-label" for="e">Email</label><div class="hl-control"><i data-icon="mail"></i><input class="hl-input" id="e" type="email" value="ali.raza@example.com" autocomplete="email"></div></div></div>
+<div class="hl-field"><label class="hl-label" for="p">Phone</label><div class="hl-control"><i data-icon="phone"></i><input class="hl-input" id="p" type="tel" placeholder="0300 1234567" autocomplete="tel"></div><span class="hl-hint">ABC Tech may call you about an interview.</span></div></section>
+<hr class="hl-divider">
+<section class="hl-stack"><h2 class="card-title">Your CV</h2>
+<div class="hl-drop" id="dz" tabindex="0" role="button" aria-label="Upload your CV, PDF up to 5 MB"><span class="hl-icon-circle"><i data-icon="upload-cloud" class="hl-i24"></i></span><strong>Drag your CV here or <span class="hl-link">browse</span></strong><span class="small hl-muted">PDF only · up to 5 MB</span></div>
+<div id="fr" hidden></div></section>
+<div class="hl-between"><span class="small hl-muted" style="max-width:360px">By applying you agree that ABC Tech can see your CV. Your score is never shown to you or anyone outside ABC Tech's HR team.</span><button class="hl-btn hl-btn--primary hl-btn--lg" id="sb" disabled><i data-icon="send"></i><span>Submit application</span></button></div>
+</form></main>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var dz=document.getElementById('dz'),fr=document.getElementById('fr'),sb=document.getElementById('sb');
+function run(){dz.classList.add('hl-drop--drag');dz.querySelector('strong').textContent='Drop to upload';setTimeout(function(){dz.hidden=true;fr.hidden=false;fr.innerHTML='<div class="hl-file"><span class="hl-file__icon"><i data-icon="file-text"></i></span><div class="hl-file__body"><div class="hl-between"><span class="hl-file__name">ali-cv.pdf</span><span class="small hl-muted hl-num" id="pc">0%</span></div><div class="hl-progress" role="progressbar" aria-label="Uploading ali-cv.pdf"><span id="pb"></span></div></div></div>';HireLens.icons(fr);var p=0;(function g(){p+=12;if(p>100)p=100;document.getElementById('pb').style.width=p+'%';document.getElementById('pc').textContent=p+'%';if(p<100)setTimeout(g,180);else setTimeout(function(){fr.innerHTML='<div class="hl-file hl-file--success"><span class="hl-file__icon"><i data-icon="check-circle-2"></i></span><div class="hl-file__body"><span class="hl-file__name">ali-cv.pdf</span><span class="small" style="color:var(--success-text)">CV uploaded · 412 KB</span></div><button class="hl-btn hl-btn--ghost hl-btn--sm" type="button" id="rm"><i data-icon="x"></i><span>Remove</span></button></div>';HireLens.icons(fr);sb.disabled=false;document.getElementById('rm').onclick=function(){fr.hidden=true;dz.hidden=false;dz.classList.remove('hl-drop--drag');dz.querySelector('strong').innerHTML='Drag your CV here or <span class="hl-link">browse</span>';sb.disabled=true}},300)})()},1400)}
+dz.onclick=run;setTimeout(run,900);
+sb.onclick=function(){sb.classList.add('is-loading');setTimeout(function(){sb.classList.remove('is-loading');HireLens.toast('Application sent','success')},1400)};
+</script>
+</body>
+</html>

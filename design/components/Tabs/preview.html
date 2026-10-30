@@ -1,0 +1,17 @@
+<!-- @dsCard group="Navigation" height=213 subtitle="Underline tabs and segmented control with sliding indicator" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tabs — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-stack-6">
+<div><div class="hl-tabs" role="tablist" aria-label="Candidate detail"><button class="hl-tab" role="tab" aria-selected="true" aria-controls="p1"><i data-icon="sparkles" class="hl-i16"></i>AI review</button><button class="hl-tab" role="tab" aria-selected="false" aria-controls="p2"><i data-icon="file-text" class="hl-i16"></i>CV</button><button class="hl-tab" role="tab" aria-selected="false" aria-controls="p3"><i data-icon="sticky-note" class="hl-i16"></i>Notes <span class="hl-count">2</span></button><button class="hl-tab" role="tab" aria-selected="false" aria-controls="p4"><i data-icon="calendar-clock" class="hl-i16"></i>Interview</button><span class="hl-tabs__ind"></span></div>
+<div class="hl-tabpanel" id="p1" role="tabpanel">Score breakdown, found and missing requirements with evidence.</div><div class="hl-tabpanel" id="p2" role="tabpanel" hidden>CV preview with "Open original CV".</div><div class="hl-tabpanel" id="p3" role="tabpanel" hidden>Notes from Sara with time stamps.</div><div class="hl-tabpanel" id="p4" role="tabpanel" hidden>Schedule, questions and feedback.</div></div>
+<div class="hl-seg" role="tablist" aria-label="Account type"><span class="hl-seg__ind"></span><button role="tab" aria-selected="true">Sign up</button><button role="tab" aria-selected="false">Log in</button></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+
+</script>
+</body>
+</html>

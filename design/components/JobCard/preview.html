@@ -1,0 +1,29 @@
+<!-- @dsCard group="Content" height=513 subtitle="Job card with animated save, and the job detail header" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JobCard — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-grid-2" style="align-items:start">
+<article class="hl-card hl-card--click hl-job" tabindex="0">
+<div class="hl-job__head"><span class="hl-logo">AT</span><div class="hl-stack-2" style="gap:2px;min-width:0"><h3 class="hl-job__title">Junior Web Developer</h3><span class="hl-job__company">ABC Tech</span></div><button class="hl-btn hl-btn--secondary hl-btn--sm hl-save" id="sv" aria-pressed="false"><i data-icon="bookmark"></i><span>Save</span></button></div>
+<div class="hl-meta"><span><i data-icon="map-pin"></i>Lahore · Hybrid</span><span><i data-icon="briefcase"></i>Full-time</span><span><i data-icon="award"></i>1 year</span><span><i data-icon="graduation-cap"></i>BS Computer Science</span></div>
+<div class="hl-tags"><span class="hl-tag hl-tag--plain">HTML</span><span class="hl-tag hl-tag--plain">CSS</span><span class="hl-tag hl-tag--plain">React</span><span class="hl-tag hl-tag--plain">Git</span><span class="hl-tag hl-tag--plain">REST APIs</span></div>
+<div class="hl-job__foot"><span class="hl-deadline hl-deadline--soon"><i data-icon="clock"></i>Apply by 20 Oct · 3 days left</span><span class="hl-link hl-link-inline">View job <i data-icon="arrow-right" class="hl-i16"></i></span></div>
+</article>
+<article class="hl-card hl-job">
+<div class="hl-job__head"><span class="hl-logo">AT</span><div class="hl-stack-2" style="gap:2px;min-width:0"><h3 class="hl-job__title">Junior Full Stack Web Developer (React, Node and REST APIs) — Remote Friendly</h3><span class="hl-job__company">ABC Technologies and Digital Solutions (Private) Limited</span></div></div>
+<div class="hl-meta"><span><i data-icon="map-pin"></i>Remote</span><span><i data-icon="briefcase"></i>Full-time</span></div>
+<div class="hl-job__foot"><span class="hl-deadline hl-deadline--closed"><i data-icon="lock"></i>Applications closed on 20 Oct</span><button class="hl-btn hl-btn--secondary hl-btn--sm hl-save is-saved" aria-pressed="true"><i data-icon="bookmark-check"></i><span>Saved</span></button></div>
+</article>
+</div>
+<div class="hl-card" style="margin-top:24px;padding:28px"><div class="hl-stack"><span class="hl-caption-tag">Job detail header</span>
+<div class="hl-between" style="align-items:flex-start"><div class="hl-row" style="align-items:flex-start;flex-wrap:nowrap"><span class="hl-logo hl-logo--lg">AT</span><div class="hl-stack-2"><h1 class="page-title">Junior Web Developer</h1><a class="hl-link" href="#">ABC Tech</a><div class="hl-meta"><span><i data-icon="map-pin"></i>Lahore · Hybrid</span><span><i data-icon="briefcase"></i>Full-time</span><span><i data-icon="award"></i>1 year</span><span><i data-icon="graduation-cap"></i>BS Computer Science</span></div></div></div>
+<div class="hl-stack-2" style="align-items:flex-end"><div class="hl-row-2"><button class="hl-btn hl-btn--secondary hl-btn--icon" aria-label="Save job"><i data-icon="bookmark"></i></button><button class="hl-btn hl-btn--primary"><i data-icon="send"></i><span>Apply now</span></button></div><span class="hl-deadline hl-deadline--soon"><i data-icon="clock"></i>Apply by 20 Oct · 3 days left</span></div></div></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var b=document.getElementById('sv');b.onclick=function(e){e.stopPropagation();var on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);b.classList.toggle('is-saved',on);b.innerHTML='<i data-icon="'+(on?'bookmark-check':'bookmark')+'"></i><span>'+(on?'Saved':'Save')+'</span>';HireLens.icons(b);if(on)HireLens.toast('Job saved','success');};
+</script>
+</body>
+</html>

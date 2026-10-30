@@ -1,0 +1,17 @@
+<!-- @dsCard group="Content" height=230 subtitle="Pipeline board card with move dropdown" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PipelineCard — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-row" style="align-items:flex-start;gap:24px">
+<div style="width:260px"><div class="hl-kcard" draggable="true" data-id="AR"><div class="hl-kcard__top"><i data-icon="grip-vertical" class="hl-i16"></i><span class="hl-avatar">AR</span><div class="hl-stack-2" style="gap:0;min-width:0;flex:1"><strong>Ali Raza</strong><span class="small hl-muted">Junior Web Developer</span></div><div class="hl-ring hl-ring--sm" data-score="74"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div></div><div class="hl-meta"><span><i data-icon="calendar-clock"></i>Thu 23 Oct · 11:00</span></div><div class="hl-control"><label class="hl-sr" for="mvAR">Move Ali Raza to</label><select class="hl-input" id="mvAR"><option>Applied</option><option>Shortlisted</option><option selected>Interview</option><option>Offer</option><option>Hired</option><option>Rejected</option></select><span class="hl-chev"><i data-icon="chevron-down" class="hl-i16"></i></span></div></div></div>
+<div style="width:260px"><div class="hl-kcard is-dragging"><div class="hl-kcard__top"><i data-icon="grip-vertical" class="hl-i16"></i><span class="hl-avatar">AK</span><div class="hl-stack-2" style="gap:0;flex:1"><strong>Ayesha Khan</strong><span class="small hl-muted">Dragging</span></div><div class="hl-ring hl-ring--sm" data-score="88"><div class="hl-ring__center"><span class="hl-ring__num">0</span></div></div></div></div></div>
+<div style="width:260px" class="hl-stack-2"><div class="hl-col__head"><strong>Interview</strong><span class="hl-count" id="cnt">1</span></div><button class="hl-btn hl-btn--secondary hl-btn--sm" id="bump"><i data-icon="plus"></i><span>Simulate drop</span></button></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+document.getElementById('bump').onclick=function(){var c=document.getElementById('cnt');c.textContent=+c.textContent+1;c.classList.remove('is-bump');void c.offsetWidth;c.classList.add('is-bump');HireLens.toast('Moved Ayesha to Interview','success')};
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- @dsCard group="Forms" height=254 subtitle="Live requirement ticks" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PasswordField — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-stack" style="max-width:400px">
+<div class="hl-field"><label class="hl-label" for="pw">Password</label><div class="hl-control"><i data-icon="lock"></i><input class="hl-input" id="pw" type="password" value="abctech" autocomplete="new-password" aria-describedby="rules" style="padding-right:52px"><button class="hl-btn hl-btn--ghost hl-btn--icon hl-trail" type="button" id="eye" aria-label="Show password"><i data-icon="eye"></i></button></div>
+<ul class="hl-ticks" id="rules" aria-live="polite">
+<li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>At least 8 characters <span class="hl-sr">not met</span></li>
+<li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>One capital letter (A–Z) <span class="hl-sr">not met</span></li>
+<li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>One special character (like @) <span class="hl-sr">not met</span></li>
+</ul></div>
+<p class="small hl-muted">Type to watch the ticks turn green. Demo types "Abctech2026@" for you.</p>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var pw=document.getElementById('pw'),up=HireLens.passwordTicks(pw,document.getElementById('rules'));
+document.getElementById('eye').onclick=function(){var s=pw.type==='password';pw.type=s?'text':'password';this.setAttribute('aria-label',s?'Hide password':'Show password');this.innerHTML='<i data-icon="'+(s?'eye-off':'eye')+'"></i>';HireLens.icons(this);};
+var target='Abctech2026@',i=0;pw.value='';up();setTimeout(function t(){if(i<target.length){pw.value+=target[i++];up();setTimeout(t,140)}},700);
+</script>
+</body>
+</html>

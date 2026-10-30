@@ -1,0 +1,17 @@
+<!-- @dsCard group="Feedback" height=464 subtitle="Confirm and type-DELETE-to-confirm dialogs" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dialog — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-grid-2">
+<div class="hl-backdrop hl-backdrop--inline"><div class="hl-dialog" role="dialog" aria-modal="true" aria-labelledby="d1"><div class="hl-dialog__head"><span class="hl-dialog__icon hl-dialog__icon--primary"><i data-icon="lock"></i></span><div class="hl-stack-2"><h3 class="card-title" id="d1">Close this job?</h3><p class="hl-muted">The job link will stop accepting applications. You can reopen it later.</p></div></div><div class="hl-dialog__actions"><button class="hl-btn hl-btn--secondary">Cancel</button><button class="hl-btn hl-btn--primary">Close job</button></div></div></div>
+<div class="hl-backdrop hl-backdrop--inline"><div class="hl-dialog" role="alertdialog" aria-modal="true" aria-labelledby="d2"><div class="hl-dialog__head"><span class="hl-dialog__icon"><i data-icon="trash-2"></i></span><div class="hl-stack-2"><h3 class="card-title" id="d2">Delete your account?</h3><p class="hl-muted">This removes your profile, CVs and all applications. It can't be undone.</p></div></div><div class="hl-field"><label class="hl-label" for="del">Type DELETE to confirm</label><input class="hl-input" id="del" autocomplete="off" placeholder="DELETE"></div><div class="hl-dialog__actions"><button class="hl-btn hl-btn--secondary">Cancel</button><button class="hl-btn hl-btn--danger" id="db" disabled><i data-icon="trash-2"></i><span>Delete account</span></button></div></div></div>
+</div>
+<button class="hl-btn hl-btn--secondary hl-btn--sm" id="rp" style="margin-top:16px"><i data-icon="refresh-cw"></i><span>Replay open animation</span></button></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var d=document.getElementById('del'),b=document.getElementById('db');d.oninput=function(){b.disabled=d.value!=='DELETE'};document.getElementById('rp').onclick=function(){document.querySelectorAll('.hl-backdrop,.hl-dialog').forEach(function(x){x.style.animation='none';void x.offsetWidth;x.style.animation=''})};
+</script>
+</body>
+</html>

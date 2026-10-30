@@ -1,0 +1,28 @@
+<!-- @dsCard group="Sample screens" height=846 width=1200 subtitle="Split auth page with animated background and password ticks" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ScreenSignUp — HireLens</title></head>
+<body class="hl">
+<div class="hl-auth">
+<div class="hl-auth__art"><div class="hl-mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div><a class="hl-brand" href="#" style="color:var(--on-primary)"><span class="hl-brand__mark" style="background:var(--surface);color:var(--primary)"><i data-icon="scan-search"></i></span>HireLens</a>
+<div class="hl-stack-6" style="max-width:440px"><h1 class="display-sm" style="color:var(--on-primary)">Read every CV.<br>Fairly. In seconds.</h1><ul class="hl-checklist" style="color:var(--on-primary)"><li><span style="color:var(--primary-faint)"><i data-icon="check-circle-2"></i></span><span>Scores with reasons and evidence</span></li><li><span style="color:var(--primary-faint)"><i data-icon="check-circle-2"></i></span><span>Personal details removed before AI</span></li><li><span style="color:var(--primary-faint)"><i data-icon="check-circle-2"></i></span><span>You make every hiring decision</span></li></ul></div>
+<span class="small" style="color:var(--primary-faint)">Trusted by HR teams who care about fair hiring.</span></div>
+<div class="hl-auth__form"><form class="hl-auth__card" novalidate onsubmit="return false">
+<div class="hl-stack-2"><h2 class="page-title">Create your HR account</h2><p class="hl-muted">Post your first job in under two minutes.</p></div>
+<div class="hl-seg" role="tablist" aria-label="Sign up or log in" style="align-self:flex-start"><span class="hl-seg__ind"></span><button type="button" role="tab" aria-selected="true">Sign up</button><button type="button" role="tab" aria-selected="false">Log in</button></div>
+<div class="hl-field"><label class="hl-label" for="fn">Full name</label><div class="hl-control"><i data-icon="user"></i><input class="hl-input" id="fn" value="Sara" autocomplete="name"></div></div>
+<div class="hl-field"><label class="hl-label" for="em">Work email</label><div class="hl-control"><i data-icon="mail"></i><input class="hl-input" id="em" type="email" value="sara@abctech.com" autocomplete="email"></div></div>
+<div class="hl-field"><label class="hl-label" for="pw">Password</label><div class="hl-control"><i data-icon="lock"></i><input class="hl-input" id="pw" type="password" autocomplete="new-password" aria-describedby="rules"></div>
+<ul class="hl-ticks" id="rules" aria-live="polite"><li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>At least 8 characters<span class="hl-sr">not met</span></li><li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>One capital letter (A–Z)<span class="hl-sr">not met</span></li><li><span class="hl-tick"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-4.9"/></svg></span>One special character (like @)<span class="hl-sr">not met</span></li></ul></div>
+<div class="hl-field"><label class="hl-label" for="co">Company name</label><div class="hl-control"><i data-icon="building-2"></i><input class="hl-input" id="co" value="ABC Tech" autocomplete="organization"></div></div>
+<button class="hl-btn hl-btn--primary hl-btn--block hl-btn--lg" id="go" type="submit"><span>Create account</span></button>
+<p class="small hl-muted" style="text-align:center">Already have an account? <a class="hl-link" href="#">Log in</a></p>
+</form></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var pw=document.getElementById('pw'),up=HireLens.passwordTicks(pw,document.getElementById('rules')),t='Abctech2026@',i=0;setTimeout(function s(){if(i<t.length){pw.value+=t[i++];up();setTimeout(s,150)}},900);
+document.getElementById('go').onclick=function(){var b=this;b.classList.add('is-loading');setTimeout(function(){b.classList.remove('is-loading');HireLens.toast('Welcome to HireLens, Sara','success')},1500)};
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!-- @dsCard group="Forms" height=788 subtitle="Empty, dragging, selected, uploading, error, success, default CV" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>UploadDropzone — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-grid-2">
+<div class="hl-stack-2"><span class="hl-caption-tag">Empty</span><div class="hl-drop" tabindex="0" role="button" aria-label="Upload your CV, PDF up to 5 MB"><span class="hl-icon-circle"><i data-icon="upload-cloud" class="hl-i24"></i></span><strong>Drag your CV here or <span class="hl-link">browse</span></strong><span class="small hl-muted">PDF only · up to 5 MB</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Dragging</span><div class="hl-drop hl-drop--drag"><span class="hl-icon-circle"><i data-icon="upload-cloud" class="hl-i24"></i></span><strong>Drop to upload</strong><span class="small hl-muted">ali-cv.pdf</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">File selected</span><div class="hl-file"><span class="hl-file__icon"><i data-icon="file-text"></i></span><div class="hl-file__body"><span class="hl-file__name">ali-cv.pdf</span><span class="small hl-muted">412 KB · PDF</span></div><button class="hl-btn hl-btn--ghost hl-btn--sm"><i data-icon="x"></i><span>Remove</span></button></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Uploading</span><div class="hl-file"><span class="hl-file__icon"><i data-icon="file-text"></i></span><div class="hl-file__body"><div class="hl-between"><span class="hl-file__name">ali-cv.pdf</span><span class="small hl-muted hl-num" id="pct">0%</span></div><div class="hl-progress" role="progressbar" aria-label="Uploading ali-cv.pdf" aria-valuemin="0" aria-valuemax="100"><span id="bar"></span></div></div></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Error · wrong type</span><div class="hl-drop hl-drop--error"><span class="hl-icon-circle"><i data-icon="alert-circle" class="hl-i24"></i></span><strong style="color:var(--danger-text)">Only PDF files are accepted</strong><span class="small" style="color:var(--danger-text)">ali-cv.docx isn't a PDF. Save it as PDF and try again.</span><button class="hl-btn hl-btn--secondary hl-btn--sm">Choose another file</button></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Error · too large</span><div class="hl-drop hl-drop--error"><span class="hl-icon-circle"><i data-icon="alert-circle" class="hl-i24"></i></span><strong style="color:var(--danger-text)">File must be under 5 MB</strong><span class="small" style="color:var(--danger-text)">This PDF is 7.2 MB. Try a smaller export.</span><button class="hl-btn hl-btn--secondary hl-btn--sm">Choose another file</button></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Success</span><div class="hl-file hl-file--success"><span class="hl-file__icon"><i data-icon="check-circle-2"></i></span><div class="hl-file__body"><span class="hl-file__name">ali-cv.pdf</span><span class="small" style="color:var(--success-text)">CV uploaded · 412 KB</span></div><button class="hl-btn hl-btn--ghost hl-btn--sm">Replace</button></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Default CV choice</span><div class="hl-stack-2" role="radiogroup" aria-label="CV for this application">
+<label class="hl-choice"><input type="radio" name="cv" checked><span class="hl-choice__dot"></span><span class="hl-stack-2" style="gap:2px"><strong>Use my default CV</strong><span class="small hl-muted">ali-cv.pdf · updated 12 Oct</span></span></label>
+<label class="hl-choice"><input type="radio" name="cv"><span class="hl-choice__dot"></span><span class="hl-stack-2" style="gap:2px"><strong>Upload a different CV</strong><span class="small hl-muted">Only for this job. Your default stays the same.</span></span></label></div></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var p=0,b=document.getElementById('bar'),t=document.getElementById('pct');function s(){p=p>=100?0:p+Math.round(8+Math.random()*14);if(p>100)p=100;b.style.width=p+'%';b.parentNode.setAttribute('aria-valuenow',p);t.textContent=p+'%';setTimeout(s,p>=100?1600:420)}s();
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!-- @dsCard group="AI & scoring" height=448 subtitle="AI only advises note, CV checking state, Write with AI" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AiNote — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-grid-2" style="align-items:start">
+<div class="hl-stack">
+<div class="hl-ai-note"><i data-icon="sparkles"></i><span><strong>AI only advises, HR decides.</strong> Scores and reasons help you review faster. You make every shortlist, reject and hire decision.</span></div>
+<div class="hl-ai-note" style="background:var(--surface-page);color:var(--ink-muted)"><i data-icon="shield-check"></i><span>Name, email, phone and photo are removed before AI reads a CV. AI judges skills, experience and education only.</span></div>
+<div class="hl-card hl-stack" style="padding:16px"><div class="hl-row-2" style="color:var(--on-primary-tint)"><i data-icon="sparkles" class="hl-i16"></i><strong>Write with AI</strong></div><p class="hl-caret" id="tw" style="min-height:72px"></p><div class="hl-alert hl-alert--info" style="padding:8px 12px;font-size:13px"><i data-icon="info" class="hl-i16"></i><span>Review and edit before publishing.</span></div></div>
+</div>
+<div class="hl-stack">
+<div class="hl-card hl-scan" aria-live="polite"><div class="hl-scan__wrap"><span class="hl-sparkle"><i data-icon="sparkles"></i></span><div class="hl-scan__doc"><i data-icon="file-text"></i><span class="hl-scan__line"></span></div></div><div class="hl-stack-2"><strong>AI is checking this CV…</strong><span class="small hl-muted">Reading skills, experience and education. This usually takes about 30 seconds. You can keep working.</span><div class="hl-progress" style="width:200px"><span id="sp"></span></div></div></div>
+<div class="hl-card hl-scan"><div class="hl-scan__wrap"><div class="hl-scan__doc" style="background:var(--warning-bg);color:var(--warning-text)"><i data-icon="file-x"></i></div></div><div class="hl-stack-2"><strong>Screening pending</strong><span class="small hl-muted">AI is unavailable right now. The application is saved.</span><div class="hl-row-2"><button class="hl-btn hl-btn--secondary hl-btn--sm"><i data-icon="refresh-cw"></i><span>Retry screening</span></button></div></div></div>
+</div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var t="We're a small, friendly team in Lahore looking for a Junior Web Developer to build clean, fast interfaces with React. You'll work with HTML, CSS, Git and REST APIs.",i=0,el=document.getElementById('tw');(function s(){if(i<=t.length){el.textContent=t.slice(0,i);i+=2;setTimeout(s,HireLens.reduce()?0:28)}})();
+var p=0,b=document.getElementById('sp');(function g(){p=p>=100?0:p+4;b.style.width=p+'%';setTimeout(g,p>=100?900:220)})();
+</script>
+</body>
+</html>

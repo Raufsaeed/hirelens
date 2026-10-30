@@ -1,0 +1,20 @@
+<!-- @dsCard group="Feedback" height=248 subtitle="Success, error, info — slide in, auto-hide" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Toast — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-grid-2" style="align-items:start">
+<div class="hl-toasts hl-toasts--inline">
+<div class="hl-toast hl-toast--success" role="status"><span class="hl-toast__icon"><i data-icon="check-circle-2"></i></span><span class="hl-toast__msg">Link copied</span><button aria-label="Dismiss"><i data-icon="x" class="hl-i16"></i></button></div>
+<div class="hl-toast hl-toast--error" role="alert" style="animation-delay:80ms"><span class="hl-toast__icon"><i data-icon="alert-circle"></i></span><span class="hl-toast__msg">Couldn't save, try again</span><button aria-label="Dismiss"><i data-icon="x" class="hl-i16"></i></button></div>
+<div class="hl-toast hl-toast--info" role="status" style="animation-delay:160ms"><span class="hl-toast__icon"><i data-icon="info"></i></span><span class="hl-toast__msg">Re-screening 5 of 23…</span><button aria-label="Dismiss"><i data-icon="x" class="hl-i16"></i></button></div>
+</div>
+<div class="hl-stack-2"><span class="small hl-muted">Fire one (slides up from the bottom, hides after 4s):</span><div class="hl-row-2"><button class="hl-btn hl-btn--secondary hl-btn--sm" data-t="success" data-m="Moved Ali to Shortlisted">Success</button><button class="hl-btn hl-btn--secondary hl-btn--sm" data-t="error" data-m="Couldn't move this candidate, try again">Error</button><button class="hl-btn hl-btn--secondary hl-btn--sm" data-t="info" data-m="Check your new email to confirm the change">Info</button></div></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+document.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){HireLens.toast(b.getAttribute('data-m'),b.getAttribute('data-t'))}});
+</script>
+</body>
+</html>

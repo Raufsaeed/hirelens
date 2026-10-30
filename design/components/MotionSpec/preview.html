@@ -1,0 +1,21 @@
+<!-- @dsCard group="Foundations" height=419 subtitle="Durations and the single easing curve" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MotionSpec — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><style>.mo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.mo .hl-card{padding:20px;display:flex;flex-direction:column;gap:12px}.mo-track{height:40px;border-radius:10px;background:var(--surface-sunken);position:relative;overflow:hidden}.mo-dot{position:absolute;top:8px;left:8px;width:24px;height:24px;border-radius:8px;background:var(--primary)}.mo.go .mo-dot{transform:translateX(160px)}.mo-dot.f{transition:transform var(--duration-fast) var(--ease-out)}.mo-dot.b{transition:transform var(--duration-base) var(--ease-out)}.mo-dot.s{transition:transform var(--duration-slow) var(--ease-out)}.mo-dot.sc{transition:transform var(--duration-score) var(--ease-out)}.mo code{font-size:12px;color:var(--ink-muted);font-family:ui-monospace,Menlo,monospace}</style>
+<div class="hl-between" style="margin-bottom:16px"><div class="hl-stack-2"><h3 class="card-title">One curve, four speeds</h3><p class="hl-muted small">ease-out <code>cubic-bezier(0.16, 1, 0.3, 1)</code> for everything. Loops use ease-in-out.</p></div><button class="hl-btn hl-btn--secondary hl-btn--sm" id="go"><i data-icon="refresh-cw"></i><span>Play</span></button></div>
+<div class="mo" id="mo">
+<div class="hl-card"><strong>150ms · fast</strong><div class="mo-track"><span class="mo-dot f"></span></div><span class="small hl-muted">Hover, press, focus, toggles</span><code>duration-fast</code></div>
+<div class="hl-card"><strong>220ms · base</strong><div class="mo-track"><span class="mo-dot b"></span></div><span class="small hl-muted">Page fade-up, tabs, dropdowns, toasts</span><code>duration-base</code></div>
+<div class="hl-card"><strong>300ms · slow</strong><div class="mo-track"><span class="mo-dot s"></span></div><span class="small hl-muted">Dialogs, accordions, mobile menu</span><code>duration-slow</code></div>
+<div class="hl-card"><strong>600ms · score</strong><div class="mo-track"><span class="mo-dot sc"></span></div><span class="small hl-muted">Score ring, count-ups, charts (500ms)</span><code>duration-score</code></div>
+</div>
+<div class="hl-alert hl-alert--info" style="margin-top:16px"><i data-icon="info"></i><div class="hl-alert__body"><span class="hl-alert__title">Reduced motion</span><span>When the user prefers reduced motion: no background loops, scroll reveals, confetti or movement. Only simple 200ms fades stay.</span></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var m=document.getElementById('mo');document.getElementById('go').onclick=function(){m.classList.toggle('go')};setTimeout(function(){m.classList.add('go')},400);
+</script>
+</body>
+</html>

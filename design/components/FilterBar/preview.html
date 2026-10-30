@@ -1,0 +1,27 @@
+<!-- @dsCard group="Forms" height=470 subtitle="Score slider, experience, skill, clear, and HR top search" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FilterBar — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-stack-6">
+<div class="hl-card hl-filters">
+<div class="hl-field"><div class="hl-between"><label class="hl-label" for="ms">Minimum score</label><strong class="hl-num" id="msv">70</strong></div><input class="hl-range" type="range" id="ms" min="0" max="100" step="5" value="70"></div>
+<div class="hl-field"><label class="hl-label" for="ex">Experience</label><div class="hl-control"><i data-icon="award"></i><select class="hl-input" id="ex"><option>Any</option><option selected>At least 1 year</option><option>At least 2 years</option><option>At least 3 years</option></select><span class="hl-chev"><i data-icon="chevron-down" class="hl-i16"></i></span></div></div>
+<div class="hl-field"><label class="hl-label" for="sk">Skill</label><div class="hl-control"><i data-icon="sliders-horizontal"></i><select class="hl-input" id="sk"><option>Any skill</option><option selected>React</option><option>Git</option><option>REST APIs</option></select><span class="hl-chev"><i data-icon="chevron-down" class="hl-i16"></i></span></div></div>
+<button class="hl-btn hl-btn--ghost"><i data-icon="x"></i><span>Clear filters</span></button>
+</div>
+<p class="hl-filters__count" aria-live="polite"><strong style="color:var(--ink)" id="cnt">2 of 23</strong> candidates match</p>
+<div class="hl-stack-2" style="max-width:420px"><span class="hl-caption-tag">Top search · results dropdown</span>
+<div class="hl-search" style="max-width:420px"><div class="hl-control"><i data-icon="search"></i><input class="hl-input" value="ali" aria-label="Search candidates" aria-expanded="true" aria-controls="res"></div><kbd>/</kbd>
+<div class="hl-dropdown" id="res" role="listbox"><div class="hl-dd-head">Candidates</div>
+<a class="hl-dd-item is-active" role="option" href="#"><span class="hl-avatar">AR</span><span class="hl-stack-2" style="gap:0;flex:1"><strong>Ali Raza</strong><span class="small hl-muted">Junior Web Developer · 74</span></span><span class="hl-badge hl-badge--primary"><i data-icon="star"></i>Shortlisted</span></a>
+<a class="hl-dd-item" role="option" href="#"><span class="hl-avatar">AH</span><span class="hl-stack-2" style="gap:0;flex:1"><strong>Alina Hassan</strong><span class="small hl-muted">QA Intern · 69</span></span><span class="hl-badge hl-badge--neutral"><i data-icon="send"></i>Applied</span></a>
+</div></div></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var r=document.getElementById('ms'),v=document.getElementById('msv'),c=document.getElementById('cnt');function u(){v.textContent=r.value;r.style.setProperty('--fill',r.value+'%');var n=Math.max(0,Math.round(23*(1-r.value/100)*0.4));c.textContent=n+' of 23'}r.oninput=u;u();
+</script>
+</body>
+</html>

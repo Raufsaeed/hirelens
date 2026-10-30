@@ -1,0 +1,128 @@
+/* HireLens — generated from tokens.json */
+:root, [data-theme="light"] {
+  --primary: #5B3FD9;
+  --primary-hover: #4527B8;
+  --primary-deep: #2A1580;
+  --primary-soft: #B7A8F7;
+  --primary-faint: #D6CCFB;
+  --primary-tint: #EFEBFD;
+  --on-primary-tint: #3B1F9E;
+  --on-primary: #FFFFFF;
+  --ink: #1C1830;
+  --ink-muted: #5E5A72;
+  --ink-placeholder: #6F6B84;
+  --ink-disabled: #8C88A0;
+  --border: #DCD5F5;
+  --border-control: #7F7A96;
+  --surface-page: #EEEAFB;
+  --surface: #FCFBFF;
+  --surface-sunken: #F3F0FC;
+  --surface-skeleton-shine: #FCFBFF;
+  --surface-column: #E4DEF8;
+  --nav-bg: #24164F;
+  --nav-hover: #33236A;
+  --nav-line: #3A2B70;
+  --nav-text: #E9E4FB;
+  --nav-text-muted: #B3A8DD;
+  --overlay: rgba(28, 24, 48, 0.45);
+  --success: #0F7A6B;
+  --success-bg: #DDF3EC;
+  --success-text: #0B5E52;
+  --warning: #C2410C;
+  --warning-bg: #FDF0E6;
+  --warning-text: #8A3A08;
+  --danger: #C62828;
+  --danger-hover: #A01F1F;
+  --danger-bg: #FDECEC;
+  --danger-text: #A01F1F;
+  --neutral-bg: #EEEDF3;
+  --neutral-text: #47435A;
+  --muted-bg: #F4F3F8;
+  --muted-text: #5E5A72;
+  --info: #2E6FD8;
+  --info-bg: #E3EEFC;
+  --info-text: #174A9C;
+  --amber: #A87A0A;
+  --amber-bg: #FCF1D9;
+  --amber-text: #7A4A05;
+  --glass: rgba(255, 255, 255, 0.12);
+  --glass-line: rgba(255, 255, 255, 0.22);
+  --glass-strong: rgba(255, 255, 255, 0.55);
+  --glass-shine: rgba(255, 255, 255, 0.85);
+  --glass-dot: rgba(255, 255, 255, 0.10);
+  --glass-clear: rgba(255, 255, 255, 0);
+  --thumb-shadow: rgba(28, 24, 48, 0.25);
+  --chart-1: #2A1580;
+  --chart-2: #4527B8;
+  --chart-3: #5B3FD9;
+  --chart-4: #8D76EA;
+  --chart-5: #B7A8F7;
+  --shadow-card: 0 1px 2px rgba(28, 24, 48, 0.04), 0 2px 8px rgba(28, 24, 48, 0.04);
+  --shadow-card-hover: 0 2px 4px rgba(28, 24, 48, 0.05), 0 12px 24px -6px rgba(28, 24, 48, 0.12);
+  --shadow-float: 0 4px 12px rgba(28, 24, 48, 0.08), 0 24px 48px -12px rgba(28, 24, 48, 0.22);
+  --shadow-focus: 0 0 0 2px #FCFBFF, 0 0 0 4px #5B3FD9;
+  --shadow-focus-nav: 0 0 0 2px #FFFFFF;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius-sm: 6px;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-dialog: 20px;
+  --radius-pill: 999px;
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 300ms;
+  --duration-score: 600ms;
+  --duration-chart: 500ms;
+  --duration-stagger: 60ms;
+  --duration-loop: 20s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-loop: ease-in-out;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-xl: 44px;
+  --touch-target: 44px;
+  --control-height: 44px;
+  --control-height-sm: 36px;
+  --nav-height: 56px;
+  --topbar-height: 64px;
+  --sidebar-width: 248px;
+  --stroke-icon: 1.75;
+  --width-hr: 1160px;
+  --width-candidate: 820px;
+  --width-form: 720px;
+  --width-auth: 440px;
+  --bp-sm: 640px;
+  --bp-md: 900px;
+  --z-nav: 40;
+  --z-dropdown: 50;
+  --z-modal: 60;
+  --z-toast: 70;
+  --font-sans: Manrope, "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+.display { font-family: var(--font-sans); font-size: 56px; line-height: 60px; font-weight: 800; letter-spacing: -0.02em; }
+.display-sm { font-family: var(--font-sans); font-size: 36px; line-height: 40px; font-weight: 800; letter-spacing: -0.02em; }
+.page-title { font-family: var(--font-sans); font-size: 30px; line-height: 38px; font-weight: 800; letter-spacing: -0.01em; }
+.section-heading { font-family: var(--font-sans); font-size: 22px; line-height: 30px; font-weight: 700; }
+.card-title { font-family: var(--font-sans); font-size: 17px; line-height: 24px; font-weight: 700; }
+.body-lg { font-family: var(--font-sans); font-size: 17px; line-height: 28px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 15px; line-height: 24px; font-weight: 400; }
+.body-medium { font-family: var(--font-sans); font-size: 15px; line-height: 24px; font-weight: 500; }
+.small { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 400; }
+.label { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 700; }
+.caption { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.06em; }
+.numeric-xl { font-family: var(--font-sans); font-size: 40px; line-height: 44px; font-weight: 800; letter-spacing: -0.02em; }
+.numeric-lg { font-family: var(--font-sans); font-size: 28px; line-height: 32px; font-weight: 800; }
+.numeric { font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: 700; }

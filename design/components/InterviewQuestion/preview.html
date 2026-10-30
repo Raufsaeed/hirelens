@@ -1,0 +1,28 @@
+<!-- @dsCard group="Content" height=646 subtitle="AI question card and HR-only feedback form" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>InterviewQuestion — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-grid-2" style="align-items:start">
+<div class="hl-stack">
+<div class="hl-between"><h3 class="card-title">Interview questions</h3><button class="hl-btn hl-btn--secondary hl-btn--sm" id="gen"><i data-icon="sparkles"></i><span>Generate questions</span></button></div>
+<div id="ql" class="hl-stack">
+<article class="hl-card hl-qcard"><div class="hl-between"><span class="hl-tag hl-tag--plain"><i data-icon="code-2"></i>Technical</span><button class="hl-btn hl-btn--ghost hl-btn--sm hl-btn--icon" aria-label="Delete question"><i data-icon="trash-2"></i></button></div><p class="hl-qcard__q">Your CV doesn't mention REST APIs. How would you fetch and show a list of jobs from an API in React?</p><div class="hl-qcard__hint"><i data-icon="lightbulb"></i><span><strong>Good answer:</strong> mentions fetch or axios, useEffect, loading and error states, and keys on list items.</span></div><div class="hl-meta"><span><i data-icon="target"></i>Focus: REST APIs</span><span><i data-icon="x-circle"></i>From a missing requirement</span></div></article>
+<article class="hl-card hl-qcard"><div class="hl-between"><span class="hl-tag hl-tag--plain"><i data-icon="message-square-text"></i>Behavioural</span><button class="hl-btn hl-btn--ghost hl-btn--sm hl-btn--icon" aria-label="Delete question"><i data-icon="trash-2"></i></button></div><p class="hl-qcard__q">Tell us about a bug in your job board project that took longest to fix.</p><div class="hl-qcard__hint"><i data-icon="lightbulb"></i><span><strong>Good answer:</strong> explains the steps taken, what they learned, and how they'd prevent it.</span></div><div class="hl-meta"><span><i data-icon="target"></i>Focus: Problem solving</span></div></article>
+</div></div>
+<div class="hl-card hl-card--pad hl-stack">
+<div class="hl-between"><h3 class="card-title">Interview feedback</h3><span class="hl-private"><i data-icon="lock"></i>Only HR can see this</span></div>
+<div class="hl-field"><span class="hl-label" id="rl">Rating</span><div class="hl-stars" role="group" aria-labelledby="rl"><button type="button" aria-pressed="false" aria-label="1 out of 5">1</button><button type="button" aria-pressed="false" aria-label="2 out of 5">2</button><button type="button" aria-pressed="false" aria-label="3 out of 5">3</button><button type="button" aria-pressed="true" aria-label="4 out of 5">4</button><button type="button" aria-pressed="false" aria-label="5 out of 5">5</button></div></div>
+<div class="hl-field"><label class="hl-label" for="s1">Strengths</label><textarea class="hl-input" id="s1" style="min-height:80px">Good React projects, clear communication.</textarea></div>
+<div class="hl-field"><label class="hl-label" for="s2">Concerns</label><textarea class="hl-input" id="s2" style="min-height:80px">Needs practice with APIs.</textarea></div>
+<div class="hl-field"><label class="hl-label" for="dc">Recommendation</label><div class="hl-control"><select class="hl-input" id="dc"><option>Offer</option><option>Reject</option><option>Another round</option></select><span class="hl-chev"><i data-icon="chevron-down" class="hl-i16"></i></span></div></div>
+<button class="hl-btn hl-btn--primary" style="align-self:flex-start">Save feedback</button>
+</div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+document.querySelectorAll('.hl-stars button').forEach(function(b,i,a){b.onclick=function(){a.forEach(function(x,j){x.setAttribute('aria-pressed',j===i)})}});
+var g=document.getElementById('gen'),ql=document.getElementById('ql');g.onclick=function(){g.classList.add('is-loading');var keep=ql.innerHTML;ql.innerHTML='<div class="hl-card hl-qcard"><div class="hl-row-2" style="color:var(--on-primary-tint)"><span class="hl-typing"><span></span><span></span><span></span></span><strong>Writing questions…</strong></div><span class="hl-skel hl-skel--title"></span><span class="hl-skel hl-skel--line"></span><span class="hl-skel hl-skel--line" style="width:70%"></span></div><div class="hl-card hl-qcard"><span class="hl-skel hl-skel--title"></span><span class="hl-skel hl-skel--line"></span></div>';setTimeout(function(){g.classList.remove('is-loading');ql.innerHTML=keep;ql.classList.remove('hl-stagger');void ql.offsetWidth;ql.classList.add('hl-stagger');HireLens.icons(ql)},2000)};
+</script>
+</body>
+</html>

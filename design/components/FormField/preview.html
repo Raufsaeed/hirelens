@@ -1,0 +1,26 @@
+<!-- @dsCard group="Forms" height=606 subtitle="Text, email, select, number, date, textarea, checkbox, toggle, search" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FormField — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-grid-2" style="max-width:860px">
+<div class="hl-field"><label class="hl-label" for="t">Job title</label><div class="hl-control"><i data-icon="briefcase"></i><input class="hl-input" id="t" value="Junior Web Developer"></div><span class="hl-hint">Use the title candidates search for.</span></div>
+<div class="hl-field"><label class="hl-label" for="e">Email</label><div class="hl-control"><i data-icon="mail"></i><input class="hl-input is-invalid" id="e" type="email" value="sara@abctech" aria-invalid="true" aria-describedby="e-err"></div><span class="hl-error-msg" id="e-err"><i data-icon="alert-circle"></i>Please enter a valid email</span></div>
+<div class="hl-field"><label class="hl-label" for="ty">Job type</label><div class="hl-control"><select class="hl-input" id="ty"><option>Full-time</option><option>Part-time</option><option>Internship</option><option>Contract</option></select><span class="hl-chev"><i data-icon="chevron-down" class="hl-i16"></i></span></div></div>
+<div class="hl-field"><label class="hl-label" for="y">Years of experience</label><div class="hl-control"><i data-icon="award"></i><input class="hl-input" id="y" type="number" min="0" value="1"></div></div>
+<div class="hl-field"><label class="hl-label" for="d">Apply by <span class="hl-opt">(optional)</span></label><div class="hl-control"><i data-icon="clock"></i><input class="hl-input" id="d" type="date" value="2026-10-20"></div><span class="hl-hint">Applications close at the end of this day.</span></div>
+<div class="hl-field"><label class="hl-label" for="ph">Phone</label><div class="hl-control"><i data-icon="phone"></i><input class="hl-input" id="ph" placeholder="0300 1234567"></div></div>
+<div class="hl-field" style="grid-column:1/-1"><label class="hl-label" for="h">Headline</label><textarea class="hl-input" id="h" maxlength="120" placeholder="Junior React developer">Junior React developer who loves clean UI</textarea><div class="hl-field-foot"><span class="hl-hint">Shown to HR on your applications.</span><span class="hl-counter" id="c">0 / 100</span></div></div>
+<div class="hl-field"><label class="hl-label" for="dis">Company</label><div class="hl-control"><i data-icon="building-2"></i><input class="hl-input" id="dis" value="ABC Tech" disabled></div></div>
+<div class="hl-field"><span class="hl-label">Search</span><div class="hl-search" style="max-width:none"><div class="hl-control"><i data-icon="search"></i><input class="hl-input" placeholder="Search candidates" aria-label="Search candidates"></div><kbd>/</kbd></div></div>
+<div class="hl-stack-2"><label class="hl-check"><input type="checkbox" checked><span class="hl-check__box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span><span>Remote friendly</span></label>
+<label class="hl-switch"><span><strong style="display:block">Status emails</strong><span class="small hl-muted">When ABC Tech moves your application</span></span><input type="checkbox" checked><span class="hl-switch__track"></span></label></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var h=document.getElementById('h'),c=document.getElementById('c');function u(){var n=h.value.length;c.textContent=n+' / 100';c.classList.toggle('is-over',n>100);}h.oninput=u;u();
+</script>
+</body>
+</html>

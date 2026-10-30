@@ -1,0 +1,19 @@
+<!-- @dsCard group="AI & scoring" height=342 subtitle="Found, missing, must-have, nice-to-have, evidence" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>RequirementTag — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-stack-6">
+<div class="hl-stack-2"><span class="hl-caption-tag">Screening result</span><div class="hl-tags" data-pop><span class="hl-tag hl-tag--found"><i data-icon="check-circle-2"></i>HTML</span><span class="hl-tag hl-tag--found"><i data-icon="check-circle-2"></i>CSS</span><span class="hl-tag hl-tag--found"><i data-icon="check-circle-2"></i>React</span><span class="hl-tag hl-tag--found"><i data-icon="check-circle-2"></i>Git</span><span class="hl-tag hl-tag--missing"><i data-icon="x-circle"></i>REST APIs</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Job requirements</span><div class="hl-tags"><span class="hl-tag hl-tag--must"><i data-icon="star"></i>React · must-have</span><span class="hl-tag hl-tag--must"><i data-icon="star"></i>1 year · must-have</span><span class="hl-tag hl-tag--nice"><i data-icon="plus"></i>TypeScript · nice-to-have</span><span class="hl-tag hl-tag--plain">Hybrid · Lahore</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Found with evidence</span><div class="hl-evidence"><span class="hl-tag hl-tag--found"><i data-icon="check-circle-2"></i>React</span><span class="hl-evidence__quote"><i data-icon="quote"></i>"Built a job board SPA in React with hooks and React Router (final-year project, 2025)."</span></div></div>
+<button class="hl-btn hl-btn--ghost hl-btn--sm" style="align-self:flex-start" id="rp"><i data-icon="refresh-cw"></i><span>Replay</span></button>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+document.getElementById('rp').onclick=function(){var t=document.querySelector('[data-pop]');t.querySelectorAll('.hl-tag').forEach(function(x){x.classList.remove('is-pop');void x.offsetWidth});HireLens.popIn(t)};
+</script>
+</body>
+</html>

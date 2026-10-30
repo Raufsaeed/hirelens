@@ -1,0 +1,20 @@
+<!-- @dsCard group="Status" height=368 subtitle="Pipeline, screening and job status" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>StatusBadge — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad">
+<div class="hl-stack-6">
+<div class="hl-stack-2"><span class="hl-caption-tag">Pipeline</span><div class="hl-row-2"><span class="hl-badge hl-badge--neutral"><i data-icon="send"></i>Applied</span><span class="hl-badge hl-badge--primary"><i data-icon="star"></i>Shortlisted</span><span class="hl-badge hl-badge--info"><i data-icon="calendar-clock"></i>Interview</span><span class="hl-badge hl-badge--amber"><i data-icon="handshake"></i>Offer</span><span class="hl-badge hl-badge--success"><i data-icon="party-popper"></i>Hired</span><span class="hl-badge hl-badge--danger"><i data-icon="circle-slash"></i>Rejected</span><span class="hl-badge hl-badge--muted"><i data-icon="undo-2"></i>Withdrawn</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Screening</span><div class="hl-row-2"><span class="hl-badge hl-badge--neutral"><i data-icon="hourglass"></i>Queued</span><span class="hl-badge hl-badge--neutral"><i data-icon="hourglass"></i>Pending</span><span class="hl-badge hl-badge--primary"><span class="hl-spinner"></span>Processing</span><span class="hl-badge hl-badge--success"><i data-icon="check-circle-2"></i>Done</span><span class="hl-badge hl-badge--danger"><i data-icon="alert-circle"></i>Failed</span><span class="hl-badge-action"><span class="hl-badge hl-badge--neutral"><i data-icon="hourglass"></i>Pending</span><button type="button"><i data-icon="refresh-cw"></i>Retry screening</button></span><span class="hl-badge hl-badge--warning"><i data-icon="file-x"></i>CV could not be read</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Job</span><div class="hl-row-2"><span class="hl-badge hl-badge--neutral"><i data-icon="pencil"></i>Draft</span><span class="hl-badge hl-badge--primary"><i data-icon="circle-dot"></i>Open</span><span class="hl-badge hl-badge--muted"><i data-icon="lock"></i>Closed</span><span class="hl-badge hl-badge--muted"><i data-icon="clock"></i>Closed · Deadline passed</span></div></div>
+<div class="hl-stack-2"><span class="hl-caption-tag">Cross-fade on change</span><div class="hl-row"><span id="live"><span class="hl-badge hl-badge--primary"><i data-icon="star"></i>Shortlisted</span></span><button class="hl-btn hl-btn--secondary hl-btn--sm" id="nx"><i data-icon="arrow-right"></i><span>Next stage</span></button></div></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+var st=[["neutral","send","Applied"],["primary","star","Shortlisted"],["info","calendar-clock","Interview"],["amber","handshake","Offer"],["success","party-popper","Hired"]],k=1,l=document.getElementById('live');
+document.getElementById('nx').onclick=function(){k=(k+1)%st.length;var s=st[k],b=l.firstElementChild;b.className='hl-badge hl-badge--'+s[0]+' is-swap';b.innerHTML='<i data-icon="'+s[1]+'"></i>'+s[2];HireLens.icons(b);};
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HireLens — cover</title>
+<style>
+  html, body { margin: 0; height: 288px; }
+  body { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--surface-page); font-family: var(--font-sans); }
+  svg { position: absolute; left: 0; top: 0; width: 960px; height: 288px; }
+  .deep { fill: var(--nav-bg); }
+  .brand { fill: var(--primary); }
+  .tint { fill: var(--surface); }
+  .teal { fill: var(--success); }
+  .r-card { rx: var(--radius-card); }
+  .r-dialog { rx: var(--radius-dialog); }
+  .ring { fill: none; stroke: var(--primary-soft); stroke-width: 2; opacity: 0.55; }
+  .arc { fill: none; stroke: var(--primary-faint); stroke-width: 11; stroke-linecap: round; }
+  .text { position: absolute; left: 48px; bottom: 40px; max-width: 440px; }
+  .name { margin: 0; font-size: 88px; line-height: 0.95; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+  .tag { margin: 12px 0 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+</style></head>
+<body>
+<!--
+  blocks: nav-bg slab 320×288 (bleeds top/right/bottom) · primary 176×176 r=radius-card · surface (lilac card) 128×120 bleeding bottom r=radius-card · success disc 48 (a "found" mark)
+  arrangement: one tall slab with satellites, staggered left-to-right toward the slab
+  pattern: literal motif "lens / score ring" — four concentric rings + one 74% arc drawn in the score-ring stroke; chosen because the product's signature moment is the score ring drawing over a CV
+  scales: sides from space-12 (48) multiples; radii radius-card 16; ring pitch 24 = space-6; arc stroke 11 = the large score ring stroke
+-->
+<svg viewBox="0 0 960 288" aria-hidden="true">
+  <rect class="deep" x="640" y="-16" width="336" height="320"/>
+  <rect class="tint r-card" x="496" y="192" width="128" height="120"/>
+  <rect class="brand r-card" x="544" y="48" width="176" height="176"/>
+  <circle class="ring" cx="816" cy="136" r="40"/>
+  <circle class="ring" cx="816" cy="136" r="64"/>
+  <circle class="ring" cx="816" cy="136" r="88"/>
+  <circle class="ring" cx="816" cy="136" r="112"/>
+  <circle class="arc" cx="816" cy="136" r="64" stroke-dasharray="297.6 402.1" transform="rotate(-90 816 136)"/>
+  <circle class="teal" cx="904" cy="248" r="24"/>
+</svg>
+<div class="text"><h1 class="name">HireLens</h1><p class="tag">Hire faster, hire fairly. AI advises, HR decides.</p></div>
+</body>
+</html>

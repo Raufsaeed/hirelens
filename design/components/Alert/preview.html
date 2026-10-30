@@ -1,0 +1,18 @@
+<!-- @dsCard group="Feedback" height=426 subtitle="Info, success, warning, error" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Alert — HireLens</title></head>
+<body class="hl">
+<div class="hl-pad"><div class="hl-stack" style="max-width:720px">
+<div class="hl-alert hl-alert--info"><i data-icon="info"></i><div class="hl-alert__body"><span class="hl-alert__title">23 candidates were screened against the old requirements</span><span>Re-screen them now so scores include TypeScript.</span></div><button class="hl-btn hl-btn--secondary hl-btn--sm">Re-screen</button></div>
+<div class="hl-alert hl-alert--success"><i data-icon="check-circle-2"></i><div class="hl-alert__body"><span class="hl-alert__title">Deadline extended. The job is open again</span><span>The public link now shows "Apply by 30 Oct".</span></div></div>
+<div class="hl-alert hl-alert--warning"><i data-icon="alert-triangle"></i><div class="hl-alert__body"><span class="hl-alert__title">CV could not be read</span><span>No text was found, likely because the PDF is a scan. Open the original CV and review it yourself.</span></div><button class="hl-btn hl-btn--secondary hl-btn--sm"><i data-icon="external-link"></i><span>Open original CV</span></button></div>
+<div class="hl-alert hl-alert--error" role="alert"><i data-icon="alert-circle"></i><div class="hl-alert__body"><span class="hl-alert__title">Couldn't load candidates</span><span>Check your connection and try again.</span></div><button class="hl-btn hl-btn--secondary hl-btn--sm"><i data-icon="refresh-cw"></i><span>Retry</span></button></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+HireLens.init();
+
+</script>
+</body>
+</html>
