@@ -69,3 +69,11 @@ Candidates see each of their applications with its status, a timeline and interv
 
 - **Depends on:** Feature 12 (Apply with CV).
 - **Depended on by:** Feature 14 (Withdraw and Delete Application Data).
+
+## Done When
+
+- [ ] My Applications lists each application with job, company, applied date and status.
+- [ ] Application Detail shows the status timeline and the interview date, time and meeting link.
+- [ ] On a 360 px wide phone, everything fits with no horizontal scroll.
+- [ ] Privacy: no score, match percentage, AI summary or HR note appears anywhere.
+- [ ] Opening another candidate's application by URL shows "You don't have access to this page".

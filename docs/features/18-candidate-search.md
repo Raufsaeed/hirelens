@@ -70,3 +70,11 @@ HR searches for a candidate by name or email across all of their company's jobs.
 
 - **Depends on:** Feature 17 (Ranked Candidates List).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Typing "ali" in the top navigation shows Ali once with both jobs and their scores and statuses.
+- [ ] Clicking a result opens Ali's Candidate Detail page.
+- [ ] With the minimum score set to 70, searching "usman" shows "No candidates found for 'usman'".
+- [ ] Typing fewer than 2 characters shows "Type at least 2 characters".
+- [ ] Privacy: searching "bilal" (another company's candidate) shows "No candidates found for 'bilal'".

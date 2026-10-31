@@ -236,3 +236,12 @@ These AI rules also apply to Features 08 and 23.
 
 - **Depends on:** Feature 05 (Post a Job) and Feature 12 (Apply with CV).
 - **Depended on by:** Feature 06 (Edit Job and Re-screen), Feature 16 (Retry Screening), Feature 17 (Ranked Candidates List), Feature 19 (Candidate Review and Shortlist), Feature 23 (AI Interview Questions) and Feature 24 (Reports).
+
+## Done When
+
+- [ ] A new application is screened within about 30 seconds and shows a score and match percentage.
+- [ ] Each requirement is marked found or missing, with an evidence quote for found ones ("ReactJS" counts as React).
+- [ ] The same CV screened twice gets a score within a few points.
+- [ ] If Gemini is unavailable or returns invalid JSON, it retries once, then shows "Pending" with "Retry screening".
+- [ ] Privacy: name, email and phone are not in the text sent to Gemini.
+- [ ] Privacy: candidates never see any screening result.

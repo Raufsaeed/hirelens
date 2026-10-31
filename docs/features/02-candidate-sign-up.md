@@ -58,3 +58,10 @@ Same as Feature 01: email already in use, weak password, empty required fields, 
 
 - **Depends on:** Feature 01 (HR Sign Up).
 - **Depended on by:** Feature 03 (Login and Logout), Feature 12 (Apply with CV), Feature 25 (Candidate Profile) and Feature 26 (Saved Jobs).
+
+## Done When
+
+- [ ] Ali signs up with his name, email and password and is logged in.
+- [ ] Signing up after clicking Apply returns Ali to the same job's apply form.
+- [ ] The password "abctech2026" is rejected, with only the 8-character requirement ticked.
+- [ ] An existing email shows "Email already in use. Log in instead?" and no second account is created.

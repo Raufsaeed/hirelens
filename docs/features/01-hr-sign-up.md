@@ -74,3 +74,11 @@ HR creates an account with their company name. This creates the HR user and the 
 
 - **Depends on:** None. This is the first feature.
 - **Depended on by:** Every other feature.
+
+## Done When
+
+- [ ] Sara signs up with her name, email, password and "ABC Tech", and lands on the empty HR Dashboard.
+- [ ] The ABC Tech company record is created and linked to Sara's account.
+- [ ] The three password requirements tick as she types, and a weak password shows "Password must be at least 8 characters and include one capital letter and one special character (like @)".
+- [ ] Signing up with an existing email shows "Email already in use" with a link to log in.
+- [ ] Leaving the company name empty shows "This field is required" and no account is created.

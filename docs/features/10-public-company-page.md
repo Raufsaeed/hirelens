@@ -82,3 +82,11 @@ Every company has a public page, for example `/companies/abc-tech`, with its log
 
 - **Depends on:** Feature 05 (Post a Job) and Feature 09 (Company Profile and Logo).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] `/companies/abc-tech` shows the logo, name, About us, website, location and open jobs.
+- [ ] Only Open jobs are listed, never Draft or Closed jobs.
+- [ ] Clicking "ABC Tech" on the Junior Web Developer job page opens the company page.
+- [ ] `/companies/unknown-company` shows "This company could not be found".
+- [ ] Privacy: a logged-out visitor sees the page with no HR names, applicant counts or candidate data.

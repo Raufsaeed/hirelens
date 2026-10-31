@@ -101,3 +101,11 @@ These email rules also apply to Feature 30.
 
 - **Depends on:** Feature 12 (Apply with CV), Feature 20 (Hiring Pipeline), Feature 21 (Interview Scheduling) and Feature 27 (Account Settings).
 - **Depended on by:** Feature 30 (HR Daily Summary).
+
+## Done When
+
+- [ ] Applying sends "Your application to ABC Tech was received" with a button to My Applications.
+- [ ] Scheduling an interview sends Ali an email with the date, time, duration and meeting link.
+- [ ] With status updates turned off, no status email is sent, but interview emails still arrive.
+- [ ] If Resend is unavailable, the action still succeeds and the email is logged as `failed`.
+- [ ] Privacy: no email contains a score, match percentage, AI summary or HR note.

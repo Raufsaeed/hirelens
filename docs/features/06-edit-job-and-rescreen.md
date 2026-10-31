@@ -69,3 +69,11 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 
 - **Depends on:** Feature 05 (Post a Job) and Feature 15 (AI CV Screening).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Sara edits a job, saves it and sees "Job updated".
+- [ ] Changing requirements after people applied shows the re-screen warning with "Re-screen candidates" and "Not now".
+- [ ] "Re-screen candidates" shows progress and updates every candidate's found and missing requirements and score.
+- [ ] Clearing the title shows "This field is required" and the job is not saved.
+- [ ] If some candidates fail, "3 candidates could not be screened and are Pending" shows and the other results are saved.

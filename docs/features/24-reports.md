@@ -106,3 +106,11 @@ HR gets a Reports page with charts and numbers about their jobs, applicants and 
 
 - **Depends on:** Feature 05 (Post a Job), Feature 12 (Apply with CV), Feature 15 (AI CV Screening), Feature 17 (Ranked Candidates List) and Feature 20 (Hiring Pipeline).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Reports shows applicants per job, average score, the funnel, time to hire, top missing requirements and screening health.
+- [ ] Filtering by Junior Web Developer gives numbers that match the candidates list and pipeline board exactly.
+- [ ] Every chart has "Show as table".
+- [ ] With no jobs, Sara sees "Not enough data yet" and no broken or empty charts.
+- [ ] Privacy: no other company's data appears in any chart or table.

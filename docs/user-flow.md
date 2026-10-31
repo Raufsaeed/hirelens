@@ -4,8 +4,6 @@ A flow is one thing a user sets out to do, step by step, from start to finish. E
 
 **Running example:** **ABC Tech** is hiring a **Junior Web Developer** (1 year experience, BS Computer Science, skills HTML, CSS, React, Git and REST APIs). The HR user is **Sara** and the candidate is **Ali**. Other candidates: **Ayesha** (score 88), **Usman** (score 61), **Bilal** (pending screening in retry examples, and another company's candidate in search examples) and **Hira** (a scanned CV that can't be read).
 
-**Demo Day story:** Flows 1 → 5 → 12 → 15 → 17 → 19 → 20 → 21 → 23 → 22 → 8 → 24 → 10.
-
 ---
 
 ## Flow 1 · HR signs up and creates a company

@@ -94,3 +94,12 @@ HR has a board for each job to move candidates through the hiring stages, from A
 
 - **Depends on:** Feature 19 (Candidate Review and Shortlist).
 - **Depended on by:** Feature 21 (Interview Scheduling), Feature 24 (Reports) and Feature 29 (Candidate Email Updates).
+
+## Done When
+
+- [ ] The board shows six columns with a card for every candidate.
+- [ ] Dragging a card (or using the status dropdown) moves it, saves a history entry, and Ali sees the new status.
+- [ ] Moving to Hired or Rejected asks for confirmation first.
+- [ ] A failed move puts the card back and shows "Couldn't move this candidate, try again".
+- [ ] A withdrawn candidate's card is greyed out and cannot be moved.
+- [ ] Privacy: Ali sees each status change in My Applications, never his score.

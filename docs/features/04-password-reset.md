@@ -61,3 +61,11 @@ Users who forget their password get a reset link by email, set a new password, a
 
 - **Depends on:** Feature 01 (HR Sign Up) and Feature 03 (Login and Logout).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Requesting a reset shows "If an account exists for this email, we've sent a reset link".
+- [ ] Privacy: an email with no account gets the same message, and no email is sent.
+- [ ] A valid reset link lets the user save a new password that follows the password rule (Feature 01).
+- [ ] An expired link shows "This link has expired, request a new one".
+- [ ] After the reset, Sara lands on the HR Dashboard and Ali lands on My Applications.

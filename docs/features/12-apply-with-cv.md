@@ -112,3 +112,11 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 
 - **Depends on:** Feature 02 (Candidate Sign Up), Feature 03 (Login and Logout), Feature 07 (Close, Reopen and Deadline) and Feature 11 (Job Search).
 - **Depended on by:** Feature 13 (My Applications), Feature 15 (AI CV Screening), Feature 24 (Reports), Feature 25 (Candidate Profile), Feature 26 (Saved Jobs), Feature 28 (Delete Account) and Feature 29 (Candidate Email Updates).
+
+## Done When
+
+- [ ] Ali applies with a PDF CV and sees "Your application has been sent to ABC Tech".
+- [ ] My Applications shows "Junior Web Developer · ABC Tech · Applied", and the first history entry goes from empty to Applied.
+- [ ] The CV is saved in the private `cvs` bucket and screening starts in the background.
+- [ ] A .docx file shows "Only PDF files are accepted", and a 7 MB PDF shows "File must be under 5 MB".
+- [ ] Applying twice shows "You have already applied to this job", and submitting after the deadline shows "Applications for this job closed on 20 Oct".

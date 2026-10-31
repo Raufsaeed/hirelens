@@ -117,3 +117,12 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 
 - **Depends on:** Feature 01 (HR Sign Up) and Feature 03 (Login and Logout).
 - **Depended on by:** Feature 06 (Edit Job and Re-screen), Feature 07 (Close, Reopen and Deadline), Feature 08 (AI Job Description Writer), Feature 10 (Public Company Page), Feature 11 (Job Search), Feature 15 (AI CV Screening) and Feature 24 (Reports).
+
+## Done When
+
+- [ ] Sara publishes Junior Web Developer and gets the link `/jobs/abc-tech-junior-web-developer` with a working "Copy link".
+- [ ] The job shows on My Jobs and the HR Dashboard as Open with 0 applicants.
+- [ ] Save as draft works, and a draft is never public.
+- [ ] Publishing with no requirements shows "Add at least one requirement".
+- [ ] An Apply by date in the past shows "Apply by date can't be in the past".
+- [ ] Privacy: a candidate who opens Create Job sees "You don't have access to this page".

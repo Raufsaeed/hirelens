@@ -26,6 +26,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Before any big change, explain the plan in a few lines first.
 - After each feature, explain exactly how to test it in the browser.
 - If the user asks to build all features at once, still build them one at a time in the build order. After each feature: give any SQL to run in the Supabase SQL Editor, give a short browser test checklist from that feature's test cases, then STOP and wait for the user to reply "next".
+- After the user tests a feature and confirms it works, tick its Done When boxes (- [x]) in its feature file. Never tick a box the user has not tested.
 - Never add features that are not in the docs. If something is unclear, ask.
 - Keep explanations simple. The user is a student.
 - Build order: 01, 02, 03, 04, 05, 07, 11, 12, 13, 14, 15, 17, 16, 06, 18, 19, 20, 09, 10, 27, 28, 08, 21, 22, 23, 24, 25, 26, 29, 30.

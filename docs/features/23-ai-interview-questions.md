@@ -153,3 +153,11 @@ With one click, AI writes eight interview questions based on the job and the can
 
 - **Depends on:** Feature 15 (AI CV Screening) and Feature 21 (Interview Scheduling).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] "Generate questions" shows eight questions (3 technical, 3 behavioural, 2 project), each with a hint, including one about REST APIs.
+- [ ] Sara can delete, add (with a type) and regenerate questions, and the list is saved for next time.
+- [ ] Without a scheduled interview, the button shows "Schedule an interview first".
+- [ ] If Gemini is unavailable, Sara sees "Couldn't generate questions" with Retry and can still add her own questions.
+- [ ] Privacy: Ali's name and phone are not in the text sent to Gemini, and candidates never see the questions.

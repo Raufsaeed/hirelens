@@ -68,3 +68,11 @@ HR retries a screening that is Pending, or reviews by hand a CV that could not b
 
 - **Depends on:** Feature 15 (AI CV Screening) and Feature 17 (Ranked Candidates List).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Pending and failed candidates appear at the bottom of the list with a badge.
+- [ ] "Retry screening" gives Bilal a score and places him in the ranking once AI works again.
+- [ ] If AI is still down, Bilal stays "Pending" and Sara sees "AI is still unavailable, try again in a few minutes".
+- [ ] Hira's scanned CV shows "CV could not be read"; Sara opens the original CV and saves a manual review note.
+- [ ] A pending screening never blocks the rest of the candidates list.

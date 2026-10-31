@@ -91,3 +91,11 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 
 - **Depends on:** Feature 15 (AI CV Screening).
 - **Depended on by:** Feature 16 (Retry Screening), Feature 18 (Candidate Search), Feature 19 (Candidate Review and Shortlist) and Feature 24 (Reports).
+
+## Done When
+
+- [ ] Candidates appear ranked Ayesha (88), Ali (74), Usman (61), with match percentage, years, degree found and degree match.
+- [ ] Filters for score, years, skill and status work together and show a match count.
+- [ ] The anonymised view hides names in the list.
+- [ ] A minimum score of 95 shows "No candidates match these filters" with "Clear filters".
+- [ ] Privacy: Sara only sees candidates who applied to ABC Tech jobs.

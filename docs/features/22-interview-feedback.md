@@ -77,3 +77,11 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
 
 - **Depends on:** Feature 21 (Interview Scheduling).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] Sara saves a rating, strengths, concerns and a recommendation, and the interview is marked done.
+- [ ] The feedback shows on Ali's Candidate Detail page.
+- [ ] Saving "Offer" does not change Ali's status until Sara moves him.
+- [ ] Saving without a rating shows "Please add a rating and a recommendation".
+- [ ] Privacy: Ali never sees the rating, strengths, concerns or recommendation.

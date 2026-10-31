@@ -145,3 +145,11 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 - **Depends on:** Feature 05 (Post a Job).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] With a title and requirements, "Write with AI" fills the description box with a draft in three sections.
+- [ ] Extra ideas appear only as labelled suggestions that Sara can accept or remove.
+- [ ] The published job shows Sara's edited text; nothing is published until she clicks Publish.
+- [ ] With only a title, the button is disabled with "Add a title and at least one requirement first".
+- [ ] If Gemini is unavailable, Sara sees "Couldn't write a description right now" and can still write the description and publish.

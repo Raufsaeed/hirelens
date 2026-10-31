@@ -95,3 +95,11 @@ HR schedules, reschedules and cancels interviews. The candidate sees the details
 
 - **Depends on:** Feature 20 (Hiring Pipeline).
 - **Depended on by:** Feature 22 (Interview Feedback), Feature 23 (AI Interview Questions) and Feature 29 (Candidate Email Updates).
+
+## Done When
+
+- [ ] Moving Ali to Interview opens the schedule form, and saving it shows the details in Ali's My Applications.
+- [ ] Rescheduling updates what Ali sees, and cancelling shows him "Interview cancelled".
+- [ ] The Interviews page lists upcoming and past interviews.
+- [ ] A past date shows "Please choose a date in the future", and no link or address shows "Add a meeting link or an office address".
+- [ ] A clash with the same interviewer shows "You already have an interview at this time".

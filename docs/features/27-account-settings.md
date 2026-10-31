@@ -91,3 +91,11 @@ Every user has a Settings page to change their name, email and password. HR also
 
 - **Depends on:** Feature 01 (HR Sign Up) and Feature 03 (Login and Logout).
 - **Depended on by:** Feature 28 (Delete Account), Feature 29 (Candidate Email Updates) and Feature 30 (HR Daily Summary).
+
+## Done When
+
+- [ ] Changing the name to "Sara Khan" shows "Name updated" and the new name appears in the menu.
+- [ ] A new email only changes after the confirmation link is clicked; the old email works until then.
+- [ ] A new password that follows the password rule saves and shows "Password updated".
+- [ ] A wrong current password shows "Current password is incorrect" and the password does not change.
+- [ ] HR sees a link to Company Settings.

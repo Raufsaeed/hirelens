@@ -67,3 +67,11 @@ HR gets one email listing new applicants per job since the last summary, instead
 
 - **Depends on:** Feature 27 (Account Settings) and Feature 29 (Candidate Email Updates).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] "Send today's summary" sends Sara one email listing "Junior Web Developer · 5 new".
+- [ ] With no new applicants, Sara sees "No new applicants since the last summary" and no email is sent.
+- [ ] With "Daily applicant summary" turned off, no summary email is sent.
+- [ ] If sending fails, Sara sees "Couldn't send the summary, try again".
+- [ ] Privacy: the summary follows the email rules from Feature 29 (no scores, AI results or HR notes).

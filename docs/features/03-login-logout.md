@@ -75,3 +75,11 @@ Users log in and log out. Each role is sent to its own pages, and pages are prot
 
 - **Depends on:** Feature 01 (HR Sign Up) and Feature 02 (Candidate Sign Up).
 - **Depended on by:** Every feature with logged-in pages.
+
+## Done When
+
+- [ ] Sara logs in and lands on the HR Dashboard; Ali logs in and lands on My Applications.
+- [ ] Sign out from the menu ends the session and returns to the login page.
+- [ ] A wrong password shows "Email or password is incorrect" with a "Forgot password" link.
+- [ ] A logged-out user who opens an HR page is sent to Login and sees no data.
+- [ ] Privacy: Ali (candidate) opening an HR page sees "You don't have access to this page" and no HR data.

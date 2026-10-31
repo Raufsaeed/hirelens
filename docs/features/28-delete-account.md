@@ -63,3 +63,11 @@ A candidate can delete their account and all their data from Settings. This cann
 
 - **Depends on:** Feature 12 (Apply with CV) and Feature 27 (Account Settings).
 - **Depended on by:** None.
+
+## Done When
+
+- [ ] The Delete account button stays disabled until DELETE is typed.
+- [ ] Deleting logs Ali out and shows "Your account has been deleted".
+- [ ] Ali's CVs, applications and other data are removed, and Sara no longer sees him in her candidates list.
+- [ ] Sara (HR) sees a link to Company Settings and no Delete account section.
+- [ ] If deleting fails, "Couldn't delete your account, try again" shows.

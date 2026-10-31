@@ -79,3 +79,12 @@ HR edits the company's name, logo, About us, website and location in Company Set
 
 - **Depends on:** Feature 01 (HR Sign Up).
 - **Depended on by:** Feature 10 (Public Company Page).
+
+## Done When
+
+- [ ] Sara saves About us, website and location and sees "Company updated".
+- [ ] A PNG or JPG logo under 2 MB uploads and replaces the old logo.
+- [ ] A 3 MB logo shows "Logo must be a PNG or JPG under 2 MB" and the old logo stays.
+- [ ] "abctech" as the website shows "Please enter a valid website, for example https://abctech.com".
+- [ ] Changing the company name keeps the page at `/companies/abc-tech`.
+- [ ] Privacy: a candidate who opens Company Settings sees "You don't have access to this page".
