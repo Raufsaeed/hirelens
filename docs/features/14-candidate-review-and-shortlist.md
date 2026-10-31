@@ -1,4 +1,4 @@
-# Feature 19 · Candidate Review and Shortlist
+# Feature 14 · Candidate Review and Shortlist
 
 ## Description
 
@@ -19,12 +19,12 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
    - Degree found and degree match
    - AI summary
    - HR notes
-   - Interview feedback, when there is any (Feature 22)
+   - Interview feedback, when there is any (Feature 17)
    - Shortlist and Reject buttons
 2. **AI note:** Every Candidate Detail page shows: "AI suggestions are advice only — you make the decision."
-3. **Shortlist / Reject:** Clicking either updates the pipeline status (Feature 20), and the candidate sees the new status. Reject asks to confirm.
+3. **Shortlist / Reject:** Clicking either updates the pipeline status (Feature 15), and the candidate sees the new status. Reject asks to confirm.
 4. **Notes:** HR can add notes to any candidate. Each note shows the author's name (saved as `author_name` when the note is written) and time. Notes cannot be edited or deleted in this version.
-5. **Viewed and new:** The first time HR opens a candidate's detail page, `applications.viewed_at` is set. Applicants whose `viewed_at` is empty count as "new" on the HR Dashboard and job cards (Feature 05).
+5. **Viewed and new:** The first time HR opens a candidate's detail page, `applications.viewed_at` is set. Applicants whose `viewed_at` is empty count as "new" on the HR Dashboard and job cards (Feature 02).
 
 ## Screens
 
@@ -43,15 +43,15 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Data Used
 
-- **`applications`** (Feature 12): status, `candidate_name`, `candidate_email` and `viewed_at` (set the first time HR opens the candidate detail page; empty means "new").
-- **`screenings`** (Feature 15): score, rubric breakdown, match percentages, requirements result, experience items, relevant years, degree match, degree found and summary.
+- **`applications`** (Feature 08): status, `candidate_name`, `candidate_email` and `viewed_at` (set the first time HR opens the candidate detail page; empty means "new").
+- **`screenings`** (Feature 11): score, rubric breakdown, match percentages, requirements result, experience items, relevant years, degree match, degree found and summary.
 - **`notes` table:**
   - `id`
   - `application_id`
   - `author_id`
   - `author_name`: the HR user's name, saved when the note is written
   - `body`
-  - `is_manual_review`: true when HR reviewed an unreadable CV by hand (Feature 16)
+  - `is_manual_review`: true when HR reviewed an unreadable CV by hand (Feature 11)
   - `created_at`
 - **Storage bucket `cvs`:** The CV preview uses a signed link that expires after a few minutes.
 - **How they link:** `notes.application_id` points to `applications.id`, and `author_id` points to `profiles.id`. Candidate names and emails come from the application, never from `profiles`.
@@ -62,7 +62,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 - Notes cannot be edited or deleted in this version.
 - AI never shortlists or rejects. Every status change is a click by HR.
 - CV links are signed and short-lived. The bucket is never public.
-- Candidates never see notes (Feature 13) and cannot open this page.
+- Candidates never see notes (Feature 09) and cannot open this page.
 - Row Level Security enforces these rules in the database.
 
 ## Error Cases
@@ -71,7 +71,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 |------|---------------|----------------------|
 | CV preview link expired | "CV preview has expired" | Offers Reload, which creates a new signed link. |
 | Another company's candidate URL | "You don't have access to this page" | Shows no candidate data. |
-| Screening still pending | "Screening pending" | Shows "Retry screening" (Feature 16); the rest of the page still works. |
+| Screening still pending | "Screening pending" | Shows "Retry screening" (Feature 11); the rest of the page still works. |
 | Empty note | "Note can't be empty" | Does not save. |
 | Network or server failure | "Something went wrong, please try again" | Keeps typed notes; never shows a raw error. |
 
@@ -85,7 +85,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## User Flows
 
-- Flow 19 · HR reviews a candidate and shortlists or rejects
+- Flow 14 · HR reviews a candidate and shortlists or rejects
 
 ## Test Cases
 
@@ -97,8 +97,8 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Dependencies
 
-- **Depends on:** Feature 15 (AI CV Screening) and Feature 17 (Ranked Candidates List).
-- **Depended on by:** Feature 20 (Hiring Pipeline).
+- **Depends on:** Feature 11 (AI CV Screening and Retry) and Feature 12 (Ranked Candidates List).
+- **Depended on by:** Feature 15 (Hiring Pipeline).
 
 ## Done When
 

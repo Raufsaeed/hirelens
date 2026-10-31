@@ -1,4 +1,4 @@
-# Feature 26 · Saved Jobs
+# Feature 21 · Saved Jobs
 
 ## Description
 
@@ -13,13 +13,13 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
 
 ## Functional Requirements
 
-1. **Save button:** A Save button (bookmark icon with the word "Save") on each job in the Public Jobs List and on the Public Job Detail page (Feature 11). Only Open jobs can be saved.
+1. **Save button:** A Save button (bookmark icon with the word "Save") on each job in the Public Jobs List and on the Public Job Detail page (Feature 07). Only Open jobs can be saved.
 2. **Unsave:** Clicking the button again on a saved job removes it ("Saved" → "Save").
-3. **Logged-out users:** Clicking Save asks them to log in or sign up (Features 02 and 03). They are returned to the same job, and the job is saved.
+3. **Logged-out users:** Clicking Save asks them to log in or sign up (Feature 01). They are returned to the same job, and the job is saved.
 4. **Saved Jobs page:** Lists saved jobs, newest first, with title, company, location, job type and Apply by date. Each job shows:
-   - **Apply** if the job is Open and the candidate hasn't applied (opens Feature 12).
+   - **Apply** if the job is Open and the candidate hasn't applied (opens Feature 08).
    - **Applied** if the candidate already applied.
-   - **"Applications closed"** if the job is Closed or past its deadline (Feature 07).
+   - **"Applications closed"** if the job is Closed or past its deadline (Feature 04).
 5. **Remove from the page:** Each saved job has a Remove button.
 6. **Private:** HR never sees who saved their jobs.
 
@@ -47,7 +47,7 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
   - `job_id`
   - `saved_at`
 - **Unique rule:** one row per candidate and job.
-- **`jobs`** (Feature 05): title, status and Apply by date. **`applications`** (Feature 12): shows "Applied".
+- **`jobs`** (Feature 02): title, status and Apply by date. **`applications`** (Feature 08): shows "Applied".
 - **How they link:** `saved_jobs.candidate_id` points to `profiles.id`, and `saved_jobs.job_id` points to `jobs.id`.
 
 ## Business Rules and Permissions
@@ -79,7 +79,7 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
 
 ## User Flows
 
-- Flow 26 · Candidate saves a job
+- Flow 21 · Candidate saves a job
 
 ## Test Cases
 
@@ -91,7 +91,7 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
 
 ## Dependencies
 
-- **Depends on:** Feature 02 (Candidate Sign Up), Feature 07 (Close, Reopen and Deadline), Feature 11 (Job Search) and Feature 12 (Apply with CV).
+- **Depends on:** Feature 01 (Authentication), Feature 04 (Close, Reopen and Deadline), Feature 07 (Job Search) and Feature 08 (Apply with CV).
 - **Depended on by:** None.
 
 ## Done When

@@ -1,4 +1,4 @@
-# Feature 06 · Edit Job and Re-screen
+# Feature 03 · Edit Job and Re-screen
 
 ## Description
 
@@ -11,9 +11,9 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 
 ## Functional Requirements
 
-1. **Edit job:** HR can change any field. The form opens filled in with the current details, including Apply by. The publishing rules from Feature 05 apply when saving.
+1. **Edit job:** HR can change any field. The form opens filled in with the current details, including Apply by. The publishing rules from Feature 02 apply when saving.
 2. **Re-screen warning:** If requirements change after candidates have applied, the app warns that existing candidates were screened against the old requirements and offers "Re-screen candidates" or "Not now". "Not now" saves the job and keeps the old scores.
-3. **Re-screen candidates:** Runs the screening from Feature 15 again for every candidate of that job, with the new requirements. Each new result replaces the old one. Progress is shown while it runs.
+3. **Re-screen candidates:** Runs the screening from Feature 11 again for every candidate of that job, with the new requirements. Each new result replaces the old one. Progress is shown while it runs.
 
 ## Screens
 
@@ -31,8 +31,8 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 
 ## Data Used
 
-- **`jobs`** (Feature 05): the edited fields and `updated_at`.
-- **`screenings`** (Feature 15): one row per application, replaced on re-screen.
+- **`jobs`** (Feature 02): the edited fields and `updated_at`.
+- **`screenings`** (Feature 11): one row per application, replaced on re-screen.
 
 ## Business Rules and Permissions
 
@@ -46,7 +46,7 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 |------|---------------|----------------------|
 | Missing required fields | "This field is required" under each empty field | Highlights the fields and does not save. |
 | Editing requirements after people applied | "23 candidates were screened against the old requirements. Re-screen them now?" | Saves the job; offers "Re-screen candidates" or "Not now". |
-| Some candidates fail during re-screen | "3 candidates could not be screened and are Pending" | Saves the results that worked; marks the rest `pending` (Feature 16). |
+| Some candidates fail during re-screen | "3 candidates could not be screened and are Pending" | Saves the results that worked; marks the rest `pending` (Feature 11). |
 | Network failure while saving | "Couldn't save, try again" | Keeps everything HR typed; never shows a raw error. |
 
 ## Acceptance Criteria
@@ -57,7 +57,7 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 
 ## User Flows
 
-- Flow 6 · HR edits a job and re-screens candidates
+- Flow 3 · HR edits a job and re-screens candidates
 
 ## Test Cases
 
@@ -67,7 +67,7 @@ HR edits a job. If the requirements change after people have applied, HR is warn
 
 ## Dependencies
 
-- **Depends on:** Feature 05 (Post a Job) and Feature 15 (AI CV Screening).
+- **Depends on:** Feature 02 (Post a Job) and Feature 11 (AI CV Screening and Retry).
 - **Depended on by:** None.
 
 ## Done When

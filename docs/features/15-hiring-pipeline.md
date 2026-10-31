@@ -1,8 +1,8 @@
-# Feature 20 · Hiring Pipeline
+# Feature 15 · Hiring Pipeline
 
 ## Description
 
-HR has a board for each job to move candidates through the hiring stages, from Applied to Hired or Rejected. Every move is saved in a history and shown to the candidate in My Applications (Feature 13).
+HR has a board for each job to move candidates through the hiring stages, from Applied to Hired or Rejected. Every move is saved in a history and shown to the candidate in My Applications (Feature 09).
 
 ## User Stories
 
@@ -18,9 +18,9 @@ HR has a board for each job to move candidates through the hiring stages, from A
    - Drag and drop between columns.
    - A status dropdown on each card, for phone and keyboard users.
 3. **Confirmation:** Moving to Rejected or Hired asks for confirmation first.
-4. **Interview step:** Moving to Interview opens the schedule form (Feature 21).
-5. **Status history:** Every status change is saved with who made it, the old status, the new status and when. The first row is saved when the candidate applies (Feature 12).
-6. **Candidate view:** The candidate sees each change in My Applications (Feature 13), with no score, and gets a status email (Feature 29).
+4. **Interview step:** Moving to Interview opens the schedule form (Feature 16).
+5. **Status history:** Every status change is saved with who made it, the old status, the new status and when. The first row is saved when the candidate applies (Feature 08).
+6. **Candidate view:** The candidate sees each change in My Applications (Feature 09), with no score, and gets a status email (Feature 23).
 7. **Withdrawn candidates:** They appear greyed out and cannot be moved.
 
 ## Screens
@@ -40,7 +40,7 @@ HR has a board for each job to move candidates through the hiring stages, from A
 
 ## Data Used
 
-- **`applications.status`** (Feature 12): the candidate's current stage.
+- **`applications.status`** (Feature 08): the candidate's current stage.
 - **`status_history` table:**
   - `id`
   - `application_id`
@@ -53,10 +53,10 @@ HR has a board for each job to move candidates through the hiring stages, from A
 ## Business Rules and Permissions
 
 - Only HR of the job's company can see the board or move cards.
-- Every status change is made by HR, except that a candidate can withdraw their own application (Feature 14). Only for a change to `withdrawn` can `changed_by` be the candidate. AI never moves a candidate.
+- Every status change is made by HR, except that a candidate can withdraw their own application (Feature 10). Only for a change to `withdrawn` can `changed_by` be the candidate. AI never moves a candidate.
 - Hired and Rejected need confirmation.
 - Withdrawn candidates cannot be moved by HR.
-- Every change is added to the history, and history entries cannot be edited or deleted. The only exception: they are removed automatically when the candidate deletes their account (Feature 28) or their data for that application (Feature 14).
+- Every change is added to the history, and history entries cannot be edited or deleted. The only exception: they are removed automatically when the candidate deletes their account (Feature 22) or their data for that application (Feature 10).
 - Row Level Security enforces these rules in the database.
 
 ## Error Cases
@@ -80,7 +80,7 @@ HR has a board for each job to move candidates through the hiring stages, from A
 
 ## User Flows
 
-- Flow 20 · HR moves a candidate through the pipeline
+- Flow 15 · HR moves a candidate through the pipeline
 
 ## Test Cases
 
@@ -92,8 +92,8 @@ HR has a board for each job to move candidates through the hiring stages, from A
 
 ## Dependencies
 
-- **Depends on:** Feature 19 (Candidate Review and Shortlist).
-- **Depended on by:** Feature 21 (Interview Scheduling), Feature 24 (Reports) and Feature 29 (Candidate Email Updates).
+- **Depends on:** Feature 14 (Candidate Review and Shortlist).
+- **Depended on by:** Feature 16 (Interview Scheduling), Feature 19 (Reports) and Feature 23 (Email Notifications).
 
 ## Done When
 

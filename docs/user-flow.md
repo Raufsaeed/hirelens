@@ -1,12 +1,16 @@
 # User flows
 
-A flow is one thing a user sets out to do, step by step, from start to finish. Each flow does one thing only. When a flow needs another flow first (for example, applying needs a logged-in candidate), it starts from that point and names the other flow by number. Every screen lists all its states, not just the happy one.
+A flow is one thing a user sets out to do, step by step, from start to finish. A flow with several parts has a short sub-heading for each part. When a flow needs another flow first (for example, applying needs a logged-in candidate), it starts from that point and names the other flow by number. Every screen lists all its states, not just the happy one.
 
 **Running example:** **ABC Tech** is hiring a **Junior Web Developer** (1 year experience, BS Computer Science, skills HTML, CSS, React, Git and REST APIs). The HR user is **Sara** and the candidate is **Ali**. Other candidates: **Ayesha** (score 88), **Usman** (score 61), **Bilal** (pending screening in retry examples, and another company's candidate in search examples) and **Hira** (a scanned CV that can't be read).
 
+**Demo Day story:** Flows 1 → 2 → 8 → 11 → 12 → 14 → 15 → 16 → 18 → 17 → 5 → 19 → 6.
+
 ---
 
-## Flow 1 · HR signs up and creates a company
+## Flow 1 · User signs up, logs in and resets a password
+
+### HR signs up and creates a company
 
 **Who and when:** Sara, an HR officer at a small company, on a Monday morning when her team needs a new developer.
 
@@ -17,9 +21,9 @@ A flow is one thing a user sets out to do, step by step, from start to finish. E
 | 1 | Landing page | Clicks "I'm hiring". | Opens HR sign up with the "I'm hiring" role chosen. |
 | 2 | Sign up | Enters name, email, password and company name (ABC Tech). | Shows the three password requirements (8+ characters, one capital letter, one special character) and ticks each as she types. |
 | 3 | Sign up | Clicks Sign up. | Checks the details, creates the HR account and ABC Tech (page address `/companies/abc-tech`), and logs her in. |
-| 4 | HR dashboard | Sees her dashboard. | Shows "You have no jobs yet" with "Post your first job" (continues in Flow 5). |
+| 4 | HR dashboard | Sees her dashboard. | Shows "You have no jobs yet" with "Post your first job" (continues in Flow 2). |
 
-If Sara already has an account, she logs in instead (Flow 3).
+If Sara already has an account, she logs in instead (see "User logs in and logs out" below).
 
 **States on each screen**
 
@@ -39,9 +43,7 @@ Sara may use an email that already has an account, so the app must say so and po
 - Given an account already exists for sara@abctech.com, when Sara tries to sign up with that email, then she sees "Email already in use" and a link to log in.
 - Given Sara is on the HR sign up form, when she leaves the company name empty and clicks Sign up, then the field shows "This field is required" and no account is created.
 
----
-
-## Flow 2 · Candidate signs up
+### Candidate signs up
 
 **Who and when:** Ali, a fresh graduate, on a Friday evening after seeing the Junior Web Developer link on LinkedIn. He clicks Apply but has no account.
 
@@ -49,11 +51,11 @@ Sara may use an email that already has an account, so the app must say so and po
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Public job detail | Clicks Apply on Junior Web Developer (finding the job is Flow 11). | Sees he isn't logged in, remembers the job and opens candidate sign up. |
+| 1 | Public job detail | Clicks Apply on Junior Web Developer (finding the job is Flow 7). | Sees he isn't logged in, remembers the job and opens candidate sign up. |
 | 2 | Landing page | **Other way in:** clicks "I'm looking for a job". | Opens sign up with the candidate role chosen. |
 | 3 | Sign up | Enters name, email and password. | Ticks the three password requirements as he types. |
 | 4 | Sign up | Clicks Sign up. | Creates the candidate account and logs him in. |
-| 5 | Apply form or My Applications | Lands where he was going. | Returns him to the apply form for this job (continues in Flow 12), or to My Applications if he started on the landing page. |
+| 5 | Apply form or My Applications | Lands where he was going. | Returns him to the apply form for this job (continues in Flow 8), or to My Applications if he started on the landing page. |
 
 **States on each screen**
 
@@ -63,7 +65,7 @@ Sara may use an email that already has an account, so the app must say so and po
 
 **What could go wrong**
 
-Ali may already have an account, so the app must say "Email already in use" and point him to log in (Flow 3). He may pick a weak password, so the requirements must be ticked live and the form must not submit until all three are met. He must never lose his place: he comes back to the job he clicked Apply on.
+Ali may already have an account, so the app must say "Email already in use" and point him to log in (see "User logs in and logs out" below). He may pick a weak password, so the requirements must be ticked live and the form must not submit until all three are met. He must never lose his place: he comes back to the job he clicked Apply on.
 
 **Test cases**
 
@@ -71,9 +73,7 @@ Ali may already have an account, so the app must say "Email already in use" and 
 - Given Ali is logged out and clicks Apply on Junior Web Developer, when he signs up with a new email and a valid password, then he is logged in and back on the apply form for Junior Web Developer.
 - Given an account already exists for Ali's email, when he tries to sign up with it, then he sees "Email already in use. Log in instead?" and no second account is created.
 
----
-
-## Flow 3 · User logs in and logs out
+### User logs in and logs out
 
 **Who and when:** Sara at the start of her workday on her laptop, or Ali on his commute on his phone.
 
@@ -82,7 +82,7 @@ Ali may already have an account, so the app must say "Email already in use" and 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | Log in | Enters email and password and clicks Log in. On a phone, Ali sees a single-column form with large tap targets. | Checks the details and logs the user in. |
-| 2 | Log in | **Wrong details:** enters a wrong email or password. | Shows "Email or password is incorrect" with "Forgot password" (Flow 4) and keeps the email filled in. |
+| 2 | Log in | **Wrong details:** enters a wrong email or password. | Shows "Email or password is incorrect" with "Forgot password" (see "User resets a forgotten password" below) and keeps the email filled in. |
 | 3 | Dashboard | Is logged in. | Sends Sara to the HR dashboard and Ali to My Applications (or back to the job he was applying for). |
 | 4 | Any protected page | **Logged out:** opens a protected page URL, such as an HR candidates page. | Shows "Please log in to continue", sends the user to Log in, and returns them to that page after login. Shows no data first. |
 | 5 | Menu (phone) | Ali taps the menu icon, then Sign out. On a laptop, Sign out is in the user menu on every page. | Signs him out and returns him to the log in page. |
@@ -106,9 +106,7 @@ Sara may type the wrong password, so the error must not say which part was wrong
 - Given Ali is logged in as a candidate, when he opens the URL of an HR page, then he sees "You don't have access to this page" and no HR data is shown.
 - Given Ali is logged in on his phone, when he taps the menu icon and then Sign out, then he is back on the log in page and opening My Applications asks him to log in again.
 
----
-
-## Flow 4 · User resets a forgotten password
+### User resets a forgotten password
 
 **Who and when:** Ali or Sara, when they can't remember their password.
 
@@ -126,10 +124,9 @@ Sara may type the wrong password, so the error must not say which part was wrong
 
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
-| Log in | Blank form with "Forgot password" link | Button spinner | "Email or password is incorrect" | Logged in |
 | Forgot password | Blank email field | Button spinner | "Please enter a valid email" | Neutral "If an account exists…" message |
 | Set new password | Two blank password fields | Save button spinner | "This link has expired, request a new one", "Password must be at least 8 characters and include one capital letter and one special character (like @)", or "Passwords don't match" | "Password updated" and logged in |
-| Dashboard | Depends on role (see Flows 1 and 13) | Skeleton | "Couldn't load your dashboard" with Retry | Correct dashboard for the role |
+| Dashboard | Depends on role (see "HR signs up and creates a company" above and Flow 9) | Skeleton | "Couldn't load your dashboard" with Retry | Correct dashboard for the role |
 
 **What could go wrong**
 
@@ -144,7 +141,7 @@ Saying an email is not registered would let attackers find out who has an accoun
 
 ---
 
-## Flow 5 · HR posts a job
+## Flow 2 · HR posts a job
 
 **Who and when:** Sara, right after signing up (Flow 1), when her team needs a new developer.
 
@@ -153,7 +150,7 @@ Saying an email is not registered would let attackers find out who has an accoun
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | HR dashboard | Clicks "Post your first job". | Opens the create job form. |
-| 2 | Create job form | Fills in title (Junior Web Developer), location, type, required years (1), degree (BS Computer Science), requirements (HTML, CSS, React, Git, REST APIs, each "must have" or "nice to have"), a description and an optional "Apply by" date (20 Oct). Can click "Write with AI" for the description (Flow 8). | Checks required fields as she types, checks Apply by is not in the past, and shows what is missing. |
+| 2 | Create job form | Fills in title (Junior Web Developer), location, type, required years (1), degree (BS Computer Science), requirements (HTML, CSS, React, Git, REST APIs, each "must have" or "nice to have"), a description and an optional "Apply by" date (20 Oct). Can click "Write with AI" for the description (Flow 5). | Checks required fields as she types, checks Apply by is not in the past, and shows what is missing. |
 | 3 | Create job form | **Not ready yet:** clicks "Save as draft". | Saves a Draft only ABC Tech's HR can see. Drafts are never public. |
 | 4 | Create job form | Clicks Publish. | Saves the job as Open and shows its public link (`/jobs/abc-tech-junior-web-developer`) with "Copy link". |
 | 5 | Job published | Clicks "Copy link". | Copies the link and shows "Link copied". |
@@ -179,7 +176,7 @@ She may skip a required field such as degree or requirements, so Publish stays b
 
 ---
 
-## Flow 6 · HR edits a job and re-screens candidates
+## Flow 3 · HR edits a job and re-screens candidates
 
 **Who and when:** Sara, two days after posting, when the team decides the job also needs TypeScript.
 
@@ -190,7 +187,7 @@ She may skip a required field such as degree or requirements, so Publish stays b
 | 1 | My Jobs | Clicks Edit on Junior Web Developer. | Opens the edit form with the current details. |
 | 2 | Edit job form | Adds "TypeScript" to the requirements and clicks Save. | Warns: "23 candidates were screened against the old requirements. Re-screen them now?" with "Re-screen" and "Not now". |
 | 3 | Edit job form | Clicks "Re-screen". ("Not now" saves the job and keeps the old scores.) | Saves the job, re-screens in the background, and shows progress on the candidates list. |
-| 4 | Candidates list | Keeps working. | Shows "Re-screening 5 of 23…", then updated scores. Failed screenings show "Pending" (Flow 16). |
+| 4 | Candidates list | Keeps working. | Shows "Re-screening 5 of 23…", then updated scores. Failed screenings show "Pending" (Flow 11). |
 
 **States on each screen**
 
@@ -212,7 +209,7 @@ Sara may delete a required field, so Save must be blocked. New requirements make
 
 ---
 
-## Flow 7 · HR closes, reopens or extends a job
+## Flow 4 · HR closes, reopens or extends a job
 
 **Who and when:** Sara, when the position is filled, when she wants a job open again, or when a deadline passed too soon.
 
@@ -220,7 +217,7 @@ Sara may delete a required field, so Save must be blocked. New requirements make
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | My Jobs (or Pipeline board) | Once the position is filled (Ali Hired, others Rejected, see Flow 20), clicks "Close job". | Asks to confirm, then marks the job Closed. The public link shows "This job is no longer accepting applications". |
+| 1 | My Jobs (or Pipeline board) | Once the position is filled (Ali Hired, others Rejected, see Flow 15), clicks "Close job". | Asks to confirm, then marks the job Closed. The public link shows "This job is no longer accepting applications". |
 | 2 | Public job detail | Anyone (for example Ali) opens the job link. | Shows "This job is no longer accepting applications" instead of Apply. |
 | 3 | My Jobs | Later, clicks "Reopen job". | Marks the job Open. The public link accepts applications again. |
 | 4 | (System) | Nothing. | When an Open job is read after its Apply by day ends (11:59 pm Pakistan time), the server closes it with the reason "Deadline passed". |
@@ -236,7 +233,7 @@ Sara may delete a required field, so Save must be blocked. New requirements make
 
 **What could go wrong**
 
-A candidate may be mid-application when the job closes, so Submit must check again (Flow 12). Sara may reopen a job whose deadline has passed, so the app must ask for a new Apply by date first. Closing stops new applications at once, so it must be confirmed.
+A candidate may be mid-application when the job closes, so Submit must check again (Flow 8). Sara may reopen a job whose deadline has passed, so the app must ask for a new Apply by date first. Closing stops new applications at once, so it must be confirmed.
 
 **Test cases**
 
@@ -247,11 +244,11 @@ A candidate may be mid-application when the job closes, so Submit must check aga
 
 ---
 
-## Flow 8 · HR writes a job description with AI
+## Flow 5 · HR writes a job description with AI
 
 **Who and when:** Sara, when she needs to post a job quickly but has no written description.
 
-**Starts on:** Create job form (Flow 5, step 2) · **Done when:** The AI draft is in the form, Sara has edited it, and the job is published.
+**Starts on:** Create job form (Flow 2, step 2) · **Done when:** The AI draft is in the form, Sara has edited it, and the job is published.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
@@ -260,7 +257,7 @@ A candidate may be mid-application when the job closes, so Submit must check aga
 | 3 | Create job form | Reads the draft in the description box. | Shows the draft with the note "Review and edit before publishing". |
 | 4 | Create job form | Dislikes the tone and clicks "Regenerate". | Writes a new draft from the same input. |
 | 5 | Create job form | Edits a few lines by hand. | Keeps her edits. |
-| 6 | Create job form | Clicks Publish. | Publishes the job with her edited text and shows the shareable link (as in Flow 5). |
+| 6 | Create job form | Clicks Publish. | Publishes the job with her edited text and shows the shareable link (as in Flow 2). |
 
 **States on each screen**
 
@@ -282,7 +279,9 @@ With almost no input, AI would guess, so the button stays disabled until there i
 
 ---
 
-## Flow 9 · HR updates the company profile and logo
+## Flow 6 · HR updates the company profile and a visitor views the company page
+
+### HR updates the company profile and logo
 
 **Who and when:** Sara, after posting her first job, when she wants candidates to learn about ABC Tech.
 
@@ -293,7 +292,7 @@ With almost no input, AI would guess, so the button stays disabled until there i
 | 1 | Settings | Opens Settings from the user menu and clicks the Company Settings link. | Opens Company Settings with name, logo, About us, website, location and a "View company page" link. |
 | 2 | Company Settings | Uploads the ABC Tech logo (PNG under 2 MB). | Shows upload progress, saves it in the public `logos` bucket and replaces any old logo. |
 | 3 | Company Settings | Fills in About us, website (https://abctech.com) and location (Lahore), then clicks Save. | Checks About us is up to 1,000 characters and the website starts with `http://` or `https://`, saves, and shows "Company updated". |
-| 4 | Company Settings | Clicks "View company page". | Opens `/companies/abc-tech` with the logo, About us and the new job in the open jobs list (Flow 10). |
+| 4 | Company Settings | Clicks "View company page". | Opens `/companies/abc-tech` with the logo, About us and the new job in the open jobs list (see "Visitor views a company page" below). |
 
 **States on each screen**
 
@@ -312,9 +311,7 @@ The logo may be too big or not PNG or JPG, so the old logo must stay. The websit
 - Given the ABC Tech page is at `/companies/abc-tech`, when Sara changes the company name and saves, then the page address stays `/companies/abc-tech`.
 - Given Ali is logged in as a candidate, when he opens the Company Settings URL, then he sees "You don't have access to this page" and no settings.
 
----
-
-## Flow 10 · Visitor views a company page
+### Visitor views a company page
 
 **Who and when:** Ali, on 17 Oct, after a friend says ABC Tech is hiring, or any logged-out visitor with a shared company link.
 
@@ -325,7 +322,7 @@ The logo may be too big or not PNG or JPG, so the old logo must stay. The websit
 | 1 | Public job detail | Clicks the company name "ABC Tech". | Opens `/companies/abc-tech`. |
 | 2 | Company page | Reads About us, website, location and open jobs. | Shows logo, name, About us, website, location and only Open jobs, never drafts or closed jobs. Hides any empty part (About us, website or location). |
 | 3 | Company page | Clicks the website. | Opens it in a new tab. |
-| 4 | Company page | Clicks Junior Web Developer. | Opens the job with "Apply by 20 Oct · 3 days left" and Apply (applying is Flow 12). |
+| 4 | Company page | Clicks Junior Web Developer. | Opens the job with "Apply by 20 Oct · 3 days left" and Apply (applying is Flow 8). |
 
 **States on each screen**
 
@@ -346,7 +343,7 @@ Showing closed or draft jobs would confuse candidates, so the page must list onl
 
 ---
 
-## Flow 11 · Candidate finds a job
+## Flow 7 · Candidate finds a job
 
 **Who and when:** Ali, on 17 Oct, after a friend says ABC Tech is hiring but he has no job link.
 
@@ -355,8 +352,8 @@ Showing closed or draft jobs would confuse candidates, so the page must list onl
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | Public jobs list | Searches "ABC Tech" and can filter by job type and location. | Shows Junior Web Developer · ABC Tech with "Apply by 20 Oct · 3 days left". |
-| 2 | Public job detail | Opens the job (or a shared link, for example from LinkedIn). | Shows title, company, location, type, requirements, description, "Apply by 20 Oct · 3 days left" and Apply. The company name links to the company page (Flow 10). There is a Save button (Flow 26). |
-| 3 | Public job detail | Clicks Apply. | Continues in Flow 12 (or Flow 2 or 3 first if he is logged out). |
+| 2 | Public job detail | Opens the job (or a shared link, for example from LinkedIn). | Shows title, company, location, type, requirements, description, "Apply by 20 Oct · 3 days left" and Apply. The company name links to the company page (Flow 6). There is a Save button (Flow 21). |
+| 3 | Public job detail | Clicks Apply. | Continues in Flow 8 (or Flow 1 first if he is logged out). |
 
 **States on each screen**
 
@@ -377,18 +374,18 @@ Drafts must never appear in the list or open from a link. The deadline may have 
 
 ---
 
-## Flow 12 · Candidate applies with a CV
+## Flow 8 · Candidate applies with a CV
 
 **Who and when:** Ali, on a Friday evening, right after opening the Junior Web Developer job.
 
-**Starts on:** Apply form (Ali is logged in, see Flows 2 and 3, and clicked Apply in Flow 11) · **Done when:** The application is submitted, Ali sees a confirmation, and My Applications shows "Applied".
+**Starts on:** Apply form (Ali is logged in, see Flow 1, and clicked Apply in Flow 7) · **Done when:** The application is submitted, Ali sees a confirmation, and My Applications shows "Applied".
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Apply form | Checks name and email, adds phone and an optional cover note, and uploads his PDF CV (drag and drop or choose a file). With a profile (Flow 25), his phone is filled in and he can pick "Use my default CV (ali-cv.pdf)" or upload a different CV for this job. | Checks the job is open, the deadline hasn't passed, Ali hasn't applied before, and the file is a PDF under 5 MB. |
+| 1 | Apply form | Checks name and email, adds phone and an optional cover note, and uploads his PDF CV (drag and drop or choose a file). With a profile (Flow 20), his phone is filled in and he can pick "Use my default CV (ali-cv.pdf)" or upload a different CV for this job. | Checks the job is open, the deadline hasn't passed, Ali hasn't applied before, and the file is a PDF under 5 MB. |
 | 2 | Apply form | Clicks Submit. | Checks the deadline again, saves the CV privately, saves the application as "Applied" and shows the confirmation. |
-| 3 | Confirmation | Reads "Your application has been sent to ABC Tech". | Starts screening in the background (Flow 15); Ali doesn't wait. Sends the confirmation email (Flow 29). |
-| 4 | My Applications | Opens My Applications. | Shows "Junior Web Developer · ABC Tech · Applied", never the score. (Tracking status is Flow 13.) |
+| 3 | Confirmation | Reads "Your application has been sent to ABC Tech". | Starts screening in the background (Flow 11); Ali doesn't wait. Sends the confirmation email (Flow 23). |
+| 4 | My Applications | Opens My Applications. | Shows "Junior Web Developer · ABC Tech · Applied", never the score. (Tracking status is Flow 9.) |
 
 **States on each screen**
 
@@ -411,18 +408,18 @@ Ali may upload a Word file, a photo of his CV or a very large PDF, so each needs
 
 ---
 
-## Flow 13 · Candidate tracks application status, including on a phone
+## Flow 9 · Candidate tracks application status, including on a phone
 
 **Who and when:** Ali, on his commute, checking if ABC Tech has replied.
 
-**Starts on:** My Applications on a phone (Ali is logged in, see Flow 3) · **Done when:** Ali sees his status and interview details with no sideways scrolling or broken controls.
+**Starts on:** My Applications on a phone (Ali is logged in, see Flow 1) · **Done when:** Ali sees his status and interview details with no sideways scrolling or broken controls.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | My Applications (phone) | Sees his list. | Shows each application as a full-width card with job title, company, applied date and status, or the empty state if he has none. |
 | 2 | My Applications (phone) | Taps "Junior Web Developer · ABC Tech". | Opens the application detail. |
-| 3 | Application detail (phone) | Reads the status timeline. | Shows Applied → Shortlisted → Interview with dates, plus the interview date, time, duration and a tappable meeting link (set in Flow 21). No score. |
-| 4 | Application detail (phone) | Checks again later. | Shows each new status as HR changes it (Offer, Hired or Rejected, see Flow 20), or "Interview cancelled". |
+| 3 | Application detail (phone) | Reads the status timeline. | Shows Applied → Shortlisted → Interview with dates, plus the interview date, time, duration and a tappable meeting link (set in Flow 16). No score. |
+| 4 | Application detail (phone) | Checks again later. | Shows each new status as HR changes it (Offer, Hired or Rejected, see Flow 15), or "Interview cancelled". |
 
 **States on each screen**
 
@@ -445,16 +442,16 @@ Tables or long text may force sideways scrolling on a small screen. Long job tit
 
 ---
 
-## Flow 14 · Candidate withdraws an application or deletes its data
+## Flow 10 · Candidate withdraws an application or deletes its data
 
 **Who and when:** Ali, after accepting another offer, when he no longer wants ABC Tech to consider him.
 
-**Starts on:** Application detail (from My Applications, Flow 13) · **Done when:** The application shows "Withdrawn", or the application and its CV are deleted.
+**Starts on:** Application detail (from My Applications, Flow 9) · **Done when:** The application shows "Withdrawn", or the application and its CV are deleted.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | Application detail | Opens Junior Web Developer · ABC Tech. | Shows the timeline with Withdraw (only while Applied or Shortlisted) and "Delete my data". |
-| 2 | Application detail | Clicks Withdraw and confirms. | Sets the status to Withdrawn, adds it to the timeline and shows "Application withdrawn". Sara sees his card greyed out and can't move it (Flow 20). |
+| 2 | Application detail | Clicks Withdraw and confirms. | Sets the status to Withdrawn, adds it to the timeline and shows "Application withdrawn". Sara sees his card greyed out and can't move it (Flow 15). |
 | 3 | Application detail | **Or:** clicks "Delete my data" and confirms. | Deletes the application, everything linked to it (screening, status history, notes, interviews, interview feedback, interview questions) and the CV file, then shows "Your data has been deleted". Sara no longer sees Ali for that job. |
 
 **States on each screen**
@@ -476,16 +473,18 @@ Withdrawing after Interview is not allowed, so Withdraw must be hidden or disabl
 
 ---
 
-## Flow 15 · System screens a CV with AI in the background
+## Flow 11 · System screens a CV with AI and HR retries a failed screening
 
-**Who and when:** The system, right after Ali submits (Flow 12). Nobody waits.
+### System screens a CV with AI in the background
 
-**Starts on:** (Background) Ali's application is saved with screening status Queued · **Done when:** Sara sees Ali's score, or the screening is marked Pending or "CV could not be read" so HR can act (Flow 16).
+**Who and when:** The system, right after Ali submits (Flow 8). Nobody waits.
+
+**Starts on:** (Background) Ali's application is saved with screening status Queued · **Done when:** Sara sees Ali's score, or the screening is marked Pending or "CV could not be read" so HR can act (see "HR retries a failed or pending screening" below).
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | (Background) | Nothing. | Sets screening to Processing. The CV is saved privately so only ABC Tech's HR and Ali can open it. Extracts the PDF text and removes name, email, phone, photo links and addresses before AI sees it. |
-| 2 | (Background) | Nothing. | If there is almost no text (a scanned PDF), marks it "CV could not be read" and stops (Flow 16). |
+| 2 | (Background) | Nothing. | If there is almost no text (a scanned PDF), marks it "CV could not be read" and stops (see "HR retries a failed or pending screening" below). |
 | 3 | (Background) | Nothing. | Sends the CV text and job requirements to Google Gemini. AI returns found and missing requirements with CV evidence, rubric marks, experience dates and a short summary. |
 | 4 | (Background) | Nothing. | Code calculates score, match percentage, years of experience and education match, and saves them. If AI fails (after one automatic retry), saves the application as "Pending" so HR can retry. |
 | 5 | Candidates list (Sara) | Opens the job's candidates. | Shows "Queued" or "Screening…", then Ali's score and match percentage (74, 80%). |
@@ -509,9 +508,7 @@ Gemini may be slow or down, so the application must still be saved and shown as 
 - Given Ali's CV contains his name, email and phone number, when the text is sent to Gemini, then none of those details are in the text that was sent.
 - Given Ali's CV says "ReactJS" and the job requires "React", when screening runs, then React is marked found with the evidence "Developed dashboard components in ReactJS".
 
----
-
-## Flow 16 · HR retries a failed or pending screening
+### HR retries a failed or pending screening
 
 **Who and when:** Sara, when a candidate shows "Pending" or "CV could not be read".
 
@@ -546,7 +543,7 @@ AI may still be down after a retry, so the candidate stays "Pending" with a clea
 
 ---
 
-## Flow 17 · HR reviews the ranked candidates list
+## Flow 12 · HR reviews the ranked candidates list
 
 **Who and when:** Sara, two days after posting, when 23 candidates have applied.
 
@@ -555,10 +552,10 @@ AI may still be down after a retry, so the candidate stays "Pending" with a clea
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | HR dashboard | Sees "Junior Web Developer · 23 applicants · 23 new" and clicks the job. | Opens the ranked candidates list. |
-| 2 | Candidates list | Reads the list. | Ranks by score, for example: Ayesha 88 (92% match, 2 years, BS CS ✓), Ali 74 (80% match, 1 year, BS CS ✓), Usman 61 (60% match, 0.5 years, BS IT ✗). Pending and failed screenings sit at the bottom (Flow 16). |
+| 2 | Candidates list | Reads the list. | Ranks by score, for example: Ayesha 88 (92% match, 2 years, BS CS ✓), Ali 74 (80% match, 1 year, BS CS ✓), Usman 61 (60% match, 0.5 years, BS IT ✗). Pending and failed screenings sit at the bottom (Flow 11). |
 | 3 | Candidates list | **Optional:** turns on the anonymised view. | Hides names in the list ("Candidate #1"). The name shows when she opens a candidate. |
 | 4 | Candidates list | Sets filters: minimum score 70, at least 1 year experience, skill "React". | Updates the list at once and shows how many match. |
-| 5 | Candidates list | Clicks a candidate. | Opens the candidate detail page (Flow 19). |
+| 5 | Candidates list | Clicks a candidate. | Opens the candidate detail page (Flow 14). |
 
 **States on each screen**
 
@@ -580,7 +577,7 @@ Strict filters may leave nothing, so the list must say so and offer "Clear filte
 
 ---
 
-## Flow 18 · HR searches for a candidate
+## Flow 13 · HR searches for a candidate
 
 **Who and when:** Sara, when Ali emails her about his application and she wants to find him fast.
 
@@ -590,7 +587,7 @@ Strict filters may leave nothing, so the list must say so and offer "Clear filte
 |------|--------|-----------|----------|
 | 1 | Any HR page | Types "ali" in the top navigation search box. | From 2 characters, searches names and emails across ABC Tech jobs only. |
 | 2 | Candidate search | Reads the results. | Shows matching candidates with job(s), score and status. Ali appears once, with each job he applied to. |
-| 3 | Candidate search | Clicks Ali's Junior Web Developer result. | Opens his candidate detail page (Flow 19). |
+| 3 | Candidate search | Clicks Ali's Junior Web Developer result. | Opens his candidate detail page (Flow 14). |
 | 4 | Candidates list | **Other way in:** uses the search box on the Candidates page. | Searches together with any filters already set (score, years, skill, status). |
 
 **States on each screen**
@@ -612,9 +609,9 @@ Search must stay inside ABC Tech's candidates, even if a name matches someone at
 
 ---
 
-## Flow 19 · HR reviews a candidate and shortlists or rejects
+## Flow 14 · HR reviews a candidate and shortlists or rejects
 
-**Who and when:** Sara, after narrowing the list (Flow 17) or finding a candidate by search (Flow 18).
+**Who and when:** Sara, after narrowing the list (Flow 12) or finding a candidate by search (Flow 13).
 
 **Starts on:** Candidates list · **Done when:** Sara has reviewed a candidate's AI breakdown and moved the best to Shortlisted (or a weak one to Rejected).
 
@@ -646,7 +643,7 @@ Sara may trust the score too much, so the page must show the evidence behind eac
 
 ---
 
-## Flow 20 · HR moves a candidate through the pipeline
+## Flow 15 · HR moves a candidate through the pipeline
 
 **Who and when:** Sara, during interview week.
 
@@ -655,12 +652,12 @@ Sara may trust the score too much, so the page must show the evidence behind eac
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | Pipeline board | Opens the Junior Web Developer board. | Shows columns Applied, Shortlisted, Interview, Offer, Hired and Rejected, with a card per candidate (name, score, days since applying). |
-| 2 | Pipeline board | Drags Ali from Shortlisted to Interview (on a phone, uses the card's status dropdown). | Opens the schedule interview form (Flow 21). |
-| 3 | Pipeline board | After the interview (Flows 21, 23 and 22), moves Ali to Offer, then later to Hired, confirming the Hired move. | Updates his status and saves a history entry each time. Ali sees "Offer", then "Hired" (Flow 13), and gets a status email (Flow 29). |
-| 4 | Pipeline board | Moves each other candidate to Rejected one by one, confirming each. | Moves each to Rejected and updates their status. Each gets a short status email with no score (Flow 29). |
-| 5 | Pipeline board | Sees Usman's card greyed out because he withdrew (Flow 14). | Blocks any move of a withdrawn card. |
+| 2 | Pipeline board | Drags Ali from Shortlisted to Interview (on a phone, uses the card's status dropdown). | Opens the schedule interview form (Flow 16). |
+| 3 | Pipeline board | After the interview (Flows 16, 18 and 17), moves Ali to Offer, then later to Hired, confirming the Hired move. | Updates his status and saves a history entry each time. Ali sees "Offer", then "Hired" (Flow 9), and gets a status email (Flow 23). |
+| 4 | Pipeline board | Moves each other candidate to Rejected one by one, confirming each. | Moves each to Rejected and updates their status. Each gets a short status email with no score (Flow 23). |
+| 5 | Pipeline board | Sees Usman's card greyed out because he withdrew (Flow 10). | Blocks any move of a withdrawn card. |
 
-When the position is filled, Sara closes the job (Flow 7).
+When the position is filled, Sara closes the job (Flow 4).
 
 **States on each screen**
 
@@ -682,18 +679,18 @@ A drag may fail on a weak connection, so the card must go back and show an error
 
 ---
 
-## Flow 21 · HR schedules an interview
+## Flow 16 · HR schedules an interview
 
-**Who and when:** Sara, right after moving Ali to Interview (Flow 20).
+**Who and when:** Sara, right after moving Ali to Interview (Flow 15).
 
 **Starts on:** Schedule interview form · **Done when:** The interview is saved, Ali is in Interview, and he sees the date, time and meeting link.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Schedule interview | Enters date, time, duration (30 minutes by default), a meeting link (or office address) and the interviewer name, then clicks Save. | Saves the interview, moves Ali to Interview and updates his status. Emails Ali the date, time and meeting link (Flow 29). |
-| 2 | (Ali's My Applications) | Ali opens his application. | Shows "Interview" with the date, time and meeting link (Flow 13). |
+| 1 | Schedule interview | Enters date, time, duration (30 minutes by default), a meeting link (or office address) and the interviewer name, then clicks Save. | Saves the interview, moves Ali to Interview and updates his status. Emails Ali the date, time and meeting link (Flow 23). |
+| 2 | (Ali's My Applications) | Ali opens his application. | Shows "Interview" with the date, time and meeting link (Flow 9). |
 | 3 | Interviews page | Opens Interviews. | Shows upcoming interviews (soonest first) and past ones, each with candidate, job, time and status. |
-| 4 | Interviews page | **If plans change:** reschedules Ali, or cancels after confirming. | Saves the change. Ali sees the new details or "Interview cancelled" and gets an email (Flow 29). |
+| 4 | Interviews page | **If plans change:** reschedules Ali, or cancels after confirming. | Saves the change. Ali sees the new details or "Interview cancelled" and gets an email (Flow 23). |
 
 **States on each screen**
 
@@ -715,7 +712,7 @@ Sara may enter a past date or a broken link, or leave both link and address empt
 
 ---
 
-## Flow 22 · HR records interview feedback
+## Flow 17 · HR records interview feedback
 
 **Who and when:** Sara, straight after Ali's interview.
 
@@ -725,7 +722,7 @@ Sara may enter a past date or a broken link, or leave both link and address empt
 |------|--------|-----------|----------|
 | 1 | Interview feedback | Fills in a rating from 1 to 5, strengths, concerns and a recommendation (Offer, Reject or Another round). | Checks a rating and a recommendation are filled in. |
 | 2 | Interview feedback | Clicks Save. | Saves the feedback on Ali's candidate detail page (HR only) and marks the interview done. |
-| 3 | Candidate detail | Reads the feedback. | Shows it next to the screening results. The recommendation is advice only: Ali's status changes only when Sara moves him on the board (Flow 20). |
+| 3 | Candidate detail | Reads the feedback. | Shows it next to the screening results. The recommendation is advice only: Ali's status changes only when Sara moves him on the board (Flow 15). |
 
 **States on each screen**
 
@@ -745,11 +742,11 @@ Sara may skip the rating or recommendation, so Save must be blocked. Feedback is
 
 ---
 
-## Flow 23 · HR generates interview questions with AI
+## Flow 18 · HR generates interview questions with AI
 
 **Who and when:** Sara, the day before Ali's interview.
 
-**Starts on:** Candidate detail (Ali has a scheduled interview, Flow 21) · **Done when:** Sara has a saved question list for Ali's interview.
+**Starts on:** Candidate detail (Ali has a scheduled interview, Flow 16) · **Done when:** Sara has a saved question list for Ali's interview.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
@@ -776,7 +773,7 @@ AI may fail or be slow, so there must be a Retry, and Sara can still run the int
 
 ---
 
-## Flow 24 · HR views reports
+## Flow 19 · HR views reports
 
 **Who and when:** Sara, at month end, preparing an update for her manager.
 
@@ -809,7 +806,7 @@ A new company may have no jobs or applicants, so charts must show a clear empty 
 
 ---
 
-## Flow 25 · Candidate sets up a profile and default CV
+## Flow 20 · Candidate sets up a profile and default CV
 
 **Who and when:** Ali, on a Sunday afternoon, getting ready to apply to several jobs this week.
 
@@ -822,7 +819,7 @@ A new company may have no jobs or applicants, so charts must show a clear empty 
 | 3 | My Profile | Drags ali-cv.pdf into the CV box. | Checks it is a PDF under 5 MB, saves it privately as his default CV and shows "CV uploaded". |
 | 4 | My Profile | **Later:** replaces it with a newer file, or deletes it after confirming. | Replaces or removes the default CV. CVs already sent are not affected. |
 
-From now on, the apply form is filled in from his profile (Flow 12).
+From now on, the apply form is filled in from his profile (Flow 8).
 
 **States on each screen**
 
@@ -844,7 +841,7 @@ Ali may upload a Word file or a very large PDF, so the same checks as applying a
 
 ---
 
-## Flow 26 · Candidate saves a job
+## Flow 21 · Candidate saves a job
 
 **Who and when:** Ali, browsing jobs on Sunday, when he finds Junior Web Developer but wants to apply later.
 
@@ -852,9 +849,9 @@ Ali may upload a Word file or a very large PDF, so the same checks as applying a
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Public jobs list | Clicks Save on Junior Web Developer at ABC Tech. | Saves the job; the button shows "Saved". If Ali is logged out, asks him to log in first (Flow 3), then saves it. |
+| 1 | Public jobs list | Clicks Save on Junior Web Developer at ABC Tech. | Saves the job; the button shows "Saved". If Ali is logged out, asks him to log in first (Flow 1), then saves it. |
 | 2 | Saved Jobs | Opens Saved Jobs. | Lists Junior Web Developer with "Apply by 20 Oct" and Apply. |
-| 3 | Saved Jobs | **Later:** clicks Apply. | Opens the apply form (continues in Flow 12). |
+| 3 | Saved Jobs | **Later:** clicks Apply. | Opens the apply form (continues in Flow 8). |
 | 4 | Saved Jobs | **Or:** clicks Remove on a job he no longer wants. | Removes it; the job page shows "Save" again. |
 
 **States on each screen**
@@ -877,7 +874,9 @@ He may click Save twice, so the job is saved only once. A saved job may close or
 
 ---
 
-## Flow 27 · User updates name, email and password
+## Flow 22 · User updates account settings or deletes their account
+
+### User updates name, email and password
 
 **Who and when:** Sara, after marrying and changing her surname, and wanting a stronger password.
 
@@ -885,7 +884,7 @@ He may click Save twice, so the job is saved only once. A saved job may close or
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Settings | Opens Settings from the user menu. | Shows Name, Email, Password, Email preferences (Flows 29 and 30) and a Company Settings link (Flow 9). |
+| 1 | Settings | Opens Settings from the user menu. | Shows Name, Email, Password, Email preferences (Flow 18) and a Company Settings link (Flow 6). |
 | 2 | Settings – Name | Changes her name to "Sara Khan" and clicks Save. | Saves and shows "Name updated". The menu shows the new name. |
 | 3 | Settings – Email | Enters sara.khan@abctech.com and clicks "Send confirmation link". | Sends a link to the new email and shows "Check your new email to confirm the change". The old email still works. |
 | 4 | Email inbox | Clicks the confirmation link. | Changes the email and shows "Email updated". |
@@ -911,9 +910,7 @@ Someone else may use Sara's open laptop, so a new password needs the current one
 - Given Sara enters the wrong current password, when she clicks Save, then she sees "Current password is incorrect" and her password does not change.
 - Given Sara enters the new password "abctech2026", when she clicks Save, then only the 8-character requirement is ticked and she sees "Password must be at least 8 characters and include one capital letter and one special character (like @)".
 
----
-
-## Flow 28 · Candidate deletes their account
+### Candidate deletes their account
 
 **Who and when:** Ali, after finding a job, when he wants all his data removed from HireLens.
 
@@ -944,17 +941,19 @@ Deleting removes everything, so Ali must type DELETE first. All his data must go
 
 ---
 
-## Flow 29 · Candidate receives email updates
+## Flow 23 · Candidate receives email updates and HR sends the daily summary
+
+### Candidate receives email updates
 
 **Who and when:** Ali, from applying until he hears the final decision.
 
-**Starts on:** Ali submits his application (Flow 12) · **Done when:** Ali has the confirmation, status and interview emails he should get, none with a score.
+**Starts on:** Ali submits his application (Flow 8) · **Done when:** Ali has the confirmation, status and interview emails he should get, none with a score.
 
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
-| 1 | Email inbox | Opens "Your application to ABC Tech was received". | Sent after Submit (Flow 12), with one button to My Applications. Always sent. |
-| 2 | Email inbox | Opens the interview email after Sara schedules him (Flow 21). | Shows date, time, duration and meeting link. Also sent on reschedule or cancel. Always sent. |
-| 3 | Email inbox | Opens "Update on your application to ABC Tech" each time Sara moves him to Shortlisted, Interview, Offer, Hired or Rejected (Flow 20). | Sent only if status emails are on. Never includes a score, AI summary or HR note. |
+| 1 | Email inbox | Opens "Your application to ABC Tech was received". | Sent after Submit (Flow 8), with one button to My Applications. Always sent. |
+| 2 | Email inbox | Opens the interview email after Sara schedules him (Flow 16). | Shows date, time, duration and meeting link. Also sent on reschedule or cancel. Always sent. |
+| 3 | Email inbox | Opens "Update on your application to ABC Tech" each time Sara moves him to Shortlisted, Interview, Offer, Hired or Rejected (Flow 15). | Sent only if status emails are on. Never includes a score, AI summary or HR note. |
 | 4 | Settings – Email preferences | **Optional:** turns off "Status updates". | Saves and shows "Preference saved". Application and interview emails still come. |
 
 **States on each screen**
@@ -975,9 +974,7 @@ An email may fail to send, but the application or status change must still be sa
 - Given Ali has turned off status updates, when Sara moves him to Shortlisted, then no status email is sent, but he still gets interview emails.
 - Given Resend is unavailable, when Sara moves Ali to Interview, then the move succeeds, Ali sees the new status in My Applications, and the email is logged as `failed`.
 
----
-
-## Flow 30 · HR sends the daily applicant summary
+### HR sends the daily applicant summary
 
 **Who and when:** Sara, each morning, when she wants one email listing new applicants instead of one per CV.
 
@@ -997,7 +994,6 @@ There is no scheduler on localhost, so for the demo the summary is sent from thi
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
 | HR dashboard ("Send today's summary") | N/A | Button spinner | "Couldn't send the summary, try again" | "Summary sent", or "No new applicants since the last summary" |
-| Settings – Email preferences | Switches on by default | Switch disabled briefly | "Couldn't save your preference, try again" | "Preference saved" |
 
 **What could go wrong**
 
@@ -1013,35 +1009,28 @@ With no new applicants, no empty email should be sent. Sending may fail, so the 
 
 ## Flows by feature
 
-| Feature | Flow |
-|---------|------|
-| 01 · HR Sign Up | 1 |
-| 02 · Candidate Sign Up | 2 |
-| 03 · Login and Logout | 3 |
-| 04 · Password Reset | 4 |
-| 05 · Post a Job | 5 |
-| 06 · Edit Job and Re-screen | 6 |
-| 07 · Close, Reopen and Deadline | 7 |
-| 08 · AI Job Description Writer | 8 |
-| 09 · Company Profile and Logo | 9 |
-| 10 · Public Company Page | 10 |
-| 11 · Job Search | 11 |
-| 12 · Apply with CV | 12 |
-| 13 · My Applications | 13 |
-| 14 · Withdraw and Delete Application Data | 14 |
-| 15 · AI CV Screening | 15 |
-| 16 · Retry Screening | 16 |
-| 17 · Ranked Candidates List | 17 |
-| 18 · Candidate Search | 18 |
-| 19 · Candidate Review and Shortlist | 19 |
-| 20 · Hiring Pipeline | 20 |
-| 21 · Interview Scheduling | 21 |
-| 22 · Interview Feedback | 22 |
-| 23 · AI Interview Questions | 23 |
-| 24 · Reports | 24 |
-| 25 · Candidate Profile | 25 |
-| 26 · Saved Jobs | 26 |
-| 27 · Account Settings | 27 |
-| 28 · Delete Account | 28 |
-| 29 · Candidate Email Updates | 29 |
-| 30 · HR Daily Summary | 30 |
+| Feature |
+|---------|
+| 01 · Authentication |
+| 02 · Post a Job |
+| 03 · Edit Job and Re-screen |
+| 04 · Close, Reopen and Deadline |
+| 05 · AI Job Description Writer |
+| 06 · Company Profile and Public Page |
+| 07 · Job Search |
+| 08 · Apply with CV |
+| 09 · My Applications |
+| 10 · Withdraw and Delete Application Data |
+| 11 · AI CV Screening and Retry |
+| 12 · Ranked Candidates List |
+| 13 · Candidate Search |
+| 14 · Candidate Review and Shortlist |
+| 15 · Hiring Pipeline |
+| 16 · Interview Scheduling |
+| 17 · Interview Feedback |
+| 18 · AI Interview Questions |
+| 19 · Reports |
+| 20 · Candidate Profile |
+| 21 · Saved Jobs |
+| 22 · Account Settings and Deletion |
+| 23 · Email Notifications |

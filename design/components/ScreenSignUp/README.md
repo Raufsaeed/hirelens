@@ -1,6 +1,6 @@
 # Screen · Sign up (HR)
 
-Flow 1, step 2. Left: the animated mesh with a short promise and three checks. Right: the form card fades up on load.
+Flow 1 ("HR signs up and creates a company"), step 2. Left: the animated mesh with a short promise and three checks. Right: the form card fades up on load.
 
 Segmented Sign up / Log in · Full name · Work email · Password with live ticks (the demo types "Abctech2026@") · Company name · full-width primary "Create account" (spinner while working) · "Already have an account? Log in".
 

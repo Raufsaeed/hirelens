@@ -1,4 +1,4 @@
-# Feature 18 · Candidate Search
+# Feature 13 · Candidate Search
 
 ## Description
 
@@ -13,8 +13,8 @@ HR searches for a candidate by name or email across all of their company's jobs.
 1. **Where:** A search box in the HR top navigation (on every HR page) and on the Candidates page.
 2. **What it matches:** Name or email (`applications.candidate_name` and `candidate_email`), part of a word, not case-sensitive, from 2 characters.
 3. **Scope:** All jobs of the HR user's own company only.
-4. **Results:** One row per candidate, showing name, job(s) applied to, and the score and status for each job. Clicking a result opens that Candidate Detail page (Feature 19).
-5. **With filters:** On the Candidates page, search works together with the filters (score, years, skill, status) from Feature 17.
+4. **Results:** One row per candidate, showing name, job(s) applied to, and the score and status for each job. Clicking a result opens that Candidate Detail page (Feature 14).
+5. **With filters:** On the Candidates page, search works together with the filters (score, years, skill, status) from Feature 12.
 6. **No results:** Shows "No candidates found for 'xyz'".
 
 ## Screens
@@ -31,8 +31,8 @@ HR searches for a candidate by name or email across all of their company's jobs.
 
 ## Data Used
 
-- **`applications`** (Feature 12): `candidate_name`, `candidate_email`, job and status.
-- **`screenings`** (Feature 15): score.
+- **`applications`** (Feature 08): `candidate_name`, `candidate_email`, job and status.
+- **`screenings`** (Feature 11): score.
 
 ## Business Rules and Permissions
 
@@ -58,7 +58,7 @@ HR searches for a candidate by name or email across all of their company's jobs.
 
 ## User Flows
 
-- Flow 18 · HR searches for a candidate
+- Flow 13 · HR searches for a candidate
 
 ## Test Cases
 
@@ -68,7 +68,7 @@ HR searches for a candidate by name or email across all of their company's jobs.
 
 ## Dependencies
 
-- **Depends on:** Feature 17 (Ranked Candidates List).
+- **Depends on:** Feature 12 (Ranked Candidates List).
 - **Depended on by:** None.
 
 ## Done When

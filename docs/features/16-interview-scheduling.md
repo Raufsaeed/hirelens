@@ -1,4 +1,4 @@
-# Feature 21 · Interview Scheduling
+# Feature 16 · Interview Scheduling
 
 ## Description
 
@@ -13,12 +13,12 @@ HR schedules, reschedules and cancels interviews. The candidate sees the details
 
 ## Functional Requirements
 
-1. **Schedule form:** Moving a candidate to Interview (Feature 20) opens a form with:
+1. **Schedule form:** Moving a candidate to Interview (Feature 15) opens a form with:
    - Date and time
    - Duration (default 30 minutes)
    - Meeting link or office address
    - Interviewer name
-2. **Candidate view:** The candidate sees the date, time, duration and meeting link or address in My Applications (Feature 13), and gets an email (Feature 29).
+2. **Candidate view:** The candidate sees the date, time, duration and meeting link or address in My Applications (Feature 09), and gets an email (Feature 23).
 3. **Reschedule:** HR can change the details. The candidate sees the updated details.
 4. **Cancel:** HR can cancel after confirming. The candidate sees "Interview cancelled".
 5. **Interviews page:**
@@ -52,7 +52,7 @@ HR schedules, reschedules and cancels interviews. The candidate sees the details
   - `interviewer_name`
   - `status`: `scheduled`, `done` or `cancelled`
   - `created_at`, `updated_at`
-- **How they link:** `interviews.application_id` points to `applications.id` (Feature 12). One application can have more than one interview, for example when the recommendation is "Another round" (Feature 22).
+- **How they link:** `interviews.application_id` points to `applications.id` (Feature 08). One application can have more than one interview, for example when the recommendation is "Another round" (Feature 17).
 
 ## Business Rules and Permissions
 
@@ -82,7 +82,7 @@ HR schedules, reschedules and cancels interviews. The candidate sees the details
 
 ## User Flows
 
-- Flow 21 · HR schedules an interview
+- Flow 16 · HR schedules an interview
 
 ## Test Cases
 
@@ -93,8 +93,8 @@ HR schedules, reschedules and cancels interviews. The candidate sees the details
 
 ## Dependencies
 
-- **Depends on:** Feature 20 (Hiring Pipeline).
-- **Depended on by:** Feature 22 (Interview Feedback), Feature 23 (AI Interview Questions) and Feature 29 (Candidate Email Updates).
+- **Depends on:** Feature 15 (Hiring Pipeline).
+- **Depended on by:** Feature 17 (Interview Feedback), Feature 18 (AI Interview Questions) and Feature 23 (Email Notifications).
 
 ## Done When
 

@@ -1,4 +1,4 @@
-# Feature 17 · Ranked Candidates List
+# Feature 12 · Ranked Candidates List
 
 ## Description
 
@@ -20,7 +20,7 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
    - Degree found and degree match, for example "BS IT ✗"
    - Screening status
    - Pipeline status
-2. **Anonymised-first view:** HR can turn on a view that hides names in the list. The name is shown once HR opens the candidate (Feature 19).
+2. **Anonymised-first view:** HR can turn on a view that hides names in the list. The name is shown once HR opens the candidate (Feature 14).
 3. **Filters:**
    - Minimum score
    - Minimum years
@@ -28,7 +28,7 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
    - Pipeline status
 
    The list updates as filters change and shows how many candidates match.
-4. **Pending and failed screenings:** Shown at the bottom with a badge (Feature 16).
+4. **Pending and failed screenings:** Shown at the bottom with a badge (Feature 11).
 
 ## Screens
 
@@ -42,12 +42,12 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 |--------|-------------|-------------|
 | Filter list | Minimum score, minimum years, skill, status | Filtered ranked list and match count |
 | Anonymised view | Turns the toggle on or off | Names hidden or shown in the list |
-| Open candidate | Clicks a row | Candidate Detail (Feature 19) |
+| Open candidate | Clicks a row | Candidate Detail (Feature 14) |
 
 ## Data Used
 
-- **`applications`** (Feature 12): status, screening status and `candidate_name`.
-- **`screenings`** (Feature 15): score, match percentage, relevant years, degree match and degree found.
+- **`applications`** (Feature 08): status, screening status and `candidate_name`.
+- **`screenings`** (Feature 11): score, match percentage, relevant years, degree match and degree found.
 - **How they link:** Applications are joined to their job and screening. Only applications for the HR user's company jobs are read.
 
 ## Business Rules and Permissions
@@ -78,7 +78,7 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 
 ## User Flows
 
-- Flow 17 · HR reviews the ranked candidates list
+- Flow 12 · HR reviews the ranked candidates list
 
 ## Test Cases
 
@@ -89,8 +89,8 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 
 ## Dependencies
 
-- **Depends on:** Feature 15 (AI CV Screening).
-- **Depended on by:** Feature 16 (Retry Screening), Feature 18 (Candidate Search), Feature 19 (Candidate Review and Shortlist) and Feature 24 (Reports).
+- **Depends on:** Feature 11 (AI CV Screening and Retry).
+- **Depended on by:** Feature 13 (Candidate Search), Feature 14 (Candidate Review and Shortlist) and Feature 19 (Reports).
 
 ## Done When
 

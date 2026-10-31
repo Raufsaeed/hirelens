@@ -1,4 +1,4 @@
-# Feature 23 · AI Interview Questions
+# Feature 18 · AI Interview Questions
 
 ## Description
 
@@ -13,11 +13,11 @@ With one click, AI writes eight interview questions based on the job and the can
 
 ## Functional Requirements
 
-1. **Generate:** On the Candidate Detail or Interview page, HR clicks "Generate questions". The candidate must have a scheduled interview (Feature 21). Otherwise the button shows "Schedule an interview first".
+1. **Generate:** On the Candidate Detail or Interview page, HR clicks "Generate questions". The candidate must have a scheduled interview (Feature 16). Otherwise the button shows "Schedule an interview first".
 2. **What is sent:** The app sends Gemini:
    - The job details
-   - The saved CV text with personal details removed (`screenings.cv_text_clean` from Feature 15)
-   - The missing requirements from Feature 15
+   - The saved CV text with personal details removed (`screenings.cv_text_clean` from Feature 11)
+   - The missing requirements from Feature 11
 
    It uses `prompts/interview-questions.txt`.
 3. **What comes back:** Eight questions:
@@ -47,9 +47,9 @@ With one click, AI writes eight interview questions based on the job and the can
 
 ## Data Used
 
-- **`jobs`** (Feature 05): title, required years, degree, requirements.
-- **`screenings`** (Feature 15): `cv_text_clean` and the missing items from `requirements_result`.
-- **`interviews`** (Feature 21): the interview the questions belong to.
+- **`jobs`** (Feature 02): title, required years, degree, requirements.
+- **`screenings`** (Feature 11): `cv_text_clean` and the missing items from `requirements_result`.
+- **`interviews`** (Feature 16): the interview the questions belong to.
 - **`interview_questions` table:**
   - `id`
   - `interview_id`
@@ -112,7 +112,7 @@ With one click, AI writes eight interview questions based on the job and the can
 - Candidates never see the questions.
 - Questions never ask about age, religion, marital status or other personal matters.
 - AI only suggests questions. HR decides what to ask and makes every hiring decision.
-- The AI rules from Feature 15 apply (personal details removed, server-only key, prompts in `prompts/`).
+- The AI rules from Feature 11 apply (personal details removed, server-only key, prompts in `prompts/`).
 
 ## Error Cases
 
@@ -138,7 +138,7 @@ With one click, AI writes eight interview questions based on the job and the can
 
 ## User Flows
 
-- Flow 23 · HR generates interview questions with AI
+- Flow 18 · HR generates interview questions with AI
 
 ## Test Cases
 
@@ -151,7 +151,7 @@ With one click, AI writes eight interview questions based on the job and the can
 
 ## Dependencies
 
-- **Depends on:** Feature 15 (AI CV Screening) and Feature 21 (Interview Scheduling).
+- **Depends on:** Feature 11 (AI CV Screening and Retry) and Feature 16 (Interview Scheduling).
 - **Depended on by:** None.
 
 ## Done When

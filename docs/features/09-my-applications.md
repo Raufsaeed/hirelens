@@ -1,4 +1,4 @@
-# Feature 13 · My Applications
+# Feature 09 · My Applications
 
 ## Description
 
@@ -12,7 +12,7 @@ Candidates see each of their applications with its status, a timeline and interv
 ## Functional Requirements
 
 1. **My Applications:** A list showing job title, company, applied date and status. Status is one of: Applied, Shortlisted, Interview (with date, time and link), Offer, Hired, Rejected, Withdrawn.
-2. **Application detail:** A status timeline with the date of each change, plus interview details (date, time, duration, meeting link or address, Feature 21) or "Interview cancelled". Withdraw and Delete my data are here too (Feature 14).
+2. **Application detail:** A status timeline with the date of each change, plus interview details (date, time, duration, meeting link or address, Feature 16) or "Interview cancelled". Withdraw and Delete my data are here too (Feature 10).
 3. **Never shown to candidates:** Score, match percentage, AI summary or HR notes. This rule applies to every candidate screen and email.
 4. **Phone-friendly:** Every candidate page works on a phone screen with no horizontal scrolling.
 
@@ -32,9 +32,9 @@ Candidates see each of their applications with its status, a timeline and interv
 
 ## Data Used
 
-- **`applications`** (Feature 12): job, applied date and status. This table holds no score.
-- **`status_history`** (Feature 20): the timeline.
-- **`interviews`** (Feature 21): the candidate's own interview rows (time, duration, link, location, status).
+- **`applications`** (Feature 08): job, applied date and status. This table holds no score.
+- **`status_history`** (Feature 15): the timeline.
+- **`interviews`** (Feature 16): the candidate's own interview rows (time, duration, link, location, status).
 
 ## Business Rules and Permissions
 
@@ -57,7 +57,7 @@ Candidates see each of their applications with its status, a timeline and interv
 
 ## User Flows
 
-- Flow 13 · Candidate tracks application status, including on a phone
+- Flow 9 · Candidate tracks application status, including on a phone
 
 ## Test Cases
 
@@ -67,8 +67,8 @@ Candidates see each of their applications with its status, a timeline and interv
 
 ## Dependencies
 
-- **Depends on:** Feature 12 (Apply with CV).
-- **Depended on by:** Feature 14 (Withdraw and Delete Application Data).
+- **Depends on:** Feature 08 (Apply with CV).
+- **Depended on by:** Feature 10 (Withdraw and Delete Application Data).
 
 ## Done When
 

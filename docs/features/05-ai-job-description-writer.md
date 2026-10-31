@@ -1,4 +1,4 @@
-# Feature 08 · AI Job Description Writer
+# Feature 05 · AI Job Description Writer
 
 ## Description
 
@@ -14,14 +14,14 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 ## Functional Requirements
 
-1. **Input:** On the Create Job form (Feature 05), HR enters a title and a few key points, for example "small friendly team, hybrid in Lahore". Requirements already in the form are also used.
+1. **Input:** On the Create Job form (Feature 02), HR enters a title and a few key points, for example "small friendly team, hybrid in Lahore". Requirements already in the form are also used.
 2. **Write with AI:** The button works only when there is a title and at least one key point or requirement.
 3. **Send:** The app sends the title, key points, requirements, location, job type, years and degree to Gemini using `prompts/jd-writer.txt`.
 4. **Draft:** The AI returns a description of about 150–250 words with three sections: About the role, Responsibilities, and What we're looking for.
 5. **Suggested requirements:** The AI may suggest extra requirements, each clearly labelled "Suggestion". HR can accept or remove each one. Suggestions are never added without HR accepting them.
 6. **Fill the form:** The draft goes into the description box for HR to edit, with the note "Review and edit before publishing".
 7. **Regenerate:** HR can get a new draft. If HR has edited the text, the app asks before replacing it.
-8. **No auto-publish:** Nothing is published or saved automatically. HR clicks Save as draft or Publish (Feature 05).
+8. **No auto-publish:** Nothing is published or saved automatically. HR clicks Save as draft or Publish (Feature 02).
 
 ## Screens
 
@@ -38,11 +38,11 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 | Accept / remove suggestion | Clicks Accept or Remove on a suggestion | Suggestion added to the requirements, or dropped |
 | Regenerate | Clicks Regenerate (confirms if text was edited) | A new draft |
 | Edit | Changes the text by hand | HR's text is kept |
-| Publish | Clicks Publish | Job published with HR's final text (Feature 05) |
+| Publish | Clicks Publish | Job published with HR's final text (Feature 02) |
 
 ## Data Used
 
-- **Nothing new is stored.** The final description and accepted requirements are saved in `jobs` (Feature 05) only when HR saves or publishes.
+- **Nothing new is stored.** The final description and accepted requirements are saved in `jobs` (Feature 02) only when HR saves or publishes.
 - **Inputs read from the form:** title, key points, location, job type, required years, required degree, requirements.
 
 ## AI Details
@@ -107,7 +107,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 - Only HR can use "Write with AI", and only for their own company's jobs.
 - The AI draft is never published automatically. HR must review and publish.
 - Suggested requirements are only added when HR accepts them.
-- The Gemini key and prompt rules from Feature 15 apply.
+- The Gemini key and prompt rules from Feature 11 apply.
 
 ## Error Cases
 
@@ -131,7 +131,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 ## User Flows
 
-- Flow 8 · HR writes a job description with AI
+- Flow 5 · HR writes a job description with AI
 
 ## Test Cases
 
@@ -143,7 +143,7 @@ HR enters a title and a few key points, clicks "Write with AI", and gets a draft
 
 ## Dependencies
 
-- **Depends on:** Feature 05 (Post a Job).
+- **Depends on:** Feature 02 (Post a Job).
 - **Depended on by:** None.
 
 ## Done When

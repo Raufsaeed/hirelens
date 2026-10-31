@@ -1,4 +1,4 @@
-# Feature 24 · Reports
+# Feature 19 · Reports
 
 ## Description
 
@@ -43,10 +43,10 @@ HR gets a Reports page with charts and numbers about their jobs, applicants and 
 
 ## Data Used
 
-- **`jobs`** (Feature 05): job titles and company.
-- **`applications`** (Feature 12): applied dates, current status and `screening_status`.
-- **`screenings`** (Feature 15): scores and requirements results. A screenings row exists from the first attempt, but its score and results stay empty while screening is `pending` or `failed`.
-- **`status_history`** (Feature 20): stage changes for the funnel and time to hire.
+- **`jobs`** (Feature 02): job titles and company.
+- **`applications`** (Feature 08): applied dates, current status and `screening_status`.
+- **`screenings`** (Feature 11): scores and requirements results. A screenings row exists from the first attempt, but its score and results stay empty while screening is `pending` or `failed`.
+- **`status_history`** (Feature 15): stage changes for the funnel and time to hire.
 - **How they link:** All queries start from the HR user's `company_id` and only read jobs, applications and screenings of that company.
 
 **How each number is calculated:**
@@ -92,7 +92,7 @@ HR gets a Reports page with charts and numbers about their jobs, applicants and 
 
 ## User Flows
 
-- Flow 24 · HR views reports
+- Flow 19 · HR views reports
 
 ## Test Cases
 
@@ -104,7 +104,7 @@ HR gets a Reports page with charts and numbers about their jobs, applicants and 
 
 ## Dependencies
 
-- **Depends on:** Feature 05 (Post a Job), Feature 12 (Apply with CV), Feature 15 (AI CV Screening), Feature 17 (Ranked Candidates List) and Feature 20 (Hiring Pipeline).
+- **Depends on:** Feature 02 (Post a Job), Feature 08 (Apply with CV), Feature 11 (AI CV Screening and Retry), Feature 12 (Ranked Candidates List) and Feature 15 (Hiring Pipeline).
 - **Depended on by:** None.
 
 ## Done When

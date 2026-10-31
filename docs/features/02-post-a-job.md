@@ -1,4 +1,4 @@
-# Feature 05 · Post a Job
+# Feature 02 · Post a Job
 
 ## Description
 
@@ -10,7 +10,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - As an **HR user**, I want to save a job as a draft, so that I can finish it later before anyone sees it.
 - As an **HR user**, I want a shareable link with a "Copy link" button, so that I can post the job on LinkedIn or WhatsApp quickly.
 - As an **HR user**, I want to see all my jobs with their status and number of applicants, so that I know where hiring stands.
-- As an **HR user**, I want to set an "Apply by" date, so that the job closes by itself (Feature 07).
+- As an **HR user**, I want to set an "Apply by" date, so that the job closes by itself (Feature 04).
 - As a **candidate**, I want to see how many days are left to apply, so that I don't miss the deadline.
 
 ## Functional Requirements
@@ -22,14 +22,14 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
    - Required years of experience
    - Required degree
    - Requirements: a list of skills and tools, each marked "must have" or "nice to have"
-   - Description (with an optional "Write with AI" button, Feature 08)
+   - Description (with an optional "Write with AI" button, Feature 05)
    - Optional "Apply by" date
 2. **Save as draft:** HR can save an unfinished job as a Draft. Drafts are never public.
 3. **Publish:** Publishing sets the job to Open and creates a public link with a readable slug made from the company name and title, for example `/jobs/abc-tech-junior-web-developer`. If that slug is taken, a short number is added at the end.
 4. **Copy link:** After publishing, and on My Jobs, HR can click "Copy link".
-5. **My Jobs:** HR sees all their company's jobs with title, status (Draft, Open, Closed), number of applicants, Apply by date, and the actions Edit (Feature 06), Close and Reopen (Feature 07), and Copy link.
-6. **HR Dashboard job cards:** Each job shows as a card with title, status and the number of applicants (and new applicants). New applicants are applications HR has not opened yet (`applications.viewed_at` is empty, Feature 19).
-7. **Showing the deadline:** Job cards show "Apply by 20 Oct". When 7 days or fewer are left, they also show "3 days left" (or "Last day" on the final day). The same display is used on the Public Job Detail page (Feature 11).
+5. **My Jobs:** HR sees all their company's jobs with title, status (Draft, Open, Closed), number of applicants, Apply by date, and the actions Edit (Feature 03), Close and Reopen (Feature 04), and Copy link.
+6. **HR Dashboard job cards:** Each job shows as a card with title, status and the number of applicants (and new applicants). New applicants are applications HR has not opened yet (`applications.viewed_at` is empty, Feature 14).
+7. **Showing the deadline:** Job cards show "Apply by 20 Oct". When 7 days or fewer are left, they also show "3 days left" (or "Last day" on the final day). The same display is used on the Public Job Detail page (Feature 07).
 
 ## Screens
 
@@ -64,9 +64,9 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
   - `status`: `draft`, `open` or `closed`
   - `apply_by`: optional deadline date
   - `created_at`, `updated_at`
-  - `closed_reason` and `closed_at`: see Feature 07
+  - `closed_reason` and `closed_at`: see Feature 04
 - **`companies` table** (Feature 01): `name` and `logo_url`, shown on the public job page.
-- **How they link:** `jobs.company_id` points to `companies.id`. Applicant counts come from `applications` (Feature 12). New applicant counts are applications with `viewed_at` empty (Feature 19).
+- **How they link:** `jobs.company_id` points to `companies.id`. Applicant counts come from `applications` (Feature 08). New applicant counts are applications with `viewed_at` empty (Feature 14).
 
 ## Business Rules and Permissions
 
@@ -105,7 +105,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 
 ## User Flows
 
-- Flow 5 · HR posts a job
+- Flow 2 · HR posts a job
 
 ## Test Cases
 
@@ -115,8 +115,8 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 
 ## Dependencies
 
-- **Depends on:** Feature 01 (HR Sign Up) and Feature 03 (Login and Logout).
-- **Depended on by:** Feature 06 (Edit Job and Re-screen), Feature 07 (Close, Reopen and Deadline), Feature 08 (AI Job Description Writer), Feature 10 (Public Company Page), Feature 11 (Job Search), Feature 15 (AI CV Screening) and Feature 24 (Reports).
+- **Depends on:** Feature 01 (Authentication).
+- **Depended on by:** Feature 03 (Edit Job and Re-screen), Feature 04 (Close, Reopen and Deadline), Feature 05 (AI Job Description Writer), Feature 06 (Company Profile and Public Page), Feature 07 (Job Search), Feature 11 (AI CV Screening and Retry) and Feature 19 (Reports).
 
 ## Done When
 

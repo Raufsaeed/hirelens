@@ -1,4 +1,4 @@
-# Feature 07 · Close, Reopen and Deadline
+# Feature 04 · Close, Reopen and Deadline
 
 ## Description
 
@@ -13,18 +13,18 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 1. **Close job:** After confirming, the job becomes Closed (`closed_reason` `manual`) and the public link stops accepting applications.
 2. **Reopen job:** A Closed job can be set back to Open, and the public link accepts applications again.
-3. **Closed job page:** On the Public Job Detail page (Feature 11), the Apply button is replaced with "This job is no longer accepting applications".
+3. **Closed job page:** On the Public Job Detail page (Feature 07), the Apply button is replaced with "This job is no longer accepting applications".
 4. **When the deadline passes:** After the end of the Apply by day (11:59 pm Pakistan time), the job closes automatically. The app runs only on localhost with no scheduler, so the server checks this whenever a job is read (job lists, the public job page, apply submit and HR pages): if `apply_by` has passed and the job is still Open, the server closes it with `closed_reason` `deadline`.
    - The Apply button is replaced by "Applications closed on 20 Oct".
    - HR sees the job as Closed with the reason "Deadline passed".
 5. **Extending it:** HR can set a new future Apply by date. If the job was closed by its deadline, this reopens it.
-6. **Late submit:** The deadline is checked again on every Submit (Feature 12).
+6. **Late submit:** The deadline is checked again on every Submit (Feature 08).
 
 ## Screens
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
-| My Jobs (close and reopen) | Close and Reopen actions on each job (the list is Feature 05). | "You have no jobs yet" with "Post your first job" | Skeleton rows | "Couldn't load your jobs" with Retry | "Job closed" or "Job reopened"; closed jobs show "Deadline passed" when that was the reason |
+| My Jobs (close and reopen) | Close and Reopen actions on each job (the list is Feature 02). | "You have no jobs yet" with "Post your first job" | Skeleton rows | "Couldn't load your jobs" with Retry | "Job closed" or "Job reopened"; closed jobs show "Deadline passed" when that was the reason |
 | Edit Job (deadline) | The Apply by field. | N/A | Save spinner | "Apply by date can't be in the past"; "Set a new Apply by date to reopen this job"; "Couldn't save, try again" | "Deadline extended. The job is open again" when a deadline-closed job is extended |
 | Public Job Detail (closed states) | The closed message in place of Apply. | N/A | N/A | "This job is no longer accepting applications" (closed); "Applications closed on 20 Oct" (deadline passed) | N/A |
 
@@ -39,7 +39,7 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 ## Data Used
 
-- **`jobs`** (Feature 05):
+- **`jobs`** (Feature 02):
   - `status`: `draft`, `open` or `closed`
   - `apply_by`
   - `closed_reason`: `manual` or `deadline`
@@ -70,7 +70,7 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 ## User Flows
 
-- Flow 7 · HR closes, reopens or extends a job
+- Flow 4 · HR closes, reopens or extends a job
 
 ## Test Cases
 
@@ -82,8 +82,8 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 ## Dependencies
 
-- **Depends on:** Feature 05 (Post a Job).
-- **Depended on by:** Feature 11 (Job Search), Feature 12 (Apply with CV) and Feature 26 (Saved Jobs).
+- **Depends on:** Feature 02 (Post a Job).
+- **Depended on by:** Feature 07 (Job Search), Feature 08 (Apply with CV) and Feature 21 (Saved Jobs).
 
 ## Done When
 

@@ -1,4 +1,4 @@
-# Feature 11 · Job Search
+# Feature 07 · Job Search
 
 ## Description
 
@@ -12,10 +12,10 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 ## Functional Requirements
 
 1. **Public Jobs List:** Shows all Open jobs with title, company, location, job type and Apply by date. Includes search by title or company and filters for job type and location.
-2. **Public Job Detail:** Shows company name (linking to the company page, Feature 10) and logo, title, location, job type, required years, degree, requirements, description, the Apply by date with "3 days left" (rules in Feature 05), an Apply button (Feature 12) and a Save button (Feature 26).
-3. **Closed or past deadline:** The Apply button is replaced with the closed message from Feature 07.
+2. **Public Job Detail:** Shows company name (linking to the company page, Feature 06) and logo, title, location, job type, required years, degree, requirements, description, the Apply by date with "3 days left" (rules in Feature 02), an Apply button (Feature 08) and a Save button (Feature 21).
+3. **Closed or past deadline:** The Apply button is replaced with the closed message from Feature 04.
 4. **Draft or unknown link:** Shows "This job could not be found".
-5. **Deadline check:** Opening the list or a job page runs the server deadline check from Feature 07.
+5. **Deadline check:** Opening the list or a job page runs the server deadline check from Feature 04.
 
 ## Screens
 
@@ -33,8 +33,8 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 
 ## Data Used
 
-- **`jobs`** (Feature 05): open jobs for the list; open and closed jobs for the detail page.
-- **`companies`** (Features 01 and 09): `name` and `logo_url`.
+- **`jobs`** (Feature 02): open jobs for the list; open and closed jobs for the detail page.
+- **`companies`** (Features 01 and 06): `name` and `logo_url`.
 
 ## Business Rules and Permissions
 
@@ -58,7 +58,7 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 
 ## User Flows
 
-- Flow 11 · Candidate finds a job
+- Flow 7 · Candidate finds a job
 
 ## Test Cases
 
@@ -68,8 +68,8 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 
 ## Dependencies
 
-- **Depends on:** Feature 05 (Post a Job) and Feature 07 (Close, Reopen and Deadline).
-- **Depended on by:** Feature 12 (Apply with CV) and Feature 26 (Saved Jobs).
+- **Depends on:** Feature 02 (Post a Job) and Feature 04 (Close, Reopen and Deadline).
+- **Depended on by:** Feature 08 (Apply with CV) and Feature 21 (Saved Jobs).
 
 ## Done When
 

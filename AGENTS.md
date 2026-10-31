@@ -14,7 +14,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Always read these before building anything:
   - `docs/product-brief.md`
   - `docs/user-flow.md`
-  - The relevant file in `docs/features/` (there are 30 feature files, `01` to `30`)
+  - The relevant file in `docs/features/` (there are 23 feature files, `01` to `23`)
   - `docs/database.md` (when it exists)
   - The `design/` folder
 - Before building or changing any page or component, read `design/design-guidelines.md` and `design/README.md`, then the matching `design/components/<Name>/README.md` and `preview.html`. The previews show the exact look to copy.
@@ -29,7 +29,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - After the user tests a feature and confirms it works, tick its Done When boxes (- [x]) in its feature file. Never tick a box the user has not tested.
 - Never add features that are not in the docs. If something is unclear, ask.
 - Keep explanations simple. The user is a student.
-- Build order: 01, 02, 03, 04, 05, 07, 11, 12, 13, 14, 15, 17, 16, 06, 18, 19, 20, 09, 10, 27, 28, 08, 21, 22, 23, 24, 25, 26, 29, 30.
+- Build order: 01, 02, 04, 07, 08, 09, 10, 11, 12, 03, 13, 14, 15, 06, 22, 05, 16, 17, 18, 19, 20, 21, 23.
   - This order follows feature dependencies, so earlier features must be built and tested first.
 
 ## Tech Stack
@@ -62,7 +62,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
   - Never store CVs in `logos`.
 - There is no scheduler, because the app runs only on localhost:
   - Whenever a job is read (job lists, job page, apply submit, HR pages), if `apply_by` has passed and the job is still open, the server closes it with `closed_reason` `deadline`.
-  - The daily summary email (Feature 30) is sent from a server route that HR triggers with a "Send today's summary" button, for the demo. A real scheduled job is a future step.
+  - The daily summary email (Feature 23) is sent from a server route that HR triggers with a "Send today's summary" button, for the demo. A real scheduled job is a future step.
 - Email confirmation is off in Supabase for development and the demo, so sign up logs the user in straight away. Turning it on is a future step.
 - The app runs only on localhost. There is no hosting for now.
 - Tables are created only through SQL that you give the user to run in the Supabase SQL Editor. Never assume a table exists.

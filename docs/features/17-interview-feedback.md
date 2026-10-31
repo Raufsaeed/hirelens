@@ -1,4 +1,4 @@
-# Feature 22 · Interview Feedback
+# Feature 17 · Interview Feedback
 
 ## Description
 
@@ -15,8 +15,8 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
    - Strengths
    - Concerns
    - Recommendation: Offer, Reject or Another round
-2. **Save:** Saving creates the interview's feedback record (one per interview) and marks the interview as done. The feedback is shown on the Candidate Detail page (Feature 19), visible only to HR.
-3. **Advice only:** The recommendation is a note for HR. The candidate's status only changes when HR moves them on the Pipeline Board (Feature 20).
+2. **Save:** Saving creates the interview's feedback record (one per interview) and marks the interview as done. The feedback is shown on the Candidate Detail page (Feature 14), visible only to HR.
+3. **Advice only:** The recommendation is a note for HR. The candidate's status only changes when HR moves them on the Pipeline Board (Feature 15).
 
 ## Screens
 
@@ -41,7 +41,7 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
   - `recommendation`: `offer`, `reject` or `another_round`
   - `created_by`
   - `created_at`
-- **`interviews.status`** (Feature 21): set to `done`.
+- **`interviews.status`** (Feature 16): set to `done`.
 - **How they link:** `interview_feedback.interview_id` points to `interviews.id`, and `created_by` points to `profiles.id`.
 
 ## Business Rules and Permissions
@@ -66,7 +66,7 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
 
 ## User Flows
 
-- Flow 22 · HR records interview feedback
+- Flow 17 · HR records interview feedback
 
 ## Test Cases
 
@@ -75,7 +75,7 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
 
 ## Dependencies
 
-- **Depends on:** Feature 21 (Interview Scheduling).
+- **Depends on:** Feature 16 (Interview Scheduling).
 - **Depended on by:** None.
 
 ## Done When

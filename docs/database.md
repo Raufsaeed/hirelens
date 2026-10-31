@@ -1,6 +1,6 @@
 # HireLens — Database
 
-This file describes every table HireLens needs. It is based on the "Data Used", "Business Rules and Permissions" and "Functional Requirements" sections of `docs/features/01` to `30`. Names are copied exactly from the feature files. Section 7 lists the decisions that settled earlier differences between the files.
+This file describes every table HireLens needs. It is based on the "Data Used", "Business Rules and Permissions" and "Functional Requirements" sections of `docs/features/01` to `23`. Names are copied exactly from the feature files. Section 7 lists the decisions that settled earlier differences between the files.
 
 No table exists yet. Each table is created only through SQL given to the user to run in the Supabase SQL Editor, feature by feature. After each feature, this file is updated with the tables and columns it created.
 
@@ -12,20 +12,20 @@ HireLens stores companies and their HR user, the jobs they post, the candidates 
 
 | Table | Purpose | Used by features |
 |-------|---------|------------------|
-| `companies` | One row per company: name, logo and public page details | 01, 05, 09, 10, 11, 29 |
-| `profiles` | One row per user (HR or candidate), linked to the Supabase Auth user | 01, 02, 03, 12, 19, 20, 22, 25, 26, 27, 28, 29, 30 |
-| `jobs` | Jobs posted by a company | 05, 06, 07, 08, 10, 11, 12, 15, 23, 24, 26, 29, 30 |
-| `applications` | One candidate's application to one job, with their name, email, CV path and status | 05, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26, 28, 29, 30 |
-| `screenings` | The AI screening result for one application | 06, 14, 15, 16, 17, 18, 19, 23, 24, 28 |
-| `status_history` | A log of every status change of an application | 12, 13, 14, 20, 24, 28, 29 |
-| `notes` | HR notes on an application | 14, 16, 19, 28 |
-| `interviews` | Scheduled interviews | 13, 14, 21, 22, 23, 28, 29 |
-| `interview_feedback` | HR feedback for one interview (HR only) | 14, 19, 22, 28 |
-| `interview_questions` | AI and HR interview questions for one interview | 14, 23, 28 |
-| `saved_jobs` | Jobs a candidate saved for later | 26, 28 |
-| `notifications` | A log of every email sent or failed | 28, 29, 30 |
+| `companies` | One row per company: name, logo and public page details | 01, 02, 06, 07, 23 |
+| `profiles` | One row per user (HR or candidate), linked to the Supabase Auth user | 01, 08, 14, 15, 17, 20, 21, 22, 23 |
+| `jobs` | Jobs posted by a company | 02, 03, 04, 05, 06, 07, 08, 11, 18, 19, 21, 23 |
+| `applications` | One candidate's application to one job, with their name, email, CV path and status | 02, 08, 09, 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23 |
+| `screenings` | The AI screening result for one application | 03, 10, 11, 12, 13, 14, 18, 19, 22 |
+| `status_history` | A log of every status change of an application | 08, 09, 10, 15, 19, 22, 23 |
+| `notes` | HR notes on an application | 10, 11, 14, 22 |
+| `interviews` | Scheduled interviews | 09, 10, 16, 17, 18, 22, 23 |
+| `interview_feedback` | HR feedback for one interview (HR only) | 10, 14, 17, 22 |
+| `interview_questions` | AI and HR interview questions for one interview | 10, 18, 22 |
+| `saved_jobs` | Jobs a candidate saved for later | 21, 22 |
+| `notifications` | A log of every email sent or failed | 22, 23 |
 
-Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jobs` form.
+Feature 05 (AI Job Description Writer) stores nothing new. It only fills the `jobs` form.
 
 **Rules used in every table**
 
@@ -48,11 +48,11 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
 |--------|------|----------|---------|-------------|
 | `id` | uuid | yes | `gen_random_uuid()` | Company id |
 | `name` | text | yes | — | Company name, for example "ABC Tech" |
-| `slug` | text | yes | — | Public page address, for example `abc-tech`. Made from the name when the company is created. It never changes (Feature 10) |
+| `slug` | text | yes | — | Public page address, for example `abc-tech`. Made from the name when the company is created. It never changes (Feature 06) |
 | `logo_url` | text | optional | — | Link to the logo in the public `logos` bucket, at `{company_id}/logo.{png or jpg}` |
-| `about` | text | optional | — | "About us", up to 1,000 characters (Feature 09) |
-| `website` | text | optional | — | Must start with `http://` or `https://` (Feature 09) |
-| `location` | text | optional | — | Company location (Feature 09) |
+| `about` | text | optional | — | "About us", up to 1,000 characters (Feature 06) |
+| `website` | text | optional | — | Must start with `http://` or `https://` (Feature 06) |
+| `location` | text | optional | — | Company location (Feature 06) |
 | `created_at` | timestamptz | yes | `now()` | When the company was created |
 
 - **Primary key:** `id`
@@ -76,16 +76,16 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
 |--------|------|----------|---------|-------------|
 | `id` | uuid | yes | — | Same as the Auth user's id |
 | `full_name` | text | yes | — | User's full name |
-| `email` | text | yes | — | Kept in step with the Auth email (it changes only after the new email is confirmed, Feature 27) |
+| `email` | text | yes | — | Kept in step with the Auth email (it changes only after the new email is confirmed, Feature 22) |
 | `role` | text | yes | — | `hr` or `candidate`. Set at sign up and never changed |
 | `company_id` | uuid | optional | — | Filled for HR, empty for candidates |
 | `created_at` | timestamptz | yes | `now()` | When the account was created |
-| `phone` | text | optional | — | Candidate only (Feature 25) |
-| `city` | text | optional | — | Candidate only. Never sent to AI or used in screening (Feature 25) |
-| `headline` | text | optional | — | Candidate only, up to 100 characters (Feature 25) |
-| `default_cv_path` | text | optional | — | Candidate only. Path of the default CV in the `cvs` bucket (Feature 25) |
-| `email_status_updates` | boolean | yes | `true` | Candidate email preference for status emails (Feature 29) |
-| `email_daily_summary` | boolean | yes | `true` | HR email preference for the daily summary (Feature 30) |
+| `phone` | text | optional | — | Candidate only (Feature 20) |
+| `city` | text | optional | — | Candidate only. Never sent to AI or used in screening (Feature 20) |
+| `headline` | text | optional | — | Candidate only, up to 100 characters (Feature 20) |
+| `default_cv_path` | text | optional | — | Candidate only. Path of the default CV in the `cvs` bucket (Feature 20) |
+| `email_status_updates` | boolean | yes | `true` | Candidate email preference for status emails (Feature 23) |
+| `email_daily_summary` | boolean | yes | `true` | HR email preference for the daily summary (Feature 23) |
 
 - **Primary key:** `id`
 - **Foreign keys:**
@@ -100,7 +100,7 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
   - **Select:** the user can read their own row only. HR never reads candidate profiles. Candidate names and emails come from `applications`, and note authors come from `notes.author_name`.
   - **Insert:** server only, at sign up.
   - **Update:** the user can update their own row, but not `role`, `company_id` or `email`. These are protected in server code or by a database check. `email` changes only through the Auth confirmation.
-  - **Delete:** server only, when a candidate deletes their account (Feature 28). HR accounts are not deleted.
+  - **Delete:** server only, when a candidate deletes their account (Feature 22). HR accounts are not deleted.
 
 ---
 
@@ -137,7 +137,7 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
 - **Deadline close:** There is no scheduler (localhost only). Whenever a job is read (job lists, the public job page, apply submit, HR pages), if `apply_by` has passed and the job is still `open`, the server sets `status = 'closed'`, `closed_reason = 'deadline'` and `closed_at`.
 - **Row Level Security:**
   - **Select:**
-    - Anyone, even logged out, can read jobs with status `open` or `closed`. This is how the public link works (Feature 11).
+    - Anyone, even logged out, can read jobs with status `open` or `closed`. This is how the public link works (Feature 07).
     - The public jobs list and the company page show `open` jobs only.
     - Drafts are only visible to HR of the same company.
   - **Insert:** HR of the same company.
@@ -157,19 +157,19 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
 | `candidate_id` | uuid | yes | — | The candidate's `profiles.id` |
 | `candidate_name` | text | yes | — | Copied from the apply form on submit. HR reads names only from here |
 | `candidate_email` | text | yes | — | Copied from the apply form on submit. HR reads emails only from here |
-| `cv_file_path` | text | yes | — | Path of this application's own CV copy in `cvs`: `{candidate_id}/applications/{job_id}/{original-file-name}.pdf`. It never changes when the default CV changes (Feature 25) |
+| `cv_file_path` | text | yes | — | Path of this application's own CV copy in `cvs`: `{candidate_id}/applications/{job_id}/{original-file-name}.pdf`. It never changes when the default CV changes (Feature 20) |
 | `phone` | text | yes | — | Phone entered on the apply form |
 | `cover_note` | text | optional | — | Up to 500 characters |
 | `status` | text | yes | `'applied'` | `applied`, `shortlisted`, `interview`, `offer`, `hired`, `rejected` or `withdrawn` |
 | `screening_status` | text | yes | `'queued'` | `queued`, `processing`, `done`, `pending` or `failed` |
 | `applied_at` | timestamptz | yes | `now()` | When the candidate applied |
 | `updated_at` | timestamptz | yes | `now()` | Last change |
-| `viewed_at` | timestamptz | optional | — | Set the first time HR opens the candidate detail page. Empty means "new" (Features 05 and 19) |
+| `viewed_at` | timestamptz | optional | — | Set the first time HR opens the candidate detail page. Empty means "new" (Features 02 and 14) |
 
 - **Primary key:** `id`
 - **Foreign keys:**
   - `job_id` → `jobs.id`. On delete: **restrict**.
-  - `candidate_id` → `profiles.id`. On delete: **cascade**, so deleting a candidate account removes their applications (Feature 28).
+  - `candidate_id` → `profiles.id`. On delete: **cascade**, so deleting a candidate account removes their applications (Feature 22).
 - **Unique rules:** one application per candidate per job, so `job_id` + `candidate_id` is unique.
 - **Checks:** `cover_note` is 500 characters or fewer. `status` and `screening_status` only allow the values in section 3.
 - **Indexes:**
@@ -177,7 +177,7 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
   - `job_id` + `viewed_at` (new applicant counts).
   - `applied_at` (reports and the daily summary).
   - `lower(candidate_name)` and `lower(candidate_email)` (candidate search).
-- **On submit (server):** the application is saved with status `applied` and screening status `queued`. The first `status_history` row is written (from empty to `applied`), and screening starts (Feature 15).
+- **On submit (server):** the application is saved with status `applied` and screening status `queued`. The first `status_history` row is written (from empty to `applied`), and screening starts (Feature 11).
 - **Row Level Security:**
   - **Select:**
     - The candidate who owns the row.
@@ -190,8 +190,8 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
     - `screening_status` is changed by the server only.
     - Column limits like these are safest in server code.
   - **Delete:**
-    - The candidate who owns the row ("Delete my data", Feature 14). This removes the application and, by cascade, its screening, status history, notes, interviews, interview feedback and interview questions. The server also deletes the CV file.
-    - The server, on account delete (Feature 28).
+    - The candidate who owns the row ("Delete my data", Feature 10). This removes the application and, by cascade, its screening, status history, notes, interviews, interview feedback and interview questions. The server also deletes the CV file.
+    - The server, on account delete (Feature 22).
     - HR cannot delete.
 
 ---
@@ -216,7 +216,7 @@ Feature 08 (AI Job Description Writer) stores nothing new. It only fills the `jo
 | `degree_match` | boolean | optional | — | Whether the CV degree matches the required degree |
 | `degree_found` | text | optional | — | The degree found in the CV, from the AI's education result, for example "BS IT". Shown on the candidate list and detail page |
 | `summary` | text[] | optional | — | The three-line AI summary |
-| `cv_text_clean` | text | optional | — | CV text with name, email, phone, photo links and addresses removed. Used again by Feature 23 |
+| `cv_text_clean` | text | optional | — | CV text with name, email, phone, photo links and addresses removed. Used again by Feature 18 |
 | `model_name` | text | optional | — | The Gemini model used |
 | `screened_at` | timestamptz | optional | — | When the screening finished |
 | `error_message` | text | optional | — | The reason when screening is `pending` or `failed`. Never shown raw to anyone |
@@ -260,7 +260,7 @@ While `applications.screening_status` is `pending` or `failed`, the score and re
 - **Row Level Security:**
   - **Select:** HR of the company that owns the job, and the candidate who owns the application (their timeline).
   - **Insert:** server only. It writes the first row on submit, and a row every time `applications.status` changes.
-  - **Update / Delete:** nobody. Rows are only removed automatically by the cascade, when the candidate deletes their account (Feature 28) or deletes their data for that application (Feature 14).
+  - **Update / Delete:** nobody. Rows are only removed automatically by the cascade, when the candidate deletes their account (Feature 22) or deletes their data for that application (Feature 10).
 
 ---
 
@@ -275,7 +275,7 @@ While `applications.screening_status` is `pending` or `failed`, the score and re
 | `author_id` | uuid | optional | — | `profiles.id` of the HR user who wrote it |
 | `author_name` | text | yes | — | The HR user's name, saved when the note is written |
 | `body` | text | yes | — | Note text. Cannot be empty |
-| `is_manual_review` | boolean | yes | `false` | True when HR reviewed an unreadable CV by hand (Feature 16) |
+| `is_manual_review` | boolean | yes | `false` | True when HR reviewed an unreadable CV by hand (Feature 11) |
 | `created_at` | timestamptz | yes | `now()` | When it was written |
 
 - **Primary key:** `id`
@@ -481,7 +481,7 @@ It already exists. Never create it again, and never make a public bucket for CVs
 | Default CV | `{candidate_id}/default/{original-file-name}.pdf` | `profiles.default_cv_path` |
 
 - The first folder is always the candidate's id, so storage policies can check the owner easily.
-- When a candidate applies with their default CV, the file is **copied** to the application path. Replacing or deleting the default CV never changes a CV already sent (Feature 25).
+- When a candidate applies with their default CV, the file is **copied** to the application path. Replacing or deleting the default CV never changes a CV already sent (Feature 20).
 - Using `job_id` in the path works because a candidate can apply to a job only once.
 - PDF only, under 5 MB.
 

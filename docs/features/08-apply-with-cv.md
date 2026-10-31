@@ -1,8 +1,8 @@
-# Feature 12 · Apply with CV
+# Feature 08 · Apply with CV
 
 ## Description
 
-A logged-in candidate applies to an open job with a PDF CV. The CV is stored privately, the application is saved, and screening (Feature 15) starts in the background.
+A logged-in candidate applies to an open job with a PDF CV. The CV is stored privately, the application is saved, and screening (Feature 11) starts in the background.
 
 ## User Stories
 
@@ -11,17 +11,17 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 
 ## Functional Requirements
 
-1. **Apply:** The Apply button is on the Public Job Detail page (Feature 11).
-2. **Login during apply:** If the candidate is not logged in, they sign up (Feature 02) or log in (Feature 03) and are returned to the same job's apply form.
+1. **Apply:** The Apply button is on the Public Job Detail page (Feature 07).
+2. **Login during apply:** If the candidate is not logged in, they sign up or log in (Feature 01) and are returned to the same job's apply form.
 3. **Apply form:**
    - Name and email (filled in from the account)
    - Phone
    - Optional cover note, up to 500 characters
    - PDF CV upload, by drag and drop or by choosing a file
 
-   With a profile, the form is prefilled and offers the default CV (Feature 25).
+   With a profile, the form is prefilled and offers the default CV (Feature 20).
 4. **Checks before submit:**
-   - The job is still Open and its deadline has not passed (Feature 07).
+   - The job is still Open and its deadline has not passed (Feature 04).
    - The candidate has not applied to this job before.
    - The file is a PDF.
    - The file is under 5 MB.
@@ -29,10 +29,10 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 5. **On submit:**
    - The CV is saved in the private storage bucket `cvs` at `{candidate_id}/applications/{job_id}/{original-file-name}.pdf`.
    - An application is created with status Applied and screening status Queued. The name and email from the form are saved on it as `candidate_name` and `candidate_email`.
-   - The first status history row is saved, from empty to Applied (Feature 20).
+   - The first status history row is saved, from empty to Applied (Feature 15).
    - A confirmation is shown: "Your application has been sent to ABC Tech".
-   - Feature 15 (AI CV Screening) starts in the background. The candidate does not wait for it.
-   - A confirmation email is sent (Feature 29).
+   - Feature 11 (AI CV Screening and Retry) starts in the background. The candidate does not wait for it.
+   - A confirmation email is sent (Feature 23).
 6. **Late submit:** A candidate who submits after the deadline sees "Applications for this job closed on 20 Oct", and the application is not saved.
 
 ## Screens
@@ -61,15 +61,15 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
   - `status`: `applied`, `shortlisted`, `interview`, `offer`, `hired`, `rejected` or `withdrawn`
   - `screening_status`: `queued`, `processing`, `done`, `pending` or `failed`
   - `applied_at`, `updated_at`
-  - `viewed_at`: see Feature 19
+  - `viewed_at`: see Feature 14
 - **Storage bucket `cvs`:** A private bucket holding the PDF files, at `{candidate_id}/applications/{job_id}/{original-file-name}.pdf`. `cv_file_path` points to the file.
-- **How they link:** `applications.job_id` points to `jobs.id` (Feature 05) and `applications.candidate_id` points to `profiles.id` (Feature 01).
+- **How they link:** `applications.job_id` points to `jobs.id` (Feature 02) and `applications.candidate_id` points to `profiles.id` (Feature 01).
 
 ## Business Rules and Permissions
 
 - One application per candidate per job.
 - Only Open jobs accept applications. This is checked again on Submit.
-- CV rule: PDF only, under 5 MB (also used by Feature 25). Cover note up to 500 characters.
+- CV rule: PDF only, under 5 MB (also used by Feature 20). Cover note up to 500 characters.
 - CVs go in the private bucket `cvs` and are never public.
 - Row Level Security enforces these rules in the database.
 
@@ -97,7 +97,7 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 
 ## User Flows
 
-- Flow 12 · Candidate applies with a CV
+- Flow 8 · Candidate applies with a CV
 
 ## Test Cases
 
@@ -110,8 +110,8 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 
 ## Dependencies
 
-- **Depends on:** Feature 02 (Candidate Sign Up), Feature 03 (Login and Logout), Feature 07 (Close, Reopen and Deadline) and Feature 11 (Job Search).
-- **Depended on by:** Feature 13 (My Applications), Feature 15 (AI CV Screening), Feature 24 (Reports), Feature 25 (Candidate Profile), Feature 26 (Saved Jobs), Feature 28 (Delete Account) and Feature 29 (Candidate Email Updates).
+- **Depends on:** Feature 01 (Authentication), Feature 04 (Close, Reopen and Deadline) and Feature 07 (Job Search).
+- **Depended on by:** Feature 09 (My Applications), Feature 11 (AI CV Screening and Retry), Feature 19 (Reports), Feature 20 (Candidate Profile), Feature 21 (Saved Jobs), Feature 22 (Account Settings and Deletion) and Feature 23 (Email Notifications).
 
 ## Done When
 

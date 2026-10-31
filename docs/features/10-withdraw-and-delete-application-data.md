@@ -1,4 +1,4 @@
-# Feature 14 · Withdraw and Delete Application Data
+# Feature 10 · Withdraw and Delete Application Data
 
 ## Description
 
@@ -10,8 +10,8 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## Functional Requirements
 
-1. **Withdraw:** On Application Detail (Feature 13), the candidate can withdraw while the status is Applied or Shortlisted. The status becomes Withdrawn, and a history row is saved with the candidate as `changed_by` (Feature 20).
-2. **After withdraw:** HR sees the card greyed out and cannot move it (Feature 20). No more status emails are sent (Feature 29).
+1. **Withdraw:** On Application Detail (Feature 09), the candidate can withdraw while the status is Applied or Shortlisted. The status becomes Withdrawn, and a history row is saved with the candidate as `changed_by` (Feature 15).
+2. **After withdraw:** HR sees the card greyed out and cannot move it (Feature 15). No more status emails are sent (Feature 23).
 3. **Delete my data:** For one application, the candidate can delete their CV and data after confirming. This removes the application and everything linked to it (screening, status history, notes, interviews, interview feedback and interview questions) and the CV file. HR no longer sees that candidate for that job.
 
 ## Screens
@@ -29,8 +29,8 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## Data Used
 
-- **`applications.status`** (Feature 12): set to `withdrawn`.
-- **`status_history`** (Feature 20): the change to `withdrawn`, with the candidate as `changed_by`.
+- **`applications.status`** (Feature 08): set to `withdrawn`.
+- **`status_history`** (Feature 15): the change to `withdrawn`, with the candidate as `changed_by`.
 - **On delete:** the application row and, by cascade, its `screenings`, `status_history`, `notes`, `interviews`, `interview_feedback` and `interview_questions` rows; the CV file in `cvs`.
 
 ## Business Rules and Permissions
@@ -53,7 +53,7 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## User Flows
 
-- Flow 14 · Candidate withdraws an application or deletes its data
+- Flow 10 · Candidate withdraws an application or deletes its data
 
 ## Test Cases
 
@@ -64,7 +64,7 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## Dependencies
 
-- **Depends on:** Feature 13 (My Applications).
+- **Depends on:** Feature 09 (My Applications).
 - **Depended on by:** None.
 
 ## Done When
