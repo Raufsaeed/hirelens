@@ -32,7 +32,7 @@ export default function LandingPage() {
             <Brand tone="gradient" />
             <Link
               href="#how"
-              className="ml-auto hidden min-h-10 items-center rounded-control px-3 text-sm font-bold text-primary-faint no-underline hover:bg-glass focus-visible:shadow-focus-nav focus-visible:outline-none sm:inline-flex"
+              className="ml-auto hidden min-h-touch items-center rounded-control px-3 text-sm font-bold text-primary-faint no-underline hover:bg-glass focus-visible:shadow-focus-nav focus-visible:outline-none sm:inline-flex"
             >
               How it works
             </Link>

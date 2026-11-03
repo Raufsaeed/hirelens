@@ -23,7 +23,7 @@ export default function AuthTabs({ active, next, role }) {
             key={tab.id}
             href={tab.href}
             aria-current={isActive ? "page" : undefined}
-            className={`inline-flex min-h-10 items-center rounded-[9px] px-4.5 text-sm font-bold no-underline transition-colors duration-(--duration-base) ease-out focus-visible:shadow-focus focus-visible:outline-none ${
+            className={`inline-flex min-h-touch items-center rounded-[9px] px-4.5 text-sm font-bold no-underline transition-colors duration-(--duration-base) ease-out focus-visible:shadow-focus focus-visible:outline-none ${
               isActive ? "bg-surface text-ink shadow-card" : "text-ink-muted hover:text-ink"
             }`}
           >

@@ -29,7 +29,8 @@ const VARIANTS = {
 };
 
 const SIZES = {
-  sm: "min-h-control-sm px-3 text-[13px] leading-5",
+  // 36px tall, with an invisible strip above and below that keeps the tap area at 44px.
+  sm: "min-h-control-sm px-3 text-[13px] leading-5 after:absolute after:inset-x-0 after:-inset-y-1 after:content-['']",
   md: "min-h-control px-4.5 text-[15px] leading-5",
   lg: "min-h-13 px-6 text-base leading-5",
   icon: "size-touch p-0",

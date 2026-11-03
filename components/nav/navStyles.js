@@ -9,6 +9,6 @@ export const SIDE_LINK =
 
 // Links in the slim candidate top bar.
 export const TOP_LINK =
-  "inline-flex min-h-10 items-center gap-2 whitespace-nowrap rounded-control px-3 text-sm font-bold text-nav-text-muted no-underline " +
+  "inline-flex min-h-touch items-center gap-2 whitespace-nowrap rounded-control px-3 text-sm font-bold text-nav-text-muted no-underline " +
   "transition-colors duration-(--duration-fast) ease-out hover:bg-nav-hover hover:text-nav-text " +
   "focus-visible:shadow-focus-nav focus-visible:outline-none aria-[current=page]:bg-primary aria-[current=page]:text-on-primary";
