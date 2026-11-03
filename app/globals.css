@@ -121,6 +121,75 @@
   --breakpoint-*: initial;
   --breakpoint-sm: 640px;
   --breakpoint-md: 900px;
+
+  /* Animations from the motion rules: animate-fade-up, animate-fade-up-lg, animate-menu-in */
+  --animate-fade-up: fade-up var(--duration-base) var(--ease-out) both;
+  --animate-fade-up-lg: fade-up-lg var(--duration-score) var(--ease-out) both;
+  --animate-menu-in: menu-in var(--duration-slow) var(--ease-out) both;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-up-lg {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes menu-in {
+    from { opacity: 0; transform: translateY(-8px); clip-path: inset(0 0 100% 0); }
+    to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+  }
+}
+
+/* Animated gradient mesh (landing hero and auth art), copied from design/components/bundle.css. */
+@layer components {
+  .mesh {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--primary-deep);
+    z-index: 0;
+  }
+  .mesh i {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.9;
+    will-change: transform;
+  }
+  .mesh i:nth-child(1) { width: 60%; height: 80%; left: -10%; top: -20%; background: var(--primary); animation: blob-a var(--duration-loop) var(--ease-loop) infinite; }
+  .mesh i:nth-child(2) { width: 50%; height: 70%; right: -10%; top: 10%; background: var(--primary-hover); animation: blob-b calc(var(--duration-loop) * 1.2) var(--ease-loop) infinite; }
+  .mesh i:nth-child(3) { width: 40%; height: 55%; left: 30%; bottom: -25%; background: var(--primary-soft); opacity: 0.55; animation: blob-c calc(var(--duration-loop) * 0.9) var(--ease-loop) infinite; }
+  .mesh i:nth-child(4) { width: 25%; height: 35%; right: 20%; top: -10%; background: var(--primary-faint); opacity: 0.35; animation: blob-a calc(var(--duration-loop) * 1.1) var(--ease-loop) infinite reverse; }
+  .mesh::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--glass-dot) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+@keyframes blob-a { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(8%, 10%) scale(1.12); } 66% { transform: translate(-6%, 4%) scale(0.94); } }
+@keyframes blob-b { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-12%, -8%) scale(1.15); } }
+@keyframes blob-c { 0%, 100% { transform: translate(0, 0) scale(1.05); } 50% { transform: translate(10%, -12%) scale(0.9); } }
+
+/* Phone type sizes from the design guidelines (below --bp-sm). */
+@media (max-width: 639px) {
+  .display { font-size: 36px; line-height: 40px; }
+  .page-title { font-size: 24px; line-height: 32px; }
+}
+
+/* Reduced motion: no loops or movement, only quick fades. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mesh i { animation: none !important; }
 }
 
 /* Font size and line height come from the .body type class in tokens.css (set on <body> in app/layout.js). */
