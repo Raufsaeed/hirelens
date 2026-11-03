@@ -2,7 +2,18 @@
 
 This file describes every table HireLens needs. It is based on the "Data Used", "Business Rules and Permissions" and "Functional Requirements" sections of `docs/features/01` to `23`. Names are copied exactly from the feature files. Section 7 lists the decisions that settled earlier differences between the files.
 
-No table exists yet. Each table is created only through SQL given to the user to run in the Supabase SQL Editor, feature by feature. After each feature, this file is updated with the tables and columns it created.
+Each table is created only through SQL given to the user to run in the Supabase SQL Editor, feature by feature. After each feature, this file is updated with the tables and columns it created.
+
+### Created so far
+
+| Feature | Created in Supabase |
+|---------|---------------------|
+| 01 Authentication | `companies` (`id`, `name`, `slug`, `logo_url`, `created_at`); `profiles` (`id`, `full_name`, `email`, `role`, `company_id`, `created_at`); function `public.current_hr_company_id()` |
+
+- **`companies` RLS:** anyone can select; HR of that company can update only `name` and `logo_url` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).
+- **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name` (`role`, `company_id` and `email` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
+- **`public.current_hr_company_id()`:** returns the logged-in HR user's `company_id` (empty for candidates). Used by RLS policies that check "HR of the same company".
+- The other columns listed in section 2 for these two tables are added with `ALTER TABLE` by the features that need them (06, 20, 23).
 
 ---
 

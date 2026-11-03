@@ -78,6 +78,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Email confirmation is off in Supabase for development and the demo, so sign up logs the user in straight away. Turning it on is a future step.
 - The app runs only on localhost. There is no hosting for now.
 - Tables are created only through SQL that you give the user to run in the Supabase SQL Editor. Never assume a table exists.
+- Save every SQL file you give the user in supabase/sql/, named after its feature (for example 01-authentication.sql), and commit it with that feature.
 - Before writing SQL for a feature, check the SQL already given for earlier features and reuse the same table, column and status names.
 - Never create a table that already exists; give `ALTER TABLE` statements to add columns instead.
 - After each feature, add the tables and columns it created to `docs/database.md` (create the file if it doesn't exist), so it always shows the current database.
