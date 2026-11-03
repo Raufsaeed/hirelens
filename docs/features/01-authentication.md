@@ -122,22 +122,22 @@ HR and candidates create accounts, log in, log out and reset a forgotten passwor
 
 ## Done When
 
-- [ ] Sara signs up with her name, email, password and "ABC Tech", and lands on the empty HR Dashboard.
-- [ ] The ABC Tech company record is created and linked to Sara's account.
-- [ ] The three password requirements tick as she types, and a weak password shows "Password must be at least 8 characters and include one capital letter and one special character (like @)".
-- [ ] Signing up with an existing email shows "Email already in use" with a link to log in.
-- [ ] Leaving the company name empty shows "This field is required" and no account is created.
-- [ ] Ali signs up with his name, email and password and is logged in.
-- [ ] Signing up after clicking Apply returns Ali to the same job's apply form.
-- [ ] The password "abctech2026" is rejected, with only the 8-character requirement ticked.
-- [ ] An existing email shows "Email already in use. Log in instead?" and no second account is created.
-- [ ] Sara logs in and lands on the HR Dashboard; Ali logs in and lands on My Applications.
-- [ ] Sign out from the menu ends the session and returns to the login page.
-- [ ] A wrong password shows "Email or password is incorrect" with a "Forgot password" link.
-- [ ] A logged-out user who opens an HR page is sent to Login and sees no data.
-- [ ] Privacy: Ali (candidate) opening an HR page sees "You don't have access to this page" and no HR data.
-- [ ] Requesting a reset shows "If an account exists for this email, we've sent a reset link".
-- [ ] Privacy: an email with no account gets the same message, and no email is sent.
-- [ ] A valid reset link lets the user save a new password that follows the password rule.
-- [ ] An expired link shows "This link has expired, request a new one".
-- [ ] After the reset, Sara lands on the HR Dashboard and Ali lands on My Applications.
+- [x] Sara signs up with her name, email, password and "ABC Tech", and lands on the empty HR Dashboard.
+- [x] The ABC Tech company record is created and linked to Sara's account.
+- [x] The three password requirements tick as she types, and a weak password shows "Password must be at least 8 characters and include one capital letter and one special character (like @)".
+- [x] Signing up with an existing email shows "Email already in use" with a link to log in.
+- [x] Leaving the company name empty shows "This field is required" and no account is created.
+- [x] Ali signs up with his name, email and password and is logged in.
+- [x] Signing up after clicking Apply returns Ali to the same job's apply form.
+- [x] The password "abctech2026" is rejected, with only the 8-character requirement ticked.
+- [x] An existing email shows "Email already in use. Log in instead?" and no second account is created.
+- [x] Sara logs in and lands on the HR Dashboard; Ali logs in and lands on My Applications.
+- [x] Sign out from the menu ends the session and returns to the login page.
+- [x] A wrong password shows "Email or password is incorrect" with a "Forgot password" link.
+- [x] A logged-out user who opens an HR page is sent to Login and sees no data.
+- [x] Privacy: Ali (candidate) opening an HR page sees "You don't have access to this page" and no HR data.
+- [x] Requesting a reset shows "If an account exists for this email, we've sent a reset link".
+- [x] Privacy: an email with no account gets the same message, and no email is sent.
+- [x] A valid reset link lets the user save a new password that follows the password rule.
+- [x] An expired link shows "This link has expired, request a new one".
+- [x] After the reset, Sara lands on the HR Dashboard and Ali lands on My Applications.
