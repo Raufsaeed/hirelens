@@ -7,16 +7,19 @@ import { CircleAlert, CircleCheck, RefreshCw } from "lucide-react";
 // Only shows "ok" or a short error from /api/dev-check, never a key.
 
 async function fetchChecks() {
+  let response;
   try {
-    const response = await fetch("/api/dev-check", { cache: "no-store" });
-    const data = await response.json();
-    if (!response.ok || !Array.isArray(data.checks)) {
-      return { error: data.error || "Checks could not run, try again" };
-    }
-    return { checks: data.checks };
+    response = await fetch("/api/dev-check", { cache: "no-store" });
   } catch {
     return { error: "Could not reach the server. Is npm run dev running?" };
   }
+
+  // The server answered, but the reply may not be JSON (for example an error page).
+  const data = await response.json().catch(() => null);
+  if (!response.ok || !Array.isArray(data?.checks)) {
+    return { error: data?.error || "Checks could not run, try again" };
+  }
+  return { checks: data.checks };
 }
 
 function StatusBadge({ check }) {
