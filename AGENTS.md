@@ -31,6 +31,16 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Keep explanations simple. The user is a student.
 - Build order: 01, 02, 04, 07, 08, 09, 10, 11, 12, 03, 13, 14, 15, 06, 22, 05, 16, 17, 18, 19, 20, 21, 23.
   - This order follows feature dependencies, so earlier features must be built and tested first.
+- Each feature gets its own branch named after it (for example f01-authentication). Use small commits whose messages say why. When the review is clean, open a PR with What, Why and How I tested it. Merge to main only after the user approves.
+
+## Testing Rules
+
+- Before building each feature, write its Playwright test in `tests/e2e/` from that feature's test cases and Done When list, run it and show that it fails. Then build the feature until the test passes.
+- Run all tests, not only the new one, so older features are checked again.
+- Show the result as passed and failed counts. If a test fails, fix the code, not the test, unless the test is wrong.
+- Tick a Done When box only when its test passes and the user confirms it works in the browser.
+- Never write pass or fail results into the feature files.
+- Tests use dummy test accounts and data, never real keys in test files.
 
 ## Tech Stack
 
@@ -44,6 +54,8 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Resend for emails
 - lucide-react (icons)
 - framer-motion (animation)
+- Playwright (@playwright/test) for end-to-end tests
+- server-only (stops server code with secret keys from being imported into browser code)
 - Do not switch or add libraries without asking.
 
 ## Setup Decisions
@@ -80,6 +92,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - `prompts/`: AI prompt text files
 - `docs/`: documents
 - `design/`: design files
+- `tests/e2e/`: Playwright tests, one file per feature (for example 01-authentication.spec.js)
 - Keep each feature in its own small files.
 
 ## Security Rules
@@ -115,6 +128,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - AI judges only skills, experience and education, never gender, age, religion, city or name.
 - AI must not invent skills or experience that are not in the CV.
 - If AI fails, save the application with screening status "Pending" and allow "Retry screening".
+- For every outside API call (Gemini, Supabase, Resend): check the response before using it, on 429 or a failed call wait and retry with 1s, 2s, then 4s, and keep a limit on calls so a bug or loop cannot make many calls.
 
 ## Scoring Rules
 

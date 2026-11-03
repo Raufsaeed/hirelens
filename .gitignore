@@ -19,3 +19,13 @@ yarn-error.log*
 
 # OS files
 .DS_Store
+
+# Next.js generated files
+next-env.d.ts
+*.tsbuildinfo
+
+# Playwright test output
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
