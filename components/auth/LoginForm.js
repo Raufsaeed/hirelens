@@ -4,7 +4,7 @@ import { useActionState, useState } from "react";
 import { Mail } from "lucide-react";
 import AuthCard from "@/components/auth/AuthCard";
 import AuthTabs from "@/components/auth/AuthTabs";
-import { useFieldErrors } from "@/components/auth/useFieldErrors";
+import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import PasswordField from "@/components/ui/PasswordField";

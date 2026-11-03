@@ -28,11 +28,14 @@ export default function TextField({
   trailing,
   describedBy,
   inputClassName = "",
+  hint,
   children,
   ...inputProps
 }) {
   const errorId = `${id}-error`;
-  const describedByIds = [describedBy, error ? errorId : null].filter(Boolean).join(" ") || undefined;
+  const hintId = hint ? `${id}-hint` : null;
+  const describedByIds =
+    [describedBy, hintId, error ? errorId : null].filter(Boolean).join(" ") || undefined;
 
   return (
     <div className="flex min-w-0 flex-col gap-1.5">
@@ -56,6 +59,11 @@ export default function TextField({
         />
         {trailing}
       </div>
+      {hint && (
+        <p id={hintId} className="small text-ink-muted">
+          {hint}
+        </p>
+      )}
       <FieldError id={errorId} message={error} />
       {children}
     </div>

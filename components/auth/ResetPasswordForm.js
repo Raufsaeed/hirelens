@@ -4,7 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthCard from "@/components/auth/AuthCard";
 import ExpiredLinkNotice from "@/components/auth/ExpiredLinkNotice";
-import { useFieldErrors } from "@/components/auth/useFieldErrors";
+import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import PasswordField from "@/components/ui/PasswordField";
