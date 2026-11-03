@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* Design tokens: the single source of truth (also adds .page-title, .body, .label ... type classes). */
+@import "../design/tokens.css";
+
+/*
+  Map the tokens into the Tailwind theme, so classes like bg-surface, text-ink,
+  rounded-card and shadow-card read the token variables.
+  Tailwind's default colours, radius, shadows and easing are removed
+  so only token values can be used.
+*/
+@theme inline {
+  --color-*: initial;
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-faint: var(--primary-faint);
+  --color-primary-tint: var(--primary-tint);
+  --color-on-primary-tint: var(--on-primary-tint);
+  --color-on-primary: var(--on-primary);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-placeholder: var(--ink-placeholder);
+  --color-ink-disabled: var(--ink-disabled);
+  --color-border: var(--border);
+  --color-border-control: var(--border-control);
+  --color-surface-page: var(--surface-page);
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-skeleton-shine: var(--surface-skeleton-shine);
+  --color-surface-column: var(--surface-column);
+  --color-nav-bg: var(--nav-bg);
+  --color-nav-hover: var(--nav-hover);
+  --color-nav-line: var(--nav-line);
+  --color-nav-text: var(--nav-text);
+  --color-nav-text-muted: var(--nav-text-muted);
+  --color-overlay: var(--overlay);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-text: var(--warning-text);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-text: var(--danger-text);
+  --color-neutral-bg: var(--neutral-bg);
+  --color-neutral-text: var(--neutral-text);
+  --color-muted-bg: var(--muted-bg);
+  --color-muted-text: var(--muted-text);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-text: var(--info-text);
+  --color-amber: var(--amber);
+  --color-amber-bg: var(--amber-bg);
+  --color-amber-text: var(--amber-text);
+  --color-glass: var(--glass);
+  --color-glass-line: var(--glass-line);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-shine: var(--glass-shine);
+  --color-glass-dot: var(--glass-dot);
+  --color-glass-clear: var(--glass-clear);
+  --color-thumb-shadow: var(--thumb-shadow);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Spacing: p-1 = --space-1 (4px), p-6 = --space-6 (24px), and so on. */
+  --spacing: var(--space-1);
+
+  /* Named sizes: h-control, min-h-touch, w-sidebar, size-icon-md ... */
+  --spacing-touch: var(--touch-target);
+  --spacing-control: var(--control-height);
+  --spacing-control-sm: var(--control-height-sm);
+  --spacing-nav: var(--nav-height);
+  --spacing-topbar: var(--topbar-height);
+  --spacing-sidebar: var(--sidebar-width);
+  --spacing-icon-sm: var(--icon-sm);
+  --spacing-icon-md: var(--icon-md);
+  --spacing-icon-lg: var(--icon-lg);
+  --spacing-icon-xl: var(--icon-xl);
+
+  /* Max widths: max-w-hr, max-w-candidate, max-w-form, max-w-auth */
+  --container-hr: var(--width-hr);
+  --container-candidate: var(--width-candidate);
+  --container-form: var(--width-form);
+  --container-auth: var(--width-auth);
+
+  /* Radius: rounded-sm, rounded-control, rounded-card, rounded-dialog, rounded-pill */
+  --radius-*: initial;
+  --radius-sm: var(--radius-sm);
+  --radius-control: var(--radius-control);
+  --radius-card: var(--radius-card);
+  --radius-dialog: var(--radius-dialog);
+  --radius-pill: var(--radius-pill);
+
+  /* Shadows: shadow-card, shadow-card-hover, shadow-float, shadow-focus, shadow-focus-nav */
+  --shadow-*: initial;
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+  --shadow-float: var(--shadow-float);
+  --shadow-focus: var(--shadow-focus);
+  --shadow-focus-nav: var(--shadow-focus-nav);
+
+  /* Easing and default transition: ease-out, ease-loop */
+  --ease-*: initial;
+  --ease-out: var(--ease-out);
+  --ease-loop: var(--ease-loop);
+  --default-transition-duration: var(--duration-fast);
+  --default-transition-timing-function: var(--ease-out);
+
+  /* Font: Manrope only (loaded with next/font in app/layout.js). */
+  --font-*: initial;
+  --font-sans: var(--font-sans);
+
+  /* Breakpoints: same values as --bp-sm and --bp-md (media queries can't read CSS variables). */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 900px;
+}
+
+body {
+  background: var(--surface-page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 24px;
+}
