@@ -55,6 +55,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - lucide-react (icons)
 - framer-motion (animation)
 - Playwright (@playwright/test) for end-to-end tests
+- server-only (stops server code with secret keys from being imported into browser code)
 - Do not switch or add libraries without asking.
 
 ## Setup Decisions
