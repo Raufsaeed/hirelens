@@ -13,7 +13,11 @@ try {
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false,
+  // One test at a time: all tests share one local dev server and one Supabase project.
+  workers: 1,
   retries: 0,
+  // Log in and save actions can wait for Supabase retries (1s, 2s, 4s), so allow 10s per check.
+  expect: { timeout: 10 * 1000 },
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
     baseURL: "http://localhost:3000",
