@@ -123,10 +123,8 @@
   --breakpoint-md: 900px;
 }
 
+/* Font size and line height come from the .body type class in tokens.css (set on <body> in app/layout.js). */
 body {
   background: var(--surface-page);
   color: var(--ink);
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 24px;
 }
