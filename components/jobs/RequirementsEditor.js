@@ -13,14 +13,16 @@ function RequirementTag({ requirement, onRemove }) {
   const Icon = isMust ? Star : Plus;
   return (
     <li
-      className={`label inline-flex min-h-7 items-center gap-1.5 rounded-pill border py-0.5 pr-1 pl-3 ${
+      className={`label inline-flex min-h-7 max-w-full items-center gap-1.5 rounded-pill border py-0.5 pr-1 pl-3 break-words ${
         isMust
           ? "border-primary bg-primary-tint text-on-primary-tint"
           : "border-dashed border-border-control bg-surface text-ink-muted"
       }`}
     >
       <Icon className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" />
-      {requirement.name} · {isMust ? "must have" : "nice to have"}
+      <span className="min-w-0 [overflow-wrap:anywhere]">
+        {requirement.name} · {isMust ? "must have" : "nice to have"}
+      </span>
       <button
         type="button"
         onClick={onRemove}

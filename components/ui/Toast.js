@@ -13,12 +13,16 @@ export default function Toast({ toast, onDismiss }) {
     return () => clearTimeout(timer);
   }, [toast, onDismiss]);
 
-  if (!toast) return null;
-  const isError = toast.tone === "error";
+  const isError = toast?.tone === "error";
   const Icon = isError ? CircleAlert : CircleCheck;
 
+  // The live region is always on the page, so screen readers announce each new message.
   return (
-    <div className="fixed bottom-6 left-1/2 z-(--z-toast) w-[min(420px,calc(100%-32px))] -translate-x-1/2">
+    <div
+      aria-live="polite"
+      className="fixed bottom-6 left-1/2 z-(--z-toast) w-[min(420px,calc(100%-32px))] -translate-x-1/2"
+    >
+      {toast && (
       <div
         role={isError ? "alert" : "status"}
         className="flex animate-fade-up items-center gap-3 rounded-[14px] bg-ink py-3 pr-3 pl-4 text-sm leading-5 font-medium text-on-primary shadow-float"
@@ -40,6 +44,7 @@ export default function Toast({ toast, onDismiss }) {
           <X className="size-icon-sm" strokeWidth={1.75} aria-hidden="true" />
         </button>
       </div>
+      )}
     </div>
   );
 }
