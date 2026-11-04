@@ -23,6 +23,7 @@ let job;
 let ali;
 let aliApplication;
 let ayeshaApplication;
+let saraCompanyId;
 
 async function applicant(fullName, status, score) {
   const email = testEmail(fullName.split(" ")[0].toLowerCase());
@@ -37,6 +38,7 @@ test.beforeAll(async ({ browser }) => {
   const saraEmail = testEmail("sara-pipeline");
   createdEmails.push(saraEmail);
   const sara = await createAccount({ role: "hr", fullName: "Sara Khan", email: saraEmail, companyName: "ABC Tech" });
+  saraCompanyId = sara.companyId;
   job = await createJob(sara.companyId, { title: "Junior Web Developer" });
 
   const aliResult = await applicant("Ali Raza", "shortlisted", 74);
@@ -102,14 +104,15 @@ test("the status dropdown moves a card the same way as a drag", async ({ page })
 test("moving to Hired or Rejected asks for confirmation first", async ({ page }) => {
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
   await page.getByLabel("Move Ali Raza to").selectOption({ label: "Hired" });
-  const dialog = page.getByRole("alertdialog");
+  // Hiring is a confirm dialog; rejecting is a destructive (alert) dialog.
+  const dialog = page.getByRole("dialog");
   await expect(dialog.getByText("Move Ali Raza to Hired?")).toBeVisible();
   expect((await findApplication(aliApplication.id)).status).toBe("offer");
   await dialog.getByRole("button", { name: "Cancel" }).click();
   await expect(column(page, "Offer").getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 
   await dragCard(page, "Ali Raza", "Hired");
-  await page.getByRole("alertdialog").getByRole("button", { name: "Move to Hired" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Move to Hired" }).click();
   await expect(page.getByText("Ali Raza moved to Hired")).toBeVisible();
   expect((await findApplication(aliApplication.id)).status).toBe("hired");
 
@@ -139,4 +142,20 @@ test("a withdrawn candidate's card is greyed out and cannot be moved", async ({ 
 test("Privacy: a candidate who opens the board URL sees You don't have access to this page", async ({ page }) => {
   await openWithSession(page, aliCookies, `/hr/pipeline?job=${job.id}`);
   await expect(page.getByText("You don't have access to this page")).toBeVisible();
+});
+
+test("switching jobs in the picker opens that job's board; another company's job shows no access", async ({ page, browser }) => {
+  const other = await createJob(saraCompanyId, { title: "QA Intern" });
+  await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
+  await page.getByLabel("Job").selectOption({ value: other.id });
+  await expect(page).toHaveURL((url) => url.pathname === "/hr/pipeline" && url.searchParams.get("job") === other.id);
+  await expect(page.getByText("No candidates yet").first()).toBeVisible();
+
+  const email = testEmail("other-pipeline");
+  createdEmails.push(email);
+  await createAccount({ role: "hr", fullName: "Omar", email, companyName: "XYZ Labs" });
+  const cookies = await sessionCookies(browser, email);
+  await openWithSession(page, cookies, `/hr/pipeline?job=${job.id}`);
+  await expect(page.getByText("You don't have access to this page")).toBeVisible();
+  await expect(page.locator("main")).not.toContainText("Ali Raza");
 });

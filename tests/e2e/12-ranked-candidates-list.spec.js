@@ -136,9 +136,9 @@ test("Privacy: Sara only sees candidates who applied to ABC Tech jobs", async ({
   await createJob(other.companyId, { title: "XYZ Designer" });
   const cookies = await sessionCookies(browser, email);
 
-  // Another company's HR, even with ABC Tech's job id in the URL, sees only their own job.
+  // Another company's HR with ABC Tech's job id in the URL: no access, and no ABC Tech data.
   await openWithSession(page, cookies, `/hr/candidates?job=${job.id}`);
-  await expect(page.getByText("No one has applied yet. Share your job link")).toBeVisible();
+  await expect(page.getByText("You don't have access to this page")).toBeVisible();
   await expect(page.locator("main")).not.toContainText("Ayesha");
   await expect(page.locator("main")).not.toContainText("Junior Web Developer");
 });
