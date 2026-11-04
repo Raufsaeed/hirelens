@@ -6,6 +6,7 @@ import { Mail, Phone, Send, User } from "lucide-react";
 import CvDropzone from "@/components/applications/CvDropzone";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
+import Button from "@/components/ui/Button";
 import SubmitButton from "@/components/ui/SubmitButton";
 import TextAreaField from "@/components/ui/TextAreaField";
 import TextField from "@/components/ui/TextField";
@@ -136,7 +137,20 @@ export default function ApplyForm({ job, defaults }) {
         <FieldError id="cv-error" message={errorFor("cv")} />
       </section>
 
-      {serverResult.error && <Alert tone="error">{serverResult.error}</Alert>}
+      {serverResult.error && (
+        <Alert
+          tone="error"
+          action={
+            serverResult.applied && (
+              <Button href="/my-applications" variant="secondary" size="sm">
+                My Applications
+              </Button>
+            )
+          }
+        >
+          {serverResult.error}
+        </Alert>
+      )}
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="small max-w-90 text-ink-muted">

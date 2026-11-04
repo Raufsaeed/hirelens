@@ -139,7 +139,7 @@ export default function SignUpForm({ initialRole, next }) {
             <Alert tone="error">{state.formError}</Alert>
           )}
 
-          <SubmitButton  size="lg" block loading={isPending}>
+          <SubmitButton size="lg" block loading={isPending}>
             Create account
           </SubmitButton>
         </form>

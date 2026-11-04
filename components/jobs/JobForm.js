@@ -125,7 +125,6 @@ export default function JobForm() {
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <SubmitButton
-          
           name="intent"
           value="draft"
           variant="secondary"
@@ -135,7 +134,6 @@ export default function JobForm() {
           Save as draft
         </SubmitButton>
         <SubmitButton
-          
           name="intent"
           value="publish"
           icon={Send}

@@ -77,7 +77,7 @@ export default function ResetPasswordForm() {
         )}
         {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
-        <SubmitButton  size="lg" block loading={isPending || state.success}>
+        <SubmitButton size="lg" block loading={isPending || state.success}>
           Save password
         </SubmitButton>
       </form>

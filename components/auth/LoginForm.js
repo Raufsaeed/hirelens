@@ -76,7 +76,7 @@ export default function LoginForm({ next, askedToLogIn }) {
           <Alert tone="error">{state.formError}</Alert>
         )}
 
-        <SubmitButton  size="lg" block loading={isPending}>
+        <SubmitButton size="lg" block loading={isPending}>
           Log in
         </SubmitButton>
       </form>

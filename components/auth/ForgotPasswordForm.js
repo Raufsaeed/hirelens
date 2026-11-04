@@ -49,7 +49,7 @@ export default function ForgotPasswordForm() {
         )}
         {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
-        <SubmitButton  size="lg" block loading={isPending}>
+        <SubmitButton size="lg" block loading={isPending}>
           Send reset link
         </SubmitButton>
       </form>
