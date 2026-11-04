@@ -145,6 +145,58 @@ export async function createApplication({ job, candidate, status = "applied", cv
   return data;
 }
 
+// An application with its screening row (to check what screening saved).
+export async function findApplication(applicationId) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("applications")
+    .select("*, screenings(*), notes(*)")
+    .eq("id", applicationId)
+    .single();
+  if (error) throw error;
+  // One screening per application: return it as an object.
+  data.screening = Array.isArray(data.screenings) ? data.screenings[0] : data.screenings;
+  return data;
+}
+
+// Waits until screening leaves queued/processing (screening runs in the background).
+export async function waitForScreening(applicationId, timeoutMs = 90 * 1000) {
+  const start = Date.now();
+  for (;;) {
+    const application = await findApplication(applicationId);
+    if (!["queued", "processing"].includes(application.screening_status)) return application;
+    if (Date.now() - start > timeoutMs) throw new Error(`Screening still ${application.screening_status}`);
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+  }
+}
+
+// Saves a finished screening directly (for list and search tests that don't need real AI).
+// screening_status ("done", "pending", "failed") goes on the application; the rest on the screening.
+export async function setScreening(applicationId, { screening_status, ...fields }) {
+  const admin = adminClient();
+  const row = { application_id: applicationId, screened_at: new Date().toISOString(), ...fields };
+  const { error } = await admin.from("screenings").upsert(row, { onConflict: "application_id" });
+  if (error) throw error;
+  const status = screening_status || (fields.score === undefined ? "pending" : "done");
+  await admin.from("applications").update({ screening_status: status }).eq("id", applicationId);
+}
+
+export async function updateApplication(applicationId, fields) {
+  const admin = adminClient();
+  const { error } = await admin.from("applications").update(fields).eq("id", applicationId);
+  if (error) throw error;
+}
+
+// Reads screenings as a logged-in user would (publishable key, Row Level Security applies).
+export async function readScreeningsAs(email, applicationId) {
+  const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  const { data } = await client.from("screenings").select("id").eq("application_id", applicationId);
+  return data || [];
+}
+
 // True when a CV file exists in the private cvs bucket.
 export async function cvExists(path) {
   const admin = adminClient();

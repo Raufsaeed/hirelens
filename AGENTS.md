@@ -57,6 +57,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Tick a Done When box only when its test passes and the user confirms it works in the browser.
 - Never write pass or fail results into the feature files.
 - Tests use dummy test accounts and data, never real keys in test files.
+- Playwright tests never call the real Gemini API. They use saved fake Gemini responses in `tests/e2e/fixtures/` (the development-only `hl_ai_test` cookie, see `lib/ai/test-mode.js`). Keep only one test that calls the real Gemini, and skip it unless the env flag `RUN_REAL_AI` is set (`RUN_REAL_AI=1 npm run test:e2e`).
 
 ## Tech Stack
 
@@ -145,6 +146,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - AI judges only skills, experience and education, never gender, age, religion, city or name.
 - AI must not invent skills or experience that are not in the CV.
 - If AI fails, save the application with screening status "Pending" and allow "Retry screening".
+- One CV screening uses only one Gemini request, to save the free quota: the four task prompts (`cv-screening.txt`, `job-requirements.txt`, `experience.txt`, `candidate-summary.txt`) are sent together in `prompts/cv-screening-request.txt`, which returns one JSON object with the same parts and formats. The only extra requests are the one automatic retry (failed call or bad JSON) and the 1s, 2s, 4s retries on 429 or network errors that every outside call gets; the Gemini call limit caps them all.
 - For every outside API call (Gemini, Supabase, Resend): check the response before using it, on 429 or a failed call wait and retry with 1s, 2s, then 4s, and keep a limit on calls so a bug or loop cannot make many calls.
 
 ## Scoring Rules

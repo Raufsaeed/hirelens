@@ -1,0 +1,29 @@
+{
+  "rubric": [
+    { "part": "skills_match", "marks": 30, "reason": "Strong HTML, CSS, React and Git; no REST API work shown." },
+    { "part": "experience", "marks": 30, "reason": "About one year of relevant front-end work including an internship." },
+    { "part": "education", "marks": 10, "reason": "BS Computer Science matches the required degree." },
+    { "part": "structure_formatting", "marks": 4, "reason": "Clear sections that are easy to scan." },
+    { "part": "contact_summary_links", "marks": 3, "reason": "Has a short summary but no portfolio link." },
+    { "part": "grammar_clarity", "marks": 2, "reason": "Clear but very short descriptions." }
+  ],
+  "requirements": [
+    { "name": "HTML", "type": "must", "found": true, "evidence": "Built responsive pages with HTML5 and CSS3 for client websites." },
+    { "name": "CSS", "type": "must", "found": true, "evidence": "Built responsive pages with HTML5 and CSS3 for client websites." },
+    { "name": "React", "type": "must", "found": true, "evidence": "Developed dashboard components in ReactJS for a logistics client." },
+    { "name": "Git", "type": "must", "found": true, "evidence": "Managed code on GitHub with pull requests and code reviews." },
+    { "name": "REST APIs", "type": "nice", "found": false, "evidence": "" },
+    { "name": "TypeScript", "type": "nice", "found": false, "evidence": "" }
+  ],
+  "experience": [
+    { "title": "Junior Frontend Developer", "type": "job", "start": "2025-11", "end": "present", "relevant": true },
+    { "title": "Frontend Developer Intern", "type": "internship", "start": "2025-03", "end": "2025-08", "relevant": true },
+    { "title": "Hostel booking site", "type": "project", "start": "", "end": "", "relevant": true }
+  ],
+  "education": [{ "degree": "BS Computer Science", "end": "2025-06" }],
+  "summary": [
+    "Junior front-end developer and computer science graduate with about one year of React experience.",
+    "Strongest skills for this job are HTML, CSS, React and Git.",
+    "No REST API experience is shown in the CV."
+  ]
+}

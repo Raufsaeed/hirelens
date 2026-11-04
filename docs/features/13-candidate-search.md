@@ -73,8 +73,8 @@ HR searches for a candidate by name or email across all of their company's jobs.
 
 ## Done When
 
-- [ ] Typing "ali" in the top navigation shows Ali once with both jobs and their scores and statuses.
-- [ ] Clicking a result opens Ali's Candidate Detail page.
-- [ ] With the minimum score set to 70, searching "usman" shows "No candidates found for 'usman'".
-- [ ] Typing fewer than 2 characters shows "Type at least 2 characters".
-- [ ] Privacy: searching "bilal" (another company's candidate) shows "No candidates found for 'bilal'".
+- [x] Typing "ali" in the top navigation shows Ali once with both jobs and their scores and statuses.
+- [x] Clicking a result opens Ali's Candidate Detail page.
+- [x] With the minimum score set to 70, searching "usman" shows "No candidates found for 'usman'".
+- [x] Typing fewer than 2 characters shows "Type at least 2 characters".
+- [x] Privacy: searching "bilal" (another company's candidate) shows "No candidates found for 'bilal'".

@@ -1,4 +1,5 @@
-import { Briefcase, MapPin } from "lucide-react";
+import { ArrowRight, Briefcase, MapPin } from "lucide-react";
+import Button from "@/components/ui/Button";
 import CopyLinkButton from "@/components/jobs/CopyLinkButton";
 import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobStatusBadge from "@/components/jobs/JobStatusBadge";
@@ -44,7 +45,18 @@ export default function DashboardJobCard({ job }) {
             <DeadlineLabel deadline={job.deadline} />
           </div>
         )}
-        {job.status === "open" && job.slug && <CopyLinkButton slug={job.slug} />}
+        <div className="flex flex-wrap gap-2">
+          {job.status === "open" && job.slug && <CopyLinkButton slug={job.slug} />}
+          {job.status === "draft" ? (
+            <Button href={`/hr/jobs/${job.id}/edit`} variant="secondary" size="sm">
+              Finish and publish
+            </Button>
+          ) : (
+            <Button href={`/hr/candidates?job=${job.id}`} variant="secondary" size="sm" icon={ArrowRight}>
+              Review candidates
+            </Button>
+          )}
+        </div>
       </div>
     </article>
   );

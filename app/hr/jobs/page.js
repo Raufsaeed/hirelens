@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 
 export const metadata = { title: "My Jobs · HireLens" };
 
-// My Jobs: all the company's jobs in a table. ?saved=draft shows "Draft saved".
+// My Jobs: all the company's jobs in a table. ?saved=draft|updated|extended shows what was just saved.
 export default function MyJobsPage({ searchParams }) {
   return (
     <div className="flex flex-col gap-8">
@@ -29,8 +29,20 @@ export default function MyJobsPage({ searchParams }) {
   );
 }
 
+// After Save as draft (Feature 02) or Edit Job (Feature 03).
+const NOTICES = {
+  draft: { title: "Draft saved", body: "Only your company's HR can see it until you publish." },
+  updated: { title: "Job updated", body: "The public job page shows the changes." },
+  extended: { title: "Deadline extended. The job is open again", body: "The public link accepts applications again." },
+};
+
 async function SavedNotice({ searchParams }) {
   const params = await searchParams;
-  if (params.saved !== "draft") return null;
-  return <Alert tone="success" title="Draft saved">Only your company&apos;s HR can see it until you publish.</Alert>;
+  const notice = NOTICES[params.saved];
+  if (!notice) return null;
+  return (
+    <Alert tone="success" title={notice.title}>
+      {notice.body}
+    </Alert>
+  );
 }

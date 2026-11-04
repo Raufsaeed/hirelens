@@ -4,12 +4,13 @@ import { useActionState, useState } from "react";
 import { Award, Briefcase, Clock, GraduationCap, MapPin, Send } from "lucide-react";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import RequirementsEditor from "@/components/jobs/RequirementsEditor";
+import RescreenDialog from "@/components/jobs/RescreenDialog";
 import Alert from "@/components/ui/Alert";
 import SubmitButton from "@/components/ui/SubmitButton";
 import SelectField from "@/components/ui/SelectField";
 import TextAreaField from "@/components/ui/TextAreaField";
 import TextField from "@/components/ui/TextField";
-import { createJob } from "@/lib/jobs/actions";
+import { createJob, updateJob } from "@/lib/jobs/actions";
 import { JOB_TYPES } from "@/lib/jobs/constants";
 import { pakistanToday } from "@/lib/jobs/dates";
 import { validateJob } from "@/lib/jobs/validation";
@@ -24,15 +25,33 @@ const EMPTY_JOB = {
   applyBy: "",
 };
 
-// Create Job form with "Save as draft" (title only) and "Publish" (everything).
-export default function JobForm() {
-  const [values, setValues] = useState(EMPTY_JOB);
-  const [requirements, setRequirements] = useState([]);
+// The saved job as form values (Edit Job).
+function valuesFrom(job) {
+  return {
+    title: job.title || "",
+    location: job.location || "",
+    jobType: job.job_type || "",
+    requiredYears: job.required_years === null || job.required_years === undefined ? "" : String(job.required_years),
+    requiredDegree: job.required_degree || "",
+    description: job.description || "",
+    applyBy: job.apply_by || "",
+  };
+}
+
+// The job form. Without `job`: Create Job with "Save as draft" (title only) and "Publish" (everything).
+// With `job`: Edit Job, filled in. A draft keeps "Save as draft" / "Publish"; open and closed jobs get
+// "Save changes" with the publishing rules (Feature 03).
+export default function JobForm({ job = null }) {
+  const editing = Boolean(job);
+  const isDraft = !editing || job.status === "draft";
+  const [values, setValues] = useState(editing ? valuesFrom(job) : EMPTY_JOB);
+  const [requirements, setRequirements] = useState(editing ? job.requirements || [] : []);
   const [intent, setIntent] = useState("publish");
-  const [state, formAction, isPending] = useActionState(createJob, {});
+  const [state, formAction, isPending] = useActionState(editing ? updateJob : createJob, {});
+  const keepApplyBy = editing ? job.apply_by : null;
 
   // Blur checks use the Publish rules, so HR sees what is still missing as she types.
-  const validate = (current) => validateJob(current, intent, pakistanToday());
+  const validate = (current) => validateJob(current, intent, pakistanToday(), { keepApplyBy });
   const { errorFor, checkField, clearField, checkAll } = useFieldErrors(validate, state.errors);
 
   function field(name) {
@@ -52,7 +71,7 @@ export default function JobForm() {
   function handleSubmit(event) {
     const submitIntent = event.nativeEvent.submitter?.value === "draft" ? "draft" : "publish";
     setIntent(submitIntent);
-    const rules = (current) => validateJob(current, submitIntent, pakistanToday());
+    const rules = (current) => validateJob(current, submitIntent, pakistanToday(), { keepApplyBy });
     if (!checkAll({ ...values, requirements }, rules)) event.preventDefault();
   }
 
@@ -64,6 +83,7 @@ export default function JobForm() {
       className="flex flex-col gap-6 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6"
     >
       <input type="hidden" name="requirements" value={JSON.stringify(requirements)} />
+      {editing && <input type="hidden" name="jobId" value={job.id} />}
 
       <TextField
         {...field("title")}
@@ -123,6 +143,17 @@ export default function JobForm() {
 
       {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
+      {state.saved && state.rescreen && (
+        <RescreenDialog applicationIds={state.rescreen.applicationIds} message={state.message} jobId={job.id} />
+      )}
+
+      {!isDraft ? (
+        <div className="flex justify-end">
+          <SubmitButton name="intent" value="save" disabled={isPending} loading={isPending}>
+            Save changes
+          </SubmitButton>
+        </div>
+      ) : (
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <SubmitButton
           name="intent"
@@ -143,6 +174,7 @@ export default function JobForm() {
           Publish
         </SubmitButton>
       </div>
+      )}
     </form>
   );
 }

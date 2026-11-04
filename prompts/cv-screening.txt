@@ -1,0 +1,16 @@
+Task: score the CV with the rubric.
+
+Give a mark for each of the six rubric parts below, with a one-line reason based only on the CV text.
+
+Rubric parts (use these exact part names and never go above the maximum):
+- skills_match: 0 to 35. How well the CV's skills cover the job requirements.
+- experience: 0 to 40. How relevant and how long the work experience is for this job. Internships count less than jobs; projects alone count least.
+- education: 0 to 10. How well the education fits the required degree.
+- structure_formatting: 0 to 5. Clear sections, easy to read.
+- contact_summary_links: 0 to 5. Has a summary and useful links (for example GitHub or portfolio). Personal contact details were removed on purpose; do not take marks off for that.
+- grammar_clarity: 0 to 5. Spelling, grammar and clear writing.
+
+Marks are whole numbers. Reasons are one short sentence and never mention personal traits.
+
+Result key and format:
+"rubric": [{"part": "skills_match", "marks": 0, "reason": ""}, {"part": "experience", "marks": 0, "reason": ""}, {"part": "education", "marks": 0, "reason": ""}, {"part": "structure_formatting", "marks": 0, "reason": ""}, {"part": "contact_summary_links", "marks": 0, "reason": ""}, {"part": "grammar_clarity", "marks": 0, "reason": ""}]

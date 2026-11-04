@@ -1,0 +1,9 @@
+Task: summarise the CV for this job in exactly three short lines.
+1. Who the candidate is professionally and their main experience.
+2. Their strongest skills for this job.
+3. The most important gap for this job, or "No major gaps for this job are shown in the CV."
+
+No recommendation to hire or reject.
+
+Result key and format:
+"summary": ["", "", ""]

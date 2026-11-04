@@ -1,6 +1,8 @@
 import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobStatusBadge from "@/components/jobs/JobStatusBadge";
+import { Pencil } from "lucide-react";
 import CopyLinkButton from "@/components/jobs/CopyLinkButton";
+import Button from "@/components/ui/Button";
 import JobStatusActions from "@/components/jobs/JobStatusActions";
 import Badge from "@/components/ui/Badge";
 import { jobTypeLabel } from "@/lib/jobs/constants";
@@ -58,6 +60,13 @@ export default function JobsTable({ jobs }) {
               <td className={TD}>
                 <div className="flex items-center justify-end gap-1">
                   {job.status === "open" && job.slug && <CopyLinkButton slug={job.slug} iconOnly />}
+                  <Button
+                    href={`/hr/jobs/${job.id}/edit`}
+                    variant="ghost"
+                    size="icon"
+                    icon={Pencil}
+                    aria-label="Edit job"
+                  />
                   <JobStatusActions
                     job={{ id: job.id, title: job.title, status: job.status }}
                     needsNewDate={job.needsNewDate}

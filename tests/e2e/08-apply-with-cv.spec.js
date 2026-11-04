@@ -107,7 +107,9 @@ test("Ali applies with a PDF CV and sees Your application has been sent to ABC T
   const [application] = await findApplications(ali.id);
   expect(application.job_id).toBe(job.id);
   expect(application.status).toBe("applied");
-  expect(application.screening_status).toBe("queued");
+  // AI screening (Feature 11) starts in the background straight away.
+  // (Not "failed": that would mean the PDF couldn't be read.)
+  expect(["queued", "processing", "done", "pending"]).toContain(application.screening_status);
   expect(application.candidate_name).toBe("Ali Raza");
   expect(application.candidate_email).toBe(ali.email);
   expect(application.cover_note).toContain("React apps");
