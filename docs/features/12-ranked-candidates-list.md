@@ -94,8 +94,8 @@ HR sees every candidate for a job, ranked by screening score from high to low, w
 
 ## Done When
 
-- [ ] Candidates appear ranked Ayesha (88), Ali (74), Usman (61), with match percentage, years, degree found and degree match.
-- [ ] Filters for score, years, skill and status work together and show a match count.
-- [ ] The anonymised view hides names in the list.
-- [ ] A minimum score of 95 shows "No candidates match these filters" with "Clear filters".
-- [ ] Privacy: Sara only sees candidates who applied to ABC Tech jobs.
+- [x] Candidates appear ranked Ayesha (88), Ali (74), Usman (61), with match percentage, years, degree found and degree match.
+- [x] Filters for score, years, skill and status work together and show a match count.
+- [x] The anonymised view hides names in the list.
+- [x] A minimum score of 95 shows "No candidates match these filters" with "Clear filters".
+- [x] Privacy: Sara only sees candidates who applied to ABC Tech jobs.

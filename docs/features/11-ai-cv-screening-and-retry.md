@@ -256,14 +256,14 @@ These AI rules also apply to Features 05 and 18.
 
 ## Done When
 
-- [ ] A new application is screened within about 30 seconds and shows a score and match percentage.
-- [ ] Each requirement is marked found or missing, with an evidence quote for found ones ("ReactJS" counts as React).
-- [ ] The same CV screened twice gets a score within a few points.
-- [ ] If Gemini is unavailable or returns invalid JSON, it retries once, then shows "Pending" with "Retry screening".
-- [ ] Privacy: name, email and phone are not in the text sent to Gemini.
-- [ ] Privacy: candidates never see any screening result.
-- [ ] Pending and failed candidates appear at the bottom of the list with a badge.
-- [ ] "Retry screening" gives Bilal a score and places him in the ranking once AI works again.
-- [ ] If AI is still down, Bilal stays "Pending" and Sara sees "AI is still unavailable, try again in a few minutes".
-- [ ] Hira's scanned CV shows "CV could not be read"; Sara opens the original CV and saves a manual review note.
-- [ ] A pending screening never blocks the rest of the candidates list.
+- [x] A new application is screened within about 30 seconds and shows a score and match percentage.
+- [x] Each requirement is marked found or missing, with an evidence quote for found ones ("ReactJS" counts as React).
+- [x] The same CV screened twice gets a score within a few points.
+- [x] If Gemini is unavailable or returns invalid JSON, it retries once, then shows "Pending" with "Retry screening".
+- [x] Privacy: name, email and phone are not in the text sent to Gemini.
+- [x] Privacy: candidates never see any screening result.
+- [x] Pending and failed candidates appear at the bottom of the list with a badge.
+- [x] "Retry screening" gives Bilal a score and places him in the ranking once AI works again.
+- [x] If AI is still down, Bilal stays "Pending" and Sara sees "AI is still unavailable, try again in a few minutes".
+- [x] Hira's scanned CV shows "CV could not be read"; Sara opens the original CV and saves a manual review note.
+- [x] A pending screening never blocks the rest of the candidates list.
