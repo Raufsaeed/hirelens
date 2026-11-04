@@ -11,28 +11,8 @@ import SubmitButton from "@/components/ui/SubmitButton";
 import TextAreaField from "@/components/ui/TextAreaField";
 import TextField from "@/components/ui/TextField";
 import { FieldError } from "@/components/ui/TextField";
-import { GENERIC_ERROR } from "@/lib/auth/validation";
+import { uploadWithProgress } from "@/components/forms/upload";
 import { MAX_COVER_NOTE, validateApplication } from "@/lib/applications/validation";
-
-// Sends the form to /api/applications with XMLHttpRequest, which (unlike fetch) reports upload progress.
-function sendApplication(formData, onProgress) {
-  return new Promise((resolve) => {
-    const request = new XMLHttpRequest();
-    request.open("POST", "/api/applications");
-    request.upload.onprogress = (event) => {
-      if (event.lengthComputable) onProgress(Math.round((event.loaded / event.total) * 100));
-    };
-    request.onload = () => {
-      try {
-        resolve(JSON.parse(request.responseText));
-      } catch {
-        resolve({ error: GENERIC_ERROR });
-      }
-    };
-    request.onerror = () => resolve({ error: GENERIC_ERROR });
-    request.send(formData);
-  });
-}
 
 // Apply form (Feature 08): name and email from the account, phone, optional cover note and the PDF CV.
 export default function ApplyForm({ job, defaults }) {
@@ -69,7 +49,7 @@ export default function ApplyForm({ job, defaults }) {
 
     setServerResult({});
     setProgress(0);
-    const result = await sendApplication(formData, setProgress);
+    const result = await uploadWithProgress("/api/applications", formData, setProgress);
     if (result.applicationId) {
       router.push(`/jobs/${job.slug}/apply/sent?file=${encodeURIComponent(cv.name)}`);
       return;
