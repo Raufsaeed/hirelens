@@ -284,3 +284,24 @@ export async function getCompany(companyId) {
   if (error) throw error;
   return data;
 }
+
+// Starts an email change the way the confirmation email would, without sending an email
+// (Supabase's built-in mailer won't send to test addresses). Returns the link from that email.
+export async function emailChangeLink(email, newEmail) {
+  const admin = adminClient();
+  const { data, error } = await admin.auth.admin.generateLink({ type: "email_change_new", email, newEmail });
+  if (error) throw error;
+  return data.properties.action_link;
+}
+
+// Clicks the confirmation link (Supabase confirms the change and redirects).
+export async function openEmailLink(link) {
+  await fetch(link, { redirect: "manual" });
+}
+
+export async function getProfile(userId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("profiles").select("*").eq("id", userId).maybeSingle();
+  if (error) throw error;
+  return data;
+}
