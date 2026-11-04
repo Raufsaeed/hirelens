@@ -2,9 +2,10 @@
 
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CalendarClock, CalendarX, CircleCheck, Link2, MapPin, User } from "lucide-react";
+import { CalendarClock, CalendarX, Link2, MapPin, MessageSquareText, User } from "lucide-react";
+import FeedbackDialog from "@/components/interviews/FeedbackDialog";
+import InterviewStatusBadge from "@/components/interviews/InterviewStatusBadge";
 import ScheduleInterviewDialog from "@/components/interviews/ScheduleInterviewDialog";
-import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
 import Dialog from "@/components/ui/Dialog";
 import TextLink from "@/components/ui/TextLink";
@@ -12,17 +13,11 @@ import Toast from "@/components/ui/Toast";
 import { cancelInterview } from "@/lib/interviews/actions";
 import { formatDayTime } from "@/lib/format-date";
 
-// Upcoming and past interviews on the Interviews page (Feature 16), with Reschedule and Cancel.
+// Upcoming and past interviews on the Interviews page (Feature 16), with Reschedule and Cancel on
+// upcoming ones and "Add feedback" on past ones that are still scheduled (Feature 17).
 
-const STATUS_BADGES = {
-  scheduled: { tone: "info", icon: CalendarClock, label: "Scheduled" },
-  done: { tone: "success", icon: CircleCheck, label: "Done" },
-  cancelled: { tone: "muted", icon: CalendarX, label: "Cancelled" },
-};
-
-function InterviewRow({ interview, onReschedule, onCancel }) {
-  const badge = STATUS_BADGES[interview.status];
-  const canChange = interview.status === "scheduled" && onReschedule;
+function InterviewRow({ interview, onReschedule, onCancel, onFeedback }) {
+  const scheduled = interview.status === "scheduled";
   return (
     <li className="flex flex-col gap-3 border-b border-border p-4 last:border-b-0 sm:flex-row sm:items-center sm:px-6">
       <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -56,10 +51,13 @@ function InterviewRow({ interview, onReschedule, onCancel }) {
         </span>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <Badge tone={badge.tone} icon={badge.icon}>
-          {badge.label}
-        </Badge>
-        {canChange && (
+        <InterviewStatusBadge status={interview.status} />
+        {scheduled && onFeedback && (
+          <Button size="sm" variant="secondary" icon={MessageSquareText} onClick={() => onFeedback(interview)}>
+            Add feedback
+          </Button>
+        )}
+        {scheduled && onReschedule && (
           <>
             <Button size="sm" variant="secondary" icon={CalendarClock} onClick={() => onReschedule(interview)}>
               Reschedule
@@ -95,6 +93,7 @@ export default function InterviewsList({ upcoming, past }) {
   const router = useRouter();
   const [rescheduling, setRescheduling] = useState(null);
   const [cancelling, setCancelling] = useState(null);
+  const [giving, setGiving] = useState(null); // the interview getting feedback
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState(null);
   const dismiss = useCallback(() => setToast(null), []);
@@ -121,7 +120,20 @@ export default function InterviewsList({ upcoming, past }) {
         onReschedule={setRescheduling}
         onCancel={setCancelling}
       />
-      <Section title="Past interviews" interviews={past} empty="No past interviews yet." />
+      <Section title="Past interviews" interviews={past} empty="No past interviews yet." onFeedback={setGiving} />
+
+      {giving && (
+        <FeedbackDialog
+          interviewId={giving.id}
+          candidateName={giving.candidateName}
+          onClose={() => setGiving(null)}
+          onSaved={() => {
+            setGiving(null);
+            setToast({ tone: "success", message: "Feedback saved" });
+            router.refresh();
+          }}
+        />
+      )}
 
       {rescheduling && (
         <ScheduleInterviewDialog
