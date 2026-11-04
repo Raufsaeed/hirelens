@@ -1,0 +1,10 @@
+Task: check the CV against every job requirement.
+
+For every requirement in the job's requirements list, say whether the CV shows it.
+- Match by meaning, not only exact words. For example "ReactJS" or "React.js" means React, "GitHub" or "GitLab" means Git, "HTML5" means HTML.
+- When found is true, evidence must be a short quote copied word for word from the CV text that proves it.
+- When found is false, evidence is an empty string.
+- Return every requirement from the list, with the same name and type, in the same order.
+
+Result key and format:
+"requirements": [{"name": "", "type": "must", "found": true, "evidence": ""}]

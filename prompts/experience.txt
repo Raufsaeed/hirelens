@@ -1,0 +1,15 @@
+Task: list the experience and education. Extract only; never calculate totals.
+
+List every job, internship and project in the CV.
+- title: the role or project name as written.
+- type: "job", "internship" or "project".
+- start and end: "YYYY-MM". If only a year is given, use "YYYY-01" for start and "YYYY-12" for end. If it is ongoing, end is "present". If a date is missing, use "".
+- relevant: true when the item is relevant to the job title.
+
+List every degree in the CV.
+- degree: the degree as written, for example "BS Computer Science".
+- end: "YYYY-MM" or "".
+
+Result keys and format:
+"experience": [{"title": "", "type": "job", "start": "", "end": "", "relevant": true}],
+"education": [{"degree": "", "end": ""}]
