@@ -146,7 +146,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - AI judges only skills, experience and education, never gender, age, religion, city or name.
 - AI must not invent skills or experience that are not in the CV.
 - If AI fails, save the application with screening status "Pending" and allow "Retry screening".
-- One CV screening uses only one Gemini request, to save the free quota: the four task prompts (`cv-screening.txt`, `job-requirements.txt`, `experience.txt`, `candidate-summary.txt`) are sent together in `prompts/cv-screening-request.txt`, which returns one JSON object with the same parts and formats. The one automatic retry is the only extra request.
+- One CV screening uses only one Gemini request, to save the free quota: the four task prompts (`cv-screening.txt`, `job-requirements.txt`, `experience.txt`, `candidate-summary.txt`) are sent together in `prompts/cv-screening-request.txt`, which returns one JSON object with the same parts and formats. The only extra requests are the one automatic retry (failed call or bad JSON) and the 1s, 2s, 4s retries on 429 or network errors that every outside call gets; the Gemini call limit caps them all.
 - For every outside API call (Gemini, Supabase, Resend): check the response before using it, on 429 or a failed call wait and retry with 1s, 2s, then 4s, and keep a limit on calls so a bug or loop cannot make many calls.
 
 ## Scoring Rules

@@ -94,6 +94,16 @@ export default function ScreeningPanel({ candidate, cvHref }) {
     );
   }
 
+  // "done" always has a screening row; this guards against a missing one (never the error page).
+  if (!screening || screening.score === null) {
+    return (
+      <StatusCard icon={Hourglass} tone="bg-warning-bg text-warning" title="Screening pending">
+        <p className="text-ink-muted">The result isn&apos;t available. You can try again.</p>
+        <RetryScreeningButton applicationId={candidate.id} />
+      </StatusCard>
+    );
+  }
+
   const requirements = screening.requirements_result || [];
   const found = requirements.filter((item) => item.found);
   const missing = requirements.filter((item) => !item.found);
