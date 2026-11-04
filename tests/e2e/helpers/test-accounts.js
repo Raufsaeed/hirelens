@@ -305,3 +305,33 @@ export async function getProfile(userId) {
   if (error) throw error;
   return data;
 }
+
+// Saves an interview directly (Feature 16), for tests that need one already booked.
+// date "YYYY-MM-DD" and time "HH:MM" are Pakistan time.
+export async function createInterview(applicationId, { date, time = "11:00", interviewerName = "Sara", ...fields }) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("interviews")
+    .insert({
+      application_id: applicationId,
+      scheduled_at: `${date}T${time}:00+05:00`,
+      interviewer_name: interviewerName,
+      meeting_link: "https://meet.google.com/abc-defg-hij",
+      ...fields,
+    })
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function findInterviews(applicationId) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("interviews")
+    .select("*")
+    .eq("application_id", applicationId)
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return data;
+}
