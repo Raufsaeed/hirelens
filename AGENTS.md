@@ -32,6 +32,22 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Build order: 01, 02, 04, 07, 08, 09, 10, 11, 12, 03, 13, 14, 15, 06, 22, 05, 16, 17, 18, 19, 20, 21, 23.
   - This order follows feature dependencies, so earlier features must be built and tested first.
 - Each feature gets its own branch named after it (for example f01-authentication). Use small commits whose messages say why. When the review is clean, open a PR with What, Why and How I tested it. Merge to main only after the user approves.
+  - Features 01 and 02 were built this way. From Feature 04 on, use the group plan below instead.
+
+### Group plan (Features 04 to 23)
+
+- The remaining features are built in 5 groups, in this order:
+  - Group 1: 04, 07, 08, 09, 10
+  - Group 2: 11, 12, 03, 13
+  - Group 3: 14, 15, 06, 22
+  - Group 4: 05, 16, 17, 18
+  - Group 5: 19, 20, 21, 23
+- Each group has one branch named after it (group-1, group-2 and so on). For each group:
+  1. Build its features one by one in the order above, with small commits. For each feature: write its Playwright test first, save its SQL in `supabase/sql/` named after the feature, and run lint and build.
+  2. When the whole group is built, combine that group's SQL, in order, into one file `supabase/sql/group-1-all.sql` (`group-2-all.sql` and so on), so the user pastes and runs it only once. Then STOP and wait for the user to confirm the SQL ran.
+  3. After the user confirms, run all Playwright tests and fix failures. Then run the code-reviewer and fix every BLOCKS MERGE item, and run the review again.
+  4. Give the user one short browser test checklist for the whole group, then STOP.
+  5. After the user replies "approve", tick the group's Done When boxes, open one PR for the group (What, Why and How I tested it), merge it, update main and start the next group.
 
 ## Testing Rules
 
