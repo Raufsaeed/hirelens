@@ -277,3 +277,10 @@ export async function deleteAccounts(emails) {
     }
   }
 }
+
+export async function getCompany(companyId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("companies").select("*").eq("id", companyId).single();
+  if (error) throw error;
+  return data;
+}
