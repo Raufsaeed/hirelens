@@ -61,6 +61,11 @@ function card(page, name) {
   return page.getByRole("article").filter({ hasText: name });
 }
 
+// Drags a card by its handle (top left), like a person would; the middle of the card is its menu.
+async function dragCard(page, name, columnName) {
+  await card(page, name).dragTo(column(page, columnName), { sourcePosition: { x: 12, y: 16 } });
+}
+
 test("the board shows six columns with a card for every candidate", async ({ page }) => {
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
   for (const name of COLUMNS) await expect(column(page, name)).toBeVisible();
@@ -72,7 +77,7 @@ test("the board shows six columns with a card for every candidate", async ({ pag
 
 test("dragging Ali to Interview moves him, saves history, and Ali sees Interview", async ({ page }) => {
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
-  await card(page, "Ali Raza").dragTo(column(page, "Interview"));
+  await dragCard(page, "Ali Raza", "Interview");
   await expect(page.getByText("Ali Raza moved to Interview")).toBeVisible();
   await expect(column(page, "Interview").getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 
@@ -103,7 +108,7 @@ test("moving to Hired or Rejected asks for confirmation first", async ({ page })
   await dialog.getByRole("button", { name: "Cancel" }).click();
   await expect(column(page, "Offer").getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 
-  await card(page, "Ali Raza").dragTo(column(page, "Hired"));
+  await dragCard(page, "Ali Raza", "Hired");
   await page.getByRole("alertdialog").getByRole("button", { name: "Move to Hired" }).click();
   await expect(page.getByText("Ali Raza moved to Hired")).toBeVisible();
   expect((await findApplication(aliApplication.id)).status).toBe("hired");
@@ -116,7 +121,7 @@ test("a failed move puts the card back and shows Couldn't move this candidate, t
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
   // The connection drops: every save to the server fails.
   await page.route("**/hr/pipeline**", (route) => (route.request().method() === "POST" ? route.abort() : route.continue()));
-  await card(page, "Ayesha Malik").dragTo(column(page, "Shortlisted"));
+  await dragCard(page, "Ayesha Malik", "Shortlisted");
   await expect(page.getByText("Couldn't move this candidate, try again")).toBeVisible();
   await expect(column(page, "Applied").getByRole("article").filter({ hasText: "Ayesha Malik" })).toBeVisible();
   expect((await findApplication(ayeshaApplication.id)).status).toBe("applied");
