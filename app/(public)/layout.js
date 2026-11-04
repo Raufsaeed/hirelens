@@ -6,6 +6,10 @@ import { getCurrentProfile } from "@/lib/auth/current-user";
 
 // Public pages (jobs list, job detail): anyone can open them.
 // Logged-in candidates see their usual top bar; everyone else sees Log in / Sign up.
+// These pages wait for the login check on purpose (they show nothing before it), so Next.js
+// should not flag them for instant navigation.
+export const instant = false;
+
 export default function PublicLayout({ children }) {
   return (
     <Suspense fallback={<ShellSkeleton />}>

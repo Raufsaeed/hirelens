@@ -7,6 +7,10 @@ import { getCurrentProfile } from "@/lib/auth/current-user";
 import { HR_HOME } from "@/lib/auth/routes";
 
 // Logged-in candidate pages (My Applications, and later Saved Jobs, Profile, Settings).
+// These pages wait for the login check on purpose (they show nothing before it), so Next.js
+// should not flag them for instant navigation.
+export const instant = false;
+
 export default function CandidateLayout({ children }) {
   return (
     <Suspense fallback={<ShellSkeleton />}>

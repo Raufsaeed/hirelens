@@ -73,7 +73,8 @@ test("Delete my data removes the application, its history and the CV file", asyn
 
   await openWithSession(page, aliCookies, `/my-applications/${application.id}`);
   await page.getByRole("button", { name: "Delete my data" }).click();
-  const dialog = page.getByRole("dialog");
+  // Destructive confirms are alert dialogs (design/components/Dialog).
+  const dialog = page.getByRole("alertdialog");
   await expect(dialog.getByText("Delete your data for this application?")).toBeVisible();
   await dialog.getByRole("button", { name: "Delete my data" }).click();
 
