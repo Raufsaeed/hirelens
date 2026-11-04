@@ -1,0 +1,52 @@
+{
+  "questions": [
+    {
+      "type": "technical",
+      "question": "How do you manage state in a React app with several pages?",
+      "good_answer_hint": "Mentions useState or useContext, or a state library, and when to use each.",
+      "focus": "React"
+    },
+    {
+      "type": "technical",
+      "question": "How would you fetch data from a REST API in React and handle errors?",
+      "good_answer_hint": "Uses fetch or axios in useEffect, shows loading and error states, knows GET vs POST.",
+      "focus": "REST APIs (missing)"
+    },
+    {
+      "type": "technical",
+      "question": "How do you make a page work well on a small phone screen?",
+      "good_answer_hint": "Talks about responsive CSS, flexible layouts, media queries and testing on real sizes.",
+      "focus": "HTML"
+    },
+    {
+      "type": "behavioural",
+      "question": "Tell me about a time you had to learn a new tool quickly.",
+      "good_answer_hint": "Clear situation, steps taken, result and what they learned.",
+      "focus": "Learning"
+    },
+    {
+      "type": "behavioural",
+      "question": "Are you married, and would family plans affect your work?",
+      "good_answer_hint": "Answers honestly.",
+      "focus": "Personal"
+    },
+    {
+      "type": "behavioural",
+      "question": "How do you handle a deadline you might miss?",
+      "good_answer_hint": "Tells people early, sets priorities and suggests options.",
+      "focus": "Ownership"
+    },
+    {
+      "type": "project",
+      "question": "In your hostel booking project, what was the hardest part and how did you solve it?",
+      "good_answer_hint": "Explains a real technical problem and their own part in solving it.",
+      "focus": "Final year project"
+    },
+    {
+      "type": "project",
+      "question": "What would you change in the dashboard you built during your internship?",
+      "good_answer_hint": "Can review their own work and suggest real improvements.",
+      "focus": "Dashboard project"
+    }
+  ]
+}
