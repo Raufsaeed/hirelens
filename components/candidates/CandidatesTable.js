@@ -150,7 +150,7 @@ export default function CandidatesTable({ rows, requirements, initialSearch = ""
           <TextField
             id="candidateSearch"
             type="search"
-            label="Search candidates"
+            label="Search this list"
             icon={Search}
             placeholder="Search by name or email"
             value={search}

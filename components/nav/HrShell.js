@@ -1,6 +1,7 @@
 "use client";
 
 import Brand from "@/components/ui/Brand";
+import CandidateSearch from "@/components/candidates/CandidateSearch";
 import Avatar from "@/components/nav/Avatar";
 import MobileMenu from "@/components/nav/MobileMenu";
 import NavLinks from "@/components/nav/NavLinks";
@@ -47,9 +48,15 @@ export default function HrShell({ fullName, companyName, children }) {
         </MobileMenu>
       </header>
 
-      <main className="min-w-0">
-        <div className="w-full max-w-[calc(var(--width-hr)+2*var(--space-8))] px-4 py-6 md:p-8">{children}</div>
-      </main>
+      <div className="min-w-0">
+        {/* HR content top bar with Candidate Search (Feature 13), on every HR page. */}
+        <div className="z-(--z-dropdown) flex h-topbar items-center gap-4 border-b border-border bg-surface-page px-4 md:sticky md:top-0 md:px-8">
+          <CandidateSearch />
+        </div>
+        <main>
+          <div className="w-full max-w-[calc(var(--width-hr)+2*var(--space-8))] px-4 py-6 md:p-8">{children}</div>
+        </main>
+      </div>
     </div>
   );
 }
