@@ -69,7 +69,7 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## Done When
 
-- [ ] Withdrawing a Shortlisted application sets it to Withdrawn and saves a history row with Ali as `changed_by`.
+- [x] Withdrawing a Shortlisted application sets it to Withdrawn and saves a history row with Ali as `changed_by`.
 - [ ] Sara sees Ali's withdrawn card greyed out.
 - [ ] "Delete my data" removes the application, everything linked to it and the CV file, and Sara no longer sees Ali for that job.
-- [ ] At Interview, Withdraw is not available ("You can't withdraw at this stage").
+- [x] At Interview, Withdraw is not available ("You can't withdraw at this stage").
