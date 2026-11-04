@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import SelectField from "@/components/ui/SelectField";
 
 // Chooses which job's candidates to show (the list is one per job).
-export default function JobPicker({ jobs, selectedId }) {
+export default function JobPicker({ jobs, selectedId, basePath = "/hr/candidates" }) {
   const router = useRouter();
   return (
     <div className="w-full max-w-120">

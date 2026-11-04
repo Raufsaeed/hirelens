@@ -75,7 +75,7 @@ function PipelineCard({ card, onMove, onDragStart }) {
         value={withdrawn ? "withdrawn" : card.status}
         disabled={withdrawn}
         onChange={(event) => onMove(card, event.target.value)}
-        className={`${INPUT_CLASSES} min-h-control-sm cursor-pointer text-[13px]`}
+        className={`${INPUT_CLASSES} cursor-pointer text-[13px]`}
       >
         {withdrawn && <option value="withdrawn">Withdrawn</option>}
         {COLUMNS.map((status) => (
@@ -185,7 +185,7 @@ export default function PipelineBoard({ initialCards }) {
         open={Boolean(confirm)}
         onClose={() => setConfirm(null)}
         icon={rejecting ? CircleSlash : PartyPopper}
-        tone="danger"
+        tone={rejecting ? "danger" : "primary"}
         title={confirm ? (rejecting ? `Reject ${confirm.card.name}?` : `Move ${confirm.card.name} to Hired?`) : ""}
         actions={
           <>

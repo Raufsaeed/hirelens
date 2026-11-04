@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Briefcase } from "lucide-react";
+import { Lock, Briefcase } from "lucide-react";
 import JobPicker from "@/components/candidates/JobPicker";
 import PageHeader from "@/components/nav/PageHeader";
 import PipelineBoard from "@/components/pipeline/PipelineBoard";
@@ -29,16 +29,19 @@ async function Pipeline({ searchParams }) {
   const params = await searchParams;
   let jobs;
   let job;
+  let notMine = false;
   let cards;
   try {
     const profile = await getCurrentProfile();
     jobs = await listCandidateJobs(profile.company_id);
-    job = jobs.find((item) => item.id === params.job) || jobs[0];
+    job = params.job ? jobs.find((item) => item.id === params.job) : jobs[0];
+    notMine = Boolean(params.job && !job);
     cards = job ? await getPipeline(profile.company_id, job.id) : [];
   } catch {
     return <Alert tone="error" title="Couldn't load the board" action={<RetryButton />} />;
   }
 
+  if (notMine) return <NoAccess />;
   if (!job) {
     return (
       <section className="rounded-card border border-border bg-surface shadow-card">
@@ -54,5 +57,16 @@ async function Pipeline({ searchParams }) {
       <JobPicker jobs={jobs} selectedId={job.id} basePath="/hr/pipeline" />
       <PipelineBoard key={job.id} initialCards={cards || []} />
     </>
+  );
+}
+
+// A job id that isn't one of this company's jobs.
+function NoAccess() {
+  return (
+    <section className="rounded-card border border-border bg-surface shadow-card">
+      <EmptyState icon={Lock} title="You don't have access to this page">
+        This job doesn&apos;t belong to your company.
+      </EmptyState>
+    </section>
   );
 }

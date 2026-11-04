@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Briefcase, Pencil, Users } from "lucide-react";
+import { Lock, Briefcase, Pencil, Users } from "lucide-react";
 import AiNote from "@/components/candidates/AiNote";
 import CandidatesTable from "@/components/candidates/CandidatesTable";
 import JobPicker from "@/components/candidates/JobPicker";
@@ -32,15 +32,18 @@ async function Candidates({ searchParams }) {
   let jobs;
   let rows;
   let job;
+  let notMine = false;
   try {
     const profile = await getCurrentProfile();
     jobs = await listCandidateJobs(profile.company_id);
-    job = jobs.find((item) => item.id === params.job) || jobs[0];
+    job = params.job ? jobs.find((item) => item.id === params.job) : jobs[0];
+    notMine = Boolean(params.job && !job);
     rows = job ? await listJobCandidates(profile.company_id, job.id) : [];
   } catch {
     return <Alert tone="error" title="Couldn't load candidates" action={<RetryButton />} />;
   }
 
+  if (notMine) return <NoAccess />;
   if (!job) {
     return (
       <section className="rounded-card border border-border bg-surface shadow-card">
@@ -85,5 +88,16 @@ async function Candidates({ searchParams }) {
         />
       )}
     </>
+  );
+}
+
+// A job id that isn't one of this company's jobs.
+function NoAccess() {
+  return (
+    <section className="rounded-card border border-border bg-surface shadow-card">
+      <EmptyState icon={Lock} title="You don't have access to this page">
+        This job doesn&apos;t belong to your company.
+      </EmptyState>
+    </section>
   );
 }
