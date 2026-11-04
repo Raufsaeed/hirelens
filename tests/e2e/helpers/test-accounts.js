@@ -349,7 +349,10 @@ export async function readRowsAs(email, table, column, value) {
   const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
-  const { data } = await client.from(table).select("*").eq(column, value);
-  return data || [];
+  // Fail loudly if the login or read fails, so a privacy test can't pass by accident.
+  const login = await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  if (login.error) throw login.error;
+  const { data, error } = await client.from(table).select("*").eq(column, value);
+  if (error) throw error;
+  return data;
 }
