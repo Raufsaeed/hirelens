@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquareText, Star } from "lucide-react";
+import { Lock, MessageSquareText, Star } from "lucide-react";
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import Dialog from "@/components/ui/Dialog";
@@ -55,6 +55,10 @@ export default function FeedbackDialog({ interviewId, candidateName, onClose, on
   return (
     <Dialog open onClose={onClose} icon={MessageSquareText} title={`Interview feedback for ${candidateName}`}>
       <form noValidate onSubmit={save} className="flex flex-col gap-4">
+        <p className="small inline-flex w-fit items-center gap-1.5 rounded-pill bg-surface-page px-2.5 py-1 font-medium text-ink-muted">
+          <Lock className="size-icon-sm" strokeWidth={1.75} aria-hidden="true" />
+          Only HR can see this
+        </p>
         <fieldset className="flex flex-col gap-2">
           <legend className="label mb-1.5 text-ink">Rating</legend>
           <div className="flex flex-wrap gap-2">
