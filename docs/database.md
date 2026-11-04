@@ -9,9 +9,11 @@ Each table is created only through SQL given to the user to run in the Supabase 
 | Feature | Created in Supabase |
 |---------|---------------------|
 | 01 Authentication | `companies` (`id`, `name`, `slug`, `logo_url`, `created_at`); `profiles` (`id`, `full_name`, `email`, `role`, `company_id`, `created_at`); function `public.current_hr_company_id()` |
+| 02 Post a Job | `jobs` (every column in section 2.3); unique index `jobs_company_active_title_idx` on `company_id` + `lower(title)` for `draft` and `open` jobs; indexes on `company_id`, `status`, `status` + `apply_by`; function `public.set_updated_at()` with trigger `jobs_set_updated_at` |
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name` and `logo_url` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).
 - **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name` (`role`, `company_id` and `email` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
+- **`jobs` RLS:** anyone (even logged out) can select `open` and `closed` jobs; HR can select, insert and update only their own company's jobs (drafts included); nobody can delete. Extra checks: `closed_reason` only when `closed`, and an `open` job always has a `slug`.
 - **`public.current_hr_company_id()`:** returns the logged-in HR user's `company_id` (empty for candidates). Used by RLS policies that check "HR of the same company".
 - The other columns listed in section 2 for these two tables are added with `ALTER TABLE` by the features that need them (06, 20, 23).
 

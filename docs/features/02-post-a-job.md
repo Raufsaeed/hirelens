@@ -120,9 +120,9 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 
 ## Done When
 
-- [ ] Sara publishes Junior Web Developer and gets the link `/jobs/abc-tech-junior-web-developer` with a working "Copy link".
-- [ ] The job shows on My Jobs and the HR Dashboard as Open with 0 applicants.
-- [ ] Save as draft works, and a draft is never public.
-- [ ] Publishing with no requirements shows "Add at least one requirement".
-- [ ] An Apply by date in the past shows "Apply by date can't be in the past".
-- [ ] Privacy: a candidate who opens Create Job sees "You don't have access to this page".
+- [x] Sara publishes Junior Web Developer and gets the link `/jobs/abc-tech-junior-web-developer` with a working "Copy link".
+- [x] The job shows on My Jobs and the HR Dashboard as Open with 0 applicants.
+- [x] Save as draft works, and a draft is never public.
+- [x] Publishing with no requirements shows "Add at least one requirement".
+- [x] An Apply by date in the past shows "Apply by date can't be in the past".
+- [x] Privacy: a candidate who opens Create Job sees "You don't have access to this page".

@@ -63,6 +63,34 @@ export async function findAccount(email) {
   return data;
 }
 
+// Reads a company's jobs with the server key (to check what the app saved).
+export async function findJobs(companyId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("jobs").select("*").eq("company_id", companyId);
+  if (error) throw error;
+  return data;
+}
+
+// Reads a job as a logged-out visitor would (publishable key, Row Level Security applies).
+export async function readJobAsVisitor(jobId) {
+  const visitor = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    { auth: { persistSession: false, autoRefreshToken: false } }
+  );
+  const { data, error } = await visitor.from("jobs").select("id, status").eq("id", jobId);
+  if (error) throw error;
+  return data;
+}
+
+// Today's date in Pakistan as YYYY-MM-DD, moved by `days` (deadlines use Asia/Karachi).
+export function pakistanDate(days = 0) {
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Karachi" }).format(new Date());
+  const date = new Date(`${today}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
 // A one-time password reset link for an account, like the one in the reset email.
 export async function recoveryLink(baseURL, email) {
   const admin = adminClient();
@@ -87,7 +115,10 @@ export async function deleteAccounts(emails) {
     const user = users?.users.find((u) => u.email === email);
     if (user) await admin.auth.admin.deleteUser(user.id);
     for (const row of data || []) {
-      if (row.company_id) await admin.from("companies").delete().eq("id", row.company_id);
+      if (!row.company_id) continue;
+      // Jobs block deleting their company, so remove them first (ignored if the table doesn't exist yet).
+      await admin.from("jobs").delete().eq("company_id", row.company_id);
+      await admin.from("companies").delete().eq("id", row.company_id);
     }
   }
 }

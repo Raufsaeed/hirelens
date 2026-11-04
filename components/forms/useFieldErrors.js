@@ -25,8 +25,9 @@ export function useFieldErrors(validate, serverErrors) {
   }
 
   // On submit: returns true when the form can be sent to the server.
-  function checkAll(values) {
-    const errors = validate(values);
+  // `validateNow` lets a form check with different rules (for example Save as draft vs Publish).
+  function checkAll(values, validateNow = validate) {
+    const errors = validateNow(values);
     if (errors) {
       // Show the new problems and hide older messages on the fields that are now fine.
       setLocalErrors(
