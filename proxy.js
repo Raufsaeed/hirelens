@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
-import { isProtectedPath } from "@/lib/auth/routes";
+import { isApplyPath, isProtectedPath } from "@/lib/auth/routes";
 
 // Runs before every page request:
 // 1. Keeps the Supabase session cookie fresh.
@@ -36,13 +36,19 @@ export async function proxy(request) {
   const loggedIn = Boolean(data?.claims?.sub);
 
   const { pathname, search } = request.nextUrl;
-  if (!loggedIn && isProtectedPath(pathname)) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = "/login";
-    loginUrl.search = "";
-    loginUrl.searchParams.set("next", `${pathname}${search}`);
-    loginUrl.searchParams.set("reason", "login");
-    const redirect = NextResponse.redirect(loginUrl);
+  if (!loggedIn && (isProtectedPath(pathname) || isApplyPath(pathname))) {
+    const url = request.nextUrl.clone();
+    url.search = "";
+    url.searchParams.set("next", `${pathname}${search}`);
+    if (isApplyPath(pathname)) {
+      // Clicking Apply while logged out opens candidate sign up, then comes back to the form.
+      url.pathname = "/signup";
+      url.searchParams.set("role", "candidate");
+    } else {
+      url.pathname = "/login";
+      url.searchParams.set("reason", "login");
+    }
+    const redirect = NextResponse.redirect(url);
     response.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
     return redirect;
   }
