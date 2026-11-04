@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { ArrowLeft, Lock } from "lucide-react";
+import ApplicationActions from "@/components/applications/ApplicationActions";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
 import StatusTimeline from "@/components/applications/StatusTimeline";
 import CompanyLogo from "@/components/jobs/CompanyLogo";
@@ -73,6 +74,8 @@ async function ApplicationDetail({ params }) {
         <h2 className="section-heading">Progress</h2>
         <StatusTimeline status={application.status} history={application.status_history} companyName={companyName} />
       </section>
+
+      <ApplicationActions applicationId={application.id} status={application.status} companyName={companyName} />
     </div>
   );
 }

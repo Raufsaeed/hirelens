@@ -11,10 +11,14 @@ import { listMyApplications } from "@/lib/applications/candidate-queries";
 export const metadata = { title: "My Applications · HireLens" };
 
 // My Applications (Feature 09): every application with job, company, applied date and status only.
-export default function MyApplicationsPage() {
+// ?deleted=1 confirms "Delete my data" (Feature 10).
+export default function MyApplicationsPage({ searchParams }) {
   return (
     <div className="flex flex-col gap-6">
       <h1 className="page-title">My Applications</h1>
+      <Suspense fallback={null}>
+        <DeletedNotice searchParams={searchParams} />
+      </Suspense>
       <Suspense fallback={<ApplicationsSkeleton />}>
         <ApplicationsList />
       </Suspense>
@@ -56,6 +60,12 @@ async function ApplicationsList() {
       ))}
     </div>
   );
+}
+
+async function DeletedNotice({ searchParams }) {
+  const params = await searchParams;
+  if (params.deleted !== "1") return null;
+  return <Alert tone="success" title="Your data has been deleted">The application and your CV for that job are gone.</Alert>;
 }
 
 function ApplicationsSkeleton() {
