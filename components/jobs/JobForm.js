@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { Award, Briefcase, Clock, GraduationCap, MapPin, Send } from "lucide-react";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
+import AiDescriptionWriter from "@/components/jobs/AiDescriptionWriter";
 import RequirementsEditor from "@/components/jobs/RequirementsEditor";
 import RescreenDialog from "@/components/jobs/RescreenDialog";
 import Alert from "@/components/ui/Alert";
@@ -120,6 +121,20 @@ export default function JobForm({ job = null }) {
         }}
         error={errorFor("requirements")}
       />
+
+      {!editing && (
+        <AiDescriptionWriter
+          form={{ ...values, requirements }}
+          onDraft={(text) => {
+            setValues((current) => ({ ...current, description: text }));
+            clearField("description");
+          }}
+          onAccept={(suggestion) => {
+            setRequirements((current) => [...current, suggestion]);
+            clearField("requirements");
+          }}
+        />
+      )}
 
       <TextAreaField
         {...field("description")}
