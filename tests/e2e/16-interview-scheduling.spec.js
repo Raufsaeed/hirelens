@@ -175,7 +175,8 @@ test("rescheduling updates what Ali sees, and cancelling shows Interview cancell
 
   await openWithSession(page, saraCookies, "/hr/interviews");
   await aliRow.getByRole("button", { name: "Cancel interview" }).click();
-  await page.getByRole("dialog").getByRole("button", { name: "Cancel interview" }).click();
+  // A destructive confirm is an alertdialog.
+  await page.getByRole("alertdialog").getByRole("button", { name: "Cancel interview" }).click();
   await expect(page.getByText("Interview cancelled").first()).toBeVisible();
   const [interview] = await findInterviews(ali.application.id);
   expect(interview.status).toBe("cancelled");

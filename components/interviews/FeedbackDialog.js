@@ -16,11 +16,11 @@ const RATINGS = [1, 2, 3, 4, 5];
 function Choice({ name, value, checked, onChange, label, children }) {
   return (
     <label
-      className={`inline-flex min-h-touch cursor-pointer items-center gap-1.5 rounded-pill border px-3.5 font-bold transition-colors duration-(--duration-fast) ease-out has-focus-visible:shadow-focus ${
+      className={`relative inline-flex min-h-touch cursor-pointer items-center gap-1.5 rounded-pill border px-3.5 font-bold transition-colors duration-(--duration-fast) ease-out has-focus-visible:shadow-focus ${
         checked ? "border-primary bg-primary-tint text-on-primary-tint" : "border-border-control bg-surface text-ink hover:border-ink-muted"
       }`}
     >
-      <input type="radio" name={name} value={value} checked={checked} onChange={onChange} aria-label={label} className="sr-only" />
+      <input type="radio" name={name} value={value} checked={checked} onChange={onChange} aria-label={label} className="absolute inset-0 cursor-pointer appearance-none rounded-pill opacity-0" />
       {children}
     </label>
   );
