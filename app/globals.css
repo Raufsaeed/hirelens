@@ -135,6 +135,10 @@
     from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: none; }
   }
+  @keyframes dialog-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
   @keyframes menu-in {
     from { opacity: 0; transform: translateY(-8px); clip-path: inset(0 0 100% 0); }
     to { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }

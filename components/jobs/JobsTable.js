@@ -1,6 +1,7 @@
 import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobStatusBadge from "@/components/jobs/JobStatusBadge";
 import CopyLinkButton from "@/components/jobs/CopyLinkButton";
+import JobStatusActions from "@/components/jobs/JobStatusActions";
 import Badge from "@/components/ui/Badge";
 import { jobTypeLabel } from "@/lib/jobs/constants";
 
@@ -55,7 +56,13 @@ export default function JobsTable({ jobs }) {
                 {job.deadline ? <DeadlineLabel deadline={job.deadline} /> : <span className="text-ink-muted">–</span>}
               </td>
               <td className={TD}>
-                {job.status === "open" && job.slug && <CopyLinkButton slug={job.slug} iconOnly />}
+                <div className="flex items-center justify-end gap-1">
+                  {job.status === "open" && job.slug && <CopyLinkButton slug={job.slug} iconOnly />}
+                  <JobStatusActions
+                    job={{ id: job.id, title: job.title, status: job.status }}
+                    needsNewDate={job.needsNewDate}
+                  />
+                </div>
               </td>
             </tr>
           ))}
