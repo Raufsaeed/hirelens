@@ -16,6 +16,10 @@ const VARIANTS = {
   secondary: "border-border-control bg-surface text-ink hover:border-ink-muted",
   ghost:
     "border-transparent bg-transparent text-primary hover:translate-y-0 hover:bg-primary-tint hover:text-on-primary-tint hover:shadow-none",
+  // Destructive and final actions (inside a confirm dialog).
+  danger: "border-danger bg-danger text-on-primary hover:border-danger-hover hover:bg-danger-hover",
+  "danger-ghost":
+    "border-transparent bg-transparent text-danger-text hover:translate-y-0 hover:bg-danger-bg hover:shadow-none",
   // On the deep purple navigation bars
   nav:
     "border-transparent bg-transparent text-nav-text hover:translate-y-0 hover:bg-nav-hover hover:shadow-none focus-visible:shadow-focus-nav",
@@ -93,9 +97,6 @@ export default function Button({
       type="button"
       className={classes}
       aria-busy={loading || undefined}
-      // A submit button must not take focus on mouse down: that blurs the last field, its error
-      // message appears, the button moves down and the click misses. The submit check still runs.
-      onMouseDown={props.type === "submit" ? (event) => event.preventDefault() : undefined}
       {...props}
     >
       {content}

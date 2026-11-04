@@ -5,7 +5,7 @@ import { Award, Briefcase, Clock, GraduationCap, MapPin, Send } from "lucide-rea
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import RequirementsEditor from "@/components/jobs/RequirementsEditor";
 import Alert from "@/components/ui/Alert";
-import Button from "@/components/ui/Button";
+import SubmitButton from "@/components/ui/SubmitButton";
 import SelectField from "@/components/ui/SelectField";
 import TextAreaField from "@/components/ui/TextAreaField";
 import TextField from "@/components/ui/TextField";
@@ -124,8 +124,7 @@ export default function JobForm() {
       {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button
-          type="submit"
+        <SubmitButton
           name="intent"
           value="draft"
           variant="secondary"
@@ -133,9 +132,8 @@ export default function JobForm() {
           loading={isPending && intent === "draft"}
         >
           Save as draft
-        </Button>
-        <Button
-          type="submit"
+        </SubmitButton>
+        <SubmitButton
           name="intent"
           value="publish"
           icon={Send}
@@ -143,7 +141,7 @@ export default function JobForm() {
           loading={isPending && intent === "publish"}
         >
           Publish
-        </Button>
+        </SubmitButton>
       </div>
     </form>
   );

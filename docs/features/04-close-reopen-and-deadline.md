@@ -87,8 +87,8 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 ## Done When
 
-- [ ] Closing a job (after confirming) makes the public page show "This job is no longer accepting applications".
-- [ ] Reopening a closed job brings back the Apply button.
-- [ ] A job read after its Apply by day closes, shows "Applications closed on 20 Oct", and Sara sees "Deadline passed".
-- [ ] Setting a new future Apply by date reopens a deadline-closed job.
-- [ ] Reopening a deadline-closed job without a new date shows "Set a new Apply by date to reopen this job".
+- [x] Closing a job (after confirming) makes the public page show "This job is no longer accepting applications".
+- [x] Reopening a closed job brings back the Apply button.
+- [x] A job read after its Apply by day closes, shows "Applications closed on 20 Oct", and Sara sees "Deadline passed".
+- [x] Setting a new future Apply by date reopens a deadline-closed job.
+- [x] Reopening a deadline-closed job without a new date shows "Set a new Apply by date to reopen this job".

@@ -73,8 +73,8 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 
 ## Done When
 
-- [ ] The Public Jobs List shows only Open jobs, with search and job type and location filters.
-- [ ] A job page shows the job details, "Apply by 20 Oct · 3 days left" and an Apply button.
-- [ ] A search with no matches shows "No jobs match your search" with "Clear filters".
-- [ ] A job past its deadline shows "Applications closed on 20 Oct" instead of Apply.
-- [ ] A draft or unknown job link shows "This job could not be found".
+- [x] The Public Jobs List shows only Open jobs, with search and job type and location filters.
+- [x] A job page shows the job details, "Apply by 20 Oct · 3 days left" and an Apply button.
+- [x] A search with no matches shows "No jobs match your search" with "Clear filters".
+- [x] A job past its deadline shows "Applications closed on 20 Oct" instead of Apply.
+- [x] A draft or unknown job link shows "This job could not be found".

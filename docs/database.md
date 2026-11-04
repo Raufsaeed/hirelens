@@ -10,10 +10,15 @@ Each table is created only through SQL given to the user to run in the Supabase 
 |---------|---------------------|
 | 01 Authentication | `companies` (`id`, `name`, `slug`, `logo_url`, `created_at`); `profiles` (`id`, `full_name`, `email`, `role`, `company_id`, `created_at`); function `public.current_hr_company_id()` |
 | 02 Post a Job | `jobs` (every column in section 2.3); unique index `jobs_company_active_title_idx` on `company_id` + `lower(title)` for `draft` and `open` jobs; indexes on `company_id`, `status`, `status` + `apply_by`; function `public.set_updated_at()` with trigger `jobs_set_updated_at` |
+| 04, 07, 09 | No database changes. Past-deadline jobs are closed by the server whenever jobs are read (secret key). |
+| 08 Apply with CV | `applications` (every column in section 2.4) with unique `job_id` + `candidate_id` and the indexes in 2.4; `status_history` (every column in 2.6) with trigger `status_history_candidate_check` (a candidate's row must be a change to `withdrawn`); storage policy on bucket `cvs`: candidates select in their own `{candidate_id}/` folder. `08-apply-with-cv-server-only.sql` makes application inserts and CV uploads server only |
+| 10 Withdraw and Delete | Delete policy on `applications` for the owning candidate; storage delete policy on `cvs` for the candidate's own folder |
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name` and `logo_url` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).
 - **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name` (`role`, `company_id` and `email` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
 - **`jobs` RLS:** anyone (even logged out) can select `open` and `closed` jobs; HR can select, insert and update only their own company's jobs (drafts included); nobody can delete. Extra checks: `closed_reason` only when `closed`, and an `open` job always has a `slug`.
+- **`applications` RLS:** the candidate selects their own rows; HR selects rows for their company's jobs; inserts are server only (the server checks the job is open, the deadline, "applied before" and the PDF, after `08-apply-with-cv-server-only.sql`); the candidate deletes their own rows. Status and screening changes are server only for now (Feature 15 adds HR moves).
+- **`status_history` RLS:** the candidate selects their own timeline; HR selects their company's; inserts are server only; nobody updates or deletes (rows go only by cascade).
 - **`public.current_hr_company_id()`:** returns the logged-in HR user's `company_id` (empty for candidates). Used by RLS policies that check "HR of the same company".
 - The other columns listed in section 2 for these two tables are added with `ALTER TABLE` by the features that need them (06, 20, 23).
 

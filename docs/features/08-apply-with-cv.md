@@ -115,8 +115,8 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 
 ## Done When
 
-- [ ] Ali applies with a PDF CV and sees "Your application has been sent to ABC Tech".
-- [ ] My Applications shows "Junior Web Developer · ABC Tech · Applied", and the first history entry goes from empty to Applied.
+- [x] Ali applies with a PDF CV and sees "Your application has been sent to ABC Tech".
+- [x] My Applications shows "Junior Web Developer · ABC Tech · Applied", and the first history entry goes from empty to Applied.
 - [ ] The CV is saved in the private `cvs` bucket and screening starts in the background.
-- [ ] A .docx file shows "Only PDF files are accepted", and a 7 MB PDF shows "File must be under 5 MB".
-- [ ] Applying twice shows "You have already applied to this job", and submitting after the deadline shows "Applications for this job closed on 20 Oct".
+- [x] A .docx file shows "Only PDF files are accepted", and a 7 MB PDF shows "File must be under 5 MB".
+- [x] Applying twice shows "You have already applied to this job", and submitting after the deadline shows "Applications for this job closed on 20 Oct".

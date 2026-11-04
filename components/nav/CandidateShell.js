@@ -53,12 +53,13 @@ function UserMenu({ fullName }) {
 }
 
 // Candidate layout: slim 56px deep purple top bar over the lavender page.
-export default function CandidateShell({ fullName, children }) {
+// wide: public job pages use the wider HR content width instead of the candidate column.
+export default function CandidateShell({ fullName, wide = false, children }) {
   return (
     <div className="min-h-dvh bg-surface-page">
       <header className="sticky top-0 z-(--z-nav) h-nav bg-nav-bg text-nav-text">
         <div className="relative mx-auto flex h-full max-w-hr items-center gap-3 px-4 md:gap-5 md:px-6">
-          <Brand tone="nav" href="/my-applications" />
+          <Brand tone="nav" href="/jobs" />
           <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center gap-1 overflow-hidden md:flex">
             <NavLinks group="candidate" linkClassName={TOP_LINK} />
           </nav>
@@ -76,7 +77,9 @@ export default function CandidateShell({ fullName, children }) {
           </MobileMenu>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-candidate px-4 py-6 sm:px-6 sm:py-10">{children}</main>
+      <main className={`mx-auto w-full ${wide ? "max-w-hr" : "max-w-candidate"} px-4 py-6 sm:px-6 sm:py-10`}>
+        {children}
+      </main>
     </div>
   );
 }

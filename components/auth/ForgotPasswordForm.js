@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import AuthCard from "@/components/auth/AuthCard";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
-import Button from "@/components/ui/Button";
+import SubmitButton from "@/components/ui/SubmitButton";
 import TextField from "@/components/ui/TextField";
 import TextLink from "@/components/ui/TextLink";
 import { requestPasswordReset } from "@/lib/auth/actions";
@@ -49,9 +49,9 @@ export default function ForgotPasswordForm() {
         )}
         {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
-        <Button type="submit" size="lg" block loading={isPending}>
+        <SubmitButton size="lg" block loading={isPending}>
           Send reset link
-        </Button>
+        </SubmitButton>
       </form>
 
       <p className="small text-center text-ink-muted">
