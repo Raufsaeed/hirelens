@@ -64,8 +64,8 @@ test("typing ali in the top navigation shows Ali once with both jobs, scores and
   await expect(ali).toHaveCount(1);
   await expect(ali.getByText("Junior Web Developer")).toBeVisible();
   await expect(ali.getByText("QA Intern")).toBeVisible();
-  await expect(ali.getByText("74")).toBeVisible();
-  await expect(ali.getByText("66")).toBeVisible();
+  await expect(ali.getByText("74", { exact: true })).toBeVisible();
+  await expect(ali.getByText("66", { exact: true })).toBeVisible();
   await expect(ali.getByText("Shortlisted")).toBeVisible();
 
   // Clicking a result opens that Candidate Detail page.
