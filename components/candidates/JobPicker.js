@@ -16,7 +16,7 @@ export default function JobPicker({ jobs, selectedId }) {
           value: job.id,
           label: `${job.title} · ${job.applicantCount} ${job.applicantCount === 1 ? "applicant" : "applicants"}`,
         }))}
-        onChange={(event) => router.push(`/hr/candidates?job=${event.target.value}`)}
+        onChange={(event) => router.push(`${basePath}?job=${event.target.value}`)}
       />
     </div>
   );
