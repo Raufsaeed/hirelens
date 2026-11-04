@@ -2,11 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CANDIDATE_LINKS, HR_LINKS } from "@/components/nav/links";
+import { CANDIDATE_ACCOUNT_LINKS, CANDIDATE_LINKS, HR_ACCOUNT_LINKS, HR_LINKS } from "@/components/nav/links";
 
-const GROUPS = { hr: HR_LINKS, candidate: CANDIDATE_LINKS };
+const GROUPS = {
+  hr: HR_LINKS,
+  candidate: CANDIDATE_LINKS,
+  hrAccount: HR_ACCOUNT_LINKS,
+  candidateAccount: CANDIDATE_ACCOUNT_LINKS,
+};
 
-// The navigation links for "hr" or "candidate"; the current page gets aria-current="page".
+// The navigation links for one group (see GROUPS); the current page gets aria-current="page".
 export default function NavLinks({ group, linkClassName, onNavigate }) {
   const pathname = usePathname();
   return GROUPS[group].map(({ href, label, icon: Icon }) => {

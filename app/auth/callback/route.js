@@ -3,8 +3,9 @@ import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { runSupabase } from "@/lib/supabase/run";
 import { RESET_COOKIE, RESET_COOKIE_MAX_AGE } from "@/lib/auth/reset-cookie";
+import { getCurrentProfile } from "@/lib/auth/current-user";
 
-// GET /auth/callback: the password reset email link lands here.
+// GET /auth/callback: the password reset email link lands here (and, with ?flow=email, the change-email link).
 // It checks the link with Supabase, logs the user in and opens Set new password.
 // Supports both link styles: ?code=... (default email) and ?token_hash=...&type=recovery.
 export async function GET(request) {
@@ -27,6 +28,19 @@ export async function GET(request) {
     }
   } catch {
     // Expired, used or broken link: handled below.
+  }
+
+  // The link from a "change email" confirmation (Feature 22): back to the user's Settings page,
+  // which copies the confirmed email to the profile.
+  if (url.searchParams.get("flow") === "email") {
+    let settingsPath = "/settings";
+    try {
+      const profile = await getCurrentProfile();
+      if (profile?.role === "hr") settingsPath = "/hr/settings";
+    } catch {
+      // Fall back to the candidate Settings page.
+    }
+    return NextResponse.redirect(new URL(userId ? settingsPath : `${settingsPath}?email=expired`, url.origin));
   }
 
   if (!userId) {

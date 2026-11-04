@@ -45,6 +45,7 @@ function UserMenu({ fullName }) {
       </button>
       {open && (
         <div className="absolute top-full right-0 z-(--z-dropdown) mt-2 w-56 animate-fade-up rounded-control bg-nav-bg p-2 shadow-float">
+          <NavLinks group="candidateAccount" linkClassName={SIDE_LINK} />
           <SignOutButton className={SIDE_LINK} />
         </div>
       )}
@@ -71,6 +72,7 @@ export default function CandidateShell({ fullName, wide = false, children }) {
               <>
                 <NavLinks group="candidate" linkClassName={SIDE_LINK} onNavigate={close} />
                 <hr className="my-1.5 h-px border-0 bg-nav-line" />
+                <NavLinks group="candidateAccount" linkClassName={SIDE_LINK} onNavigate={close} />
                 <SignOutButton className={SIDE_LINK} />
               </>
             )}
