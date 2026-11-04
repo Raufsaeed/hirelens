@@ -6,7 +6,7 @@ import AuthCard from "@/components/auth/AuthCard";
 import AuthTabs from "@/components/auth/AuthTabs";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
-import Button from "@/components/ui/Button";
+import SubmitButton from "@/components/ui/SubmitButton";
 import PasswordField from "@/components/ui/PasswordField";
 import TextField from "@/components/ui/TextField";
 import TextLink from "@/components/ui/TextLink";
@@ -76,9 +76,9 @@ export default function LoginForm({ next, askedToLogIn }) {
           <Alert tone="error">{state.formError}</Alert>
         )}
 
-        <Button type="submit" size="lg" block loading={isPending}>
+        <SubmitButton  size="lg" block loading={isPending}>
           Log in
-        </Button>
+        </SubmitButton>
       </form>
 
       <p className="small text-center text-ink-muted">

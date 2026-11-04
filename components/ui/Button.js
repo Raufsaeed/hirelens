@@ -93,9 +93,6 @@ export default function Button({
       type="button"
       className={classes}
       aria-busy={loading || undefined}
-      // A submit button must not take focus on mouse down: that blurs the last field, its error
-      // message appears, the button moves down and the click misses. The submit check still runs.
-      onMouseDown={props.type === "submit" ? (event) => event.preventDefault() : undefined}
       {...props}
     >
       {content}

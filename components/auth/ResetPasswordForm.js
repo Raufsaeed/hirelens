@@ -6,7 +6,7 @@ import AuthCard from "@/components/auth/AuthCard";
 import ExpiredLinkNotice from "@/components/auth/ExpiredLinkNotice";
 import { useFieldErrors } from "@/components/forms/useFieldErrors";
 import Alert from "@/components/ui/Alert";
-import Button from "@/components/ui/Button";
+import SubmitButton from "@/components/ui/SubmitButton";
 import PasswordField from "@/components/ui/PasswordField";
 import { resetPassword } from "@/lib/auth/actions";
 import { validateNewPassword } from "@/lib/auth/validation";
@@ -77,9 +77,9 @@ export default function ResetPasswordForm() {
         )}
         {state.formError && <Alert tone="error">{state.formError}</Alert>}
 
-        <Button type="submit" size="lg" block loading={isPending || state.success}>
+        <SubmitButton  size="lg" block loading={isPending || state.success}>
           Save password
-        </Button>
+        </SubmitButton>
       </form>
     </AuthCard>
   );
