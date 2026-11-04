@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import { ArrowLeft, FileText, Lock } from "lucide-react";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
 import AiNote from "@/components/candidates/AiNote";
+import CvPreview from "@/components/candidates/CvPreview";
+import DecisionButtons from "@/components/candidates/DecisionButtons";
+import NotesPanel from "@/components/candidates/NotesPanel";
 import ScreeningPanel from "@/components/candidates/ScreeningPanel";
 import Avatar from "@/components/nav/Avatar";
 import Alert from "@/components/ui/Alert";
@@ -10,12 +13,12 @@ import EmptyState from "@/components/ui/EmptyState";
 import RetryButton from "@/components/ui/RetryButton";
 import TextLink from "@/components/ui/TextLink";
 import { getCurrentProfile } from "@/lib/auth/current-user";
-import { getCandidate } from "@/lib/candidates/queries";
+import { CV_PREVIEW_SECONDS, getCandidate, prepareCandidateView } from "@/lib/candidates/queries";
 import { formatDay } from "@/lib/format-date";
 
 export const metadata = { title: "Candidate · HireLens" };
 
-// Candidate Detail with the screening panel (Feature 11). Feature 14 adds shortlist, reject and notes.
+// Candidate Detail (Features 11 and 14): screening, CV preview, notes, Shortlist and Reject. HR only.
 export default function CandidateDetailPage({ params }) {
   return (
     <Suspense fallback={<div className="h-96 animate-pulse rounded-card bg-surface-sunken" aria-busy="true" />}>
@@ -27,9 +30,12 @@ export default function CandidateDetailPage({ params }) {
 async function CandidateDetail({ params }) {
   const { id } = await params;
   let candidate;
+  let cvUrl = null;
   try {
     const profile = await getCurrentProfile();
     candidate = await getCandidate(profile.company_id, id);
+    // Only after HR's access is confirmed: a fresh CV link, and "viewed" for the new count.
+    if (candidate) ({ cvUrl } = await prepareCandidateView(candidate));
   } catch {
     return <Alert tone="error" title="Couldn't load this candidate" action={<RetryButton />} />;
   }
@@ -67,15 +73,26 @@ async function CandidateDetail({ params }) {
             <ApplicationStatusBadge status={candidate.status} />
           </div>
         </div>
-        {candidate.screening_status !== "failed" && (
-          <Button href={cvHref} variant="secondary" icon={FileText} target="_blank" rel="noreferrer">
-            Open original CV
-          </Button>
-        )}
+        <div className="flex flex-col items-end gap-2">
+          <DecisionButtons applicationId={candidate.id} status={candidate.status} candidateName={candidate.candidate_name} />
+          {candidate.screening_status !== "failed" && (
+            <Button href={cvHref} variant="ghost" size="sm" icon={FileText} target="_blank" rel="noreferrer">
+              Open original CV
+            </Button>
+          )}
+        </div>
       </header>
 
-      <AiNote />
+      <AiNote title="AI suggestions are advice only — you make the decision." />
       <ScreeningPanel candidate={candidate} cvHref={cvHref} />
+
+      <div className="grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <section className="flex flex-col gap-3 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">
+          <h2 className="card-title">CV</h2>
+          <CvPreview url={cvUrl} validSeconds={CV_PREVIEW_SECONDS} />
+        </section>
+        <NotesPanel applicationId={candidate.id} notes={candidate.notes} />
+      </div>
 
       {candidate.cover_note && (
         <section className="flex flex-col gap-2 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">

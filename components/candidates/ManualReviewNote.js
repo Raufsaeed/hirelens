@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import TextAreaField from "@/components/ui/TextAreaField";
-import { saveManualReviewNote } from "@/lib/screening/actions";
+import { addNote } from "@/lib/candidates/notes-actions";
 
 // For a CV that could not be read: HR reads it by hand and saves a note (is_manual_review).
 export default function ManualReviewNote({ applicationId }) {
@@ -16,7 +16,7 @@ export default function ManualReviewNote({ applicationId }) {
 
   function save() {
     startTransition(async () => {
-      const outcome = await saveManualReviewNote(applicationId, body);
+      const outcome = await addNote(applicationId, body, { manualReview: true });
       setResult(outcome);
       if (outcome.message) {
         setBody("");
