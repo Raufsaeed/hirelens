@@ -111,12 +111,12 @@ Every user has a Settings page to change their name, email and password. HR also
 
 ## Done When
 
-- [ ] Changing the name to "Sara Khan" shows "Name updated" and the new name appears in the menu.
-- [ ] A new email only changes after the confirmation link is clicked; the old email works until then.
-- [ ] A new password that follows the password rule saves and shows "Password updated".
-- [ ] A wrong current password shows "Current password is incorrect" and the password does not change.
-- [ ] Sara (HR) sees a link to Company Settings and no Delete account section.
-- [ ] The Delete account button stays disabled until DELETE is typed.
-- [ ] Deleting logs Ali out and shows "Your account has been deleted".
-- [ ] Ali's CVs, applications and other data are removed, and Sara no longer sees him in her candidates list.
-- [ ] If deleting fails, "Couldn't delete your account, try again" shows.
+- [x] Changing the name to "Sara Khan" shows "Name updated" and the new name appears in the menu.
+- [x] A new email only changes after the confirmation link is clicked; the old email works until then.
+- [x] A new password that follows the password rule saves and shows "Password updated".
+- [x] A wrong current password shows "Current password is incorrect" and the password does not change.
+- [x] Sara (HR) sees a link to Company Settings and no Delete account section.
+- [x] The Delete account button stays disabled until DELETE is typed.
+- [x] Deleting logs Ali out and shows "Your account has been deleted".
+- [x] Ali's CVs, applications and other data are removed, and Sara no longer sees him in her candidates list.
+- [x] If deleting fails, "Couldn't delete your account, try again" shows.
