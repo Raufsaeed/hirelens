@@ -63,6 +63,42 @@ export async function findAccount(email) {
   return data;
 }
 
+let jobCounter = 0;
+
+// Creates a job directly (for tests that need an existing job). Open by default, with a unique slug.
+export async function createJob(companyId, fields = {}) {
+  const admin = adminClient();
+  jobCounter += 1;
+  const title = fields.title || "Junior Web Developer";
+  const row = {
+    company_id: companyId,
+    title,
+    slug: `e2e-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}-${jobCounter}`,
+    location: "Lahore",
+    job_type: "full-time",
+    required_years: 1,
+    required_degree: "BS Computer Science",
+    requirements: [
+      { name: "HTML", type: "must" },
+      { name: "React", type: "must" },
+      { name: "REST APIs", type: "nice" },
+    ],
+    description: "Build and maintain web pages for ABC Tech clients using React.",
+    status: "open",
+    ...fields,
+  };
+  const { data, error } = await admin.from("jobs").insert(row).select("*").single();
+  if (error) throw error;
+  return data;
+}
+
+export async function getJob(jobId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("jobs").select("*").eq("id", jobId).single();
+  if (error) throw error;
+  return data;
+}
+
 // Reads a company's jobs with the server key (to check what the app saved).
 export async function findJobs(companyId) {
   const admin = adminClient();
