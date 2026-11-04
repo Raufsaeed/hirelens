@@ -1,7 +1,10 @@
+import { after } from "next/server";
 import { getCurrentProfile } from "@/lib/auth/current-user";
 import { GENERIC_ERROR } from "@/lib/auth/validation";
 import { submitApplication } from "@/lib/applications/submit";
 import { CV_TOO_BIG_ERROR, MAX_CV_BYTES } from "@/lib/applications/validation";
+import { AI_TEST_COOKIE, aiTestModeFrom } from "@/lib/ai/test-mode";
+import { screenApplication } from "@/lib/screening/run";
 
 // POST /api/applications: the apply form sends the details and the PDF CV here.
 // A route (not a server action) so the browser can show upload progress for files up to 5 MB.
@@ -19,8 +22,12 @@ export async function POST(request) {
     }
 
     const result = await submitApplication(profile, await request.formData());
-    const status = result.applicationId ? 201 : 400;
-    return Response.json(result, { status });
+    if (!result.applicationId) return Response.json(result, { status: 400 });
+
+    // AI screening (Feature 11) runs in the background after the response; the candidate doesn't wait.
+    const testMode = aiTestModeFrom(request.cookies.get(AI_TEST_COOKIE)?.value);
+    after(() => screenApplication(result.applicationId, { testMode }));
+    return Response.json(result, { status: 201 });
   } catch {
     return Response.json({ error: GENERIC_ERROR }, { status: 500 });
   }
