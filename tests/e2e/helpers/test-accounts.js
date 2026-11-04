@@ -335,3 +335,21 @@ export async function findInterviews(applicationId) {
   if (error) throw error;
   return data;
 }
+
+// Interview feedback rows for an interview (Feature 17), read with the server key.
+export async function findFeedback(interviewId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("interview_feedback").select("*").eq("interview_id", interviewId);
+  if (error) throw error;
+  return data;
+}
+
+// Reads rows of a table as a logged-in user would (publishable key, Row Level Security applies).
+export async function readRowsAs(email, table, column, value) {
+  const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  const { data } = await client.from(table).select("*").eq(column, value);
+  return data || [];
+}
