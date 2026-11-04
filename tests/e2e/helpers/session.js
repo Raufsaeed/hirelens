@@ -19,7 +19,7 @@ export async function sessionCookies(browser, email) {
   return cookies;
 }
 
-export async function useSession(page, cookies, path = "/") {
+export async function openWithSession(page, cookies, path = "/") {
   await page.context().clearCookies();
   await page.context().addCookies(cookies);
   await page.goto(path);

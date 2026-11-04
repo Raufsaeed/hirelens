@@ -99,6 +99,59 @@ export async function getJob(jobId) {
   return data;
 }
 
+export async function updateJob(jobId, fields) {
+  const admin = adminClient();
+  const { error } = await admin.from("jobs").update(fields).eq("id", jobId);
+  if (error) throw error;
+}
+
+// A candidate's applications with their status history (to check what the app saved).
+export async function findApplications(candidateId) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("applications")
+    .select("*, status_history(*)")
+    .eq("candidate_id", candidateId);
+  if (error) throw error;
+  return data;
+}
+
+// Creates an application directly, with its first history row (for tests that need one).
+export async function createApplication({ job, candidate, status = "applied", cvText }) {
+  const admin = adminClient();
+  const path = `${candidate.id}/applications/${job.id}/ali-cv.pdf`;
+  if (cvText) {
+    const upload = await admin.storage.from("cvs").upload(path, cvText, { contentType: "application/pdf", upsert: true });
+    if (upload.error) throw upload.error;
+  }
+  const { data, error } = await admin
+    .from("applications")
+    .insert({
+      job_id: job.id,
+      candidate_id: candidate.id,
+      candidate_name: candidate.fullName || "Ali",
+      candidate_email: candidate.email,
+      cv_file_path: path,
+      phone: "0300 1234567",
+      status,
+    })
+    .select("*")
+    .single();
+  if (error) throw error;
+  await admin.from("status_history").insert({ application_id: data.id, from_status: null, to_status: "applied" });
+  if (status !== "applied") {
+    await admin.from("status_history").insert({ application_id: data.id, from_status: "applied", to_status: status });
+  }
+  return data;
+}
+
+// True when a CV file exists in the private cvs bucket.
+export async function cvExists(path) {
+  const admin = adminClient();
+  const { data, error } = await admin.storage.from("cvs").download(path);
+  return !error && Boolean(data);
+}
+
 // Reads a company's jobs with the server key (to check what the app saved).
 export async function findJobs(companyId) {
   const admin = adminClient();
@@ -139,20 +192,34 @@ export async function recoveryLink(baseURL, email) {
   return `${baseURL}/auth/callback?token_hash=${tokenHash}&type=recovery&next=/reset-password`;
 }
 
-// Deletes every account (and its company) created with these emails.
+// Removes every CV file a test candidate uploaded ({candidate_id}/applications/{job_id}/file.pdf).
+async function removeCvFiles(admin, userId) {
+  const { data: folders } = await admin.storage.from("cvs").list(`${userId}/applications`);
+  for (const folder of folders || []) {
+    const prefix = `${userId}/applications/${folder.name}`;
+    const { data: files } = await admin.storage.from("cvs").list(prefix);
+    const paths = (files || []).map((file) => `${prefix}/${file.name}`);
+    if (paths.length) await admin.storage.from("cvs").remove(paths);
+  }
+}
+
+// Deletes every account (and its company, jobs, applications and CV files) created with these emails.
+// Missing tables are ignored, so this works before later features' SQL has run.
 export async function deleteAccounts(emails) {
   const admin = adminClient();
+  const { data: users } = await admin.auth.admin.listUsers({ perPage: 1000 });
   for (const email of emails) {
-    const { data } = await admin
-      .from("profiles")
-      .select("id, company_id")
-      .eq("email", email);
-    const { data: users } = await admin.auth.admin.listUsers({ perPage: 1000 });
+    const { data } = await admin.from("profiles").select("id, company_id").eq("email", email);
     const user = users?.users.find((u) => u.email === email);
-    if (user) await admin.auth.admin.deleteUser(user.id);
+    if (user) {
+      await removeCvFiles(admin, user.id);
+      await admin.auth.admin.deleteUser(user.id); // cascades to the profile and their applications
+    }
     for (const row of data || []) {
       if (!row.company_id) continue;
-      // Jobs block deleting their company, so remove them first (ignored if the table doesn't exist yet).
+      const { data: jobs } = await admin.from("jobs").select("id").eq("company_id", row.company_id);
+      const jobIds = (jobs || []).map((job) => job.id);
+      if (jobIds.length) await admin.from("applications").delete().in("job_id", jobIds);
       await admin.from("jobs").delete().eq("company_id", row.company_id);
       await admin.from("companies").delete().eq("id", row.company_id);
     }

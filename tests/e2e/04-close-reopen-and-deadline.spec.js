@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { testEmail, createAccount, createJob, getJob, pakistanDate, deleteAccounts } from "./helpers/test-accounts";
-import { sessionCookies, useSession } from "./helpers/session";
+import { sessionCookies, openWithSession } from "./helpers/session";
 import { formatShortDate } from "../../lib/jobs/dates.js";
 
 // Feature 04 · Close, Reopen and Deadline. Uses dummy accounts that are deleted after the run.
@@ -29,7 +29,7 @@ function jobRow(page, title) {
 
 test("closing a job (after confirming) makes the public page show it no longer accepts applications", async ({ page, browser }) => {
   const job = await createJob(sara.companyId, { title: "Close Me Developer" });
-  await useSession(page, saraCookies, "/hr/jobs");
+  await openWithSession(page, saraCookies, "/hr/jobs");
 
   await jobRow(page, job.title).getByRole("button", { name: "Close job" }).click();
   const dialog = page.getByRole("dialog");
@@ -54,7 +54,7 @@ test("reopening a closed job brings back the Apply button", async ({ page, brows
     closed_reason: "manual",
     closed_at: new Date().toISOString(),
   });
-  await useSession(page, saraCookies, "/hr/jobs");
+  await openWithSession(page, saraCookies, "/hr/jobs");
 
   await jobRow(page, job.title).getByRole("button", { name: "Reopen" }).click();
   await expect(page.getByText("Job reopened")).toBeVisible();
@@ -81,13 +81,13 @@ test("a job read after its Apply by day closes, shows Applications closed on, an
   expect(saved.status).toBe("closed");
   expect(saved.closed_reason).toBe("deadline");
 
-  await useSession(page, saraCookies, "/hr/jobs");
+  await openWithSession(page, saraCookies, "/hr/jobs");
   await expect(jobRow(page, job.title).getByText("Closed · Deadline passed")).toBeVisible();
 });
 
 test("HR pages close past-deadline jobs too", async ({ page }) => {
   const job = await createJob(sara.companyId, { title: "Expired On Dashboard", apply_by: pakistanDate(-2) });
-  await useSession(page, saraCookies, "/hr/dashboard");
+  await openWithSession(page, saraCookies, "/hr/dashboard");
   const card = page.getByRole("article").filter({ hasText: job.title });
   await expect(card.getByText("Closed · Deadline passed")).toBeVisible();
   expect((await getJob(job.id)).closed_reason).toBe("deadline");
@@ -101,7 +101,7 @@ test("reopening a deadline-closed job needs a new date, and a future date reopen
     closed_at: new Date().toISOString(),
     apply_by: pakistanDate(-3),
   });
-  await useSession(page, saraCookies, "/hr/jobs");
+  await openWithSession(page, saraCookies, "/hr/jobs");
 
   await jobRow(page, job.title).getByRole("button", { name: "Reopen" }).click();
   const dialog = page.getByRole("dialog");
