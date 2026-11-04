@@ -21,6 +21,14 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
     baseURL: "http://localhost:3000",
+    // Every test page answers AI calls from tests/e2e/fixtures/ (development only), so tests never use
+    // the Gemini free quota. The one real-AI test (RUN_REAL_AI=1) sets its own cookie.
+    storageState: {
+      cookies: [
+        { name: "hl_ai_test", value: "fixture:screening", domain: "localhost", path: "/", expires: -1, httpOnly: false, secure: false, sameSite: "Lax" },
+      ],
+      origins: [],
+    },
     trace: "retain-on-failure",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
