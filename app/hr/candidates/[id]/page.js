@@ -89,7 +89,7 @@ async function CandidateDetail({ params }) {
       <div className="grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         <section className="flex flex-col gap-3 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">
           <h2 className="card-title">CV</h2>
-          <CvPreview url={cvUrl} validSeconds={CV_PREVIEW_SECONDS} />
+          <CvPreview applicationId={candidate.id} url={cvUrl} validSeconds={CV_PREVIEW_SECONDS} />
         </section>
         <NotesPanel applicationId={candidate.id} notes={candidate.notes} />
       </div>

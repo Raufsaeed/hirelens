@@ -51,13 +51,15 @@ function PipelineCard({ card, onMove, onDragStart }) {
         <div className="flex min-w-0 flex-1 flex-col">
           <Link
             href={`/hr/candidates/${card.id}`}
-            className="truncate font-bold text-ink no-underline hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
+            className="font-bold text-ink no-underline [overflow-wrap:anywhere] hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
           >
             {card.name}
           </Link>
           <span className="small text-ink-muted">{daysLabel(card.daysSinceApplying)}</span>
         </div>
-        {card.score !== null ? <ScoreRing score={card.score} /> : <span className="text-ink-muted">–</span>}
+      </div>
+      <div className="flex items-center gap-2">
+        {card.score !== null ? <ScoreRing score={card.score} /> : <span className="small text-ink-muted">No score yet</span>}
       </div>
       {withdrawn && (
         <span className="small inline-flex items-center gap-1.5 font-medium text-muted-text">
