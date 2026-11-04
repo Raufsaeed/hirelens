@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { ArrowLeft, Lock } from "lucide-react";
 import ApplicationActions from "@/components/applications/ApplicationActions";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
+import InterviewDetails from "@/components/applications/InterviewDetails";
 import StatusTimeline from "@/components/applications/StatusTimeline";
 import CompanyLogo from "@/components/jobs/CompanyLogo";
 import Alert from "@/components/ui/Alert";
@@ -15,7 +16,7 @@ import { formatDay } from "@/lib/format-date";
 
 export const metadata = { title: "Application · HireLens" };
 
-// Application Detail (Feature 09): the status timeline. Never a score, match, AI summary or HR note.
+// Application Detail (Feature 09): the status timeline, and the interview (Feature 16). Never a score, match, AI summary or HR note.
 export default function ApplicationDetailPage({ params }) {
   return (
     <Suspense fallback={<div className="h-96 animate-pulse rounded-card bg-surface-sunken" aria-busy="true" />}>
@@ -74,6 +75,8 @@ async function ApplicationDetail({ params }) {
         <h2 className="section-heading">Progress</h2>
         <StatusTimeline status={application.status} history={application.status_history} companyName={companyName} />
       </section>
+
+      {application.interview && <InterviewDetails interview={application.interview} />}
 
       <ApplicationActions applicationId={application.id} status={application.status} companyName={companyName} />
     </div>
