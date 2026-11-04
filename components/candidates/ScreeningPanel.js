@@ -4,7 +4,6 @@ import ManualReviewNote from "@/components/candidates/ManualReviewNote";
 import RetryScreeningButton from "@/components/candidates/RetryScreeningButton";
 import ScoreRing from "@/components/candidates/ScoreRing";
 import { RUBRIC_PARTS } from "@/lib/screening/validate";
-import { formatDayTime } from "@/lib/format-date";
 
 // The screening result on Candidate Detail (Feature 11). HR only; never shown to candidates.
 
@@ -62,7 +61,6 @@ export default function ScreeningPanel({ candidate, cvHref }) {
   }
 
   if (status === "failed") {
-    const reviews = candidate.notes.filter((note) => note.is_manual_review);
     return (
       <StatusCard icon={FileX} tone="bg-warning-bg text-warning" title="CV could not be read">
         <p className="text-ink-muted">
@@ -78,18 +76,6 @@ export default function ScreeningPanel({ candidate, cvHref }) {
           Open original CV
         </a>
         <ManualReviewNote applicationId={candidate.id} />
-        {reviews.length > 0 && (
-          <ul className="flex flex-col gap-2">
-            {reviews.map((note) => (
-              <li key={note.id} className="rounded-control bg-surface-sunken p-3">
-                <p className="whitespace-pre-line">{note.body}</p>
-                <p className="small text-ink-muted">
-                  {note.author_name} · {formatDayTime(note.created_at)}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
       </StatusCard>
     );
   }

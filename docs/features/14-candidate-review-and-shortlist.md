@@ -102,9 +102,9 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Done When
 
-- [ ] Candidate Detail shows the CV preview, score breakdown with reasons, requirements with evidence, experience, degree and summary.
-- [ ] The note "AI suggestions are advice only — you make the decision" is shown.
-- [ ] A note saves with Sara's name and time, and Shortlist changes Ali's status to Shortlisted.
-- [ ] Opening a candidate for the first time lowers the job card's new applicant count by one.
-- [ ] An expired CV preview shows "CV preview has expired", and Reload shows the CV again.
-- [ ] Privacy: another company's candidate URL shows "You don't have access to this page".
+- [x] Candidate Detail shows the CV preview, score breakdown with reasons, requirements with evidence, experience, degree and summary.
+- [x] The note "AI suggestions are advice only — you make the decision" is shown.
+- [x] A note saves with Sara's name and time, and Shortlist changes Ali's status to Shortlisted.
+- [x] Opening a candidate for the first time lowers the job card's new applicant count by one.
+- [x] An expired CV preview shows "CV preview has expired", and Reload shows the CV again.
+- [x] Privacy: another company's candidate URL shows "You don't have access to this page".

@@ -44,3 +44,18 @@ export function bigPdfFile(name = "big-cv.pdf") {
   const pdf = makePdf();
   return { name, mimeType: "application/pdf", buffer: Buffer.concat([pdf, Buffer.alloc(7 * 1024 * 1024)]) };
 }
+
+// A real 1×1 PNG (for logo uploads).
+const TINY_PNG = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+  "base64"
+);
+
+export function pngFile(name = "logo.png") {
+  return { name, mimeType: "image/png", buffer: TINY_PNG };
+}
+
+// A PNG just over 3 MB (a real PNG header with padding).
+export function bigPngFile(name = "big-logo.png") {
+  return { name, mimeType: "image/png", buffer: Buffer.concat([TINY_PNG, Buffer.alloc(3 * 1024 * 1024)]) };
+}

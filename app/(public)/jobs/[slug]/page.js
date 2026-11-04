@@ -51,7 +51,9 @@ async function JobDetail({ params }) {
           <CompanyLogo company={job.companies} size="lg" />
           <div className="flex min-w-0 flex-col gap-2">
             <h1 className="page-title [overflow-wrap:anywhere]">{job.title}</h1>
-            <span className="font-bold text-primary [overflow-wrap:anywhere]">{job.companies?.name}</span>
+            <TextLink href={`/companies/${job.companies?.slug}`} className="self-start [overflow-wrap:anywhere]">
+              {job.companies?.name}
+            </TextLink>
             <JobMeta job={job} />
           </div>
         </div>

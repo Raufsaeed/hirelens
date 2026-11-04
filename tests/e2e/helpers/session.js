@@ -33,4 +33,7 @@ export async function openWithSession(page, cookies, path = "/") {
   await page.context().clearCookies();
   await page.context().addCookies(hasAiCookie ? cookies : [...cookies, ...aiCookie()]);
   await page.goto(path);
+  // Wait until the page's scripts have loaded, so clicks, drags and file inputs are handled
+  // (right after a dev-server recompile, React can still be attaching its handlers).
+  await page.waitForLoadState("networkidle");
 }

@@ -29,6 +29,7 @@ export default function HrShell({ fullName, companyName, children }) {
               <span className="text-[13px] leading-[18px] text-nav-text-muted">HR</span>
             </div>
           </div>
+          <NavLinks group="hrAccount" linkClassName={SIDE_LINK} />
           <SignOutButton className={SIDE_LINK} />
         </div>
       </aside>
@@ -42,6 +43,7 @@ export default function HrShell({ fullName, companyName, children }) {
               <span className="caption px-3 py-2 text-nav-text-muted uppercase">{companyName}</span>
               <NavLinks group="hr" linkClassName={SIDE_LINK} onNavigate={close} />
               <hr className="my-1.5 h-px border-0 bg-nav-line" />
+              <NavLinks group="hrAccount" linkClassName={SIDE_LINK} onNavigate={close} />
               <SignOutButton className={SIDE_LINK} />
             </>
           )}

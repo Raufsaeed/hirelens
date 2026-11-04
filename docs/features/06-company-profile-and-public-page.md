@@ -115,14 +115,14 @@ HR edits the company's name, logo, About us, website and location in Company Set
 
 ## Done When
 
-- [ ] Sara saves About us, website and location and sees "Company updated".
-- [ ] A PNG or JPG logo under 2 MB uploads and replaces the old logo.
-- [ ] A 3 MB logo shows "Logo must be a PNG or JPG under 2 MB" and the old logo stays.
-- [ ] "abctech" as the website shows "Please enter a valid website, for example https://abctech.com".
-- [ ] Changing the company name keeps the page at `/companies/abc-tech`.
-- [ ] Privacy: a candidate who opens Company Settings sees "You don't have access to this page".
-- [ ] `/companies/abc-tech` shows the logo, name, About us, website, location and open jobs.
-- [ ] Only Open jobs are listed, never Draft or Closed jobs.
-- [ ] Clicking "ABC Tech" on the Junior Web Developer job page opens the company page.
-- [ ] `/companies/unknown-company` shows "This company could not be found".
-- [ ] Privacy: a logged-out visitor sees the page with no HR names, applicant counts or candidate data.
+- [x] Sara saves About us, website and location and sees "Company updated".
+- [x] A PNG or JPG logo under 2 MB uploads and replaces the old logo.
+- [x] A 3 MB logo shows "Logo must be a PNG or JPG under 2 MB" and the old logo stays.
+- [x] "abctech" as the website shows "Please enter a valid website, for example https://abctech.com".
+- [x] Changing the company name keeps the page at `/companies/abc-tech`.
+- [x] Privacy: a candidate who opens Company Settings sees "You don't have access to this page".
+- [x] `/companies/abc-tech` shows the logo, name, About us, website, location and open jobs.
+- [x] Only Open jobs are listed, never Draft or Closed jobs.
+- [x] Clicking "ABC Tech" on the Junior Web Developer job page opens the company page.
+- [x] `/companies/unknown-company` shows "This company could not be found".
+- [x] Privacy: a logged-out visitor sees the page with no HR names, applicant counts or candidate data.

@@ -1,11 +1,12 @@
 import { initials } from "@/components/nav/Avatar";
 
 // Company logo from the public logos bucket, or an initials monogram on primary-deep.
-export default function CompanyLogo({ company, size = "md" }) {
+// alt: set it where the logo stands alone (company page); next to the name it is decorative.
+export default function CompanyLogo({ company, size = "md", alt = "" }) {
   const box = size === "lg" ? "size-18 rounded-card text-2xl" : "size-12 rounded-[12px] text-[17px]";
   if (company?.logo_url) {
     // eslint-disable-next-line @next/next/no-img-element -- small logo from Supabase Storage
-    return <img src={company.logo_url} alt="" className={`${box} shrink-0 bg-surface object-cover`} />;
+    return <img src={company.logo_url} alt={alt} className={`${box} shrink-0 bg-surface object-cover`} />;
   }
   return (
     <span
