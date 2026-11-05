@@ -53,7 +53,7 @@ function UserMenu({ fullName }) {
   );
 }
 
-// Candidate layout: slim 56px deep purple top bar over the lavender page.
+// Candidate layout: slim 56px deep purple top bar over the warm cream page.
 // wide: public job pages use the wider HR content width instead of the candidate column.
 export default function CandidateShell({ fullName, wide = false, children }) {
   return (
