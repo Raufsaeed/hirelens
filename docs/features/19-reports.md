@@ -109,8 +109,8 @@ HR gets a Reports page with charts and numbers about their jobs, applicants and 
 
 ## Done When
 
-- [ ] Reports shows applicants per job, average score, the funnel, time to hire, top missing requirements and screening health.
-- [ ] Filtering by Junior Web Developer gives numbers that match the candidates list and pipeline board exactly.
-- [ ] Every chart has "Show as table".
-- [ ] With no jobs, Sara sees "Not enough data yet" and no broken or empty charts.
-- [ ] Privacy: no other company's data appears in any chart or table.
+- [x] Reports shows applicants per job, average score, the funnel, time to hire, top missing requirements and screening health.
+- [x] Filtering by Junior Web Developer gives numbers that match the candidates list and pipeline board exactly.
+- [x] Every chart has "Show as table".
+- [x] With no jobs, Sara sees "Not enough data yet" and no broken or empty charts.
+- [x] Privacy: no other company's data appears in any chart or table.

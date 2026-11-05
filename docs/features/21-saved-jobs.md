@@ -96,8 +96,8 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
 
 ## Done When
 
-- [ ] Clicking Save shows "Saved", and the job appears on Saved Jobs with an Apply button.
-- [ ] A logged-out user who clicks Save logs in and is back on the job with it saved.
-- [ ] A saved job that is closed or past its deadline shows "Applications closed".
-- [ ] Remove takes the job off the list, and the job page shows "Save" again.
-- [ ] Privacy: HR never sees who saved a job.
+- [x] Clicking Save shows "Saved", and the job appears on Saved Jobs with an Apply button.
+- [x] A logged-out user who clicks Save logs in and is back on the job with it saved.
+- [x] A saved job that is closed or past its deadline shows "Applications closed".
+- [x] Remove takes the job off the list, and the job page shows "Save" again.
+- [x] Privacy: HR never sees who saved a job.

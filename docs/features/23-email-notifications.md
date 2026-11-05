@@ -120,13 +120,13 @@ HireLens sends short, friendly emails with Resend. Candidates get emails when th
 
 ## Done When
 
-- [ ] Applying sends "Your application to ABC Tech was received" with a button to My Applications.
-- [ ] Scheduling an interview sends Ali an email with the date, time, duration and meeting link.
-- [ ] With status updates turned off, no status email is sent, but interview emails still arrive.
-- [ ] If Resend is unavailable, the action still succeeds and the email is logged as `failed`.
-- [ ] Privacy: no email contains a score, match percentage, AI summary or HR note.
-- [ ] "Send today's summary" sends Sara one email listing "Junior Web Developer · 5 new".
-- [ ] With no new applicants, Sara sees "No new applicants since the last summary" and no email is sent.
-- [ ] With "Daily applicant summary" turned off, no summary email is sent.
-- [ ] If sending fails, Sara sees "Couldn't send the summary, try again".
-- [ ] Privacy: the daily summary contains no scores, AI results or HR notes.
+- [x] Applying sends "Your application to ABC Tech was received" with a button to My Applications.
+- [x] Scheduling an interview sends Ali an email with the date, time, duration and meeting link.
+- [x] With status updates turned off, no status email is sent, but interview emails still arrive.
+- [x] If Resend is unavailable, the action still succeeds and the email is logged as `failed`.
+- [x] Privacy: no email contains a score, match percentage, AI summary or HR note.
+- [x] "Send today's summary" sends Sara one email listing "Junior Web Developer · 5 new".
+- [x] With no new applicants, Sara sees "No new applicants since the last summary" and no email is sent.
+- [x] With "Daily applicant summary" turned off, no summary email is sent.
+- [x] If sending fails, Sara sees "Couldn't send the summary, try again".
+- [x] Privacy: the daily summary contains no scores, AI results or HR notes.
