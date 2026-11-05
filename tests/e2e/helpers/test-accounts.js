@@ -356,3 +356,20 @@ export async function readRowsAs(email, table, column, value) {
   if (error) throw error;
   return data;
 }
+
+// Reads a CV file from the private cvs bucket as text (test PDFs hold their lines as plain text).
+export async function readCvText(path) {
+  const admin = adminClient();
+  const { data, error } = await admin.storage.from("cvs").download(path);
+  if (error) throw error;
+  return Buffer.from(await data.arrayBuffer()).toString("latin1");
+}
+
+// Removes a candidate's default CV behind the app's back (Feature 20: "deleted while applying").
+export async function clearDefaultCv(userId) {
+  const admin = adminClient();
+  const profile = await getProfile(userId);
+  if (profile?.default_cv_path) await admin.storage.from("cvs").remove([profile.default_cv_path]);
+  const { error } = await admin.from("profiles").update({ default_cv_path: null }).eq("id", userId);
+  if (error) throw error;
+}
