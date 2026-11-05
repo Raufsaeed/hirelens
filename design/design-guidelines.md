@@ -41,7 +41,7 @@ Everything a developer needs to build HireLens screens: every design token, the 
 | `--surface` | `#FBF8F2` | Light cream for cards, tables, dialogs, inputs and menus. Never pure white. |
 | `--surface-sunken` | `#EFE7DA` | Deeper cream for row hover, table headers, chips, disabled fills, skeleton base and the hint box inside cards. |
 | `--surface-skeleton-shine` | `#FBF8F2` | Highlight band of the skeleton shimmer. |
-| `--surface-column` | `#E4DEF8` | Pipeline board columns on surface-page (ink 13.2:1, ink-muted 5:1). |
+| `--surface-column` | `#EAE1D2` | Warm cream pipeline board columns on surface-page (ink 13.3:1, ink-muted 5.1:1, primary 5.1:1). |
 | `--nav-bg` | `#24164F` | Deep purple HR sidebar, candidate top bar and mobile menu panels. |
 | `--nav-hover` | `#33236A` | Hover fill of sidebar and top-bar items. |
 | `--nav-line` | `#3A2B70` | Dividers inside the sidebar. Decorative only. |
@@ -226,7 +226,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --surface: #FBF8F2;
   --surface-sunken: #EFE7DA;
   --surface-skeleton-shine: #FBF8F2;
-  --surface-column: #E4DEF8;
+  --surface-column: #EAE1D2;
   --nav-bg: #24164F;
   --nav-hover: #33236A;
   --nav-line: #3A2B70;

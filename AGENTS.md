@@ -173,8 +173,9 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - `design/design-guidelines.md` and `design/tokens.css` are the single source of truth for the look.
 - Colours:
   - Deep purple navigation (`--nav-bg` `#24164F`)
-  - Lavender pages (`--surface-page` `#EEEAFB`)
-  - Light lilac cards (`--surface` `#FCFBFF`) with lilac borders (`--border` `#DCD5F5`)
+  - Warm cream pages (`--surface-page` `#F3EEE6`)
+  - Light cream cards (`--surface` `#FBF8F2`) with warm sand borders (`--border` `#E3DACB`)
+  - Deeper cream sunken areas (`--surface-sunken` `#EFE7DA`) and pipeline columns (`--surface-column` `#EAE1D2`)
   - Brand purple `--primary` `#5B3FD9`
   - Teal for found, orange for missing, red for errors
   - Nothing pure white
