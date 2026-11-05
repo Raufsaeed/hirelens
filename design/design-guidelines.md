@@ -82,7 +82,7 @@ Everything a developer needs to build HireLens screens: every design token, the 
 | `--chart-5` | `#B7A8F7` | Series step 5 (Hired); value label sits outside the bar. |
 | `--logo-lens-dark-from` | `#C9B8FF` | "Lens" gradient start in the wordmark on dark backgrounds (nav, sidebar, purple art). |
 | `--logo-lens-dark-to` | `#8E6CFF` | "Lens" gradient end on dark backgrounds. |
-| `--logo-lens-light-from` | `#9B7BFF` | "Lens" gradient start in the wordmark on light pages. |
+| `--logo-lens-light-from` | `#6B4FE6` | "Lens" gradient start in the wordmark on light pages. |
 | `--logo-lens-light-to` | `#5B3FD9` | "Lens" gradient end on light pages. |
 
 **Status mapping** — Pipeline: Applied `neutral` · Shortlisted `primary-tint` · Interview `info` · Offer `amber` · Hired `success` · Rejected `danger` · Withdrawn `muted` (dashed border). Screening: Queued/Pending `neutral` · Processing `primary-tint` + spinner · Done `success` · Failed `danger`. Job: Draft `neutral` · Open `primary-tint` · Closed `muted`. Requirements: found `success` · missing `warning` (dashed border). Score bands: 85–100 Excellent `success` · 70–84 Good `primary-tint` · 50–69 Average `warning` · 0–49 Poor `danger`.
@@ -267,7 +267,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --chart-5: #B7A8F7;
   --logo-lens-dark-from: #C9B8FF;
   --logo-lens-dark-to: #8E6CFF;
-  --logo-lens-light-from: #9B7BFF;
+  --logo-lens-light-from: #6B4FE6;
   --logo-lens-light-to: #5B3FD9;
   /* type */
   --font-sans: Manrope, "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -479,7 +479,7 @@ The HireLens logo is an **owl mark** (a geometric owl in brand purples, one eye 
 - **Files:** `public/logo-mark.svg` (the mark used in the app) and `app/icon.svg` (the same SVG, used as the browser tab icon). Never redraw, recolour or stretch the mark.
 - **Wordmark colours:** "Hire" uses the normal text colour of its background (`--ink` on light pages, `--nav-text` on the nav, `--on-primary` on the purple art). "Lens" uses a left-to-right gradient:
   - On dark backgrounds: `--logo-lens-dark-from` `#C9B8FF` → `--logo-lens-dark-to` `#8E6CFF`.
-  - On light pages: `--logo-lens-light-from` `#9B7BFF` → `--logo-lens-light-to` `#5B3FD9`.
+  - On light pages: `--logo-lens-light-from` `#6B4FE6` → `--logo-lens-light-to` `#5B3FD9` (both ends pass 4.5:1 contrast on the lavender and lilac surfaces).
 - **Inline version** (mark 32px, wordmark 18px beside it, 10px gap): HR sidebar, candidate top bar, visitor top bar, landing nav, and the plain light pages (not found, access denied, account deleted). Code: `<Brand tone="nav" />`, `tone="gradient"` or `tone="light"`.
 - **Stacked version** (mark 64px above the 24px wordmark, then the tagline "AI-POWERED HIRING" in `caption`, uppercase, 0.2em letter spacing, muted colour): the purple panel of the auth pages only. Code: `<Brand tone="gradient" layout="stacked" />`.
 - **Watermark:** the landing hero shows the mark large behind the floating cards at 8% opacity, as decoration only.
