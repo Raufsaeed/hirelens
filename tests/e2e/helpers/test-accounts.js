@@ -305,3 +305,54 @@ export async function getProfile(userId) {
   if (error) throw error;
   return data;
 }
+
+// Saves an interview directly (Feature 16), for tests that need one already booked.
+// date "YYYY-MM-DD" and time "HH:MM" are Pakistan time.
+export async function createInterview(applicationId, { date, time = "11:00", interviewerName = "Sara", ...fields }) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("interviews")
+    .insert({
+      application_id: applicationId,
+      scheduled_at: `${date}T${time}:00+05:00`,
+      interviewer_name: interviewerName,
+      meeting_link: "https://meet.google.com/abc-defg-hij",
+      ...fields,
+    })
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function findInterviews(applicationId) {
+  const admin = adminClient();
+  const { data, error } = await admin
+    .from("interviews")
+    .select("*")
+    .eq("application_id", applicationId)
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return data;
+}
+
+// Interview feedback rows for an interview (Feature 17), read with the server key.
+export async function findFeedback(interviewId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("interview_feedback").select("*").eq("interview_id", interviewId);
+  if (error) throw error;
+  return data;
+}
+
+// Reads rows of a table as a logged-in user would (publishable key, Row Level Security applies).
+export async function readRowsAs(email, table, column, value) {
+  const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  // Fail loudly if the login or read fails, so a privacy test can't pass by accident.
+  const login = await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  if (login.error) throw login.error;
+  const { data, error } = await client.from(table).select("*").eq(column, value);
+  if (error) throw error;
+  return data;
+}

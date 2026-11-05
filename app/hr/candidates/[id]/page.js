@@ -5,6 +5,8 @@ import AiNote from "@/components/candidates/AiNote";
 import CvPreview from "@/components/candidates/CvPreview";
 import DecisionButtons from "@/components/candidates/DecisionButtons";
 import NotesPanel from "@/components/candidates/NotesPanel";
+import CandidateInterviews from "@/components/interviews/CandidateInterviews";
+import InterviewQuestionsPanel from "@/components/interviews/InterviewQuestionsPanel";
 import ScreeningPanel from "@/components/candidates/ScreeningPanel";
 import Avatar from "@/components/nav/Avatar";
 import Alert from "@/components/ui/Alert";
@@ -93,6 +95,17 @@ async function CandidateDetail({ params }) {
         </section>
         <NotesPanel applicationId={candidate.id} notes={candidate.notes} />
       </div>
+
+      {candidate.interviews.length > 0 && (
+        <CandidateInterviews candidateName={candidate.candidate_name} interviews={candidate.interviews} />
+      )}
+
+      <InterviewQuestionsPanel
+        key={candidate.questionsInterview?.id || "none"}
+        interview={candidate.questionsInterview}
+        screeningDone={candidate.screening_status === "done" && Boolean(candidate.screening?.cv_text_clean)}
+        initialQuestions={candidate.questionsInterview?.questions || []}
+      />
 
       {candidate.cover_note && (
         <section className="flex flex-col gap-2 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">

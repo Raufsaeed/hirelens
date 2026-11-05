@@ -1,4 +1,4 @@
-import { Briefcase, Building2, FileText, Kanban, LayoutDashboard, Search, Settings, Users } from "lucide-react";
+import { Briefcase, Building2, CalendarClock, FileText, Kanban, LayoutDashboard, Search, Settings, Users } from "lucide-react";
 
 // Navigation links. Each feature adds its page here when it is built.
 export const HR_LINKS = [
@@ -6,6 +6,7 @@ export const HR_LINKS = [
   { href: "/hr/jobs", label: "My Jobs", icon: Briefcase },
   { href: "/hr/candidates", label: "Candidates", icon: Users },
   { href: "/hr/pipeline", label: "Pipeline", icon: Kanban },
+  { href: "/hr/interviews", label: "Interviews", icon: CalendarClock },
 ];
 
 export const CANDIDATE_LINKS = [

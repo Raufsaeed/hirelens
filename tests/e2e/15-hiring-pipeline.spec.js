@@ -8,6 +8,7 @@ import {
   findApplications,
   setScreening,
   deleteAccounts,
+  pakistanDate,
 } from "./helpers/test-accounts";
 import { sessionCookies, openWithSession } from "./helpers/session";
 
@@ -80,6 +81,12 @@ test("the board shows six columns with a card for every candidate", async ({ pag
 test("dragging Ali to Interview moves him, saves history, and Ali sees Interview", async ({ page }) => {
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${job.id}`);
   await dragCard(page, "Ali Raza", "Interview");
+  // Moving to Interview opens the schedule form (Feature 16); the move is saved with the interview.
+  const form = page.getByRole("dialog");
+  await form.getByLabel("Date").fill(pakistanDate(3));
+  await form.getByLabel("Time").fill("11:00");
+  await form.getByLabel("Meeting link").fill("https://meet.google.com/abc-defg-hij");
+  await form.getByRole("button", { name: "Save interview" }).click();
   await expect(page.getByText("Ali Raza moved to Interview")).toBeVisible();
   await expect(column(page, "Interview").getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 

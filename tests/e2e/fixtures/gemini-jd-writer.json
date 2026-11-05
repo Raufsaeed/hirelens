@@ -1,0 +1,20 @@
+{
+  "description": {
+    "about_the_role": "ABC Tech is looking for a Junior Web Developer to join our small, friendly team in Lahore on a hybrid basis. You will help build and improve the web apps our clients use every day, working closely with designers and senior developers who are happy to share what they know. This is a full-time role with plenty of room to learn and grow. We value clear code, kind feedback and steady learning, and we welcome applicants from every background.",
+    "responsibilities": [
+      "Build responsive, accessible pages with HTML, CSS and React.",
+      "Connect the front end to our REST APIs and handle loading and error states.",
+      "Use Git to manage your code and review pull requests with the team.",
+      "Fix bugs, improve page speed and keep the code clean and easy to read."
+    ],
+    "what_we_are_looking_for": [
+      "1 year of experience in web development.",
+      "BS in Computer Science.",
+      "Good knowledge of HTML, CSS, React and Git.",
+      "Experience with REST APIs is a plus."
+    ]
+  },
+  "suggested_requirements": [
+    { "name": "TypeScript", "type": "nice", "label": "suggestion" }
+  ]
+}

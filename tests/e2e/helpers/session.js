@@ -37,3 +37,12 @@ export async function openWithSession(page, cookies, path = "/") {
   // (right after a dev-server recompile, React can still be attaching its handlers).
   await page.waitForLoadState("networkidle");
 }
+
+// In fake-AI mode the app saves the last prompt it would have sent to Gemini here (development only),
+// so privacy tests can check what AI would receive.
+export async function lastAiPrompt() {
+  const { readFile } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const path = await import("node:path");
+  return readFile(path.join(tmpdir(), "hirelens-ai-test-prompt.txt"), "utf8");
+}

@@ -31,8 +31,9 @@ async function Pipeline({ searchParams }) {
   let job;
   let notMine = false;
   let cards;
+  let profile;
   try {
-    const profile = await getCurrentProfile();
+    profile = await getCurrentProfile();
     jobs = await listCandidateJobs(profile.company_id);
     job = params.job ? jobs.find((item) => item.id === params.job) : jobs[0];
     notMine = Boolean(params.job && !job);
@@ -55,7 +56,7 @@ async function Pipeline({ searchParams }) {
   return (
     <>
       <JobPicker jobs={jobs} selectedId={job.id} basePath="/hr/pipeline" />
-      <PipelineBoard key={job.id} initialCards={cards || []} />
+      <PipelineBoard key={job.id} initialCards={cards || []} interviewerName={profile.full_name} />
     </>
   );
 }

@@ -2,19 +2,22 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { CircleSlash, GripVertical, PartyPopper, Undo2 } from "lucide-react";
+import { CalendarClock, CircleSlash, GripVertical, PartyPopper, Undo2 } from "lucide-react";
 import { APPLICATION_STATUSES } from "@/components/applications/ApplicationStatusBadge";
 import ScoreRing from "@/components/candidates/ScoreRing";
+import ScheduleInterviewDialog from "@/components/interviews/ScheduleInterviewDialog";
 import Avatar from "@/components/nav/Avatar";
 import Button from "@/components/ui/Button";
 import Dialog from "@/components/ui/Dialog";
 import Toast from "@/components/ui/Toast";
 import { INPUT_CLASSES } from "@/components/ui/TextField";
 import { moveApplication } from "@/lib/applications/status-actions";
+import { formatDayTime } from "@/lib/format-date";
 
 // Pipeline board for one job (Feature 15). Cards move by drag and drop or with the "Move to" select
 // (keyboard and phone). Hired and Rejected confirm first. A failed save puts the card back.
 // Withdrawn candidates are greyed out and can't be moved. AI never moves a card.
+// Moving to Interview opens the schedule form (Feature 16); the move is saved with the interview.
 
 const COLUMNS = ["applied", "shortlisted", "interview", "offer", "hired", "rejected"];
 const NEEDS_CONFIRM = ["hired", "rejected"];
@@ -61,6 +64,13 @@ function PipelineCard({ card, onMove, onDragStart }) {
       <div className="flex items-center gap-2">
         {card.score !== null ? <ScoreRing score={card.score} /> : <span className="small text-ink-muted">No score yet</span>}
       </div>
+      {card.column === "interview" && card.nextInterview && (
+        <span className="small inline-flex items-center gap-1.5 font-medium text-ink">
+          <CalendarClock className="size-icon-sm shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
+          <span className="sr-only">Interview </span>
+          {formatDayTime(card.nextInterview)}
+        </span>
+      )}
       {withdrawn && (
         <span className="small inline-flex items-center gap-1.5 font-medium text-muted-text">
           <Undo2 className="size-icon-sm" strokeWidth={1.75} aria-hidden="true" />
@@ -88,12 +98,13 @@ function PipelineCard({ card, onMove, onDragStart }) {
   );
 }
 
-export default function PipelineBoard({ initialCards }) {
+export default function PipelineBoard({ initialCards, interviewerName }) {
   const [cards, setCards] = useState(initialCards);
   const [draggingId, setDraggingId] = useState(null);
   const [dropTarget, setDropTarget] = useState(null);
   const [confirm, setConfirm] = useState(null); // { card, toStatus }
   const [saving, setSaving] = useState(false);
+  const [scheduling, setScheduling] = useState(null); // the card moving to Interview
   const [toast, setToast] = useState(null);
   const dismiss = useCallback(() => setToast(null), []);
 
@@ -119,7 +130,8 @@ export default function PipelineBoard({ initialCards }) {
 
   function requestMove(card, toStatus) {
     if (card.status === "withdrawn" || card.status === toStatus) return;
-    if (NEEDS_CONFIRM.includes(toStatus)) setConfirm({ card, toStatus });
+    if (toStatus === "interview") setScheduling(card);
+    else if (NEEDS_CONFIRM.includes(toStatus)) setConfirm({ card, toStatus });
     else save(card, toStatus);
   }
 
@@ -128,6 +140,20 @@ export default function PipelineBoard({ initialCards }) {
     await save(confirm.card, confirm.toStatus);
     setSaving(false);
     setConfirm(null);
+  }
+
+  // The interview is saved and the candidate moved on the server: show the card in Interview.
+  function scheduled(result) {
+    const card = scheduling;
+    setScheduling(null);
+    setCards((current) =>
+      current.map((item) =>
+        item.id === card.id
+          ? { ...item, status: "interview", column: "interview", nextInterview: result.interview.scheduled_at }
+          : item
+      )
+    );
+    setToast({ tone: "success", message: `Interview scheduled · ${card.name} moved to Interview` });
   }
 
   const rejecting = confirm?.toStatus === "rejected";
@@ -204,6 +230,16 @@ export default function PipelineBoard({ initialCards }) {
             : "They will see Hired on My Applications."}
         </p>
       </Dialog>
+
+      {scheduling && (
+        <ScheduleInterviewDialog
+          applicationId={scheduling.id}
+          candidateName={scheduling.name}
+          defaultInterviewer={interviewerName}
+          onClose={() => setScheduling(null)}
+          onSaved={scheduled}
+        />
+      )}
 
       <Toast toast={toast} onDismiss={dismiss} />
     </>

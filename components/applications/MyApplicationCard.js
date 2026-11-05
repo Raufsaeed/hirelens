@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { CalendarClock, ChevronRight } from "lucide-react";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
 import CompanyLogo from "@/components/jobs/CompanyLogo";
-import { formatDay } from "@/lib/format-date";
+import { formatDay, formatDayTime } from "@/lib/format-date";
 
-// One application on My Applications: job, company, applied date and status. Never a score.
+// One application on My Applications: job, company, applied date, status and any interview. Never a score.
 export default function MyApplicationCard({ application }) {
   const job = application.jobs;
   return (
@@ -23,6 +23,14 @@ export default function MyApplicationCard({ application }) {
           {job?.companies?.name} · Applied on {formatDay(application.applied_at)}
         </span>
         <ApplicationStatusBadge status={application.status} forCandidate />
+        {application.interview && (
+          <span className="small inline-flex items-center gap-1.5 font-medium text-ink">
+            <CalendarClock className="size-icon-sm shrink-0 text-primary" strokeWidth={1.75} aria-hidden="true" />
+            {application.interview.status === "cancelled"
+              ? "Interview cancelled"
+              : `Interview on ${formatDayTime(application.interview.scheduled_at)}`}
+          </span>
+        )}
       </div>
       <ChevronRight className="size-icon-md shrink-0 text-ink-muted" strokeWidth={1.75} aria-hidden="true" />
     </article>
