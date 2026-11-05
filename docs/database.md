@@ -23,6 +23,7 @@ Each table is created only through SQL given to the user to run in the Supabase 
 | 18 AI Interview Questions | `interview_questions` (every column in section 2.10; `question` and `good_answer_hint` up to 500 characters, `focus` up to 100); index on `interview_id` + `position` |
 | 19 Reports | No database changes. Every number is worked out in code from `jobs`, `applications`, `screenings` and `status_history`. |
 | 20 Candidate Profile | `profiles.phone` (≤ 30 characters), `profiles.city` (≤ 100), `profiles.headline` (≤ 100), `profiles.default_cv_path`; check that HR rows leave them empty; update grant on `phone`, `city` and `headline` (`default_cv_path` is server only). The default CV is at `{candidate_id}/default/{file}.pdf` in `cvs`, uploaded and removed by the server, and copied into the application folder on apply |
+| 21 Saved Jobs | `saved_jobs` (every column in section 2.11; unique `candidate_id` + `job_id`; index on `candidate_id` + `saved_at`). RLS: the candidate selects and deletes their own rows and inserts only for themselves and only `open` jobs; nobody updates; HR never reads it |
 | 14, 22 | No database changes of their own. `viewed_at` is set by the server; account delete removes the Auth user, which cascades to the profile and everything linked to it. |
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name`, `logo_url`, `about`, `website` and `location` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).

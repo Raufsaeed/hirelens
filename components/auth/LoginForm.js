@@ -13,7 +13,7 @@ import TextLink from "@/components/ui/TextLink";
 import { logIn } from "@/lib/auth/actions";
 import { validateLogIn } from "@/lib/auth/validation";
 
-export default function LoginForm({ next, askedToLogIn }) {
+export default function LoginForm({ next, notice }) {
   const [values, setValues] = useState({ email: "", password: "" });
   const [state, formAction, isPending] = useActionState(logIn, {});
   const { errorFor, checkField, clearField, checkAll } = useFieldErrors(validateLogIn, state.errors);
@@ -35,7 +35,7 @@ export default function LoginForm({ next, askedToLogIn }) {
     <AuthCard title="Log in to HireLens" subtitle="Welcome back.">
       <AuthTabs active="login" next={next} />
 
-      {askedToLogIn && <Alert tone="info">Please log in to continue</Alert>}
+      {notice && <Alert tone="info">{notice}</Alert>}
 
       <form action={formAction} onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
         {next && <input type="hidden" name="next" value={next} />}

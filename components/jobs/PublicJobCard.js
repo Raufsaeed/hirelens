@@ -5,7 +5,8 @@ import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobMeta from "@/components/jobs/JobMeta";
 
 // One open job on the public jobs list. Titles and company names wrap, never truncate.
-export default function PublicJobCard({ job }) {
+// action: an optional button (Save, Feature 21), kept above the card's full-size link.
+export default function PublicJobCard({ job, action }) {
   return (
     <article className="relative flex flex-col gap-4 rounded-card border border-border bg-surface p-4 shadow-card transition-[transform,box-shadow] duration-(--duration-fast) ease-out hover:-translate-y-0.5 hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-6">
       <div className="flex items-start gap-3">
@@ -37,7 +38,8 @@ export default function PublicJobCard({ job }) {
       )}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <DeadlineLabel deadline={job.deadline} />
-        <span aria-hidden="true" className="ml-auto inline-flex items-center gap-1 font-bold text-primary">
+        {action && <div className="relative z-10 ml-auto">{action}</div>}
+        <span aria-hidden="true" className={`${action ? "" : "ml-auto "}inline-flex items-center gap-1 font-bold text-primary`}>
           View job
           <ArrowRight className="size-icon-sm" strokeWidth={1.75} />
         </span>
