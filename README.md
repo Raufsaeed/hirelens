@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logo-mark.svg" alt="HireLens owl logo" width="96" height="96">
+</p>
+
 # HireLens
 
 HireLens is an AI-powered hiring platform for small and medium companies. HR posts a job, candidates apply with a PDF CV, and AI screens every CV against the job, giving a score with clear reasons and evidence and ranking the candidates. AI only advises: HR always makes the final decision.

@@ -4,6 +4,8 @@ import Brand from "@/components/ui/Brand";
 import Button from "@/components/ui/Button";
 import GradientMesh from "@/components/ui/GradientMesh";
 import FadeUp from "@/components/motion/FadeUp";
+import HeroVisual from "@/components/landing/HeroVisual";
+import RotatingHeadline from "@/components/landing/RotatingHeadline";
 import { DURATION } from "@/lib/motion";
 
 // Landing page: a short intro with "I'm hiring" and "I'm looking for a job" (Feature 01).
@@ -42,27 +44,28 @@ export default function LandingPage() {
           </div>
         </nav>
 
-        <div className="relative z-1 mx-auto flex max-w-hr flex-col gap-6 px-4 pt-12 pb-16 sm:px-6 sm:pt-16 sm:pb-24">
-          <FadeUp distance={18} duration={DURATION.score}>
-            <h1 className="display text-on-primary">
-              Hire faster.
-              <br />
-              Hire fairly.
-            </h1>
-          </FadeUp>
-          <FadeUp distance={18} duration={DURATION.score} delay={HERO_STAGGER}>
-            <p className="body-lg max-w-130 text-primary-faint">
-              Post a job, share one link, and let AI check every CV against your requirements, with a score,
-              clear reasons and evidence from the CV. You make every decision.
-            </p>
-          </FadeUp>
-          <FadeUp distance={18} duration={DURATION.score} delay={HERO_STAGGER * 2} className="flex flex-wrap gap-3">
-            <Button href="/signup?role=hr" variant="on-dark" size="lg" icon={Briefcase}>
-              I&apos;m hiring
-            </Button>
-            <Button href="/signup?role=candidate" variant="outline-dark" size="lg" icon={Search}>
-              I&apos;m looking for a job
-            </Button>
+        <div className="relative z-1 mx-auto grid max-w-hr items-center gap-12 px-4 pt-12 pb-16 sm:px-6 sm:pt-16 sm:pb-24 lg:grid-cols-[1.15fr_1fr]">
+          <div className="flex min-w-0 flex-col gap-6">
+            <FadeUp distance={18} duration={DURATION.score}>
+              <RotatingHeadline />
+            </FadeUp>
+            <FadeUp distance={18} duration={DURATION.score} delay={HERO_STAGGER}>
+              <p className="body-lg max-w-130 text-primary-faint">
+                Post a job, share one link, and let AI check every CV against your requirements, with a score,
+                clear reasons and evidence from the CV. You make every decision.
+              </p>
+            </FadeUp>
+            <FadeUp distance={18} duration={DURATION.score} delay={HERO_STAGGER * 2} className="flex flex-wrap gap-3">
+              <Button href="/signup?role=hr" variant="on-dark" size="lg" icon={Briefcase}>
+                I&apos;m hiring
+              </Button>
+              <Button href="/signup?role=candidate" variant="outline-dark" size="lg" icon={Search}>
+                I&apos;m looking for a job
+              </Button>
+            </FadeUp>
+          </div>
+          <FadeUp distance={18} duration={DURATION.score} delay={HERO_STAGGER * 3} className="min-w-0">
+            <HeroVisual />
           </FadeUp>
         </div>
       </header>
