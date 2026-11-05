@@ -80,6 +80,10 @@ Everything a developer needs to build HireLens screens: every design token, the 
 | `--chart-3` | `#5B3FD9` | Series step 3 (Interview). |
 | `--chart-4` | `#8D76EA` | Series step 4 (Offer); value label sits outside the bar. |
 | `--chart-5` | `#B7A8F7` | Series step 5 (Hired); value label sits outside the bar. |
+| `--logo-lens-dark-from` | `#C9B8FF` | "Lens" gradient start in the wordmark on dark backgrounds (nav, sidebar, purple art). |
+| `--logo-lens-dark-to` | `#8E6CFF` | "Lens" gradient end on dark backgrounds. |
+| `--logo-lens-light-from` | `#9B7BFF` | "Lens" gradient start in the wordmark on light pages. |
+| `--logo-lens-light-to` | `#5B3FD9` | "Lens" gradient end on light pages. |
 
 **Status mapping** — Pipeline: Applied `neutral` · Shortlisted `primary-tint` · Interview `info` · Offer `amber` · Hired `success` · Rejected `danger` · Withdrawn `muted` (dashed border). Screening: Queued/Pending `neutral` · Processing `primary-tint` + spinner · Done `success` · Failed `danger`. Job: Draft `neutral` · Open `primary-tint` · Closed `muted`. Requirements: found `success` · missing `warning` (dashed border). Score bands: 85–100 Excellent `success` · 70–84 Good `primary-tint` · 50–69 Average `warning` · 0–49 Poor `danger`.
 
@@ -89,7 +93,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
 
 | Style | Size / line height | Weight | Letter spacing | Use |
 |---|---|---|---|---|
-| `display` | 56px / 60px | 800 | -0.02em | Landing hero headline only. Drops to display-sm under 640px. |
+| `display` | 56px / 60px | 800 | -0.02em | Landing hero headline only (line 2 rotates, see Motion recipes). Drops to display-sm under 640px. |
 | `display-sm` | 36px / 40px | 800 | -0.02em | Landing hero on phones; login/sign up panel headline. |
 | `page-title` | 30px / 38px | 800 | -0.01em | One per page: the page's h1. 24px/32px under 640px. |
 | `section-heading` | 22px / 30px | 700 | 0 | Sections inside a page (h2). |
@@ -157,7 +161,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
 | Token | Value | Use |
 |---|---|---|
 | `--ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | The only easing curve. Every transition and animation uses it (loops use ease-in-out). |
-| `--ease-loop` | `ease-in-out` | Only for slow background loops and the hero card bob. |
+| `--ease-loop` | `ease-in-out` | Only for slow background loops and the floating hero cards. |
 
 ## Sizes
 
@@ -257,6 +261,10 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --chart-3: #5B3FD9;
   --chart-4: #8D76EA;
   --chart-5: #B7A8F7;
+  --logo-lens-dark-from: #C9B8FF;
+  --logo-lens-dark-to: #8E6CFF;
+  --logo-lens-light-from: #9B7BFF;
+  --logo-lens-light-to: #5B3FD9;
   /* type */
   --font-sans: Manrope, "Segoe UI", system-ui, -apple-system, sans-serif;
   /* spacing */
@@ -391,6 +399,10 @@ module.exports = {
         'chart-3': 'var(--chart-3)',
         'chart-4': 'var(--chart-4)',
         'chart-5': 'var(--chart-5)',
+        'logo-lens-dark-from': 'var(--logo-lens-dark-from)',
+        'logo-lens-dark-to': 'var(--logo-lens-dark-to)',
+        'logo-lens-light-from': 'var(--logo-lens-light-from)',
+        'logo-lens-light-to': 'var(--logo-lens-light-to)',
       },
       fontFamily: { sans: ['var(--font-sans)'] },
       fontSize: {
@@ -451,6 +463,20 @@ module.exports = {
 ```
 
 Example: `<button className="h-[44px] px-[18px] rounded-control bg-primary text-on-primary font-bold transition duration-fast ease-out hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-card-hover active:scale-[0.98] focus-visible:shadow-focus">`. The spacing names are the scale steps, so `p-6` is 24px and `gap-4` is 16px.
+
+## Logo
+
+The HireLens logo is an **owl mark** (a geometric owl in brand purples, one eye a teal tick, an amber beak) next to the wordmark **HireLens** in Manrope 800 (letter-spacing −0.02em).
+
+- **Files:** `public/logo-mark.svg` (the mark used in the app) and `app/icon.svg` (the same SVG, used as the browser tab icon). Never redraw, recolour or stretch the mark.
+- **Wordmark colours:** "Hire" uses the normal text colour of its background (`--ink` on light pages, `--nav-text` on the nav, `--on-primary` on the purple art). "Lens" uses a left-to-right gradient:
+  - On dark backgrounds: `--logo-lens-dark-from` `#C9B8FF` → `--logo-lens-dark-to` `#8E6CFF`.
+  - On light pages: `--logo-lens-light-from` `#9B7BFF` → `--logo-lens-light-to` `#5B3FD9`.
+- **Inline version** (mark 32px, wordmark 18px beside it, 10px gap): HR sidebar, candidate top bar, visitor top bar, landing nav, and the plain light pages (not found, access denied, account deleted). Code: `<Brand tone="nav" />`, `tone="gradient"` or `tone="light"`.
+- **Stacked version** (mark 64px above the 24px wordmark, then the tagline "AI-POWERED HIRING" in `caption`, uppercase, 0.2em letter spacing, muted colour): the purple panel of the auth pages only. Code: `<Brand tone="gradient" layout="stacked" />`.
+- **Watermark:** the landing hero shows the mark large behind the floating cards at 8% opacity, as decoration only.
+- **Minimum size:** the mark is never shown smaller than 24px (16px is allowed only for the browser tab icon). Keep clear space around the logo of at least half the mark's width.
+- **Accessibility:** the logo link's name is "HireLens"; the mark image itself has empty `alt` because the wordmark text sits beside it.
 
 ## Icons (Lucide)
 
@@ -519,7 +545,6 @@ Example: `<button className="h-[44px] px-[18px] rounded-control bg-primary text-
 | Good-answer hint | `lightbulb` | `Lightbulb` |
 | Focus skill | `target` | `Target` |
 | Profile | `user` | `User` |
-| Brand mark | `scan-search` | `ScanSearch` |
 
 Sizes: 16px inline (`size={16}`), 20px buttons and navigation, 24px feature highlights and stat cards, 44px inside an 88px `primary-tint` circle for empty states. Always `strokeWidth={1.75}`.
 
@@ -534,5 +559,7 @@ Sizes: 16px inline (`size={16}`), 20px buttons and navigation, 24px feature high
 - **Dialog** — backdrop fade; dialog `scale(0.96) → 1` over `--duration-slow`
 - **Toast** — slide up 24px + fade in 300ms, auto-hide after 4s, slide down 220ms
 - **Pipeline drag** — card `rotate(2.5deg) scale(1.03)` + `--shadow-float`; target column `primary-tint`; count bump 360ms
+- **Rotating headline** — landing hero line 2 cycles "Hire fairly." → "Hire smarter." → "Hire with evidence." every 2.5s; the new phrase slides up from 100% while the old one slides out to −100%, over `--duration-slow` `ease-out`. Every phrase sits invisibly in the same grid cell, so the box keeps the height of the longest phrase and nothing below moves. Screen readers get one static sentence ("Hire faster. Hire fairly.").
+- **Floating hero cards** — the hero cards bob 8–10px on `ease-in-out` (`--ease-loop`) loops at different speeds (6s and 4.5s), each with a slight fixed tilt (−3° and 2°).
 - **Background loop** — blurred brand-purple blobs drifting on 18–24s `ease-in-out` loops (landing and auth only)
-- **Reduced motion** — remove loops, reveals, confetti and movement; keep 200ms opacity fades
+- **Reduced motion** — remove loops, reveals, confetti and movement; keep 200ms opacity fades. The hero headline shows only "Hire fairly." and the hero cards stay still.

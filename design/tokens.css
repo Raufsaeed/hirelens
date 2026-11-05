@@ -57,6 +57,10 @@
   --chart-3: #5B3FD9;
   --chart-4: #8D76EA;
   --chart-5: #B7A8F7;
+  --logo-lens-dark-from: #C9B8FF;
+  --logo-lens-dark-to: #8E6CFF;
+  --logo-lens-light-from: #9B7BFF;
+  --logo-lens-light-to: #5B3FD9;
   --shadow-card: 0 1px 2px rgba(28, 24, 48, 0.04), 0 2px 8px rgba(28, 24, 48, 0.04);
   --shadow-card-hover: 0 2px 4px rgba(28, 24, 48, 0.05), 0 12px 24px -6px rgba(28, 24, 48, 0.12);
   --shadow-float: 0 4px 12px rgba(28, 24, 48, 0.08), 0 24px 48px -12px rgba(28, 24, 48, 0.22);

@@ -68,6 +68,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-logo-lens-dark-from: var(--logo-lens-dark-from);
+  --color-logo-lens-dark-to: var(--logo-lens-dark-to);
+  --color-logo-lens-light-from: var(--logo-lens-light-from);
+  --color-logo-lens-light-to: var(--logo-lens-light-to);
 
   /* Spacing: p-1 = --space-1 (4px), p-6 = --space-6 (24px), and so on. */
   --spacing: var(--space-1);

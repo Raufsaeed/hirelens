@@ -17,7 +17,7 @@ export default function AuthLayout({ children }) {
       <aside className="relative flex flex-col gap-4 overflow-hidden px-4 py-5 text-on-primary md:justify-between md:gap-8 md:p-12">
         <GradientMesh />
         <div className="relative z-1">
-          <Brand tone="gradient" />
+          <Brand tone="gradient" layout="stacked" />
         </div>
         <div className="relative z-1 flex max-w-auth flex-col gap-6">
           <p className="body-lg font-bold text-on-primary md:hidden">Read every CV. Fairly. In seconds.</p>
