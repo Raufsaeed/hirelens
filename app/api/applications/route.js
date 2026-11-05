@@ -5,6 +5,7 @@ import { submitApplication } from "@/lib/applications/submit";
 import { CV_TOO_BIG_ERROR, MAX_CV_BYTES } from "@/lib/applications/validation";
 import { AI_TEST_COOKIE, aiTestModeFrom } from "@/lib/ai/test-mode";
 import { screenApplication } from "@/lib/screening/run";
+import { notifyApplicationReceived } from "@/lib/email/notify";
 
 // POST /api/applications: the apply form sends the details and the PDF CV here.
 // A route (not a server action) so the browser can show upload progress for files up to 5 MB.
@@ -27,6 +28,8 @@ export async function POST(request) {
     // AI screening (Feature 11) runs in the background after the response; the candidate doesn't wait.
     const testMode = aiTestModeFrom(request.cookies.get(AI_TEST_COOKIE)?.value);
     after(() => screenApplication(result.applicationId, { testMode }));
+    // "Your application to ... was received" (Feature 23), also sent after the response.
+    await notifyApplicationReceived(result.applicationId);
     return Response.json(result, { status: 201 });
   } catch {
     return Response.json({ error: GENERIC_ERROR }, { status: 500 });

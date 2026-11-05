@@ -5,6 +5,7 @@ import Alert from "@/components/ui/Alert";
 import RetryButton from "@/components/ui/RetryButton";
 import { getCurrentProfile } from "@/lib/auth/current-user";
 import { syncEmail } from "@/lib/settings/email-sync";
+import { getEmailPreferences } from "@/lib/email/preferences";
 
 // Settings for both roles (Feature 22): /hr/settings for HR, /settings for candidates.
 // ?email=expired: the change-email link was too old or already used.
@@ -23,9 +24,11 @@ async function Settings({ searchParams }) {
   const params = await searchParams;
   let profile;
   let email;
+  let preferences;
   try {
     profile = await getCurrentProfile();
     email = await syncEmail(profile);
+    preferences = await getEmailPreferences(profile.id);
   } catch {
     return <Alert tone="error" title="Couldn't load your settings" action={<RetryButton />} />;
   }
@@ -37,8 +40,9 @@ async function Settings({ searchParams }) {
         </Alert>
       )}
       <SettingsSections
-      profile={{ full_name: profile.full_name, role: profile.role }}
-      email={email}
+        profile={{ full_name: profile.full_name, role: profile.role }}
+        email={email}
+        preferences={preferences}
       />
     </>
   );

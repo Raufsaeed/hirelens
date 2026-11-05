@@ -271,6 +271,7 @@ export async function deleteAccounts(emails) {
       if (!row.company_id) continue;
       const { data: jobs } = await admin.from("jobs").select("id").eq("company_id", row.company_id);
       const jobIds = (jobs || []).map((job) => job.id);
+      if (jobIds.length) await admin.from("saved_jobs").delete().in("job_id", jobIds); // jobs can't go while saved
       if (jobIds.length) await admin.from("applications").delete().in("job_id", jobIds);
       await admin.from("jobs").delete().eq("company_id", row.company_id);
       await admin.from("companies").delete().eq("id", row.company_id);
@@ -355,4 +356,36 @@ export async function readRowsAs(email, table, column, value) {
   const { data, error } = await client.from(table).select("*").eq(column, value);
   if (error) throw error;
   return data;
+}
+
+// Reads a CV file from the private cvs bucket as text (test PDFs hold their lines as plain text).
+export async function readCvText(path) {
+  const admin = adminClient();
+  const { data, error } = await admin.storage.from("cvs").download(path);
+  if (error) throw error;
+  return Buffer.from(await data.arrayBuffer()).toString("latin1");
+}
+
+// Removes a candidate's default CV behind the app's back (Feature 20: "deleted while applying").
+export async function clearDefaultCv(userId) {
+  const admin = adminClient();
+  const profile = await getProfile(userId);
+  if (profile?.default_cv_path) await admin.storage.from("cvs").remove([profile.default_cv_path]);
+  const { error } = await admin.from("profiles").update({ default_cv_path: null }).eq("id", userId);
+  if (error) throw error;
+}
+
+// A candidate's saved jobs (Feature 21), read with the server key.
+export async function findSavedJobs(candidateId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("saved_jobs").select("*").eq("candidate_id", candidateId);
+  if (error) throw error;
+  return data;
+}
+
+// Saves a job directly (for tests that need a saved job that later closes).
+export async function addSavedJob(candidateId, jobId) {
+  const admin = adminClient();
+  const { error } = await admin.from("saved_jobs").insert({ candidate_id: candidateId, job_id: jobId });
+  if (error) throw error;
 }

@@ -6,16 +6,19 @@ import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobMeta, { yearsLabel } from "@/components/jobs/JobMeta";
 import Button from "@/components/ui/Button";
 import TextLink from "@/components/ui/TextLink";
+import SaveJobButton from "@/components/saved-jobs/SaveJobButton";
+import { getCurrentProfile } from "@/lib/auth/current-user";
 import { getPublicJob } from "@/lib/jobs/public-queries";
+import { listSavedJobIds } from "@/lib/saved-jobs/queries";
 
 export const metadata = { title: "Job · HireLens" };
 
 // Public Job Detail (Feature 07). Open jobs show Apply now; closed jobs show why they are closed.
 // Drafts and unknown links show "This job could not be found" (not-found.js). Never shows applicant counts.
-export default function JobDetailPage({ params }) {
+export default function JobDetailPage({ params, searchParams }) {
   return (
     <Suspense fallback={<JobDetailSkeleton />}>
-      <JobDetail params={params} />
+      <JobDetail params={params} searchParams={searchParams} />
     </Suspense>
   );
 }
@@ -31,10 +34,12 @@ function ClosedNotice({ job }) {
   );
 }
 
-async function JobDetail({ params }) {
+async function JobDetail({ params, searchParams }) {
   const { slug } = await params;
   const job = await getPublicJob(slug);
   if (!job) notFound();
+  const { save } = await searchParams;
+  const viewer = await saveViewer(job.id);
 
   const isOpen = job.status === "open";
   const years = yearsLabel(job.required_years);
@@ -60,9 +65,21 @@ async function JobDetail({ params }) {
         <div className="flex flex-col gap-2 md:items-end">
           {isOpen ? (
             <>
-              <Button href={`/jobs/${job.slug}/apply`} size="lg" icon={Send} className="w-full md:w-auto">
-                Apply now
-              </Button>
+              <div className="flex flex-wrap gap-2 md:justify-end">
+                {viewer && (
+                  <SaveJobButton
+                    jobId={job.id}
+                    slug={job.slug}
+                    size="lg"
+                    loggedIn={viewer.loggedIn}
+                    initialSaved={viewer.saved}
+                    autoSave={viewer.loggedIn && save === "1"}
+                  />
+                )}
+                <Button href={`/jobs/${job.slug}/apply`} size="lg" icon={Send} className="w-full sm:w-auto">
+                  Apply now
+                </Button>
+              </div>
               <DeadlineLabel deadline={job.deadline} />
             </>
           ) : (
@@ -128,6 +145,24 @@ async function JobDetail({ params }) {
       </article>
     </div>
   );
+}
+
+// Who sees the Save button (Feature 21): candidates (with their saved state) and logged-out visitors.
+// HR never sees it. Returns null for HR.
+async function saveViewer(jobId) {
+  let profile = null;
+  try {
+    profile = await getCurrentProfile();
+  } catch {
+    // The job page still works when the session can't be read.
+  }
+  if (!profile) return { loggedIn: false, saved: false };
+  if (profile.role !== "candidate") return null;
+  try {
+    return { loggedIn: true, saved: (await listSavedJobIds(profile.id)).has(jobId) };
+  } catch {
+    return { loggedIn: true, saved: false };
+  }
 }
 
 function JobDetailSkeleton() {

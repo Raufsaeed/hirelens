@@ -107,8 +107,8 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 
 ## Done When
 
-- [ ] Ali saves his phone, city and headline and sees "Profile saved".
-- [ ] Ali uploads ali-cv.pdf as his default CV, and the apply form is prefilled with "Use my default CV (ali-cv.pdf)" selected.
-- [ ] Replacing the default CV does not change the CV Sara sees on an earlier application.
-- [ ] A .docx default CV shows "Only PDF files are accepted" and the old default CV stays.
-- [ ] Privacy: Sara opening Ali's profile URL sees "You don't have access to this page".
+- [x] Ali saves his phone, city and headline and sees "Profile saved".
+- [x] Ali uploads ali-cv.pdf as his default CV, and the apply form is prefilled with "Use my default CV (ali-cv.pdf)" selected.
+- [x] Replacing the default CV does not change the CV Sara sees on an earlier application.
+- [x] A .docx default CV shows "Only PDF files are accepted" and the old default CV stays.
+- [x] Privacy: Sara opening Ali's profile URL sees "You don't have access to this page".

@@ -8,6 +8,13 @@ export function aiCookie(mode = "fixture:screening") {
   return [{ name: "hl_ai_test", value: mode, url: BASE_URL }];
 }
 
+// The development-only cookie that tells the app how to handle emails (see lib/email/test-mode.js).
+// "capture" saves each email to a temp file instead of sending it, so tests never call Resend;
+// "fail" makes sending fail like Resend being down.
+export function emailCookie(mode = "capture") {
+  return [{ name: "hl_email_test", value: mode, url: BASE_URL }];
+}
+
 // Logs in through the real Log in page.
 export async function logIn(page, email, password = TEST_PASSWORD) {
   await page.goto("/login");
@@ -24,14 +31,18 @@ export async function sessionCookies(browser, email) {
   await logIn(await context.newPage(), email);
   const cookies = await context.cookies();
   await context.close();
-  return cookies.filter((cookie) => cookie.name !== "hl_ai_test");
+  return cookies.filter((cookie) => !["hl_ai_test", "hl_email_test"].includes(cookie.name));
 }
 
-// Opens a page as that user. Adds the fake-AI cookie unless the test passed its own hl_ai_test cookie.
+// Opens a page as that user. Adds the fake-AI and captured-email cookies unless the test passed its own.
 export async function openWithSession(page, cookies, path = "/") {
-  const hasAiCookie = cookies.some((cookie) => cookie.name === "hl_ai_test");
+  const has = (name) => cookies.some((cookie) => cookie.name === name);
   await page.context().clearCookies();
-  await page.context().addCookies(hasAiCookie ? cookies : [...cookies, ...aiCookie()]);
+  await page.context().addCookies([
+    ...cookies,
+    ...(has("hl_ai_test") ? [] : aiCookie()),
+    ...(has("hl_email_test") ? [] : emailCookie()),
+  ]);
   await page.goto(path);
   // Wait until the page's scripts have loaded, so clicks, drags and file inputs are handled
   // (right after a dev-server recompile, React can still be attaching its handlers).
@@ -45,4 +56,22 @@ export async function lastAiPrompt() {
   const { tmpdir } = await import("node:os");
   const path = await import("node:path");
   return readFile(path.join(tmpdir(), "hirelens-ai-test-prompt.txt"), "utf8");
+}
+
+// Emails the app captured in "capture" mode (development only), newest last, for one address.
+export async function capturedEmails(to) {
+  const { readFile } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const path = await import("node:path");
+  let text = "";
+  try {
+    text = await readFile(path.join(tmpdir(), "hirelens-emails.jsonl"), "utf8");
+  } catch {
+    return [];
+  }
+  return text
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) => JSON.parse(line))
+    .filter((email) => email.to === to);
 }

@@ -8,10 +8,11 @@ import Button from "@/components/ui/Button";
 import PasswordField from "@/components/ui/PasswordField";
 import SubmitButton from "@/components/ui/SubmitButton";
 import TextField from "@/components/ui/TextField";
+import EmailPreferencesSection from "@/components/settings/EmailPreferencesSection";
 import { changePassword, deleteAccount, requestEmailChange, updateName } from "@/lib/settings/actions";
 
 // Account Settings (Feature 22): name, email, password, and Delete account (candidates) or the
-// Company Settings link (HR). Email preferences (Feature 23) are hidden until that feature is built.
+// Company Settings link (HR), plus Email preferences (Feature 23).
 
 function Section({ icon: Icon, title, children }) {
   return (
@@ -169,12 +170,16 @@ function DeleteSection() {
   );
 }
 
-export default function SettingsSections({ profile, email }) {
+export default function SettingsSections({ profile, email, preferences }) {
   return (
     <div className="flex flex-col gap-6">
       <NameSection fullName={profile.full_name} />
       <EmailSection email={email.email} pendingEmail={email.pendingEmail} justUpdated={email.justUpdated} />
       <PasswordSection />
+      <EmailPreferencesSection
+        role={profile.role}
+        initialOn={profile.role === "hr" ? preferences.dailySummary : preferences.statusUpdates}
+      />
       {profile.role === "hr" ? (
         <Section icon={Building2} title="Company">
           <p className="text-ink-muted">Your company&apos;s name, logo and public page.</p>

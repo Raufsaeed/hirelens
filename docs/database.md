@@ -21,10 +21,14 @@ Each table is created only through SQL given to the user to run in the Supabase 
 | 16 Interview Scheduling | `interviews` (every column in section 2.8; `duration_minutes` 15 to 240; check that `meeting_link` or `location` is filled); indexes on `application_id`, `scheduled_at` and `lower(interviewer_name)` + `scheduled_at`; trigger `interviews_set_updated_at` |
 | 17 Interview Feedback | `interview_feedback` (every column in section 2.9; unique `interview_id`; `strengths` and `concerns` up to 2,000 characters); function `public.is_hr_for_interview(uuid)` |
 | 18 AI Interview Questions | `interview_questions` (every column in section 2.10; `question` and `good_answer_hint` up to 500 characters, `focus` up to 100); index on `interview_id` + `position` |
+| 19 Reports | No database changes. Every number is worked out in code from `jobs`, `applications`, `screenings` and `status_history`. |
+| 20 Candidate Profile | `profiles.phone` (≤ 30 characters), `profiles.city` (≤ 100), `profiles.headline` (≤ 100), `profiles.default_cv_path`; check that HR rows leave them empty; update grant on `phone`, `city` and `headline` (`default_cv_path` is server only). The default CV is at `{candidate_id}/default/{file}.pdf` in `cvs`, uploaded and removed by the server, and copied into the application folder on apply |
+| 21 Saved Jobs | `saved_jobs` (every column in section 2.11; unique `candidate_id` + `job_id`; index on `candidate_id` + `saved_at`). RLS: the candidate selects and deletes their own rows and inserts only for themselves and only `open` jobs; nobody updates; HR never reads it |
+| 23 Email Notifications | `profiles.email_status_updates` and `profiles.email_daily_summary` (boolean, default `true`) with an update grant; `notifications` (every column in section 2.12; index on `user_id` + `type` + `sent_at`), RLS with one restrictive deny-all policy for `anon` and `authenticated` (server only, `23-email-notifications-deny-policy.sql`) |
 | 14, 22 | No database changes of their own. `viewed_at` is set by the server; account delete removes the Auth user, which cascades to the profile and everything linked to it. |
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name`, `logo_url`, `about`, `website` and `location` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).
-- **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name` (`role`, `company_id` and `email` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
+- **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name`, plus `phone`, `city` and `headline` from Feature 20 (`role`, `company_id`, `email` and `default_cv_path` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
 - **`jobs` RLS:** anyone (even logged out) can select `open` and `closed` jobs; HR can select, insert and update only their own company's jobs (drafts included); nobody can delete. Extra checks: `closed_reason` only when `closed`, and an `open` job always has a `slug`.
 - **`applications` RLS:** the candidate selects their own rows; HR selects rows for their company's jobs; inserts are server only (the server checks the job is open, the deadline, "applied before" and the PDF, after `08-apply-with-cv-server-only.sql`); the candidate deletes their own rows. HR of the job's company updates only `status` (Feature 15), never on a withdrawn application; screening status, `viewed_at` and withdraw are server only.
 - **`status_history` RLS:** the candidate selects their own timeline; HR selects their company's; inserts are server only; nobody updates or deletes (rows go only by cascade).
@@ -36,7 +40,7 @@ Each table is created only through SQL given to the user to run in the Supabase 
 - **`public.is_hr_for_interview(uuid)`:** true when the logged-in user is HR of the company that owns that interview's job. Used by the `interview_feedback` and `interview_questions` policies.
 - **`public.is_hr_for_application(uuid)`:** true when the logged-in user is HR of the company that owns that application's job. Used by the `screenings`, `notes` and `interviews` policies.
 - **`public.current_hr_company_id()`:** returns the logged-in HR user's `company_id` (empty for candidates). Used by RLS policies that check "HR of the same company".
-- The other columns listed in section 2 for these two tables are added with `ALTER TABLE` by the features that need them (06, 20, 23).
+- The other columns listed in section 2 for these two tables were added with `ALTER TABLE` by the features that needed them (06, 20, 23).
 
 ---
 

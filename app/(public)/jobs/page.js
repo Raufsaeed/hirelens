@@ -10,7 +10,10 @@ import RetryButton from "@/components/ui/RetryButton";
 import SelectField from "@/components/ui/SelectField";
 import TextField from "@/components/ui/TextField";
 import { JOB_TYPES } from "@/lib/jobs/constants";
+import SaveJobButton from "@/components/saved-jobs/SaveJobButton";
+import { getCurrentProfile } from "@/lib/auth/current-user";
 import { listOpenJobs } from "@/lib/jobs/public-queries";
+import { listSavedJobIds } from "@/lib/saved-jobs/queries";
 
 export const metadata = { title: "Jobs · HireLens" };
 
@@ -44,6 +47,7 @@ async function JobsResults({ searchParams }) {
   } catch {
     // shown below
   }
+  const viewer = await saveViewer();
 
   return (
     <>
@@ -106,11 +110,36 @@ async function JobsResults({ searchParams }) {
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             {jobs.map((job) => (
-              <PublicJobCard key={job.id} job={job} />
+              <PublicJobCard
+                key={job.id}
+                job={job}
+                action={
+                  viewer && (
+                    <SaveJobButton jobId={job.id} slug={job.slug} size="sm" loggedIn={viewer.loggedIn} initialSaved={viewer.savedIds.has(job.id)} />
+                  )
+                }
+              />
             ))}
           </div>
         </>
       )}
     </>
   );
+}
+
+// Who sees Save buttons (Feature 21): candidates (with their saved jobs) and logged-out visitors. Not HR.
+async function saveViewer() {
+  let profile = null;
+  try {
+    profile = await getCurrentProfile();
+  } catch {
+    // The jobs list still works when the session can't be read.
+  }
+  if (!profile) return { loggedIn: false, savedIds: new Set() };
+  if (profile.role !== "candidate") return null;
+  try {
+    return { loggedIn: true, savedIds: await listSavedJobIds(profile.id) };
+  } catch {
+    return { loggedIn: true, savedIds: new Set() };
+  }
 }
