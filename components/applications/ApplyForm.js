@@ -14,11 +14,16 @@ import { FieldError } from "@/components/ui/TextField";
 import { uploadWithProgress } from "@/components/forms/upload";
 import { MAX_COVER_NOTE, validateApplication } from "@/lib/applications/validation";
 
-// Apply form (Feature 08): name and email from the account, phone, optional cover note and the PDF CV.
-export default function ApplyForm({ job, defaults }) {
+// Apply form (Feature 08): name, email and phone from the profile, optional cover note and the PDF CV.
+// With a default CV (Feature 20) the candidate can use it with one click or upload a different CV
+// for this job only. The server copies the chosen CV into the application.
+export default function ApplyForm({ job, defaults, defaultCvName }) {
   const router = useRouter();
-  const [values, setValues] = useState({ ...defaults, phone: "", coverNote: "" });
+  const [values, setValues] = useState({ phone: "", ...defaults, coverNote: "" });
   const [cv, setCv] = useState(null);
+  const [defaultCv, setDefaultCv] = useState(defaultCvName);
+  const [cvChoice, setCvChoice] = useState(defaultCvName ? "default" : "upload");
+  const useDefault = cvChoice === "default" && Boolean(defaultCv);
   const [progress, setProgress] = useState(null);
   const [serverResult, setServerResult] = useState({});
   const { errorFor, checkField, clearField, checkAll } = useFieldErrors(validateApplication, serverResult.errors);
@@ -40,23 +45,29 @@ export default function ApplyForm({ job, defaults }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (!checkAll(values) || !cv) return;
+    if (!checkAll(values) || (!useDefault && !cv)) return;
 
     const formData = new FormData();
     formData.set("jobId", job.id);
     Object.entries(values).forEach(([name, value]) => formData.set(name, value));
-    formData.set("cv", cv);
+    if (useDefault) formData.set("cvChoice", "default");
+    else formData.set("cv", cv);
 
     setServerResult({});
     setProgress(0);
     const result = await uploadWithProgress("/api/applications", formData, setProgress);
     if (result.applicationId) {
-      router.push(`/jobs/${job.slug}/apply/sent?file=${encodeURIComponent(cv.name)}`);
+      router.push(`/jobs/${job.slug}/apply/sent?file=${encodeURIComponent(useDefault ? defaultCv : cv.name)}`);
       return;
     }
     // Keep everything the candidate typed so they can fix it and try again.
     setProgress(null);
     setServerResult(result);
+    // The default CV was deleted while applying: switch to the upload box.
+    if (result.defaultCvGone) {
+      setDefaultCv(null);
+      setCvChoice("upload");
+    }
   }
 
   return (
@@ -104,16 +115,30 @@ export default function ApplyForm({ job, defaults }) {
       <hr className="h-px border-0 bg-border" />
 
       <section className="flex flex-col gap-4">
-        <h2 className="card-title">Your CV</h2>
-        <CvDropzone
-          file={cv}
-          progress={progress}
-          disabled={sending}
-          onChange={(file) => {
-            setCv(file);
-            clearField("cv");
-          }}
-        />
+        <h2 className="card-title" id="cv-choice-title">
+          Your CV
+        </h2>
+        {defaultCv && (
+          <div role="radiogroup" aria-labelledby="cv-choice-title" className="flex flex-col gap-2">
+            <CvChoice checked={cvChoice === "default"} disabled={sending} onChange={() => setCvChoice("default")}>
+              Use my default CV ({defaultCv})
+            </CvChoice>
+            <CvChoice checked={cvChoice === "upload"} disabled={sending} onChange={() => setCvChoice("upload")}>
+              Upload a different CV for this job
+            </CvChoice>
+          </div>
+        )}
+        {!useDefault && (
+          <CvDropzone
+            file={cv}
+            progress={progress}
+            disabled={sending}
+            onChange={(file) => {
+              setCv(file);
+              clearField("cv");
+            }}
+          />
+        )}
         <FieldError id="cv-error" message={errorFor("cv")} />
       </section>
 
@@ -137,10 +162,24 @@ export default function ApplyForm({ job, defaults }) {
           By applying you agree that {job.companies?.name} can see your CV. Your score is never shown to you or
           anyone outside their HR team.
         </p>
-        <SubmitButton size="lg" icon={Send} disabled={!cv || sending} loading={sending} className="w-full sm:w-auto">
+        <SubmitButton size="lg" icon={Send} disabled={(!useDefault && !cv) || sending} loading={sending} className="w-full sm:w-auto">
           Submit application
         </SubmitButton>
       </div>
     </form>
+  );
+}
+
+// One CV option: a radio with its label, 44px tall.
+function CvChoice({ checked, disabled, onChange, children }) {
+  return (
+    <label
+      className={`flex min-h-touch cursor-pointer items-center gap-3 rounded-control border px-3.5 py-2.5 transition-colors duration-(--duration-fast) ease-out ${
+        checked ? "border-primary bg-primary-tint" : "border-border-control bg-surface hover:border-primary"
+      }`}
+    >
+      <input type="radio" name="cvChoice" checked={checked} disabled={disabled} onChange={onChange} className="size-4 accent-primary" />
+      <span className="font-medium">{children}</span>
+    </label>
   );
 }
