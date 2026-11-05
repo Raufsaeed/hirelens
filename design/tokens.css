@@ -12,12 +12,12 @@
   --ink-muted: #5E5A72;
   --ink-placeholder: #6F6B84;
   --ink-disabled: #8C88A0;
-  --border: #DCD5F5;
+  --border: #E3DACB;
   --border-control: #7F7A96;
-  --surface-page: #EEEAFB;
-  --surface: #FCFBFF;
-  --surface-sunken: #F3F0FC;
-  --surface-skeleton-shine: #FCFBFF;
+  --surface-page: #F3EEE6;
+  --surface: #FBF8F2;
+  --surface-sunken: #EFE7DA;
+  --surface-skeleton-shine: #FBF8F2;
   --surface-column: #E4DEF8;
   --nav-bg: #24164F;
   --nav-hover: #33236A;
@@ -64,7 +64,7 @@
   --shadow-card: 0 1px 2px rgba(28, 24, 48, 0.04), 0 2px 8px rgba(28, 24, 48, 0.04);
   --shadow-card-hover: 0 2px 4px rgba(28, 24, 48, 0.05), 0 12px 24px -6px rgba(28, 24, 48, 0.12);
   --shadow-float: 0 4px 12px rgba(28, 24, 48, 0.08), 0 24px 48px -12px rgba(28, 24, 48, 0.22);
-  --shadow-focus: 0 0 0 2px #FCFBFF, 0 0 0 4px #5B3FD9;
+  --shadow-focus: 0 0 0 2px #FBF8F2, 0 0 0 4px #5B3FD9;
   --shadow-focus-nav: 0 0 0 2px #FFFFFF;
 }
 :root {
