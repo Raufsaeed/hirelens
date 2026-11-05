@@ -38,18 +38,21 @@ export default function EmailPreferencesSection({ role, initialOn }) {
           <span className="font-bold">{label}</span>
           <span className="small text-ink-muted">{hint}</span>
         </span>
-        <input
-          type="checkbox"
-          role="switch"
-          checked={on}
-          disabled={isPending}
-          onChange={(event) => change(event.target.checked)}
-          className="peer sr-only"
-        />
-        <span
-          aria-hidden="true"
-          className="relative h-6.5 w-11 shrink-0 rounded-pill bg-ink-disabled transition-colors duration-(--duration-base) ease-out peer-checked:bg-primary peer-focus-visible:shadow-focus peer-disabled:opacity-50 after:absolute after:top-0.75 after:left-0.75 after:size-5 after:rounded-pill after:bg-surface after:shadow-[0_1px_3px_var(--thumb-shadow)] after:transition-transform after:duration-(--duration-base) after:content-[''] peer-checked:after:translate-x-4.5"
-        />
+        {/* The real checkbox sits invisibly on top of the drawn switch, so clicking the switch toggles it. */}
+        <span className="relative shrink-0">
+          <input
+            type="checkbox"
+            role="switch"
+            checked={on}
+            disabled={isPending}
+            onChange={(event) => change(event.target.checked)}
+            className="peer absolute inset-0 z-10 m-0 cursor-pointer opacity-0 disabled:cursor-not-allowed"
+          />
+          <span
+            aria-hidden="true"
+            className="relative block h-6.5 w-11 rounded-pill bg-ink-disabled transition-colors duration-(--duration-base) ease-out peer-checked:bg-primary peer-focus-visible:shadow-focus peer-disabled:opacity-50 after:absolute after:top-0.75 after:left-0.75 after:size-5 after:rounded-pill after:bg-surface after:shadow-[0_1px_3px_var(--thumb-shadow)] after:transition-transform after:duration-(--duration-base) after:content-[''] peer-checked:after:translate-x-4.5"
+          />
+        </span>
       </label>
       <p className="small text-ink-muted">
         {isHr ? "This is the only optional email for HR." : "Application and interview emails are always sent."}

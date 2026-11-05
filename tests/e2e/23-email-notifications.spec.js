@@ -122,7 +122,7 @@ test("with status updates off, no status email is sent but interview emails stil
   const before = (await capturedEmails(aliEmail)).length;
   await openWithSession(page, saraCookies, `/hr/pipeline?job=${reactJob.id}`);
   await page.getByLabel("Move Ali Raza to").selectOption("shortlisted");
-  await expect(page.getByRole("region", { name: "Shortlisted column" }).getByText("Ali Raza")).toBeVisible();
+  await expect(page.getByRole("region", { name: "Shortlisted column" }).getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 
   // An interview change still sends an email.
   const interview = await createInterview(aliApplication.id, { date: pakistanDate(4), time: "10:00" });
@@ -145,7 +145,7 @@ test("with status updates off, no status email is sent but interview emails stil
 test("if Resend is unavailable, the move still succeeds and the email is logged as failed", async ({ page }) => {
   await openWithSession(page, [...saraCookies, ...emailCookie("fail")], `/hr/pipeline?job=${reactJob.id}`);
   await page.getByLabel("Move Ali Raza to").selectOption("offer");
-  await expect(page.getByRole("region", { name: "Offer column" }).getByText("Ali Raza")).toBeVisible();
+  await expect(page.getByRole("region", { name: "Offer column" }).getByRole("article").filter({ hasText: "Ali Raza" })).toBeVisible();
 
   await expect.poll(async () => (await notificationsFor(ali.id, "status_changed")).some((row) => row.status === "failed")).toBe(true);
   const failed = (await notificationsFor(ali.id, "status_changed")).find((row) => row.status === "failed");
