@@ -43,34 +43,61 @@ HireLens has 23 features, covering 23 user flows. AI-powered features are marked
 | Emails | Resend |
 | Icons | lucide-react |
 | Animations | framer-motion |
+| End-to-end tests | Playwright |
 
 ## Getting started
-
-> **Note:** The app code is not built yet. These steps apply once it is.
 
 **You need:**
 
 - Node.js installed on your computer.
-- A Supabase project with two storage buckets:
-  - `cvs`: **private**, for CVs.
-  - `logos`: **public**, for company logos.
+- A Supabase project with:
+  - Two storage buckets: `cvs` (**private**, for CVs) and `logos` (**public**, for company logos).
+  - Email confirmation turned off (Authentication settings), so sign up logs you in straight away.
+- A Google Gemini API key and a Resend API key.
 
 **Steps:**
 
 1. Copy `.env.example` to a new file called `.env.local`.
 2. Open `.env.local` and fill in your own keys (Gemini, Supabase and Resend).
-3. Install the packages:
+3. Create the database: in the Supabase SQL Editor, run these files from `supabase/sql/` once each, in this order:
+   1. `01-authentication.sql`
+   2. `02-post-a-job.sql`
+   3. `group-1-all.sql`
+   4. `group-2-all.sql`
+   5. `group-3-all.sql`
+   6. `group-4-all.sql`
+   7. `group-5-all.sql`
+   8. `23-email-notifications-deny-policy.sql`
+4. Install the packages:
    ```bash
    npm install
    ```
-4. Start the app:
+5. Start the app:
    ```bash
    npm run dev
    ```
-5. Open http://localhost:3000 to see the app.
-6. Open http://localhost:3000/dev-check to check the setup.
+6. Open http://localhost:3000 to see the app.
+7. Open http://localhost:3000/dev-check to check the setup.
 
-The app runs only on your own computer (localhost). There is no online hosting yet.
+**Good to know:**
+
+- The app runs only on your own computer (localhost). There is no online hosting yet.
+- There is no scheduler: past-deadline jobs close whenever jobs are read, and HR sends the daily applicant summary with the **Send today's summary** button on the Dashboard.
+- Emails are sent from Resend's test sender (`onboarding@resend.dev`). A free Resend account only delivers to the email address of that Resend account; emails to other addresses are logged as failed.
+
+## Running the tests
+
+The end-to-end tests use Playwright and dummy accounts that are deleted after each run. They never call the real Gemini API or send real emails.
+
+```bash
+npm run test:e2e
+```
+
+One test calls the real Gemini API. It is skipped unless you set `RUN_REAL_AI=1`:
+
+```bash
+RUN_REAL_AI=1 npm run test:e2e
+```
 
 ## Folder structure
 
@@ -84,6 +111,8 @@ The app runs only on your own computer (localhost). There is no online hosting y
 | `lib/` | Logic: Supabase and Gemini clients, PDF text extraction, scoring |
 | `lib/email/` | Sending emails |
 | `emails/` | Email templates |
+| `supabase/sql/` | The SQL files that create the database, one per feature plus one combined file per group |
+| `tests/e2e/` | Playwright end-to-end tests, one file per feature |
 
 ## Documentation
 
@@ -91,6 +120,7 @@ The app runs only on your own computer (localhost). There is no online hosting y
 - [User flows](docs/user-flow.md): the 23 user journeys, step by step
 - [Feature files](docs/features/): one file per feature, `01` to `23`
 - [Database](docs/database.md): every table, column and access rule
+- [SQL files](supabase/sql/): the SQL that creates the database
 - [Design guidelines](design/design-guidelines.md): colours, fonts, components and motion
 - [AGENTS.md](AGENTS.md): rules for AI coding assistants working on this project
 

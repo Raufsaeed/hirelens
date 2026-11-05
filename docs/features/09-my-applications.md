@@ -73,7 +73,7 @@ Candidates see each of their applications with its status, a timeline and interv
 ## Done When
 
 - [x] My Applications lists each application with job, company, applied date and status.
-- [ ] Application Detail shows the status timeline and the interview date, time and meeting link.
+- [x] Application Detail shows the status timeline and the interview date, time and meeting link.
 - [x] On a 360 px wide phone, everything fits with no horizontal scroll.
 - [x] Privacy: no score, match percentage, AI summary or HR note appears anywhere.
 - [x] Opening another candidate's application by URL shows "You don't have access to this page".
