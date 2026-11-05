@@ -1,8 +1,8 @@
-HireLens helps small and medium companies in Pakistan hire faster and more fairly: HR posts a job, candidates apply with a PDF CV, AI scores every CV with reasons and evidence, and HR makes every decision. The interface must feel **trustworthy, fair, smart and modern — professional but warm, premium but never flashy**. Light theme only, and never stark white: lavender pages, light lilac cards and a deep purple navigation.
+HireLens helps small and medium companies in Pakistan hire faster and more fairly: HR posts a job, candidates apply with a PDF CV, AI scores every CV with reasons and evidence, and HR makes every decision. The interface must feel **trustworthy, fair, smart and modern — professional but warm, premium but never flashy**. Light theme only, and never stark white: warm cream pages, light cream cards and a deep purple navigation.
 
 Two audiences shape every screen:
-- **HR officers and recruiters** work long sessions on a laptop. Their pages are calm, plain and easy to scan: a deep purple sidebar (`nav-bg`), lavender `surface-page` background, light lilac `surface` cards, dense tables, small quick motion.
-- **Candidates**, many of them fresh graduates on phones. Their pages are mobile first, friendly and simple: one column at 360px on the same lavender background under a slim deep purple top bar, 44px targets, plain words, and never a score.
+- **HR officers and recruiters** work long sessions on a laptop. Their pages are calm, plain and easy to scan: a deep purple sidebar (`nav-bg`), warm cream `surface-page` background, light cream `surface` cards, dense tables, small quick motion.
+- **Candidates**, many of them fresh graduates on phones. Their pages are mobile first, friendly and simple: one column at 360px on the same warm cream background under a slim deep purple top bar, 44px targets, plain words, and never a score.
 
 ## Voice and copy
 
@@ -16,10 +16,10 @@ Two audiences shape every screen:
 
 ## Colour
 
-- **Brand**: `primary` #5B3FD9 for buttons, links, accents, the active navigation item and the focus ring; `primary-hover` on hover. `primary-tint` for highlights, selected rows, the Shortlisted badge and the AI note (which also gets a `primary-faint` border, since the tint sits close to the lavender page), always with `on-primary-tint` text.
-- **Grounds**: `surface-page` lavender #EEEAFB behind every work page (HR and candidate); `surface` very light lilac #FCFBFF for cards, tables, dialogs, inputs and menus — never pure white; `surface-sunken` for row hover and inner boxes; `surface-column` for pipeline columns. `border` soft lilac #DCD5F5 for card, table and divider lines.
+- **Brand**: `primary` #5B3FD9 for buttons, links, accents, the active navigation item and the focus ring; `primary-hover` on hover. `primary-tint` for highlights, selected rows, the Shortlisted badge and the AI note (which also gets a `primary-faint` border, since the tint sits close to the page background), always with `on-primary-tint` text.
+- **Grounds**: `surface-page` warm cream #F3EEE6 behind every work page (HR and candidate); `surface` light cream #FBF8F2 for cards, tables, dialogs, inputs and menus — never pure white; `surface-sunken` for row hover and inner boxes; `surface-column` for pipeline columns. `border` warm sand #E3DACB for card, table and divider lines.
 - **Navigation**: `nav-bg` deep purple #24164F for the HR sidebar, the candidate top bar and mobile menus. Resting labels `nav-text-muted` (7.3:1), strong text `nav-text` (13:1), hover `nav-hover`, the active item a `primary` pill with `on-primary` text. Focus on dark bars is a white ring (`shadow-focus-nav`) because `primary` is only 2.4:1 on `nav-bg`.
-- **Text**: `ink` for headings and body (14.6:1 on lavender), `ink-muted` for secondary text (5.6:1 on lavender, 6.4:1 on cards), `ink-placeholder` only inside fields, `border-control` #7F7A96 for the edge of inputs and secondary buttons (3.5:1 on lavender, 4:1 on cards).
+- **Text**: `ink` for headings and body (14.9:1 on the cream page), `ink-muted` for secondary text (5.7:1 on the cream page, 6.2:1 on cards), `ink-placeholder` only inside fields, `border-control` #7F7A96 for the edge of inputs and secondary buttons (3.5:1 on the cream page, 3.9:1 on cards).
 - **Meaning**: teal `success` for found requirements, Done and Hired; orange `warning` for missing requirements, close deadlines and warnings; red `danger` for errors and Rejected; grey `neutral` for Applied, Queued, Pending and Draft; blue `info` for Interview; `amber` for Offer; `muted` light grey with a dashed border for Withdrawn and Closed.
 - Every status carries an **icon and a word**; colour never carries meaning alone. Colours that must be told apart in charts (`chart-1`…`chart-5`) step in lightness, not hue.
 - **Gradients** only on the landing hero, the login and sign-up art panel, the CTA band (all `primary-deep` with drifting `primary`, `primary-hover`, `primary-soft`, `primary-faint` shapes) and as a subtle accent on the score ring and match bar. Work pages use flat backgrounds.
@@ -40,7 +40,7 @@ Two audiences shape every screen:
 - 4/8 spacing scale: `space-1` 4 … `space-24` 96. Cards pad `space-6` (24px; 16px on phones); page sections are `space-8` apart; phone gutters `space-4`.
 - Radius: `radius-control` 10px buttons and inputs, `radius-card` 16px cards and tables, `radius-dialog` 20px dialogs and the auth card, `radius-pill` tags and badges.
 - Depth: 1px `border` plus `shadow-card` at rest; `shadow-card-hover` with a 2px lift for clickable cards; `shadow-float` for menus, dialogs, toasts and dragged cards. Never heavy shadows on flat content.
-- HR layout: `sidebar-width` 248px deep purple sidebar on the left, a 64px content top bar (search, notifications, Post a job) on `surface-page`, content beside it. Below 900px the sidebar becomes a 56px deep purple top bar with a menu button. Candidate layout: a 56px deep purple top bar over the lavender page.
+- HR layout: `sidebar-width` 248px deep purple sidebar on the left, a 64px content top bar (search, notifications, Post a job) on `surface-page`, content beside it. Below 900px the sidebar becomes a 56px deep purple top bar with a menu button. Candidate layout: a 56px deep purple top bar over the warm cream page.
 - Widths: HR content `width-hr` 1160px; candidate pages `width-candidate` 820px; forms `width-form` 720px; auth card `width-auth` 440px.
 - Everything stacks cleanly at 360px with no horizontal page scroll; wide tables and the pipeline board scroll inside their own box. Touch targets at least 44px (`touch-target`).
 

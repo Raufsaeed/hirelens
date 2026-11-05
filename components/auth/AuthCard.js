@@ -1,7 +1,7 @@
 import FadeUp from "@/components/motion/FadeUp";
 import { DURATION } from "@/lib/motion";
 
-// The white-lilac card that holds each auth form. It fades up on load.
+// The light cream card that holds each auth form. It fades up on load.
 export const AUTH_CARD_CLASSES =
   "flex w-full max-w-[calc(var(--width-auth)+2*var(--space-10))] flex-col gap-5 rounded-dialog border border-border bg-surface p-6 shadow-card sm:p-10";
 

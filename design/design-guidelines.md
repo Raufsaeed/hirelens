@@ -2,7 +2,7 @@
 
 Everything a developer needs to build HireLens screens: every design token, the icon list and the rules. Save this section as `design/design-guidelines.md` in the project. It replaces the interim design rules in AGENTS.md (the primary colour is now purple `#5B3FD9`, not blue).
 
-**Theme in one line:** deep purple navigation (`--nav-bg` #24164F: HR sidebar, candidate top bar), lavender pages (`--surface-page` #EEEAFB), light lilac cards (`--surface` #FCFBFF) with soft lilac borders (`--border` #DCD5F5), brand purple `--primary` #5B3FD9 for buttons and accents; teal found, orange missing, red errors. Nothing is pure white except text on dark fills.
+**Theme in one line:** deep purple navigation (`--nav-bg` #24164F: HR sidebar, candidate top bar), warm cream pages (`--surface-page` #F3EEE6), light cream cards (`--surface` #FBF8F2) with warm sand borders (`--border` #E3DACB), brand purple `--primary` #5B3FD9 for buttons and accents; teal found, orange missing, red errors. Nothing is pure white except text on dark fills.
 
 ## Rules for developers
 
@@ -23,7 +23,7 @@ Everything a developer needs to build HireLens screens: every design token, the 
 
 | Token | Value | Use |
 |---|---|---|
-| `--primary` | `#5B3FD9` | Buttons, links, accents, the focus ring and the active item in the HR sidebar and candidate top bar. White text on it 6.6:1; as text 6.5:1 on surface and 5.6:1 on surface-page. |
+| `--primary` | `#5B3FD9` | Buttons, links, accents, the focus ring and the active item in the HR sidebar and candidate top bar. White text on it 6.6:1; as text 6.3:1 on surface and 5.8:1 on surface-page. |
 | `--primary-hover` | `#4527B8` | Hover and pressed fill of primary buttons; link hover. |
 | `--primary-deep` | `#2A1580` | Deepest brand shade: landing gradients, the first funnel bar, footer band. White text 13.8:1. |
 | `--primary-soft` | `#B7A8F7` | Gradient mid-stop, score-ring track accent, lighter chart bars (label outside the bar). Never text. |
@@ -31,41 +31,41 @@ Everything a developer needs to build HireLens screens: every design token, the 
 | `--primary-tint` | `#EFEBFD` | Highlights, selected rows, Shortlisted badge, AI note (with a primary-faint border, since it is close to surface-page), tags. Text on it: on-primary-tint. |
 | `--on-primary-tint` | `#3B1F9E` | Text and icons on primary-tint (9.6:1). |
 | `--on-primary` | `#FFFFFF` | Text and icons on primary, primary-hover, primary-deep, nav-bg and danger fills. |
-| `--ink` | `#1C1830` | Headings and main text on surface (16.7:1) and surface-page (14.6:1). |
-| `--ink-muted` | `#5E5A72` | Secondary text, hints, meta lines, table headers on surface (6.4:1), surface-page (5.6:1), surface-sunken (5.9:1) and primary-tint (5.7:1). |
-| `--ink-placeholder` | `#6F6B84` | Placeholder text inside fields, which are filled with surface (5:1). Never on surface-page. |
+| `--ink` | `#1C1830` | Headings and main text on surface (16.2:1) and surface-page (14.9:1). |
+| `--ink-muted` | `#5E5A72` | Secondary text, hints, meta lines, table headers on surface (6.2:1), surface-page (5.7:1), surface-sunken (5.4:1) and primary-tint (5.7:1). |
+| `--ink-placeholder` | `#6F6B84` | Placeholder text inside fields, which are filled with surface (4.8:1). Never on surface-page. |
 | `--ink-disabled` | `#8C88A0` | Disabled labels and icons only (exempt from contrast rules). |
-| `--border` | `#DCD5F5` | Soft lilac 1px borders for cards, tables and dividers. Decorative only: never the only edge of a control. |
-| `--border-control` | `#7F7A96` | Resting border of inputs, selects, checkboxes and secondary buttons: 4:1 on surface and 3.5:1 on surface-page so control edges stay visible. |
-| `--surface-page` | `#EEEAFB` | Lavender page background on every work page, HR and candidate. |
-| `--surface` | `#FCFBFF` | Very light lilac for cards, tables, dialogs, inputs and menus. Never pure white. |
-| `--surface-sunken` | `#F3F0FC` | Row hover, disabled fills, skeleton base and the hint box inside cards. |
-| `--surface-skeleton-shine` | `#FCFBFF` | Highlight band of the skeleton shimmer. |
-| `--surface-column` | `#E4DEF8` | Pipeline board columns on surface-page (ink 13.2:1, ink-muted 5:1). |
+| `--border` | `#E3DACB` | Warm sand 1px borders for cards, tables and dividers. Decorative only: never the only edge of a control. |
+| `--border-control` | `#7F7A96` | Resting border of inputs, selects, checkboxes and secondary buttons: 3.9:1 on surface and 3.5:1 on surface-page so control edges stay visible. |
+| `--surface-page` | `#F3EEE6` | Warm cream page background on every work page, HR and candidate. |
+| `--surface` | `#FBF8F2` | Light cream for cards, tables, dialogs, inputs and menus. Never pure white. |
+| `--surface-sunken` | `#EFE7DA` | Deeper cream for row hover, table headers, chips, disabled fills, skeleton base and the hint box inside cards. |
+| `--surface-skeleton-shine` | `#FBF8F2` | Highlight band of the skeleton shimmer. |
+| `--surface-column` | `#EAE1D2` | Warm cream pipeline board columns on surface-page (ink 13.3:1, ink-muted 5.1:1, primary 5.1:1). |
 | `--nav-bg` | `#24164F` | Deep purple HR sidebar, candidate top bar and mobile menu panels. |
 | `--nav-hover` | `#33236A` | Hover fill of sidebar and top-bar items. |
 | `--nav-line` | `#3A2B70` | Dividers inside the sidebar. Decorative only. |
 | `--nav-text` | `#E9E4FB` | Active-adjacent and primary text on nav-bg (13:1): brand name, user name, section text. |
 | `--nav-text-muted` | `#B3A8DD` | Resting navigation labels and icons on nav-bg (7.3:1). |
 | `--overlay` | `rgba(28, 24, 48, 0.45)` | Modal and mobile-menu backdrop. |
-| `--success` | `#0F7A6B` | Success icons, found-requirement icons, Excellent score marks, positive chart deltas (5.2:1 on surface). |
+| `--success` | `#0F7A6B` | Success icons, found-requirement icons, Excellent score marks, positive chart deltas (4.9:1 on surface). |
 | `--success-bg` | `#DDF3EC` | Found tags, Hired / Done badges, success toasts and alerts. |
 | `--success-text` | `#0B5E52` | Text on success-bg (6.6:1). |
-| `--warning` | `#C2410C` | Warning and missing-requirement icons, close-deadline clock (5.2:1 on surface). |
+| `--warning` | `#C2410C` | Warning and missing-requirement icons, close-deadline clock (4.9:1 on surface). |
 | `--warning-bg` | `#FDF0E6` | Missing tags, warning alerts, "3 days left" label. |
 | `--warning-text` | `#8A3A08` | Text on warning-bg (7:1). |
 | `--danger` | `#C62828` | Danger button fill (white text 5.6:1), error icons, field error borders and messages on surface. |
 | `--danger-hover` | `#A01F1F` | Danger button hover. |
 | `--danger-bg` | `#FDECEC` | Rejected / Failed badges, error alerts and toasts. |
-| `--danger-text` | `#A01F1F` | Text on danger-bg (6.8:1) and inline field errors on surface (7.8:1). |
+| `--danger-text` | `#A01F1F` | Text on danger-bg (6.8:1) and inline field errors on surface (7.3:1). |
 | `--neutral-bg` | `#EEEDF3` | Applied, Queued, Pending and Draft badges. |
 | `--neutral-text` | `#47435A` | Text on neutral-bg (8.1:1). |
 | `--muted-bg` | `#F4F3F8` | Withdrawn and Closed badges (light grey, paired with a dashed border). |
 | `--muted-text` | `#5E5A72` | Text on muted-bg (6:1). |
-| `--info` | `#2E6FD8` | Info icons and Interview marks on surface (4.8:1). |
+| `--info` | `#2E6FD8` | Info icons and Interview marks on surface (4.5:1). |
 | `--info-bg` | `#E3EEFC` | Interview badge, info alerts and toasts. |
 | `--info-text` | `#174A9C` | Text on info-bg (7.2:1). |
-| `--amber` | `#A87A0A` | Offer icon on surface (3.9:1, icons only). |
+| `--amber` | `#A87A0A` | Offer icon on surface (3.6:1, icons only). |
 | `--amber-bg` | `#FCF1D9` | Offer badge. |
 | `--amber-text` | `#7A4A05` | Text on amber-bg (6.7:1). |
 | `--glass` | `rgba(255, 255, 255, 0.12)` | Translucent fills on the purple gradient (landing pill, ghost hover on dark). |
@@ -141,7 +141,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
 | `--shadow-card` | `0 1px 2px rgba(28, 24, 48, 0.04), 0 2px 8px rgba(28, 24, 48, 0.04)` | Resting cards and tables, together with a 1px border. |
 | `--shadow-card-hover` | `0 2px 4px rgba(28, 24, 48, 0.05), 0 12px 24px -6px rgba(28, 24, 48, 0.12)` | Clickable cards on hover (with a 2px lift). |
 | `--shadow-float` | `0 4px 12px rgba(28, 24, 48, 0.08), 0 24px 48px -12px rgba(28, 24, 48, 0.22)` | Menus, dropdowns, dialogs, toasts, dragged pipeline cards. |
-| `--shadow-focus` | `0 0 0 2px #FCFBFF, 0 0 0 4px #5B3FD9` | Keyboard focus ring on light grounds (primary: 6.5:1 on surface, 5.6:1 on surface-page). |
+| `--shadow-focus` | `0 0 0 2px #FBF8F2, 0 0 0 4px #5B3FD9` | Keyboard focus ring on light grounds (primary: 6.3:1 on surface, 5.8:1 on surface-page). |
 | `--shadow-focus-nav` | `0 0 0 2px #FFFFFF` | Focus ring on nav-bg (white, 16:1), because primary is only 2.4:1 there. |
 
 ## Animation durations
@@ -220,13 +220,13 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --ink-muted: #5E5A72;
   --ink-placeholder: #6F6B84;
   --ink-disabled: #8C88A0;
-  --border: #DCD5F5;
+  --border: #E3DACB;
   --border-control: #7F7A96;
-  --surface-page: #EEEAFB;
-  --surface: #FCFBFF;
-  --surface-sunken: #F3F0FC;
-  --surface-skeleton-shine: #FCFBFF;
-  --surface-column: #E4DEF8;
+  --surface-page: #F3EEE6;
+  --surface: #FBF8F2;
+  --surface-sunken: #EFE7DA;
+  --surface-skeleton-shine: #FBF8F2;
+  --surface-column: #EAE1D2;
   --nav-bg: #24164F;
   --nav-hover: #33236A;
   --nav-line: #3A2B70;
@@ -293,7 +293,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --shadow-card: 0 1px 2px rgba(28, 24, 48, 0.04), 0 2px 8px rgba(28, 24, 48, 0.04);
   --shadow-card-hover: 0 2px 4px rgba(28, 24, 48, 0.05), 0 12px 24px -6px rgba(28, 24, 48, 0.12);
   --shadow-float: 0 4px 12px rgba(28, 24, 48, 0.08), 0 24px 48px -12px rgba(28, 24, 48, 0.22);
-  --shadow-focus: 0 0 0 2px #FCFBFF, 0 0 0 4px #5B3FD9;
+  --shadow-focus: 0 0 0 2px #FBF8F2, 0 0 0 4px #5B3FD9;
   --shadow-focus-nav: 0 0 0 2px #FFFFFF;
   /* duration */
   --duration-fast: 150ms;
@@ -479,7 +479,7 @@ The HireLens logo is an **owl mark** (a geometric owl in brand purples, one eye 
 - **Files:** `public/logo-mark.svg` (the mark used in the app) and `app/icon.svg` (the same SVG, used as the browser tab icon). Never redraw, recolour or stretch the mark.
 - **Wordmark colours:** "Hire" uses the normal text colour of its background (`--ink` on light pages, `--nav-text` on the nav, `--on-primary` on the purple art). "Lens" uses a left-to-right gradient:
   - On dark backgrounds: `--logo-lens-dark-from` `#C9B8FF` → `--logo-lens-dark-to` `#8E6CFF`.
-  - On light pages: `--logo-lens-light-from` `#6B4FE6` → `--logo-lens-light-to` `#5B3FD9` (both ends pass 4.5:1 contrast on the lavender and lilac surfaces).
+  - On light pages: `--logo-lens-light-from` `#6B4FE6` → `--logo-lens-light-to` `#5B3FD9` (both ends pass 4.5:1 contrast on the cream page and card surfaces).
 - **Inline version** (mark 32px, wordmark 18px beside it, 10px gap): HR sidebar, candidate top bar, visitor top bar, landing nav, and the plain light pages (not found, access denied, account deleted). Code: `<Brand tone="nav" />`, `tone="gradient"` or `tone="light"`.
 - **Stacked version** (mark 64px above the 24px wordmark, then the tagline "AI-POWERED HIRING" in `caption`, uppercase, 0.2em letter spacing, muted colour): the purple panel of the auth pages only. Code: `<Brand tone="gradient" layout="stacked" />`.
 - **Watermark:** the landing hero shows the mark large behind the floating cards at 8% opacity, as decoration only.
