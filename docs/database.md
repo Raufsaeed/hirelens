@@ -21,6 +21,7 @@ Each table is created only through SQL given to the user to run in the Supabase 
 | 16 Interview Scheduling | `interviews` (every column in section 2.8; `duration_minutes` 15 to 240; check that `meeting_link` or `location` is filled); indexes on `application_id`, `scheduled_at` and `lower(interviewer_name)` + `scheduled_at`; trigger `interviews_set_updated_at` |
 | 17 Interview Feedback | `interview_feedback` (every column in section 2.9; unique `interview_id`; `strengths` and `concerns` up to 2,000 characters); function `public.is_hr_for_interview(uuid)` |
 | 18 AI Interview Questions | `interview_questions` (every column in section 2.10; `question` and `good_answer_hint` up to 500 characters, `focus` up to 100); index on `interview_id` + `position` |
+| 19 Reports | No database changes. Every number is worked out in code from `jobs`, `applications`, `screenings` and `status_history`. |
 | 14, 22 | No database changes of their own. `viewed_at` is set by the server; account delete removes the Auth user, which cascades to the profile and everything linked to it. |
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name`, `logo_url`, `about`, `website` and `location` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).

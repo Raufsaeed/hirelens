@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Plus } from "lucide-react";
+import { ChartColumn, Plus } from "lucide-react";
 import JobsList, { JobsListSkeleton } from "@/components/jobs/JobsList";
 import PageHeader from "@/components/nav/PageHeader";
 import Button from "@/components/ui/Button";
@@ -14,9 +14,14 @@ export default function HrDashboardPage() {
       <PageHeader
         title="Dashboard"
         actions={
-          <Button href="/hr/jobs/new" icon={Plus}>
-            Post a job
-          </Button>
+          <>
+            <Button href="/hr/reports" variant="secondary" icon={ChartColumn}>
+              View reports
+            </Button>
+            <Button href="/hr/jobs/new" icon={Plus}>
+              Post a job
+            </Button>
+          </>
         }
       />
       <section className="flex flex-col gap-4">
