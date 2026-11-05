@@ -20,7 +20,7 @@ export default function KpiCard({ label, icon: Icon, value, decimals = 0, unit, 
         ) : (
           <>
             <CountUp value={value} decimals={decimals} />
-            {unit && <span className="text-[17px] font-bold text-ink-muted">{unit}</span>}
+            {unit && <span className="card-title text-ink-muted">{unit}</span>}
           </>
         )}
       </p>

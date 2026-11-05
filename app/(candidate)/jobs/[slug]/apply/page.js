@@ -29,7 +29,8 @@ async function Apply({ params }) {
   const { job, blocked, applied } = await getApplyContext({ slug, candidateId: profile.id });
   if (!job) notFound();
   // The form is filled in from My Profile (Feature 20).
-  const details = blocked ? null : await getCandidateProfile(profile.id);
+  // If it can't be read, the form still works, just without the prefill.
+  const details = blocked ? null : await getCandidateProfile(profile.id).catch(() => null);
 
   const companyName = job.companies?.name;
 
