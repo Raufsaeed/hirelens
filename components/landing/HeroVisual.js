@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { CircleCheck } from "lucide-react";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
+import Badge from "@/components/ui/Badge";
 import MatchBar from "@/components/candidates/MatchBar";
 import ScoreRing from "@/components/candidates/ScoreRing";
 import { DURATION } from "@/lib/motion";
@@ -32,6 +33,10 @@ export default function HeroVisual() {
 
       <Floating seconds={DURATION.float} distance={10} className="relative z-1 w-[94%] lg:absolute lg:top-[8%] lg:left-0 lg:w-[78%]">
         <div className="flex -rotate-3 flex-col gap-4 rounded-dialog bg-surface p-5 text-ink shadow-float">
+          {/* Labelled so nobody reads the dummy score as real (AGENTS.md Design Rules exception). */}
+          <div className="-mb-2 self-start">
+            <Badge tone="neutral">Example</Badge>
+          </div>
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col">
               <span className="card-title">Ayesha Malik</span>

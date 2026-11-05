@@ -188,6 +188,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
   - No horizontal scroll at 360px
   - WCAG AA contrast
 - Never show a score, match percentage, AI summary or HR note on candidate screens or public pages.
+  - Exception: the landing hero may show a score and match % on a clearly labelled example card with dummy data only.
 
 ## Code Quality
 
