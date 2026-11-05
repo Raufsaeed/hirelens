@@ -143,7 +143,8 @@ test("Ali deletes his default CV after confirming; sent CVs stay", async ({ page
   await openWithSession(page, aliCookies, "/profile");
   await page.getByRole("button", { name: "Delete" }).click();
   const dialog = page.getByRole("alertdialog");
-  await expect(dialog.getByText("Delete your default CV? CVs you already sent to companies are not affected.")).toBeVisible();
+  await expect(dialog.getByRole("heading", { name: "Delete your default CV?" })).toBeVisible();
+  await expect(dialog.getByText("CVs you already sent to companies are not affected.")).toBeVisible();
   await dialog.getByRole("button", { name: "Delete CV" }).click();
   await expect(page.getByText("Default CV deleted")).toBeVisible();
   await expect(page.getByRole("button", { name: /Upload your CV/ })).toBeVisible();
