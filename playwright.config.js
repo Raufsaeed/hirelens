@@ -26,6 +26,8 @@ export default defineConfig({
     storageState: {
       cookies: [
         { name: "hl_ai_test", value: "fixture:screening", domain: "localhost", path: "/", expires: -1, httpOnly: false, secure: false, sameSite: "Lax" },
+        // Emails are captured to a temp file instead of being sent with Resend (lib/email/test-mode.js).
+        { name: "hl_email_test", value: "capture", domain: "localhost", path: "/", expires: -1, httpOnly: false, secure: false, sameSite: "Lax" },
       ],
       origins: [],
     },
