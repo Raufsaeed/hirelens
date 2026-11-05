@@ -39,7 +39,7 @@ export default function Brand({ tone = "light", href = "/", layout = "inline" })
 
   if (layout === "stacked") {
     return (
-      <Link href={href} aria-label="HireLens home" className={`inline-flex flex-col items-center gap-2 text-center ${linkClasses}`}>
+      <Link href={href} aria-label="HireLens" className={`inline-flex flex-col items-center gap-2 text-center ${linkClasses}`}>
         {/* eslint-disable-next-line @next/next/no-img-element -- small static SVG logo */}
         <img src="/logo-mark.svg" alt="" width={64} height={64} className="size-16" />
         <Wordmark text={text} lens={lens} className="text-2xl" />

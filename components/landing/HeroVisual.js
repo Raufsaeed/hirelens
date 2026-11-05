@@ -5,6 +5,7 @@ import { CircleCheck } from "lucide-react";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
 import MatchBar from "@/components/candidates/MatchBar";
 import ScoreRing from "@/components/candidates/ScoreRing";
+import { DURATION } from "@/lib/motion";
 
 // Landing hero visual, built from the app's own components with dummy data (Ayesha Malik is not a
 // real person). Two cards overlap at slight angles and float gently at different speeds over a large,
@@ -25,11 +26,11 @@ function Floating({ seconds, distance, className, children }) {
 
 export default function HeroVisual() {
   return (
-    <div aria-hidden="true" className="relative mx-auto flex w-full max-w-100 flex-col py-6 min-[1024px]:block min-[1024px]:aspect-square min-[1024px]:max-w-120 min-[1024px]:py-0">
+    <div aria-hidden="true" className="relative mx-auto flex w-full max-w-100 flex-col py-6 lg:block lg:aspect-square lg:max-w-120 lg:py-0">
       {/* eslint-disable-next-line @next/next/no-img-element -- static SVG logo, decorative */}
       <img src="/logo-mark.svg" alt="" className="absolute inset-0 m-auto w-full opacity-[0.08]" />
 
-      <Floating seconds={6} distance={10} className="relative z-1 w-[94%] min-[1024px]:absolute min-[1024px]:top-[8%] min-[1024px]:left-0 min-[1024px]:w-[78%]">
+      <Floating seconds={DURATION.float} distance={10} className="relative z-1 w-[94%] lg:absolute lg:top-[8%] lg:left-0 lg:w-[78%]">
         <div className="flex -rotate-3 flex-col gap-4 rounded-dialog bg-surface p-5 text-ink shadow-float">
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col">
@@ -39,10 +40,10 @@ export default function HeroVisual() {
             <ApplicationStatusBadge status="shortlisted" />
           </div>
           <div className="flex items-center gap-4">
-            <div className="origin-left scale-75 min-[1024px]:scale-90">
+            <div className="origin-left scale-75 lg:scale-90">
               <ScoreRing score={88} size="lg" />
             </div>
-            <div className="-ml-8 flex min-w-0 flex-1 flex-col gap-2 min-[1024px]:-ml-4">
+            <div className="-ml-8 flex min-w-0 flex-1 flex-col gap-2 lg:-ml-4">
               <span className="label text-ink-muted">Requirements match</span>
               <MatchBar percent={80} />
             </div>
@@ -50,7 +51,7 @@ export default function HeroVisual() {
         </div>
       </Floating>
 
-      <Floating seconds={4.5} distance={8} className="relative z-2 -mt-5 ml-auto w-[80%] min-[1024px]:absolute min-[1024px]:right-0 min-[1024px]:bottom-[6%] min-[1024px]:mt-0 min-[1024px]:w-[64%]">
+      <Floating seconds={DURATION.floatFast} distance={8} className="relative z-2 -mt-5 ml-auto w-[80%] lg:absolute lg:right-0 lg:bottom-[6%] lg:mt-0 lg:w-[64%]">
         <div className="flex rotate-2 items-start gap-3 rounded-card bg-surface p-4 text-ink shadow-float">
           <span className="grid size-9 shrink-0 place-items-center rounded-pill bg-success-bg text-success">
             <CircleCheck className="size-icon-md" strokeWidth={1.75} />

@@ -49,7 +49,7 @@ Two audiences shape every screen:
 - **Lucide** outline icons only, stroke `stroke-icon` 1.75, rounded caps, `currentColor`. In code use `lucide-react`.
 - Sizes: `icon-sm` 16px inline, `icon-md` 20px in buttons and navigation, `icon-lg` 24px for features and stat cards, `icon-xl` 44px inside an 88px `primary-tint` circle for empty states.
 - Icons sit next to a text label or the control has an `aria-label`. The **Icon library** card maps each meaning to one icon (found `check-circle-2`, missing `x-circle`, AI `sparkles`, deadline `clock`, …) — use that mapping, never synonyms.
-- HireLens has no logo file yet. The brand mark is the Lucide `scan-search` glyph on a `primary` rounded square beside "HireLens" in Manrope 800; replace it when a real logo exists. Company logos fall back to an initials monogram on `primary-deep`.
+- The HireLens logo is the owl mark (`public/logo-mark.svg`) beside "HireLens" in Manrope 800 with "Lens" in the logo gradient; see the Logo section of `design-guidelines.md`. The component previews still draw the old placeholder mark. Company logos fall back to an initials monogram on `primary-deep`.
 
 ## Motion
 

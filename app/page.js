@@ -44,7 +44,7 @@ export default function LandingPage() {
           </div>
         </nav>
 
-        <div className="relative z-1 mx-auto grid max-w-hr items-center gap-12 px-4 pt-12 pb-16 sm:px-6 sm:pt-16 sm:pb-24 min-[1024px]:grid-cols-[1.15fr_1fr]">
+        <div className="relative z-1 mx-auto grid max-w-hr items-center gap-12 px-4 pt-12 pb-16 sm:px-6 sm:pt-16 sm:pb-24 lg:grid-cols-[1.15fr_1fr]">
           <div className="flex min-w-0 flex-col gap-6">
             <FadeUp distance={18} duration={DURATION.score}>
               <RotatingHeadline />

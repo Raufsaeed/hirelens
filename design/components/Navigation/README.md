@@ -8,4 +8,4 @@
 
 **Phones and tablets** — below `bp-md` (900px) the HR sidebar is replaced by the same slim deep purple bar with search and a 44px `menu` button. The menu opens as a `nav-bg` panel that slides down with a clip reveal (300ms) while the links stagger in; the button becomes `x` "Close menu" with `aria-expanded`. Esc closes it and returns focus to the button.
 
-**Brand mark** — no logo file yet: the Lucide `scan-search` glyph on a `primary` rounded square beside the name in Manrope 800, in `nav-text` on dark bars and `ink` on light pages.
+**Brand mark** — the owl logo (`public/logo-mark.svg`, 32px) beside "HireLens" in Manrope 800: "Hire" in `nav-text` on dark bars (`ink` on light pages) and "Lens" in the logo gradient. See the Logo section of `design-guidelines.md`. The preview still draws the old placeholder mark.

@@ -155,6 +155,9 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
 | `--duration-chart` | `500ms` | Bar and funnel growth, progress fills. |
 | `--duration-stagger` | `60ms` | Delay between list rows, tags and landing elements. |
 | `--duration-loop` | `20s` | Landing and auth animated gradient background loop (15–25s). |
+| `--duration-rotate` | `2500ms` | How long each phrase of the rotating hero headline stays. |
+| `--duration-float` | `6000ms` | One float loop of the large hero card. |
+| `--duration-float-fast` | `4500ms` | One float loop of the small hero evidence card. |
 
 ## Easing
 
@@ -189,6 +192,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
 | `--width-auth` | `440px` | Auth card width. |
 | `--bp-sm` | `640px` | Below: single column, 16px gutters, phone type sizes. |
 | `--bp-md` | `900px` | Below: the HR sidebar becomes a slim top bar with a menu button. |
+| `--bp-lg` | `1024px` | Below: the landing hero visual moves under the text and gets smaller. |
 
 ## Layers (z-index)
 
@@ -299,6 +303,9 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --duration-chart: 500ms;
   --duration-stagger: 60ms;
   --duration-loop: 20s;
+  --duration-rotate: 2500ms;
+  --duration-float: 6000ms;
+  --duration-float-fast: 4500ms;
   /* easing */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-loop: ease-in-out;
@@ -321,6 +328,7 @@ Font: **Manrope** from Google Fonts, `font-family: Manrope, "Segoe UI", system-u
   --width-auth: 440px;
   --bp-sm: 640px;
   --bp-md: 900px;
+  --bp-lg: 1024px;
   /* zIndex */
   --z-nav: 40;
   --z-dropdown: 50;
@@ -476,7 +484,7 @@ The HireLens logo is an **owl mark** (a geometric owl in brand purples, one eye 
 - **Stacked version** (mark 64px above the 24px wordmark, then the tagline "AI-POWERED HIRING" in `caption`, uppercase, 0.2em letter spacing, muted colour): the purple panel of the auth pages only. Code: `<Brand tone="gradient" layout="stacked" />`.
 - **Watermark:** the landing hero shows the mark large behind the floating cards at 8% opacity, as decoration only.
 - **Minimum size:** the mark is never shown smaller than 24px (16px is allowed only for the browser tab icon). Keep clear space around the logo of at least half the mark's width.
-- **Accessibility:** the logo link's name is "HireLens"; the mark image itself has empty `alt` because the wordmark text sits beside it.
+- **Accessibility:** the logo link's name is "HireLens" (the stacked version sets it with `aria-label`, so the tagline is not read as part of it); the mark image itself has empty `alt` because the wordmark text sits beside it.
 
 ## Icons (Lucide)
 
@@ -559,7 +567,7 @@ Sizes: 16px inline (`size={16}`), 20px buttons and navigation, 24px feature high
 - **Dialog** — backdrop fade; dialog `scale(0.96) → 1` over `--duration-slow`
 - **Toast** — slide up 24px + fade in 300ms, auto-hide after 4s, slide down 220ms
 - **Pipeline drag** — card `rotate(2.5deg) scale(1.03)` + `--shadow-float`; target column `primary-tint`; count bump 360ms
-- **Rotating headline** — landing hero line 2 cycles "Hire fairly." → "Hire smarter." → "Hire with evidence." every 2.5s; the new phrase slides up from 100% while the old one slides out to −100%, over `--duration-slow` `ease-out`. Every phrase sits invisibly in the same grid cell, so the box keeps the height of the longest phrase and nothing below moves. Screen readers get one static sentence ("Hire faster. Hire fairly.").
-- **Floating hero cards** — the hero cards bob 8–10px on `ease-in-out` (`--ease-loop`) loops at different speeds (6s and 4.5s), each with a slight fixed tilt (−3° and 2°).
+- **Rotating headline** — landing hero line 2 cycles "Hire fairly." → "Hire smarter." → "Hire with evidence." every `--duration-rotate` (2.5s); the new phrase slides up from 100% while the old one slides out to −100%, over `--duration-slow` `ease-out`. Every phrase sits invisibly in the same grid cell, so the box keeps the height of the longest phrase and nothing below moves. Screen readers get one static sentence ("Hire faster. Hire fairly.").
+- **Floating hero cards** — the hero cards bob 8–10px on `ease-in-out` (`--ease-loop`) loops at different speeds (`--duration-float` 6s and `--duration-float-fast` 4.5s), each with a slight fixed tilt (−3° and 2°).
 - **Background loop** — blurred brand-purple blobs drifting on 18–24s `ease-in-out` loops (landing and auth only)
 - **Reduced motion** — remove loops, reveals, confetti and movement; keep 200ms opacity fades. The hero headline shows only "Hire fairly." and the hero cards stay still.

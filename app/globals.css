@@ -121,10 +121,11 @@
   --font-*: initial;
   --font-sans: var(--font-sans);
 
-  /* Breakpoints: same values as --bp-sm and --bp-md (media queries can't read CSS variables). */
+  /* Breakpoints: same values as --bp-sm, --bp-md and --bp-lg (media queries can't read CSS variables). */
   --breakpoint-*: initial;
   --breakpoint-sm: 640px;
   --breakpoint-md: 900px;
+  --breakpoint-lg: 1024px;
 
   /* Animations from the motion rules: animate-fade-up, animate-fade-up-lg, animate-menu-in */
   --animate-fade-up: fade-up var(--duration-base) var(--ease-out) both;

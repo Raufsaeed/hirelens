@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { DURATION, EASE_OUT } from "@/lib/motion";
 
-// Landing headline: "Hire faster." then a second line that slides up to the next phrase every 2.5s.
+// Landing headline: "Hire faster." then a second line that slides up to the next phrase every DURATION.rotate (2.5s).
 // Every phrase sits invisibly in the same spot, so the box is always as tall as the longest one and
 // nothing below it jumps. Screen readers read one static sentence. Reduced motion: "Hire fairly." only.
 
 const PHRASES = ["Hire fairly.", "Hire smarter.", "Hire with evidence."];
-const ROTATE_MS = 2500;
 
 export default function RotatingHeadline() {
   const reduceMotion = useReducedMotion();
@@ -17,7 +16,7 @@ export default function RotatingHeadline() {
 
   useEffect(() => {
     if (reduceMotion) return;
-    const timer = setInterval(() => setIndex((current) => (current + 1) % PHRASES.length), ROTATE_MS);
+    const timer = setInterval(() => setIndex((current) => (current + 1) % PHRASES.length), DURATION.rotate * 1000);
     return () => clearInterval(timer);
   }, [reduceMotion]);
 

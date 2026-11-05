@@ -91,6 +91,9 @@
   --duration-chart: 500ms;
   --duration-stagger: 60ms;
   --duration-loop: 20s;
+  --duration-rotate: 2500ms;
+  --duration-float: 6000ms;
+  --duration-float-fast: 4500ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-loop: ease-in-out;
   --icon-sm: 16px;
@@ -110,6 +113,7 @@
   --width-auth: 440px;
   --bp-sm: 640px;
   --bp-md: 900px;
+  --bp-lg: 1024px;
   --z-nav: 40;
   --z-dropdown: 50;
   --z-modal: 60;
