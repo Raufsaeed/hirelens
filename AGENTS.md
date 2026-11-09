@@ -52,7 +52,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 ## Testing Rules
 
 - Before building each feature, write its Playwright test in `tests/e2e/` from that feature's test cases and Done When list, run it and show that it fails. Then build the feature until the test passes.
-- Run all tests, not only the new one, so older features are checked again.
+- For a change, run only the tests for the files and features that changed. Run the full Playwright suite only when the user asks for it (for example: 'run all tests'). Run the code-reviewer only on the new changes, once.
 - Show the result as passed and failed counts. If a test fails, fix the code, not the test, unless the test is wrong.
 - Tick a Done When box only when its test passes and the user confirms it works in the browser.
 - Never write pass or fail results into the feature files.
@@ -124,6 +124,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Candidate search and company pages never expose another company's private data.
 - Every table has Row Level Security.
 - HR sees only their own company's jobs and candidates.
+- Only draft jobs can be deleted, by HR of that company. Open and closed jobs are never deleted, only closed.
 - Candidates see only their own applications, and never their score.
 - CVs are stored in a private storage bucket.
 - Validate all inputs: PDF only, max 5 MB, required fields filled.

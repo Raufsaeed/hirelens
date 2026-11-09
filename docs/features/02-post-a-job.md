@@ -29,14 +29,15 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 4. **Copy link:** After publishing, and on My Jobs, HR can click "Copy link".
 5. **My Jobs:** HR sees all their company's jobs with title, status (Draft, Open, Closed), number of applicants, Apply by date, and the actions Edit (Feature 03), Close and Reopen (Feature 04), and Copy link.
 6. **HR Dashboard job cards:** Each job shows as a card with title, status and the number of applicants (and new applicants). New applicants are applications HR has not opened yet (`applications.viewed_at` is empty, Feature 14).
-7. **Showing the deadline:** Job cards show "Apply by 20 Oct". When 7 days or fewer are left, they also show "3 days left" (or "Last day" on the final day). The same display is used on the Public Job Detail page (Feature 07).
+7. **Delete draft:** On My Jobs, draft rows also have a Delete action (trash icon). It opens a confirm dialog "Delete this draft? This can't be undone." with Cancel and Delete. After deleting, the toast "Draft deleted" shows and the row is removed. Open and closed jobs have no Delete action and can never be deleted.
+8. **Showing the deadline:** Job cards show "Apply by 20 Oct". When 7 days or fewer are left, they also show "3 days left" (or "Last day" on the final day). The same display is used on the Public Job Detail page (Feature 07).
 
 ## Screens
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
 | HR Dashboard (job cards) | One card per job with title, status, applicant counts and "Apply by 20 Oct · 3 days left" when a deadline is set. | "You have no jobs yet" with "Post your first job" | Skeleton cards | "Couldn't load your jobs" with Retry | Job cards shown |
-| My Jobs | Table of all jobs with status, applicants, Apply by date and actions. | "You have no jobs yet" with "Post your first job" | Skeleton rows | "Couldn't load your jobs" with Retry | List shown; "Link copied" |
+| My Jobs | Table of all jobs with status, applicants, Apply by date and actions. | "You have no jobs yet" with "Post your first job" | Skeleton rows | "Couldn't load your jobs" with Retry | List shown; "Link copied"; "Draft deleted" |
 | Create Job | The job form, including an optional "Apply by" date, with Save as draft and Publish buttons. | Blank form with hints; Apply by empty | Button spinner, buttons disabled | Missing or invalid fields highlighted; "Apply by date can't be in the past"; "Couldn't save, try again" | Draft saved, or job published with its link and "Copy link" |
 
 ## Input / Output
@@ -47,6 +48,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 | Create Job → Publish | All required fields and at least one requirement | Job set to Open; public link and "Copy link" button |
 | Copy link | Clicks "Copy link" | Link copied; "Link copied" message |
 | Set Apply by | A date today or later (optional) | Deadline saved and shown on job cards and the public page |
+| Delete draft | Clicks the trash icon on a draft row, then Delete | Draft deleted; "Draft deleted" message; row removed |
 
 ## Data Used
 
@@ -72,6 +74,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 
 - HR can only see, create and manage jobs of their own company.
 - Drafts are never public.
+- Only drafts can be deleted, and only by HR of the job's company. Open and closed jobs are never deleted, only closed.
 - A job needs a title, location, job type, required years, required degree, description and at least one requirement before it can be published.
 - Required years must be a whole number from 0 to 30.
 - A company cannot have two Draft or Open jobs with the same title.
@@ -91,6 +94,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 | Candidate opens the Create Job page | "You don't have access to this page" | Blocks the page; offers a link to My Applications. |
 | Network failure while saving | "Couldn't save, try again" | Keeps everything HR typed and lets her retry; never shows a raw error. |
 | Apply by date in the past | "Apply by date can't be in the past" | Does not save until a valid date is chosen. |
+| Deleting a job that is no longer a draft | "Only draft jobs can be deleted" | Does not delete the job. |
 
 ## Acceptance Criteria
 
@@ -101,6 +105,7 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - [ ] HR only sees their own company's jobs, and candidates cannot open HR job pages.
 - [ ] HR can set an optional Apply by date that cannot be in the past.
 - [ ] Job cards show the Apply by date, and "X days left" when 7 days or fewer remain.
+- [ ] HR can delete a draft after confirming; open and closed jobs can't be deleted.
 - [ ] Every error case shows a clear, friendly message.
 
 ## User Flows
@@ -112,6 +117,9 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - Given Sara is on the Create Job form, when she fills in Junior Web Developer with all fields and clicks Publish, then the job is Open, she gets the link `/jobs/abc-tech-junior-web-developer` with "Copy link", and the job appears on her dashboard with 0 applicants.
 - Given Sara is on the Create Job form, when she clicks Publish without adding any requirements, then the job is not published and she sees "Add at least one requirement".
 - Given Sara is creating Junior Web Developer, when she sets the Apply by date to yesterday, then she sees "Apply by date can't be in the past" and the job is not saved.
+- Given Sara has a draft on My Jobs, when she clicks the trash icon and then Delete, then she sees "Draft deleted" and the row is gone.
+- Given Sara has an open job on My Jobs, when she looks at its row, then there is no Delete action.
+- Given Omar is HR of another company, when he tries to delete Sara's draft, then it is not deleted.
 
 ## Dependencies
 
@@ -126,3 +134,6 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - [x] Publishing with no requirements shows "Add at least one requirement".
 - [x] An Apply by date in the past shows "Apply by date can't be in the past".
 - [x] Privacy: a candidate who opens Create Job sees "You don't have access to this page".
+- [x] Sara deletes a draft from My Jobs after confirming, sees "Draft deleted" and the row is removed.
+- [x] Open and closed jobs have no Delete action.
+- [x] Privacy: HR of another company can't delete Sara's draft.

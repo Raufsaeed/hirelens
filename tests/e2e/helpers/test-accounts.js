@@ -99,6 +99,14 @@ export async function getJob(jobId) {
   return data;
 }
 
+// The job, or null when it no longer exists (to check a delete).
+export async function findJob(jobId) {
+  const admin = adminClient();
+  const { data, error } = await admin.from("jobs").select("*").eq("id", jobId).maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
 export async function updateJob(jobId, fields) {
   const admin = adminClient();
   const { error } = await admin.from("jobs").update(fields).eq("id", jobId);
@@ -388,4 +396,17 @@ export async function addSavedJob(candidateId, jobId) {
   const admin = adminClient();
   const { error } = await admin.from("saved_jobs").insert({ candidate_id: candidateId, job_id: jobId });
   if (error) throw error;
+}
+
+// Tries to delete a job as a logged-in user would (publishable key, Row Level Security applies).
+// Returns the rows that were deleted: [] when the policy blocks it.
+export async function deleteJobAs(email, jobId) {
+  const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const login = await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  if (login.error) throw login.error;
+  const { data, error } = await client.from("jobs").delete().eq("id", jobId).select("id");
+  if (error) throw error;
+  return data;
 }
