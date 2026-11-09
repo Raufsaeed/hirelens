@@ -134,6 +134,6 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - [x] Publishing with no requirements shows "Add at least one requirement".
 - [x] An Apply by date in the past shows "Apply by date can't be in the past".
 - [x] Privacy: a candidate who opens Create Job sees "You don't have access to this page".
-- [ ] Sara deletes a draft from My Jobs after confirming, sees "Draft deleted" and the row is removed.
-- [ ] Open and closed jobs have no Delete action.
-- [ ] Privacy: HR of another company can't delete Sara's draft.
+- [x] Sara deletes a draft from My Jobs after confirming, sees "Draft deleted" and the row is removed.
+- [x] Open and closed jobs have no Delete action.
+- [x] Privacy: HR of another company can't delete Sara's draft.
