@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Plus } from "lucide-react";
 import JobsList, { JobsListSkeleton } from "@/components/jobs/JobsList";
+import JobsToastProvider from "@/components/jobs/JobsToast";
 import PageHeader from "@/components/nav/PageHeader";
 import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
@@ -22,9 +23,11 @@ export default function MyJobsPage({ searchParams }) {
       <Suspense fallback={null}>
         <SavedNotice searchParams={searchParams} />
       </Suspense>
-      <Suspense fallback={<JobsListSkeleton />}>
-        <JobsList view="table" />
-      </Suspense>
+      <JobsToastProvider>
+        <Suspense fallback={<JobsListSkeleton />}>
+          <JobsList view="table" />
+        </Suspense>
+      </JobsToastProvider>
     </div>
   );
 }
