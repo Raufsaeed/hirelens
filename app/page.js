@@ -70,7 +70,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <main>
+      <main className="bg-landing-how-bg">
         <section id="how" className="mx-auto max-w-hr px-4 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto mb-12 flex max-w-160 flex-col items-center gap-3 text-center">
             <span className="caption text-primary uppercase">How it works</span>
@@ -94,7 +94,7 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-border bg-surface">
+      <footer className="border-t border-border bg-landing-footer-bg">
         <div className="mx-auto flex max-w-hr flex-col gap-3 px-4 py-12 sm:px-6">
           <Brand />
           <p className="max-w-130 text-ink-muted">

@@ -179,6 +179,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
   - Brand purple `--primary` `#5B3FD9`
   - Teal for found, orange for missing, red for errors
   - Nothing pure white
+    - Exception: The landing page How it works section may use pure white.
 - Use the tokens as CSS variables mapped into the Tailwind theme. Never hard-code colours, sizes, radius, shadows or durations.
 - Use `lucide-react` icons only, as mapped in the icon library (`design/components/IconLibrary/`), with `strokeWidth` 1.75.
 - Use `framer-motion` and the motion rules in the guidelines, and support `prefers-reduced-motion`.
