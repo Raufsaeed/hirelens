@@ -30,6 +30,8 @@
   --color-surface-sunken: var(--surface-sunken);
   --color-surface-skeleton-shine: var(--surface-skeleton-shine);
   --color-surface-column: var(--surface-column);
+  --color-landing-how-bg: var(--landing-how-bg);
+  --color-landing-footer-bg: var(--landing-footer-bg);
   --color-nav-bg: var(--nav-bg);
   --color-nav-hover: var(--nav-hover);
   --color-nav-line: var(--nav-line);
