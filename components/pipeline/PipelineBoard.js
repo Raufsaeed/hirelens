@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
-import { CalendarClock, CircleSlash, GripVertical, PartyPopper, Undo2 } from "lucide-react";
+import { CalendarClock, CircleSlash, GripVertical, Lock, PartyPopper, Undo2 } from "lucide-react";
 import { APPLICATION_STATUSES } from "@/components/applications/ApplicationStatusBadge";
 import ScoreRing from "@/components/candidates/ScoreRing";
 import ScheduleInterviewDialog from "@/components/interviews/ScheduleInterviewDialog";
@@ -12,16 +12,20 @@ import Dialog from "@/components/ui/Dialog";
 import Toast from "@/components/ui/Toast";
 import { INPUT_CLASSES } from "@/components/ui/TextField";
 import { moveApplication } from "@/lib/applications/status-actions";
+import { FINAL_STATUSES } from "@/lib/applications/validation";
 import { formatDayTime } from "@/lib/format-date";
 
 // Pipeline board for one job (Feature 15). Cards move by drag and drop or with the "Move to" select
 // (keyboard and phone). Hired and Rejected confirm first. A failed save puts the card back.
-// Withdrawn candidates are greyed out and can't be moved. AI never moves a card.
+// Withdrawn candidates are greyed out and can't be moved. Hired and Rejected are final: their cards
+// show a lock and can't be moved either. AI never moves a card.
 // Moving to Interview opens the schedule form (Feature 16); the move is saved with the interview.
 
 const COLUMNS = ["applied", "shortlisted", "interview", "offer", "hired", "rejected"];
 const NEEDS_CONFIRM = ["hired", "rejected"];
 const MOVE_ERROR = "Couldn't move this candidate, try again";
+const FINAL_TOOLTIP = "Final decision, can't be changed";
+const FINAL_LINE = "This is final and can't be changed later.";
 
 function label(status) {
   return APPLICATION_STATUSES[status].label;
@@ -34,22 +38,33 @@ function daysLabel(days) {
 
 function PipelineCard({ card, onMove, onDragStart }) {
   const withdrawn = card.status === "withdrawn";
+  const final = FINAL_STATUSES.includes(card.status);
+  const locked = withdrawn || final;
   return (
     <article
-      draggable={!withdrawn}
+      draggable={!locked}
       onDragStart={(event) => {
         event.dataTransfer.setData("text/plain", card.id);
         onDragStart(card.id);
       }}
       data-withdrawn={withdrawn}
+      data-final={final}
       className={`flex flex-col gap-3 rounded-control border bg-surface p-3 shadow-card transition-[transform,box-shadow] duration-(--duration-fast) ease-out ${
         withdrawn
           ? "cursor-not-allowed border-dashed border-border-control opacity-60"
-          : "cursor-grab border-border hover:shadow-card-hover active:cursor-grabbing"
+          : final
+            ? "border-border"
+            : "cursor-grab border-border hover:shadow-card-hover active:cursor-grabbing"
       }`}
     >
       <div className="flex items-start gap-2">
-        {!withdrawn && <GripVertical className="mt-2 size-icon-sm shrink-0 text-ink-muted" strokeWidth={1.75} aria-hidden="true" />}
+        {!locked && <GripVertical className="mt-2 size-icon-sm shrink-0 text-ink-muted" strokeWidth={1.75} aria-hidden="true" />}
+        {final && (
+          <span className="mt-2 shrink-0 text-ink-muted" title={FINAL_TOOLTIP}>
+            <Lock className="size-icon-sm" strokeWidth={1.75} aria-hidden="true" />
+            <span className="sr-only">Final decision</span>
+          </span>
+        )}
         <Avatar name={card.name} />
         <div className="flex min-w-0 flex-1 flex-col">
           <Link
@@ -80,20 +95,23 @@ function PipelineCard({ card, onMove, onDragStart }) {
       <label className="sr-only" htmlFor={`move-${card.id}`}>
         Move {card.name} to
       </label>
-      <select
-        id={`move-${card.id}`}
-        value={withdrawn ? "withdrawn" : card.status}
-        disabled={withdrawn}
-        onChange={(event) => onMove(card, event.target.value)}
-        className={`${INPUT_CLASSES} cursor-pointer text-[13px]`}
-      >
-        {withdrawn && <option value="withdrawn">Withdrawn</option>}
-        {COLUMNS.map((status) => (
-          <option key={status} value={status}>
-            {label(status)}
-          </option>
-        ))}
-      </select>
+      {/* A disabled select shows no tooltip itself, so the wrapper carries it. */}
+      <div title={final ? FINAL_TOOLTIP : undefined}>
+        <select
+          id={`move-${card.id}`}
+          value={withdrawn ? "withdrawn" : card.status}
+          disabled={locked}
+          onChange={(event) => onMove(card, event.target.value)}
+          className={`${INPUT_CLASSES} cursor-pointer text-[13px]`}
+        >
+          {withdrawn && <option value="withdrawn">Withdrawn</option>}
+          {COLUMNS.map((status) => (
+            <option key={status} value={status}>
+              {label(status)}
+            </option>
+          ))}
+        </select>
+      </div>
     </article>
   );
 }
@@ -129,7 +147,7 @@ export default function PipelineBoard({ initialCards, interviewerName }) {
   }
 
   function requestMove(card, toStatus) {
-    if (card.status === "withdrawn" || card.status === toStatus) return;
+    if (card.status === "withdrawn" || FINAL_STATUSES.includes(card.status) || card.status === toStatus) return;
     if (toStatus === "interview") setScheduling(card);
     else if (NEEDS_CONFIRM.includes(toStatus)) setConfirm({ card, toStatus });
     else save(card, toStatus);
@@ -229,6 +247,7 @@ export default function PipelineBoard({ initialCards, interviewerName }) {
             ? "They will see \"Not selected\" on My Applications."
             : "They will see Hired on My Applications."}
         </p>
+        <p className="font-medium text-ink">{FINAL_LINE}</p>
       </Dialog>
 
       {scheduling && (
