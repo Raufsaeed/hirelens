@@ -44,7 +44,7 @@ Screening runs in the background. HR sees its results on Features 12 and 14.
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
 | Candidates List (screening badge and retry) | Each candidate's screening status next to their name; "Pending" badge with "Retry screening", or "CV could not be read". | N/A | "Queued" or "Screening…" badge; "Screening…" on the retried row only | "Pending" with "Retry screening"; "CV could not be read"; "AI is still unavailable, try again in a few minutes"; "Screening is already in progress" | Score and match percentage shown, and the candidate placed in the ranking |
-| Candidate Detail (screening panel) | Score breakdown, requirements found and missing, experience items, summary; "Open original CV" and the notes box for an unreadable CV. | N/A | "Screening in progress" with a spinner; skeleton of the CV preview | "Screening pending" with Retry; "CV could not be read" with "Open original CV" | Full screening results shown; or the original CV shown and the note saved |
+| Candidate Detail (screening panel) | Score breakdown, requirements found and missing, experience items, summary; "Open original CV" and the notes box for an unreadable CV. | N/A | "Screening in progress" with a spinner; skeleton of the score panel | "Screening pending" with Retry; "CV could not be read" with "Open original CV" | Full screening results shown; or the original CV shown and the note saved |
 
 ## Input / Output
 

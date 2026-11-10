@@ -528,7 +528,7 @@ Gemini may be slow or down, so the application must still be saved and shown as 
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
 | Candidates list | "No one has applied yet. Share your job link" | "Screening…" on the retried row only | "AI is still unavailable, try again in a few minutes" on that row; "Screening is already in progress" | Score shown and candidate placed in the ranking |
-| Candidate detail | N/A | Skeleton of the CV preview | "CV could not be read" with "Open original CV" | Original CV shown and note saved |
+| Candidate detail | N/A | Skeleton of the score panel | "CV could not be read" with "Open original CV" | Original CV shown and note saved |
 
 **What could go wrong**
 
@@ -618,7 +618,7 @@ Search must stay inside ABC Tech's candidates, even if a name matches someone at
 | Step | Screen | The user… | The app… |
 |------|--------|-----------|----------|
 | 1 | Candidates list | Clicks Ali. | Opens his candidate detail page. On the first open, Ali stops counting as "new". |
-| 2 | Candidate detail | Reads the CV preview, score breakdown, found requirements (HTML, CSS, React, Git, with CV evidence), missing requirements (REST APIs) and the AI summary. | Shows each found requirement with the CV line that proves it, and the note "AI suggestions are advice only — you make the decision". |
+| 2 | Candidate detail | Opens the CV with "Open original CV" and reads the score breakdown, found requirements (HTML, CSS, React, Git, with CV evidence), missing requirements (REST APIs) and the AI summary. | Shows each found requirement with the CV line that proves it, and the note "AI suggestions are advice only — you make the decision". |
 | 3 | Candidate detail | Adds a note: "Good React projects, ask about APIs". | Saves the note with her name and the time. |
 | 4 | Candidate detail | Clicks Shortlist (or Reject for a weak candidate, which asks to confirm). | Moves the candidate to Shortlisted (or Rejected) and updates the status the candidate sees. |
 | 5 | Candidates list | Goes back and shortlists Ayesha too. | Shows both with a "Shortlisted" badge. |
@@ -629,16 +629,15 @@ AI only advises. It never shortlists, rejects or hires anyone. Every status chan
 
 | Screen | Empty | Loading | Error | Success |
 |--------|-------|---------|-------|---------|
-| Candidate detail | "No notes yet" in the notes box | Skeleton of the CV preview and score panel | "Couldn't load this candidate" with Retry; "CV preview has expired" with Reload; "Screening pending" with Retry screening | CV preview, score breakdown, found and missing requirements, summary, notes, Shortlist and Reject buttons; "Note saved", "Candidate shortlisted" or "Candidate rejected" |
+| Candidate detail | "No notes yet" in the notes box | Skeleton of the score panel | "Couldn't load this candidate" with Retry; "Screening pending" with Retry screening | "Open original CV", score breakdown, found and missing requirements, summary, notes, Shortlist and Reject buttons; "Note saved", "Candidate shortlisted" or "Candidate rejected" |
 
 **What could go wrong**
 
-Sara may trust the score too much, so the page must show the evidence behind each match and remind her she decides. The CV preview link is short-lived, so an expired link must offer Reload, not a blank box. Rejecting is a big step, so it must be confirmed.
+Sara may trust the score too much, so the page must show the evidence behind each match and remind her she decides. The CV stays private, so "Open original CV" uses a link that works for only a short time. Rejecting is a big step, so it must be confirmed.
 
 **Test cases**
 
 - Given Sara is on Ali's detail page, when she adds a note and clicks Shortlist, then the note is saved with her name and time and Ali's status becomes Shortlisted.
-- Given Sara opened Ali's detail page a while ago, when the CV preview link has expired, then she sees "CV preview has expired" and Reload shows the CV again.
 - Given Sara has never opened Ali's application for Junior Web Developer, when she opens his candidate detail page, then the job card shows one fewer new applicant.
 
 ---
