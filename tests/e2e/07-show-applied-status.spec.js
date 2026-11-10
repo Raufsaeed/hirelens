@@ -1,5 +1,13 @@
 import { test, expect } from "@playwright/test";
-import { testEmail, createAccount, createJob, createApplication, deleteAccounts } from "./helpers/test-accounts";
+import {
+  testEmail,
+  createAccount,
+  createJob,
+  createApplication,
+  findApplications,
+  updateApplication,
+  deleteAccounts,
+} from "./helpers/test-accounts";
 import { sessionCookies, openWithSession } from "./helpers/session";
 import { formatDay } from "../../lib/format-date.js";
 
@@ -75,9 +83,16 @@ test("the job page shows the applied banner and View my application instead of A
 });
 
 test("a withdrawn application shows the warning banner", async ({ page }) => {
+  // Ali applied 5 days before withdrawing, so the banner must show the withdrawn date, not the applied one.
+  const appliedAt = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString();
+  await updateApplication(withdrawnApplication.id, { applied_at: appliedAt });
+  const saved = (await findApplications(withdrawnApplication.candidate_id)).find((row) => row.id === withdrawnApplication.id);
+  const withdrawnAt = saved.status_history.find((row) => row.to_status === "withdrawn").changed_at;
+  expect(formatDay(withdrawnAt)).not.toBe(formatDay(appliedAt));
+
   await openWithSession(page, aliCookies, `/jobs/${withdrawnJob.slug}`);
   await expect(page.getByText("You withdrew your application")).toBeVisible();
-  await expect(page.getByText(/^Withdrawn on \d{1,2} \w{3}\. You can't apply to this job again\.$/)).toBeVisible();
+  await expect(page.getByText(`Withdrawn on ${formatDay(withdrawnAt)}. You can't apply to this job again.`)).toBeVisible();
   await expect(page.getByRole("link", { name: "View application", exact: true })).toHaveAttribute(
     "href",
     `/my-applications/${withdrawnApplication.id}`
@@ -96,4 +111,9 @@ test("logged-out visitors and HR still see Apply now and no applied status", asy
   await openWithSession(page, saraCookies, `/jobs/${appliedJob.slug}`);
   await expect(page.getByRole("link", { name: "Apply now" })).toBeVisible();
   await expect(page.getByText("You already applied to this job")).toHaveCount(0);
+  // HR sees the jobs list without any applied or withdrawn strip.
+  await openWithSession(page, saraCookies, `/jobs?q=${TAG}`);
+  await expect(card(page, appliedJob.title)).toBeVisible();
+  await expect(page.getByText("You applied to this job")).toHaveCount(0);
+  await expect(page.getByText("You withdrew your application")).toHaveCount(0);
 });
