@@ -29,7 +29,7 @@ export default function NotesPanel({ applicationId, notes }) {
 
   return (
     <section className="flex flex-col gap-4 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <StickyNote className="size-icon-md text-ink-muted" strokeWidth={1.75} aria-hidden="true" />
         <h2 className="card-title">Notes</h2>
         <span className="small ml-auto text-ink-muted">Only HR can see these</span>

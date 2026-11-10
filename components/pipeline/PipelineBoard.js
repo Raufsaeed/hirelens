@@ -57,24 +57,26 @@ function PipelineCard({ card, onMove, onDragStart }) {
             : "cursor-grab border-border hover:shadow-card-hover active:cursor-grabbing"
       }`}
     >
-      <div className="flex items-start gap-2">
-        {!locked && <GripVertical className="mt-2 size-icon-sm shrink-0 text-ink-muted" strokeWidth={1.75} aria-hidden="true" />}
+      {/* Handle and avatar on one line, the name on its own full-width line below: the columns are
+          narrow, so a name beside the avatar would break in the middle of words. */}
+      <div className="flex items-center gap-2">
+        {!locked && <GripVertical className="size-icon-sm shrink-0 text-ink-muted" strokeWidth={1.75} aria-hidden="true" />}
         {final && (
-          <span className="mt-2 shrink-0 text-ink-muted" title={FINAL_TOOLTIP}>
+          <span className="shrink-0 text-ink-muted" title={FINAL_TOOLTIP}>
             <Lock className="size-icon-sm" strokeWidth={1.75} aria-hidden="true" />
             <span className="sr-only">Final decision</span>
           </span>
         )}
         <Avatar name={card.name} />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <Link
-            href={`/hr/candidates/${card.id}`}
-            className="font-bold text-ink no-underline [overflow-wrap:anywhere] hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
-          >
-            {card.name}
-          </Link>
-          <span className="small text-ink-muted">{daysLabel(card.daysSinceApplying)}</span>
-        </div>
+      </div>
+      <div className="flex min-w-0 flex-col">
+        <Link
+          href={`/hr/candidates/${card.id}`}
+          className="font-bold break-words text-ink no-underline hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
+        >
+          {card.name}
+        </Link>
+        <span className="small text-ink-muted">{daysLabel(card.daysSinceApplying)}</span>
       </div>
       <div className="flex items-center gap-2">
         {card.score !== null ? <ScoreRing score={card.score} /> : <span className="small text-ink-muted">No score yet</span>}
@@ -182,7 +184,7 @@ export default function PipelineBoard({ initialCards, interviewerName }) {
         role="region"
         aria-label="Pipeline board"
         tabIndex={0}
-        className="overflow-x-auto pb-2 focus-visible:shadow-focus focus-visible:outline-none"
+        className="relative overflow-x-auto pb-2 focus-visible:shadow-focus focus-visible:outline-none"
       >
         <div className="grid min-w-[1080px] grid-cols-6 gap-3">
           {COLUMNS.map((status) => {

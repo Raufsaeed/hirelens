@@ -205,7 +205,7 @@ export default function CandidatesTable({ rows, requirements, initialSearch = ""
           role="region"
           aria-label="Ranked candidates"
           tabIndex={0}
-          className="overflow-x-auto rounded-card border border-border bg-surface shadow-card focus-visible:shadow-focus focus-visible:outline-none"
+          className="relative overflow-x-auto rounded-card border border-border bg-surface shadow-card focus-visible:shadow-focus focus-visible:outline-none"
         >
           <table className="w-full border-collapse">
             <caption className="sr-only">Ranked candidates</caption>
