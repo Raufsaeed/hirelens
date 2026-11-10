@@ -55,7 +55,7 @@ A logged-in candidate saves open jobs to look at later. A Saved Jobs page lists 
 - Only logged-in candidates can save jobs. HR users don't see the Save button.
 - A candidate can save the same job only once.
 - Only Open jobs can be saved. A saved job that later closes stays on the list with "Applications closed".
-- Open and closed jobs are never deleted, only closed, so a saved job stays on the list until the candidate removes it.
+- Jobs with applications are never deleted, only closed, so such a saved job stays on the list until the candidate removes it. If HR deletes a job that has no applications (Feature 02), it is removed from every candidate's saved jobs too.
 - A candidate sees only their own saved jobs.
 - HR never sees who saved a job.
 - Row Level Security enforces these rules in the database.

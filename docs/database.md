@@ -11,6 +11,7 @@ Each table is created only through SQL given to the user to run in the Supabase 
 | 01 Authentication | `companies` (`id`, `name`, `slug`, `logo_url`, `created_at`); `profiles` (`id`, `full_name`, `email`, `role`, `company_id`, `created_at`); function `public.current_hr_company_id()` |
 | 02 Post a Job | `jobs` (every column in section 2.3); unique index `jobs_company_active_title_idx` on `company_id` + `lower(title)` for `draft` and `open` jobs; indexes on `company_id`, `status`, `status` + `apply_by`; function `public.set_updated_at()` with trigger `jobs_set_updated_at` |
 | 02 Delete draft jobs | Delete policy on `jobs` for HR of the job's company, only while `status = 'draft'`; delete grant to `authenticated` (the policy limits it) (`02-delete-draft-jobs.sql`) |
+| 15 Final statuses and job delete | `applications` HR update policy no longer allows changing a row that is `hired` or `rejected`; function `public.job_has_applications(uuid)`; the `jobs` delete policy now allows HR of the company to delete a job that is a draft or has no applications (replaces the draft-only policy); `saved_jobs.job_id` foreign key is now **cascade** (`15-final-statuses-and-job-delete.sql`) |
 | 04, 07, 09 | No database changes. Past-deadline jobs are closed by the server whenever jobs are read (secret key). |
 | 08 Apply with CV | `applications` (every column in section 2.4) with unique `job_id` + `candidate_id` and the indexes in 2.4; `status_history` (every column in 2.6) with trigger `status_history_candidate_check` (a candidate's row must be a change to `withdrawn`); storage policy on bucket `cvs`: candidates select in their own `{candidate_id}/` folder. `08-apply-with-cv-server-only.sql` makes application inserts and CV uploads server only |
 | 10 Withdraw and Delete | Delete policy on `applications` for the owning candidate; storage delete policy on `cvs` for the candidate's own folder |
@@ -30,8 +31,8 @@ Each table is created only through SQL given to the user to run in the Supabase 
 
 - **`companies` RLS:** anyone can select; HR of that company can update only `name`, `logo_url`, `about`, `website` and `location` (the slug never changes); no insert or delete from the browser (the server inserts at HR sign up).
 - **`profiles` RLS:** a user can select and update only their own row, and can update only `full_name`, plus `phone`, `city` and `headline` from Feature 20 (`role`, `company_id`, `email` and `default_cv_path` are protected by column grants); no insert or delete from the browser (the server inserts at sign up).
-- **`jobs` RLS:** anyone (even logged out) can select `open` and `closed` jobs; HR can select, insert and update only their own company's jobs (drafts included); HR can delete only their own company's drafts, never open or closed jobs. Extra checks: `closed_reason` only when `closed`, and an `open` job always has a `slug`.
-- **`applications` RLS:** the candidate selects their own rows; HR selects rows for their company's jobs; inserts are server only (the server checks the job is open, the deadline, "applied before" and the PDF, after `08-apply-with-cv-server-only.sql`); the candidate deletes their own rows. HR of the job's company updates only `status` (Feature 15), never on a withdrawn application; screening status, `viewed_at` and withdraw are server only.
+- **`jobs` RLS:** anyone (even logged out) can select `open` and `closed` jobs; HR can select, insert and update only their own company's jobs (drafts included); HR can delete only their own company's jobs that are drafts or have no applications; jobs with applications are never deleted. Extra checks: `closed_reason` only when `closed`, and an `open` job always has a `slug`.
+- **`applications` RLS:** the candidate selects their own rows; HR selects rows for their company's jobs; inserts are server only (the server checks the job is open, the deadline, "applied before" and the PDF, after `08-apply-with-cv-server-only.sql`); the candidate deletes their own rows. HR of the job's company updates only `status` (Feature 15), never on a withdrawn, hired or rejected application (Hired and Rejected are final); screening status, `viewed_at` and withdraw are server only.
 - **`status_history` RLS:** the candidate selects their own timeline; HR selects their company's; inserts are server only; nobody updates or deletes (rows go only by cascade).
 - **`screenings` RLS:** HR of the job's company selects; inserts and updates are server only (screening runs on the server); candidates never read it.
 - **`notes` RLS:** HR of the job's company selects and inserts (with `author_id` set to themselves); nobody updates or deletes; candidates never read it.
@@ -73,7 +74,7 @@ Feature 05 (AI Job Description Writer) stores nothing new. It only fills the `jo
 - "HR of the same company" means: the logged-in user has `profiles.role = 'hr'`, and their `profiles.company_id` is the company that owns the row (directly, or through the job the application belongs to).
 - "Server only" means only server code using the secret key can do it. The browser cannot.
 - This version has one HR user per company. Inviting team members is a future feature.
-- Open and closed jobs are never deleted, only closed. Only drafts can be deleted, and drafts never have applications or saved jobs. Every foreign key to `jobs` uses **restrict**.
+- Jobs with applications are never deleted, only closed. A job can be deleted only if it is a draft or has no applications. `applications.job_id` uses **restrict**; `saved_jobs.job_id` uses **cascade**, so saved copies go with a deleted job.
 
 ---
 
@@ -181,7 +182,7 @@ Feature 05 (AI Job Description Writer) stores nothing new. It only fills the `jo
     - Drafts are only visible to HR of the same company.
   - **Insert:** HR of the same company.
   - **Update:** HR of the same company, plus the server for the deadline close.
-  - **Delete:** HR of the same company, only while `status = 'draft'`. Open and closed jobs are never deleted, only closed.
+  - **Delete:** HR of the same company, only if `status = 'draft'` or the job has no applications (withdrawn ones count), checked with `public.job_has_applications(id)`. Jobs with applications are never deleted, only closed.
 
 ---
 
@@ -224,7 +225,7 @@ Feature 05 (AI Job Description Writer) stores nothing new. It only fills the `jo
     - This table holds no score, so candidates reading their own row is safe.
   - **Insert:** the candidate, for themselves only, and only when the job is `open` and its `apply_by` has not passed. This is checked again on Submit.
   - **Update:**
-    - HR of the same company can change `status`, but never on a `withdrawn` row. HR can also set `viewed_at`.
+    - HR of the same company can change `status`, but never on a `withdrawn`, `hired` or `rejected` row (Hired and Rejected are final). HR can also set `viewed_at`.
     - The candidate can only set `status` to `withdrawn`, and only while it is `applied` or `shortlisted`.
     - `screening_status` is changed by the server only.
     - Column limits like these are safest in server code.
@@ -430,7 +431,7 @@ While `applications.screening_status` is `pending` or `failed`, the score and re
 - **Primary key:** `id`
 - **Foreign keys:**
   - `candidate_id` → `profiles.id`. On delete: **cascade**.
-  - `job_id` → `jobs.id`. On delete: **restrict** (open and closed jobs are never deleted, and only open jobs can be saved; a closed job shows "Applications closed").
+  - `job_id` → `jobs.id`. On delete: **cascade** (a job with no applications can be deleted, and its saved copies go with it; jobs with applications are never deleted, and a closed saved job shows "Applications closed").
 - **Unique rules:** `candidate_id` + `job_id` is unique (one row per candidate and job).
 - **Indexes:** the unique pair, and `candidate_id` + `saved_at`.
 - **Row Level Security:**
@@ -614,7 +615,7 @@ These decisions settled the earlier differences between the feature files. Every
 | M7 | History rows cannot be edited or deleted. They are removed automatically only when the candidate deletes their account or their data for that application. |
 | M8 | Screening health uses `applications.screening_status`. A `screenings` row is created on the first attempt, with empty results and an `error_message` while pending or failed. |
 | M9 | "Delete my data" removes the application, everything linked to it and the CV file. HR no longer sees that candidate for that job. |
-| M10 | Open and closed jobs are never deleted, only closed; only drafts can be deleted. Foreign keys to `jobs` use restrict. A closed saved job shows "Applications closed". |
+| M10 | Jobs with applications are never deleted, only closed; drafts and jobs with no applications can be deleted. `applications.job_id` uses restrict and `saved_jobs.job_id` uses cascade. A closed saved job shows "Applications closed". |
 | M11 | Account delete also removes `notifications`, `interview_questions`, `interview_feedback` and the default CV file. |
 | M12 | Open and closed jobs are public through their link. Only open jobs appear in the public jobs list and on the company page. |
 | M13 | Notes cannot be edited or deleted in this version. |

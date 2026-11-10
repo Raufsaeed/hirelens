@@ -47,7 +47,7 @@ HR closes and reopens jobs. A job with an "Apply by" date closes by itself after
 
 ## Business Rules and Permissions
 
-- Open and closed jobs are never deleted, only closed.
+- Jobs with applications are never deleted, only closed. A job with no applications can be deleted (Feature 02).
 - Only Open jobs accept applications.
 - A job closes automatically after its Apply by day ends. The server checks the deadline whenever the job is read, and again on every Submit.
 - Extending the deadline to a future date reopens a job that was closed by its deadline.

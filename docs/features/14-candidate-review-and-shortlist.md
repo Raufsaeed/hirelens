@@ -22,7 +22,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
    - Interview feedback, when there is any (Feature 17)
    - Shortlist and Reject buttons
 2. **AI note:** Every Candidate Detail page shows: "AI suggestions are advice only — you make the decision."
-3. **Shortlist / Reject:** Clicking either updates the pipeline status (Feature 15), and the candidate sees the new status. Reject asks to confirm.
+3. **Shortlist / Reject:** Clicking either updates the pipeline status (Feature 15), and the candidate sees the new status. Reject asks to confirm, with the line "This is final and can't be changed later." For a Hired or Rejected candidate, Shortlist and Reject are hidden; notes, interview feedback and the CV stay available.
 4. **Notes:** HR can add notes to any candidate. Each note shows the author's name (saved as `author_name` when the note is written) and time. Notes cannot be edited or deleted in this version.
 5. **Viewed and new:** The first time HR opens a candidate's detail page, `applications.viewed_at` is set. Applicants whose `viewed_at` is empty count as "new" on the HR Dashboard and job cards (Feature 02).
 
@@ -61,6 +61,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 - HR sees only candidates who applied to their own company's jobs.
 - Notes cannot be edited or deleted in this version.
 - AI never shortlists or rejects. Every status change is a click by HR.
+- Hired and Rejected are final; their status never changes (Feature 15).
 - CV links are signed and short-lived. The bucket is never public.
 - Candidates never see notes (Feature 09) and cannot open this page.
 - Row Level Security enforces these rules in the database.
@@ -79,7 +80,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 - [ ] Candidate Detail shows the CV preview, score breakdown with reasons, requirements with evidence, counted experience, degree found and match, summary and notes.
 - [ ] The "AI suggestions are advice only" note is on every Candidate Detail page.
-- [ ] Shortlist and Reject update the pipeline status.
+- [ ] Shortlist and Reject update the pipeline status, and are hidden for a Hired or Rejected candidate.
 - [ ] HR can add notes with author and time.
 - [ ] Opening a candidate for the first time sets `viewed_at`, and they no longer count as new.
 
@@ -108,3 +109,4 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 - [x] Opening a candidate for the first time lowers the job card's new applicant count by one.
 - [x] An expired CV preview shows "CV preview has expired", and Reload shows the CV again.
 - [x] Privacy: another company's candidate URL shows "You don't have access to this page".
+- [ ] A Rejected candidate has no Shortlist or Reject button; notes and the CV stay available.
