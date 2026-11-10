@@ -109,4 +109,4 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 - [x] Opening a candidate for the first time lowers the job card's new applicant count by one.
 - [x] An expired CV preview shows "CV preview has expired", and Reload shows the CV again.
 - [x] Privacy: another company's candidate URL shows "You don't have access to this page".
-- [ ] A Rejected candidate has no Shortlist or Reject button; notes and the CV stay available.
+- [x] A Rejected candidate has no Shortlist or Reject button; notes and the CV stay available.

@@ -136,6 +136,6 @@ HR creates a job, saves it as a draft or publishes it, and gets a public link to
 - [x] An Apply by date in the past shows "Apply by date can't be in the past".
 - [x] Privacy: a candidate who opens Create Job sees "You don't have access to this page".
 - [x] Sara deletes a draft from My Jobs after confirming, sees "Draft deleted" and the row is removed.
-- [ ] An open job with no applicants can be deleted ("Job deleted"); a job with an applicant shows Delete disabled with "This job has applicants. Close it instead."
+- [x] An open job with no applicants can be deleted ("Job deleted"); a job with an applicant shows Delete disabled with "This job has applicants. Close it instead."
 - [x] Privacy: HR of another company can't delete Sara's draft.
-- [ ] Privacy: HR of another company can't delete Sara's job with no applicants.
+- [x] Privacy: HR of another company can't delete Sara's job with no applicants.

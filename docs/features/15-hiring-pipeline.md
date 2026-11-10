@@ -110,6 +110,6 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - [x] A failed move puts the card back and shows "Couldn't move this candidate, try again".
 - [x] A withdrawn candidate's card is greyed out and cannot be moved.
 - [x] Privacy: Ali sees each status change in My Applications, never his score.
-- [ ] A Hired card shows a lock and can't be moved; the Hired and Rejected dialogs say the decision is final.
-- [ ] The server refuses a status change for a Hired or Rejected candidate ("This decision is final and can't be changed").
-- [ ] Ali can't withdraw after Hired.
+- [x] A Hired card shows a lock and can't be moved; the Hired and Rejected dialogs say the decision is final.
+- [x] The server refuses a status change for a Hired or Rejected candidate ("This decision is final and can't be changed").
+- [x] Ali can't withdraw after Hired.
