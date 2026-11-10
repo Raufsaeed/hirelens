@@ -93,7 +93,8 @@ test("a Hired card shows a lock, can't be dragged, and its Move to menu is disab
   await expect(aliCard).toHaveAttribute("draggable", "false");
   await expect(aliCard.getByText("Final decision", { exact: true })).toBeAttached();
   await expect(page.getByLabel("Move Ali Raza to")).toBeDisabled();
-  await expect(aliCard.getByTitle(FINAL_TOOLTIP)).toBeVisible();
+  // The tooltip sits on the wrapper of the disabled Move to menu.
+  await expect(page.getByLabel("Move Ali Raza to").locator("xpath=..")).toHaveAttribute("title", FINAL_TOOLTIP);
 
   // Rejected cards are locked the same way.
   await expect(card(page, "Ayesha Malik")).toHaveAttribute("draggable", "false");
