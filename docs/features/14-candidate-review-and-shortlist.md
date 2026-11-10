@@ -2,7 +2,7 @@
 
 ## Description
 
-HR opens a candidate to see the CV next to the full AI breakdown and the evidence behind it, adds notes, then shortlists or rejects. AI only advises. HR always decides.
+HR opens a candidate to see the full AI breakdown and the evidence behind it (and opens the CV with "Open original CV"), adds notes, then shortlists or rejects. AI only advises. HR always decides.
 
 ## User Stories
 
