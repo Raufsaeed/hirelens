@@ -4,7 +4,7 @@ import { Pencil } from "lucide-react";
 import CopyLinkButton from "@/components/jobs/CopyLinkButton";
 import Button from "@/components/ui/Button";
 import JobStatusActions from "@/components/jobs/JobStatusActions";
-import DeleteDraftButton from "@/components/jobs/DeleteDraftButton";
+import DeleteJobButton from "@/components/jobs/DeleteJobButton";
 import Badge from "@/components/ui/Badge";
 import { jobTypeLabel } from "@/lib/jobs/constants";
 
@@ -72,7 +72,7 @@ export default function JobsTable({ jobs }) {
                     job={{ id: job.id, title: job.title, status: job.status }}
                     needsNewDate={job.needsNewDate}
                   />
-                  {job.status === "draft" && <DeleteDraftButton jobId={job.id} />}
+                  <DeleteJobButton jobId={job.id} isDraft={job.status === "draft"} hasApplicants={job.applicants > 0} />
                 </div>
               </td>
             </tr>

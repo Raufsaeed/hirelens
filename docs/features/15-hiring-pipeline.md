@@ -17,11 +17,12 @@ HR has a board for each job to move candidates through the hiring stages, from A
 2. **Moving cards:**
    - Drag and drop between columns.
    - A status dropdown on each card, for phone and keyboard users.
-3. **Confirmation:** Moving to Rejected or Hired asks for confirmation first.
+3. **Confirmation:** Moving to Rejected or Hired asks for confirmation first. The dialog adds: "This is final and can't be changed later."
 4. **Interview step:** Moving to Interview opens the schedule form (Feature 16).
 5. **Status history:** Every status change is saved with who made it, the old status, the new status and when. The first row is saved when the candidate applies (Feature 08).
 6. **Candidate view:** The candidate sees each change in My Applications (Feature 09), with no score, and gets a status email (Feature 23).
 7. **Withdrawn candidates:** They appear greyed out and cannot be moved.
+8. **Final decisions:** Hired and Rejected are final. Their cards show a small lock icon, can't be dragged, and their status dropdown is disabled with the tooltip "Final decision, can't be changed".
 
 ## Screens
 
@@ -56,6 +57,7 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - Every status change is made by HR, except that a candidate can withdraw their own application (Feature 10). Only for a change to `withdrawn` can `changed_by` be the candidate. AI never moves a candidate.
 - Hired and Rejected need confirmation.
 - Withdrawn candidates cannot be moved by HR.
+- Hired and Rejected are final; their status never changes. The server checks this on every status change, and Row Level Security blocks it in the database.
 - Every change is added to the history, and history entries cannot be edited or deleted. The only exception: they are removed automatically when the candidate deletes their account (Feature 22) or their data for that application (Feature 10).
 - Row Level Security enforces these rules in the database.
 
@@ -65,6 +67,7 @@ HR has a board for each job to move candidates through the hiring stages, from A
 |------|---------------|----------------------|
 | Move fails (network or server) | "Couldn't move this candidate, try again" | Puts the card back in its old column; nothing is saved. |
 | Moving a withdrawn candidate | "This candidate has withdrawn" | The card cannot be dragged and the dropdown is disabled. |
+| Changing a Hired or Rejected candidate | "This decision is final and can't be changed" | Nothing is saved; the card cannot be dragged and the dropdown is disabled. |
 | Cancel on the confirm dialog | N/A | Card stays where it was. |
 | Candidate opens the board URL | "You don't have access to this page" | Shows no data. |
 | HR opens another company's board | "You don't have access to this page" | Shows no data. |
@@ -77,6 +80,7 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - [ ] Every move is saved in the history with who, from, to and when.
 - [ ] The candidate sees every status change in My Applications, with no score.
 - [ ] Withdrawn candidates appear greyed out and cannot be moved.
+- [ ] Hired and Rejected cards show a lock and cannot be moved.
 
 ## User Flows
 
@@ -89,6 +93,9 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - Given Ali is in Offer, when Sara moves him to Hired, then she is asked to confirm, and only after confirming does Ali see "Hired".
 - Given a move fails because the connection drops, when Sara drags a card, then the card goes back and she sees "Couldn't move this candidate, try again".
 - Given Usman has withdrawn, when Sara views the board, then his card is greyed out and cannot be moved.
+- Given Ali is Hired, when Sara views the board, then his card shows a lock, can't be dragged, and its dropdown is disabled with "Final decision, can't be changed".
+- Given Ayesha is Rejected, when any status change for her reaches the server, then it is refused with "This decision is final and can't be changed".
+- Given Ali is Hired, when he opens his application, then he can't withdraw it.
 
 ## Dependencies
 
@@ -103,3 +110,6 @@ HR has a board for each job to move candidates through the hiring stages, from A
 - [x] A failed move puts the card back and shows "Couldn't move this candidate, try again".
 - [x] A withdrawn candidate's card is greyed out and cannot be moved.
 - [x] Privacy: Ali sees each status change in My Applications, never his score.
+- [x] A Hired card shows a lock and can't be moved; the Hired and Rejected dialogs say the decision is final.
+- [x] The server refuses a status change for a Hired or Rejected candidate ("This decision is final and can't be changed").
+- [x] Ali can't withdraw after Hired.

@@ -7,8 +7,10 @@ import Button from "@/components/ui/Button";
 import Dialog from "@/components/ui/Dialog";
 import Toast from "@/components/ui/Toast";
 import { moveApplication } from "@/lib/applications/status-actions";
+import { FINAL_STATUSES } from "@/lib/applications/validation";
 
 // Shortlist and Reject on Candidate Detail (Feature 14). HR makes every decision; Reject confirms first.
+// Hidden for withdrawn candidates and for Hired or Rejected ones, whose decision is final.
 export default function DecisionButtons({ applicationId, status, candidateName }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -16,7 +18,7 @@ export default function DecisionButtons({ applicationId, status, candidateName }
   const [toast, setToast] = useState(null);
   const dismiss = useCallback(() => setToast(null), []);
 
-  if (["withdrawn", "hired", "rejected"].includes(status)) return null;
+  if (status === "withdrawn" || FINAL_STATUSES.includes(status)) return null;
 
   function move(toStatus, message) {
     startTransition(async () => {
@@ -54,7 +56,8 @@ export default function DecisionButtons({ applicationId, status, candidateName }
           </>
         }
       >
-        <p className="text-ink-muted">They will see &quot;Not selected&quot; on My Applications. You can move them back later.</p>
+        <p className="text-ink-muted">They will see &quot;Not selected&quot; on My Applications.</p>
+        <p className="font-medium text-ink">This is final and can&apos;t be changed later.</p>
       </Dialog>
       <Toast toast={toast} onDismiss={dismiss} />
     </div>

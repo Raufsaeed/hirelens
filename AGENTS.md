@@ -124,7 +124,8 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Candidate search and company pages never expose another company's private data.
 - Every table has Row Level Security.
 - HR sees only their own company's jobs and candidates.
-- Only draft jobs can be deleted, by HR of that company. Open and closed jobs are never deleted, only closed.
+- HR can delete their company's jobs only if they are drafts or have no applications. Jobs with applications are never deleted, only closed.
+- Hired and Rejected are final; their status never changes.
 - Candidates see only their own applications, and never their score.
 - CVs are stored in a private storage bucket.
 - Validate all inputs: PDF only, max 5 MB, required fields filled.

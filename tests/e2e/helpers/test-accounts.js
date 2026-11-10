@@ -410,3 +410,16 @@ export async function deleteJobAs(email, jobId) {
   if (error) throw error;
   return data;
 }
+
+// Tries to change an application's status as a logged-in user would (publishable key, Row Level Security
+// applies). Returns the rows that were updated: [] when the policy blocks it.
+export async function updateApplicationStatusAs(email, applicationId, status) {
+  const client = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const login = await client.auth.signInWithPassword({ email, password: TEST_PASSWORD });
+  if (login.error) throw login.error;
+  const { data, error } = await client.from("applications").update({ status }).eq("id", applicationId).select("id");
+  if (error) throw error;
+  return data;
+}

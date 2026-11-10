@@ -35,7 +35,7 @@ A candidate can withdraw an application, or delete one application with its CV a
 
 ## Business Rules and Permissions
 
-- Withdraw is only allowed while the status is Applied or Shortlisted.
+- Withdraw is only allowed while the status is Applied or Shortlisted. Hired and Rejected are final, so they can never be withdrawn (Feature 15).
 - Withdrawn applications cannot be moved by HR.
 - "Delete my data" needs confirmation and cannot be undone.
 - Row Level Security enforces these rules in the database.
