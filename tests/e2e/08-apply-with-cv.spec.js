@@ -123,7 +123,12 @@ test("Ali applies with a PDF CV and sees Your application has been sent to ABC T
 });
 
 test("applying twice shows You have already applied to this job", async ({ page }) => {
-  await openApplyForm(page);
+  // The job page now shows the applied banner instead of Apply now (show applied status)...
+  await openWithSession(page, aliCookies, `/jobs/${job.slug}`);
+  await expect(page.getByText("You already applied to this job")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Apply now" })).toHaveCount(0);
+  // ...and the apply form, opened from an old link, still refuses a second application.
+  await openWithSession(page, aliCookies, `/jobs/${job.slug}/apply`);
   await expect(page.getByText("You have already applied to this job")).toBeVisible();
   await expect(page.getByRole("link", { name: "My Applications" }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: "Submit application" })).toHaveCount(0);

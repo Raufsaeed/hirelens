@@ -16,12 +16,13 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 3. **Closed or past deadline:** The Apply button is replaced with the closed message from Feature 04.
 4. **Draft or unknown link:** Shows "This job could not be found".
 5. **Deadline check:** Opening the list or a job page runs the server deadline check from Feature 04.
+6. **Applied jobs on the list:** For a logged-in candidate, a job they applied to has a success-coloured border and a success-coloured strip across the top of the card: a check icon, "You applied to this job" and the applied date on the right. If they withdrew that application, the border and strip use the warning colour instead: a "!" icon, "You withdrew your application" and the withdrawn date. Save and View job stay. Other cards, logged-out visitors and HR see the list as before.
 
 ## Screens
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
-| Public Jobs List | Open jobs with search, job type and location filters. | "No open jobs right now" or "No jobs match your search" with "Clear filters" | Skeleton cards | "Couldn't load jobs" with Retry | List of open jobs |
+| Public Jobs List | Open jobs with search, job type and location filters; for a candidate, applied jobs show the "You applied to this job" strip (or "You withdrew your application"). | "No open jobs right now" or "No jobs match your search" with "Clear filters" | Skeleton cards | "Couldn't load jobs" with Retry | List of open jobs |
 | Public Job Detail | Company name and logo, job details, "Apply by 20 Oct · 3 days left" when set, and Apply button. | N/A | Skeleton of the job page | "This job could not be found" (draft or unknown link); "This job is no longer accepting applications" (closed); "Applications closed on 20 Oct" (deadline passed) | Job details and Apply button shown |
 
 ## Input / Output
@@ -40,6 +41,7 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 
 - Anyone, even when logged out, can view Open and Closed jobs through the public link.
 - The Public Jobs List shows Open jobs only.
+- The applied strip uses the candidate's own session; Row Level Security returns only their own applications. It never shows a score.
 - Drafts are never public. Their link shows "This job could not be found".
 - Row Level Security enforces these rules in the database.
 
@@ -53,6 +55,7 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 ## Acceptance Criteria
 
 - [ ] Candidates can browse, search and filter open jobs.
+- [ ] A logged-in candidate sees which listed jobs they applied to (or withdrew from).
 - [ ] The public job page shows company name, logo, job details and Apply, or the closed message.
 - [ ] The public job page shows the Apply by date, and "X days left" when 7 days or fewer remain.
 
@@ -65,6 +68,8 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 - Given Junior Web Developer has an Apply by date of 20 Oct, when Ali views it on 17 Oct, then he sees "Apply by 20 Oct · 3 days left" and an Apply button.
 - Given the deadline was 20 Oct, when Ali opens the job on 21 Oct, then he sees "Applications closed on 20 Oct" instead of Apply.
 - Given no open job matches "xyz", when Ali searches "xyz", then he sees "No jobs match your search" with "Clear filters".
+- Given Ali applied to Junior Web Developer, when he opens the jobs list, then that card shows "You applied to this job" with the applied date, and other cards don't.
+- Given Ali withdrew his application to a job, when he opens the jobs list, then that card shows "You withdrew your application" in the warning colour.
 
 ## Dependencies
 
@@ -78,3 +83,4 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 - [x] A search with no matches shows "No jobs match your search" with "Clear filters".
 - [x] A job past its deadline shows "Applications closed on 20 Oct" instead of Apply.
 - [x] A draft or unknown job link shows "This job could not be found".
+- [x] On the jobs list, the applied strip shows only on jobs Ali applied to, and a withdrawn application shows the warning strip.

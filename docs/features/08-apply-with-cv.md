@@ -12,6 +12,9 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 ## Functional Requirements
 
 1. **Apply:** The Apply button is on the Public Job Detail page (Feature 07).
+   - **Already applied:** If the logged-in candidate already applied, Apply now is removed and a large success banner shows at the top of the job card: a round check icon, bold "You already applied to this job", then "Applied on 4 Nov · Status: Shortlisted" (the status they see in My Applications, never a score), and a "View my application" button linking to that application.
+   - **Withdrawn:** If they withdrew it, the same banner uses the warning colour: a "!" icon, bold "You withdrew your application", "Withdrawn on 6 Nov. You can't apply to this job again." and a "View application" button.
+   - Logged-out visitors and HR see the job page as before.
 2. **Login during apply:** If the candidate is not logged in, they sign up or log in (Feature 01) and are returned to the same job's apply form.
 3. **Apply form:**
    - Name and email (filled in from the account)
@@ -68,6 +71,7 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 ## Business Rules and Permissions
 
 - One application per candidate per job.
+- The applied banner uses the candidate's own session; Row Level Security returns only their own application. It shows the status word, never a score.
 - Only Open jobs accept applications. This is checked again on Submit.
 - CV rule: PDF only, under 5 MB (also used by Feature 20). Cover note up to 500 characters.
 - CVs go in the private bucket `cvs` and are never public.
@@ -90,6 +94,7 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 ## Acceptance Criteria
 
 - [ ] Clicking Apply when logged out leads to sign up or log in and back to the same job.
+- [ ] A candidate who already applied sees the applied banner (or the withdrawn banner) instead of Apply now.
 - [ ] Candidates can apply with a PDF CV by drag and drop or by choosing a file.
 - [ ] Non-PDF files, files over 5 MB, repeat applications, closed jobs and late submits are blocked with clear messages.
 - [ ] On submit, the CV is in the private `cvs` bucket and the application has status Applied and screening Queued.
@@ -107,6 +112,9 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 - Given Ali submits a valid PDF CV, when the submission finishes, then he sees "Your application has been sent to ABC Tech" and My Applications shows "Junior Web Developer · ABC Tech · Applied".
 - Given Ali opened the apply form on 20 Oct, when he clicks Submit after the deadline has passed, then he sees "Applications for this job closed on 20 Oct" and no application is saved.
 - Given Ali has just applied to Junior Web Developer, when Sara opens his history, then the first entry goes from empty to Applied.
+- Given Ali applied to Junior Web Developer and is Shortlisted, when he opens the job page, then he sees "You already applied to this job", "Applied on 4 Nov · Status: Shortlisted" and "View my application", and no Apply now.
+- Given Ali withdrew his application, when he opens the job page, then he sees "You withdrew your application" in the warning colour with "View application".
+- Given a logged-out visitor opens the same job, then they still see Apply now.
 
 ## Dependencies
 
@@ -120,3 +128,4 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 - [x] The CV is saved in the private `cvs` bucket and screening starts in the background.
 - [x] A .docx file shows "Only PDF files are accepted", and a 7 MB PDF shows "File must be under 5 MB".
 - [x] Applying twice shows "You have already applied to this job", and submitting after the deadline shows "Applications for this job closed on 20 Oct".
+- [x] The job page shows the applied banner with "View my application" instead of Apply now; a withdrawn application shows the warning banner; a logged-out visitor still sees Apply now.

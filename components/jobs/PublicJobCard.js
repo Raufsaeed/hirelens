@@ -1,14 +1,17 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { AppliedStrip, appliedBorder } from "@/components/jobs/AppliedStatus";
 import CompanyLogo from "@/components/jobs/CompanyLogo";
 import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobMeta from "@/components/jobs/JobMeta";
 
 // One open job on the public jobs list. Titles and company names wrap, never truncate.
 // action: an optional button (Save, Feature 21), kept above the card's full-size link.
-export default function PublicJobCard({ job, action }) {
+// application: the logged-in candidate's application to this job, if any (applied strip on top).
+export default function PublicJobCard({ job, action, application = null }) {
   return (
-    <article className="relative flex flex-col gap-4 rounded-card border border-border bg-surface p-4 shadow-card transition-[transform,box-shadow] duration-(--duration-fast) ease-out hover:-translate-y-0.5 hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-6">
+    <article className={`relative flex flex-col gap-4 rounded-card border ${appliedBorder(application)} bg-surface p-4 shadow-card transition-[transform,box-shadow] duration-(--duration-fast) ease-out hover:-translate-y-0.5 hover:shadow-card-hover motion-reduce:hover:translate-y-0 sm:p-6`}>
+      {application && <AppliedStrip application={application} />}
       <div className="flex items-start gap-3">
         <CompanyLogo company={job.companies} />
         <div className="flex min-w-0 flex-col gap-0.5">
