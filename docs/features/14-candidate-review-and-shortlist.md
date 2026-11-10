@@ -12,7 +12,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 ## Functional Requirements
 
 1. **Candidate Detail:**
-   - CV preview using a short-lived signed link to the private file
+   - "Open original CV" at the top, which opens the private CV through a short-lived signed link (there is no embedded preview)
    - Score breakdown with the reason for each rubric part
    - Requirements found with evidence, and requirements missing
    - Experience list showing which items were counted and how (full, half or not counted)
@@ -30,14 +30,14 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 | Screen | What it shows | Empty | Loading | Error | Success |
 |--------|---------------|-------|---------|-------|---------|
-| Candidate Detail | CV preview, score breakdown, requirements, experience, summary, notes, Shortlist / Reject and the AI note. | "No notes yet" in the notes box | Skeleton of the CV preview and score panel | "Couldn't load this candidate" with Retry; "CV preview has expired" with Reload; "Screening pending" with Retry; "CV could not be read" with "Open original CV" | All details shown; "Note saved", "Candidate shortlisted" or "Candidate rejected" |
+| Candidate Detail | "Open original CV", score breakdown, requirements, experience, summary, notes, Shortlist / Reject and the AI note. | "No notes yet" in the notes box | Skeleton of the score panel | "Couldn't load this candidate" with Retry; "Screening pending" with Retry; "CV could not be read" with "Open original CV" | All details shown; "Note saved", "Candidate shortlisted" or "Candidate rejected" |
 | Notes panel | Notes with author and time. | "No notes yet" | Skeleton list | "Couldn't save note, try again" | "Note saved" |
 
 ## Input / Output
 
 | Form / Action | User enters | App returns |
 |---------------|-------------|-------------|
-| Open candidate | Clicks a row on the Candidates List or a search result | Candidate Detail with a fresh signed CV link; `viewed_at` set on the first open |
+| Open candidate | Clicks a row on the Candidates List or a search result | Candidate Detail; `viewed_at` set on the first open |
 | Add note | Note text | Note saved with author and time |
 | Shortlist / Reject | Clicks the button (Reject asks to confirm) | Pipeline status updated |
 
@@ -53,7 +53,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
   - `body`
   - `is_manual_review`: true when HR reviewed an unreadable CV by hand (Feature 11)
   - `created_at`
-- **Storage bucket `cvs`:** The CV preview uses a signed link that expires after a few minutes.
+- **Storage bucket `cvs`:** "Open original CV" uses a signed link that expires after 60 seconds.
 - **How they link:** `notes.application_id` points to `applications.id`, and `author_id` points to `profiles.id`. Candidate names and emails come from the application, never from `profiles`.
 
 ## Business Rules and Permissions
@@ -70,7 +70,6 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 | Case | Message Shown | What the System Does |
 |------|---------------|----------------------|
-| CV preview link expired | "CV preview has expired" | Offers Reload, which creates a new signed link. |
 | Another company's candidate URL | "You don't have access to this page" | Shows no candidate data. |
 | Screening still pending | "Screening pending" | Shows "Retry screening" (Feature 11); the rest of the page still works. |
 | Empty note | "Note can't be empty" | Does not save. |
@@ -78,7 +77,7 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Acceptance Criteria
 
-- [ ] Candidate Detail shows the CV preview, score breakdown with reasons, requirements with evidence, counted experience, degree found and match, summary and notes.
+- [ ] Candidate Detail shows "Open original CV", score breakdown with reasons, requirements with evidence, counted experience, degree found and match, summary and notes.
 - [ ] The "AI suggestions are advice only" note is on every Candidate Detail page.
 - [ ] Shortlist and Reject update the pipeline status, and are hidden for a Hired or Rejected candidate.
 - [ ] HR can add notes with author and time.
@@ -90,7 +89,6 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Test Cases
 
-- Given Sara opened Ali's detail page a while ago, when the CV preview link has expired, then she sees "CV preview has expired" and Reload shows the CV again.
 - Given another company has candidates, when Sara opens the URL of one of their candidates, then she sees "You don't have access to this page" and no data.
 - Given Sara is on Ali's detail page, when she adds a note and clicks Shortlist, then the note is saved with her name and time and Ali's status becomes Shortlisted.
 - Given Sara has never opened Ali's application for Junior Web Developer, when she opens his Candidate Detail page, then `viewed_at` is set and the ABC Tech job card shows one fewer new applicant.
@@ -103,10 +101,9 @@ HR opens a candidate to see the CV next to the full AI breakdown and the evidenc
 
 ## Done When
 
-- [x] Candidate Detail shows the CV preview, score breakdown with reasons, requirements with evidence, experience, degree and summary.
+- [ ] Candidate Detail shows "Open original CV" (no embedded CV preview), score breakdown with reasons, requirements with evidence, experience, degree and summary.
 - [x] The note "AI suggestions are advice only — you make the decision" is shown.
 - [x] A note saves with Sara's name and time, and Shortlist changes Ali's status to Shortlisted.
 - [x] Opening a candidate for the first time lowers the job card's new applicant count by one.
-- [x] An expired CV preview shows "CV preview has expired", and Reload shows the CV again.
 - [x] Privacy: another company's candidate URL shows "You don't have access to this page".
 - [x] A Rejected candidate has no Shortlist or Reject button; notes and the CV stay available.
