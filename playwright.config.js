@@ -19,6 +19,10 @@ export default defineConfig({
   // Log in and save actions can wait for Supabase retries (1s, 2s, 4s), so allow 10s per check.
   expect: { timeout: 10 * 1000 },
   reporter: [["list"], ["html", { open: "never" }]],
+  // Remove @example.com test data before every run (leftovers from a stopped run) and after every run,
+  // even when tests fail. Real accounts are never touched (see tests/cleanup-test-data.mjs).
+  globalSetup: "./tests/run-test-cleanup.js",
+  globalTeardown: "./tests/run-test-cleanup.js",
   use: {
     baseURL: "http://localhost:3000",
     // Every test page answers AI calls from tests/e2e/fixtures/ (development only), so tests never use
