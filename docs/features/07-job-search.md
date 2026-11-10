@@ -83,4 +83,4 @@ Anyone can browse and search open jobs, and open a job's public page to read it 
 - [x] A search with no matches shows "No jobs match your search" with "Clear filters".
 - [x] A job past its deadline shows "Applications closed on 20 Oct" instead of Apply.
 - [x] A draft or unknown job link shows "This job could not be found".
-- [ ] On the jobs list, the applied strip shows only on jobs Ali applied to, and a withdrawn application shows the warning strip.
+- [x] On the jobs list, the applied strip shows only on jobs Ali applied to, and a withdrawn application shows the warning strip.
