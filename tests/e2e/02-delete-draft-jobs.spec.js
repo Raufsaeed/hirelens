@@ -1,9 +1,10 @@
 import { test, expect } from "@playwright/test";
-import { testEmail, createAccount, createJob, findJob, updateJob, deleteJobAs, deleteAccounts } from "./helpers/test-accounts";
+import { testEmail, createAccount, createJob, findJob, deleteJobAs, deleteAccounts } from "./helpers/test-accounts";
 import { sessionCookies, openWithSession } from "./helpers/session";
 
-// Feature 02 · Delete draft jobs. HR can delete only their own company's drafts;
-// open and closed jobs can never be deleted. Uses dummy accounts that are deleted after the run.
+// Feature 02 · Delete draft jobs. HR can delete only their own company's drafts here; deleting
+// open and closed jobs with no applicants is tested in 15-final-statuses-and-job-delete.spec.js.
+// Uses dummy accounts that are deleted after the run.
 
 const createdEmails = [];
 let sara;
@@ -53,40 +54,6 @@ test("Sara deletes a draft after confirming: the toast shows and the row goes", 
   await expect(page.getByText("Draft deleted")).toBeVisible();
   await expect(jobRow(page, job.title)).toHaveCount(0);
   expect(await findJob(job.id)).toBeNull();
-});
-
-test("open and closed jobs have no Delete action and can't be deleted", async ({ page }) => {
-  const open = await createJob(sara.companyId, { title: "Open Stays Developer" });
-  const closed = await createJob(sara.companyId, {
-    title: "Closed Stays Developer",
-    status: "closed",
-    closed_reason: "manual",
-    closed_at: new Date().toISOString(),
-  });
-  await openWithSession(page, saraCookies, "/hr/jobs");
-
-  await expect(jobRow(page, open.title)).toHaveCount(1);
-  await expect(jobRow(page, open.title).getByRole("button", { name: "Delete draft" })).toHaveCount(0);
-  await expect(jobRow(page, closed.title).getByRole("button", { name: "Delete draft" })).toHaveCount(0);
-
-  // Even straight to the database, Row Level Security blocks it.
-  expect(await deleteJobAs(sara.email, open.id)).toEqual([]);
-  expect(await deleteJobAs(sara.email, closed.id)).toEqual([]);
-  expect(await findJob(open.id)).not.toBeNull();
-  expect(await findJob(closed.id)).not.toBeNull();
-});
-
-test("a draft published meanwhile shows Only draft jobs can be deleted and is kept", async ({ page }) => {
-  const job = await draft("Published Meanwhile Developer");
-  await openWithSession(page, saraCookies, "/hr/jobs");
-  await updateJob(job.id, { status: "open", slug: `e2e-published-meanwhile-${Date.now()}` });
-
-  await jobRow(page, job.title).getByRole("button", { name: "Delete draft" }).click();
-  const dialog = page.getByRole("alertdialog");
-  await dialog.getByRole("button", { name: "Delete", exact: true }).click();
-
-  await expect(dialog.getByText("Only draft jobs can be deleted")).toBeVisible();
-  expect((await findJob(job.id)).status).toBe("open");
 });
 
 test("another company's HR can't see or delete Sara's draft", async ({ page, browser }) => {
