@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { ArrowLeft, FileText, Lock } from "lucide-react";
 import ApplicationStatusBadge from "@/components/applications/ApplicationStatusBadge";
 import AiNote from "@/components/candidates/AiNote";
-import CvPreview from "@/components/candidates/CvPreview";
 import DecisionButtons from "@/components/candidates/DecisionButtons";
 import NotesPanel from "@/components/candidates/NotesPanel";
 import CandidateInterviews from "@/components/interviews/CandidateInterviews";
@@ -15,12 +14,12 @@ import EmptyState from "@/components/ui/EmptyState";
 import RetryButton from "@/components/ui/RetryButton";
 import TextLink from "@/components/ui/TextLink";
 import { getCurrentProfile } from "@/lib/auth/current-user";
-import { CV_PREVIEW_SECONDS, getCandidate, prepareCandidateView } from "@/lib/candidates/queries";
+import { getCandidate, markCandidateViewed } from "@/lib/candidates/queries";
 import { formatDay } from "@/lib/format-date";
 
 export const metadata = { title: "Candidate · HireLens" };
 
-// Candidate Detail (Features 11 and 14): screening, CV preview, notes, Shortlist and Reject. HR only.
+// Candidate Detail (Features 11 and 14): screening, Open original CV, notes, Shortlist and Reject. HR only.
 export default function CandidateDetailPage({ params }) {
   return (
     <Suspense fallback={<div className="h-96 animate-pulse rounded-card bg-surface-sunken" aria-busy="true" />}>
@@ -32,12 +31,11 @@ export default function CandidateDetailPage({ params }) {
 async function CandidateDetail({ params }) {
   const { id } = await params;
   let candidate;
-  let cvUrl = null;
   try {
     const profile = await getCurrentProfile();
     candidate = await getCandidate(profile.company_id, id);
-    // Only after HR's access is confirmed: a fresh CV link, and "viewed" for the new count.
-    if (candidate) ({ cvUrl } = await prepareCandidateView(candidate));
+    // Only after HR's access is confirmed: "viewed" for the new count.
+    if (candidate) await markCandidateViewed(candidate);
   } catch {
     return <Alert tone="error" title="Couldn't load this candidate" action={<RetryButton />} />;
   }
@@ -88,13 +86,7 @@ async function CandidateDetail({ params }) {
       <AiNote title="AI suggestions are advice only — you make the decision." />
       <ScreeningPanel candidate={candidate} cvHref={cvHref} />
 
-      <div className="grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <section className="flex flex-col gap-3 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">
-          <h2 className="card-title">CV</h2>
-          <CvPreview applicationId={candidate.id} url={cvUrl} validSeconds={CV_PREVIEW_SECONDS} />
-        </section>
-        <NotesPanel applicationId={candidate.id} notes={candidate.notes} />
-      </div>
+      <NotesPanel applicationId={candidate.id} notes={candidate.notes} />
 
       {candidate.interviews.length > 0 && (
         <CandidateInterviews candidateName={candidate.candidate_name} interviews={candidate.interviews} />

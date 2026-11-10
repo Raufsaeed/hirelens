@@ -129,7 +129,7 @@ test("a Rejected candidate has no Shortlist or Reject button; notes and the CV s
   await expect(page.getByRole("button", { name: "Shortlist" })).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Reject" })).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Notes" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "CV", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open original CV" })).toBeVisible();
 });
 
 test("the server blocks changing a final decision", async ({ page }) => {
