@@ -45,7 +45,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - Each group has one branch named after it (group-1, group-2 and so on). For each group:
   1. Build its features one by one in the order above, with small commits. For each feature: write its Playwright test first, save its SQL in `supabase/sql/` named after the feature, and run lint and build.
   2. When the whole group is built, combine that group's SQL, in order, into one file `supabase/sql/group-1-all.sql` (`group-2-all.sql` and so on), so the user pastes and runs it only once. Then STOP and wait for the user to confirm the SQL ran.
-  3. After the user confirms, run all Playwright tests and fix failures. Then run the code-reviewer and fix every BLOCKS MERGE item, and run the review again.
+  3. After the user confirms, run only the Playwright tests for the features that changed and fix failures (the full suite only when the user says "run all tests"). Then run the code-reviewer once on the new changes and fix every BLOCKS MERGE item.
   4. Give the user one short browser test checklist for the whole group, then STOP.
   5. After the user replies "approve", tick the group's Done When boxes, open one PR for the group (What, Why and How I tested it), merge it, update main and start the next group.
 
