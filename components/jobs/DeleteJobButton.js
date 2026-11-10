@@ -6,15 +6,28 @@ import { Trash2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Dialog from "@/components/ui/Dialog";
 import { useJobsToast } from "@/components/jobs/JobsToast";
-import { deleteDraftJob } from "@/lib/jobs/delete-actions";
+import { deleteJob } from "@/lib/jobs/delete-actions";
 
-// Trash icon on a draft row of My Jobs. Asks first, then deletes the draft and refreshes the list.
-export default function DeleteDraftButton({ jobId }) {
+const HAS_APPLICANTS_TOOLTIP = "This job has applicants. Close it instead.";
+
+// Trash icon on every row of My Jobs. Drafts and jobs with no applicants can be deleted after
+// confirming; a job with applicants shows the icon disabled with a tooltip.
+export default function DeleteJobButton({ jobId, isDraft, hasApplicants }) {
   const router = useRouter();
   const showToast = useJobsToast();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
+  const label = isDraft ? "Delete draft" : "Delete job";
+
+  if (!isDraft && hasApplicants) {
+    // A disabled button shows no tooltip itself, so the wrapper carries it.
+    return (
+      <span title={HAS_APPLICANTS_TOOLTIP} className="inline-flex">
+        <Button variant="danger-ghost" size="icon" icon={Trash2} aria-label={label} disabled />
+      </span>
+    );
+  }
 
   function openDialog() {
     setError(null);
@@ -23,7 +36,7 @@ export default function DeleteDraftButton({ jobId }) {
 
   function remove() {
     startTransition(async () => {
-      const result = await deleteDraftJob(jobId);
+      const result = await deleteJob(jobId);
       if (result.error) {
         setError(result.error);
         return;
@@ -36,13 +49,13 @@ export default function DeleteDraftButton({ jobId }) {
 
   return (
     <>
-      <Button variant="danger-ghost" size="icon" icon={Trash2} aria-label="Delete draft" onClick={openDialog} />
+      <Button variant="danger-ghost" size="icon" icon={Trash2} aria-label={label} onClick={openDialog} />
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
         icon={Trash2}
         tone="danger"
-        title="Delete this draft?"
+        title={isDraft ? "Delete this draft?" : "Delete this job?"}
         actions={
           <>
             <Button variant="secondary" onClick={() => setOpen(false)}>
