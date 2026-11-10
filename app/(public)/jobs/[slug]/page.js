@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Award, GraduationCap, Lock, Plus, Send, Sparkles, Star } from "lucide-react";
+import { AppliedBanner } from "@/components/jobs/AppliedStatus";
 import CompanyLogo from "@/components/jobs/CompanyLogo";
 import DeadlineLabel from "@/components/jobs/DeadlineLabel";
 import JobMeta, { yearsLabel } from "@/components/jobs/JobMeta";
@@ -10,10 +11,12 @@ import SaveJobButton from "@/components/saved-jobs/SaveJobButton";
 import { getCurrentProfile } from "@/lib/auth/current-user";
 import { getPublicJob } from "@/lib/jobs/public-queries";
 import { listSavedJobIds } from "@/lib/saved-jobs/queries";
+import { listMyApplicationsForJobs } from "@/lib/applications/applied-status";
 
 export const metadata = { title: "Job · HireLens" };
 
 // Public Job Detail (Feature 07). Open jobs show Apply now; closed jobs show why they are closed.
+// A candidate who already applied sees a banner with their status instead of Apply now (Feature 08).
 // Drafts and unknown links show "This job could not be found" (not-found.js). Never shows applicant counts.
 export default function JobDetailPage({ params, searchParams }) {
   return (
@@ -43,6 +46,7 @@ async function JobDetail({ params, searchParams }) {
 
   const isOpen = job.status === "open";
   const years = yearsLabel(job.required_years);
+  const application = viewer?.application || null;
 
   return (
     <div className="flex animate-fade-up flex-col gap-6">
@@ -51,40 +55,45 @@ async function JobDetail({ params, searchParams }) {
         All jobs
       </TextLink>
 
-      <header className="flex flex-col gap-5 rounded-card border border-border bg-surface p-4 shadow-card sm:p-7 md:flex-row md:items-start md:justify-between">
-        <div className="flex min-w-0 items-start gap-4">
-          <CompanyLogo company={job.companies} size="lg" />
-          <div className="flex min-w-0 flex-col gap-2">
-            <h1 className="page-title [overflow-wrap:anywhere]">{job.title}</h1>
-            <TextLink href={`/companies/${job.companies?.slug}`} className="self-start [overflow-wrap:anywhere]">
-              {job.companies?.name}
-            </TextLink>
-            <JobMeta job={job} />
+      <header className="flex flex-col gap-5 rounded-card border border-border bg-surface p-4 shadow-card sm:p-7">
+        {application && <AppliedBanner application={application} />}
+        <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+          <div className="flex min-w-0 items-start gap-4">
+            <CompanyLogo company={job.companies} size="lg" />
+            <div className="flex min-w-0 flex-col gap-2">
+              <h1 className="page-title [overflow-wrap:anywhere]">{job.title}</h1>
+              <TextLink href={`/companies/${job.companies?.slug}`} className="self-start [overflow-wrap:anywhere]">
+                {job.companies?.name}
+              </TextLink>
+              <JobMeta job={job} />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2 md:items-end">
-          {isOpen ? (
-            <>
-              <div className="flex flex-wrap gap-2 md:justify-end">
-                {viewer && (
-                  <SaveJobButton
-                    jobId={job.id}
-                    slug={job.slug}
-                    size="lg"
-                    loggedIn={viewer.loggedIn}
-                    initialSaved={viewer.saved}
-                    autoSave={viewer.loggedIn && save === "1"}
-                  />
-                )}
-                <Button href={`/jobs/${job.slug}/apply`} size="lg" icon={Send} className="w-full sm:w-auto">
-                  Apply now
-                </Button>
-              </div>
-              <DeadlineLabel deadline={job.deadline} />
-            </>
-          ) : (
-            <ClosedNotice job={job} />
-          )}
+          <div className="flex flex-col gap-2 md:items-end">
+            {isOpen ? (
+              <>
+                <div className="flex flex-wrap gap-2 md:justify-end">
+                  {viewer && (
+                    <SaveJobButton
+                      jobId={job.id}
+                      slug={job.slug}
+                      size="lg"
+                      loggedIn={viewer.loggedIn}
+                      initialSaved={viewer.saved}
+                      autoSave={viewer.loggedIn && save === "1"}
+                    />
+                  )}
+                  {!application && (
+                    <Button href={`/jobs/${job.slug}/apply`} size="lg" icon={Send} className="w-full sm:w-auto">
+                      Apply now
+                    </Button>
+                  )}
+                </div>
+                <DeadlineLabel deadline={job.deadline} />
+              </>
+            ) : (
+              <ClosedNotice job={job} />
+            )}
+          </div>
         </div>
       </header>
 
@@ -148,7 +157,7 @@ async function JobDetail({ params, searchParams }) {
 }
 
 // Who sees the Save button (Feature 21): candidates (with their saved state) and logged-out visitors.
-// HR never sees it. Returns null for HR.
+// HR never sees it. Returns null for HR. Candidates also get their application to this job, if any.
 async function saveViewer(jobId) {
   let profile = null;
   try {
@@ -156,13 +165,14 @@ async function saveViewer(jobId) {
   } catch {
     // The job page still works when the session can't be read.
   }
-  if (!profile) return { loggedIn: false, saved: false };
+  if (!profile) return { loggedIn: false, saved: false, application: null };
   if (profile.role !== "candidate") return null;
-  try {
-    return { loggedIn: true, saved: (await listSavedJobIds(profile.id)).has(jobId) };
-  } catch {
-    return { loggedIn: true, saved: false };
-  }
+  const [savedIds, applications] = await Promise.all([
+    listSavedJobIds(profile.id).catch(() => new Set()),
+    // Without it the page shows Apply now, and the apply form still says "You have already applied".
+    listMyApplicationsForJobs(profile.id, [jobId]).catch(() => new Map()),
+  ]);
+  return { loggedIn: true, saved: savedIds.has(jobId), application: applications.get(jobId) || null };
 }
 
 function JobDetailSkeleton() {

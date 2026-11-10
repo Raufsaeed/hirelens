@@ -14,6 +14,7 @@ import SaveJobButton from "@/components/saved-jobs/SaveJobButton";
 import { getCurrentProfile } from "@/lib/auth/current-user";
 import { listOpenJobs } from "@/lib/jobs/public-queries";
 import { listSavedJobIds } from "@/lib/saved-jobs/queries";
+import { listMyApplicationsForJobs } from "@/lib/applications/applied-status";
 
 export const metadata = { title: "Jobs · HireLens" };
 
@@ -47,7 +48,7 @@ async function JobsResults({ searchParams }) {
   } catch {
     // shown below
   }
-  const viewer = await saveViewer();
+  const viewer = await saveViewer((jobs || []).map((job) => job.id));
 
   return (
     <>
@@ -113,6 +114,7 @@ async function JobsResults({ searchParams }) {
               <PublicJobCard
                 key={job.id}
                 job={job}
+                application={viewer?.applications.get(job.id) || null}
                 action={
                   viewer && (
                     <SaveJobButton jobId={job.id} slug={job.slug} size="sm" loggedIn={viewer.loggedIn} initialSaved={viewer.savedIds.has(job.id)} />
@@ -128,18 +130,20 @@ async function JobsResults({ searchParams }) {
 }
 
 // Who sees Save buttons (Feature 21): candidates (with their saved jobs) and logged-out visitors. Not HR.
-async function saveViewer() {
+// Candidates also get their applications to these jobs, for the applied strip.
+async function saveViewer(jobIds) {
   let profile = null;
   try {
     profile = await getCurrentProfile();
   } catch {
     // The jobs list still works when the session can't be read.
   }
-  if (!profile) return { loggedIn: false, savedIds: new Set() };
+  if (!profile) return { loggedIn: false, savedIds: new Set(), applications: new Map() };
   if (profile.role !== "candidate") return null;
-  try {
-    return { loggedIn: true, savedIds: await listSavedJobIds(profile.id) };
-  } catch {
-    return { loggedIn: true, savedIds: new Set() };
-  }
+  const [savedIds, applications] = await Promise.all([
+    listSavedJobIds(profile.id).catch(() => new Set()),
+    // Without it the cards simply show no strip.
+    listMyApplicationsForJobs(profile.id, jobIds).catch(() => new Map()),
+  ]);
+  return { loggedIn: true, savedIds, applications };
 }
