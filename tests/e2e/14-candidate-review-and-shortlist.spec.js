@@ -68,10 +68,12 @@ test.afterAll(async () => {
   await deleteAccounts(createdEmails);
 });
 
-test("Candidate Detail shows the CV preview, score breakdown, requirements, experience, degree and summary", async ({ page }) => {
+test("Candidate Detail shows Open original CV, score breakdown, requirements, experience, degree and summary", async ({ page }) => {
   await openWithSession(page, saraCookies, `/hr/candidates/${aliApplication.id}`);
   await expect(page.getByText("AI suggestions are advice only — you make the decision")).toBeVisible();
-  await expect(page.locator('iframe[title="CV preview"]')).toBeVisible();
+  // The CV opens from the link at the top; there is no embedded preview.
+  await expect(page.getByRole("link", { name: "Open original CV" })).toHaveAttribute("href", `/hr/candidates/${aliApplication.id}/cv`);
+  await expect(page.locator("iframe")).toHaveCount(0);
   await expect(page.getByRole("img", { name: /Score 74 out of 100/ })).toBeVisible();
   await expect(page.getByText("Strong HTML, CSS, React and Git.")).toBeVisible();
   await expect(page.getByText("Developed dashboard components in ReactJS")).toBeVisible();
@@ -132,16 +134,6 @@ test("Reject asks to confirm first", async ({ page }) => {
   await page.getByRole("alertdialog").getByRole("button", { name: "Reject candidate" }).click();
   await expect(page.getByText("Candidate rejected")).toBeVisible();
   expect((await findApplication(aliApplication.id)).status).toBe("rejected");
-});
-
-test("an expired CV preview shows CV preview has expired, and Reload shows the CV again", async ({ page }) => {
-  await page.clock.install();
-  await openWithSession(page, saraCookies, `/hr/candidates/${aliApplication.id}`);
-  await expect(page.locator('iframe[title="CV preview"]')).toBeVisible();
-  await page.clock.fastForward("06:00");
-  await expect(page.getByText("CV preview has expired")).toBeVisible();
-  await page.getByRole("button", { name: "Reload" }).click();
-  await expect(page.locator('iframe[title="CV preview"]')).toBeVisible();
 });
 
 test("Privacy: another company's candidate URL shows You don't have access to this page", async ({ page, browser }) => {
