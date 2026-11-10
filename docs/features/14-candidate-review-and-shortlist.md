@@ -101,7 +101,7 @@ HR opens a candidate to see the full AI breakdown and the evidence behind it (an
 
 ## Done When
 
-- [ ] Candidate Detail shows "Open original CV" (no embedded CV preview), score breakdown with reasons, requirements with evidence, experience, degree and summary.
+- [x] Candidate Detail shows "Open original CV" (no embedded CV preview), score breakdown with reasons, requirements with evidence, experience, degree and summary.
 - [x] The note "AI suggestions are advice only — you make the decision" is shown.
 - [x] A note saves with Sara's name and time, and Shortlist changes Ali's status to Shortlisted.
 - [x] Opening a candidate for the first time lowers the job card's new applicant count by one.
