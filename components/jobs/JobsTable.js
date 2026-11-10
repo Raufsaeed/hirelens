@@ -19,7 +19,7 @@ export default function JobsTable({ jobs }) {
       role="region"
       aria-label="My jobs"
       tabIndex={0}
-      className="overflow-x-auto rounded-card border border-border bg-surface shadow-card focus-visible:shadow-focus focus-visible:outline-none"
+      className="relative overflow-x-auto rounded-card border border-border bg-surface shadow-card focus-visible:shadow-focus focus-visible:outline-none"
     >
       <table className="w-full border-collapse">
         <caption className="sr-only">My jobs</caption>
