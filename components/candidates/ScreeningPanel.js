@@ -99,12 +99,12 @@ export default function ScreeningPanel({ candidate, cvHref }) {
       <section className={CARD}>
         <div className="flex flex-wrap items-center gap-6">
           <ScoreRing score={screening.score} size="lg" />
-          <div className="flex min-w-0 flex-1 flex-col gap-3">
+          <div className="flex min-w-0 flex-1 basis-48 flex-col gap-3">
             <div className="flex flex-col gap-1">
               <span className="label text-ink-muted">Requirements match</span>
               <MatchBar percent={screening.match_percent} found={found.length} total={requirements.length} size="md" />
             </div>
-            <dl className="small grid grid-cols-2 gap-x-3 gap-y-1">
+            <dl className="small grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1">
               {screening.must_have_match !== null && (
                 <>
                   <dt className="text-ink-muted">Must-have</dt>
@@ -118,12 +118,12 @@ export default function ScreeningPanel({ candidate, cvHref }) {
                 </>
               )}
               <dt className="text-ink-muted">Relevant years</dt>
-              <dd className="font-bold tabular-nums">
+              <dd className="relative font-bold tabular-nums">
                 {Number(screening.relevant_years).toFixed(1)} {screening.meets_required_years ? "✓" : "✗"}
                 <span className="sr-only">{screening.meets_required_years ? "meets" : "below"} the {job.required_years} required</span>
               </dd>
               <dt className="text-ink-muted">Degree</dt>
-              <dd className="font-bold">
+              <dd className="font-bold break-words">
                 {screening.degree_found || "Not found"} {screening.degree_match ? "✓" : "✗"}
               </dd>
             </dl>
@@ -150,7 +150,7 @@ export default function ScreeningPanel({ candidate, cvHref }) {
               <div key={part} className="flex flex-col gap-1">
                 <div className="flex justify-between gap-2">
                   <span className="font-medium">{RUBRIC_LABELS[part]}</span>
-                  <span className="numeric tabular-nums">
+                  <span className="numeric shrink-0 whitespace-nowrap tabular-nums">
                     {item.marks} / {max}
                   </span>
                 </div>
