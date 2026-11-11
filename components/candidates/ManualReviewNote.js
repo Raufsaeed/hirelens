@@ -6,6 +6,7 @@ import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import TextAreaField from "@/components/ui/TextAreaField";
 import { addNote } from "@/lib/candidates/notes-actions";
+import { validateNote } from "@/lib/candidates/note-validation";
 
 // For a CV that could not be read: HR reads it by hand and saves a note (is_manual_review).
 export default function ManualReviewNote({ applicationId }) {
@@ -15,6 +16,12 @@ export default function ManualReviewNote({ applicationId }) {
   const [isPending, startTransition] = useTransition();
 
   function save() {
+    // The same checks run in the browser first, so a blocked note never reaches the server.
+    const invalid = validateNote(body);
+    if (invalid) {
+      setResult({ error: invalid });
+      return;
+    }
     startTransition(async () => {
       const outcome = await addNote(applicationId, body, { manualReview: true });
       setResult(outcome);

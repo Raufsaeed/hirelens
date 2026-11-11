@@ -7,6 +7,7 @@ import Alert from "@/components/ui/Alert";
 import Button from "@/components/ui/Button";
 import TextAreaField from "@/components/ui/TextAreaField";
 import { addNote } from "@/lib/candidates/notes-actions";
+import { validateNote } from "@/lib/candidates/note-validation";
 import { formatDayTime } from "@/lib/format-date";
 
 // HR-only notes on a candidate, newest first, each with the author's name and time (Feature 14).
@@ -17,6 +18,12 @@ export default function NotesPanel({ applicationId, notes }) {
   const [isPending, startTransition] = useTransition();
 
   function save() {
+    // The same checks run in the browser first, so a blocked note never reaches the server.
+    const invalid = validateNote(body);
+    if (invalid) {
+      setResult({ error: invalid });
+      return;
+    }
     startTransition(async () => {
       const outcome = await addNote(applicationId, body);
       setResult(outcome);
