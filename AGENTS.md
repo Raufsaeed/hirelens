@@ -96,7 +96,7 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - The app runs on localhost and can also be deployed on Vercel:
   - Links in emails, password reset, email change and the job link use `NEXT_PUBLIC_SITE_URL` (`lib/site-url.js`), falling back to `http://localhost:3000`. Never build links from request headers (`Host`, `Origin`, `X-Forwarded-*`): anyone can fake them.
   - Work after the response (CV screening on apply, emails) uses Next.js `after()`, which Vercel keeps alive with `waitUntil` until it ends. Never start background work with a promise that nothing waits for.
-  - Pages and routes that call Gemini set `export const maxDuration` (300 seconds for CV screening, 60 for the job description writer and the daily summary). Add it to any new page or route that screens CVs or calls Gemini.
+  - Pages and routes that call Gemini set `export const maxDuration` (300 seconds, the most Vercel allows by default with Fluid compute). Add it to any new page or route that screens CVs or calls Gemini.
   - Files read from disk at run time must be listed in `outputFileTracingIncludes` in `next.config.mjs` (today: `prompts/*.txt` and the PDF.js worker). Test fixtures are excluded.
   - pdf-parse is loaded only through `lib/screening/pdf.js`, which imports `pdf-parse/worker` so the canvas helpers and the PDF.js worker are bundled with each function.
   - Vercel needs these environment variables (names only): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`, `RESEND_API_KEY`, `NEXT_PUBLIC_SITE_URL`.

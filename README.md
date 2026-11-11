@@ -101,13 +101,16 @@ HireLens has 23 features, covering 23 user flows. AI-powered features are marked
    - `NEXT_PUBLIC_SITE_URL`: your Vercel address, for example `https://hirelens.vercel.app` (no slash at the end). Email, password reset and job links use it.
 3. In Supabase, open **Authentication → URL Configuration**:
    - Set **Site URL** to the same address.
-   - Add `https://your-address/auth/callback` to **Redirect URLs**, so password reset and email change links work.
+   - Add `https://your-address/**` to **Redirect URLs**, so password reset and email change links work.
+   - Keep `http://localhost:3000/**` in **Redirect URLs** too, so password reset still works when you run the app locally.
 4. Deploy. Then open the site, sign up, post a job and apply with a PDF CV to check that screening finishes.
 
 **Good to know on Vercel:**
 
 - CV screening runs in the background after the candidate applies, and is allowed up to 5 minutes (`maxDuration`). This needs Vercel's Fluid compute, which is on by default for new projects. If your plan allows less, lower the `maxDuration` values in the files under `app/`.
-- `NEXT_PUBLIC_SITE_URL` is read when the app is built, so redeploy after changing it.
+- `NEXT_PUBLIC_SITE_URL` is read when the app is built, so redeploy after changing it. Set it for the **Production** environment: preview deployments built with it will still link to the production address.
+- If `NEXT_PUBLIC_SITE_URL` is missing, links point to localhost and the Vercel logs say so.
+- The Gemini call limit (10 a minute) is counted separately by each Vercel server instance, so the free quota can run out sooner when many people apply at once. Those screenings show as Pending, and HR can use **Retry screening**.
 - `/dev-check` and the test switches only work in local development.
 
 ## Running the tests
