@@ -20,7 +20,7 @@ Each candidate has a profile with basic details and one default CV. The apply fo
    - City
    - Short headline (up to 100 characters), for example "Junior React developer"
    - Default CV
-2. **Upload default CV:** By drag and drop or by choosing a file, with the CV rule from Feature 08 (PDF only, under 5 MB).
+2. **Upload default CV:** By drag and drop or by choosing a file, with the CV rule from Feature 08 (PDF only, under 5 MB, no hidden text, no prompt injection).
 3. **Replace default CV:** Uploading a new file replaces the old default CV.
 4. **Delete default CV:** After confirming, the default CV file is removed.
 5. **Prefill when applying:** The apply form (Feature 08) is filled in with the profile's name, email and phone.
@@ -63,7 +63,8 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 - Only the candidate can see and edit their own profile.
 - HR never sees profiles. HR only sees what was submitted with an application.
 - The new profile fields are only used for candidate rows. HR rows leave them empty.
-- The default CV follows the same rules as any CV: PDF only, under 5 MB, private bucket.
+- The default CV follows the same rules as any CV: PDF only, under 5 MB, no hidden text, no prompt injection, private bucket.
+- The headline is checked for prompt injection (see "Prompt injection" in AGENTS.md) in the browser and again on the server.
 - A CV already sent to a company never changes when the default CV is replaced or deleted.
 - City is never sent to AI or used in screening.
 - Row Level Security enforces these rules in the database.
@@ -75,6 +76,9 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 | Default CV not a PDF | "Only PDF files are accepted" | Rejects the file; the old default CV stays. |
 | Default CV over 5 MB | "File must be under 5 MB" | Does not upload the file. |
 | Headline too long | "Headline can be up to 100 characters" | Shows a character counter and does not save. |
+| Headline contains prompt injection | "This text contains content that isn't allowed. Please remove it and try again." | Does not save. |
+| Default CV text contains prompt injection | "This CV contains content that isn't allowed. Please upload a different CV." | Refuses the upload; the old default CV stays. |
+| Default CV contains hidden text | "This CV contains hidden text. Please upload a clean CV." | Refuses the upload; the old default CV stays. |
 | Default CV deleted while applying | "Your default CV is no longer available. Please upload a CV" | Switches the apply form to the upload box. |
 | HR opens a profile URL | "You don't have access to this page" | Shows no profile data. |
 | Network or server failure | "Couldn't save, try again" | Keeps what the candidate typed; never shows a raw error. |
@@ -99,6 +103,8 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 - Given Ali applied to ABC Tech with ali-cv.pdf, when he replaces his default CV with a new file, then Sara still sees the original ali-cv.pdf on his application.
 - Given Ali is on My Profile, when he uploads a .docx file as his default CV, then he sees "Only PDF files are accepted" and his old default CV stays.
 - Given Sara is logged in as HR, when she opens the URL of Ali's profile page, then she sees "You don't have access to this page" and no profile data.
+- Given Ali uploads a default CV with text under 4pt, then he sees "This CV contains hidden text. Please upload a clean CV." and no default CV is saved.
+- Given Ali uploads a default CV with white text on a dark header (a normal design), then he sees "CV uploaded".
 
 ## Dependencies
 
@@ -112,3 +118,4 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 - [x] Replacing the default CV does not change the CV Sara sees on an earlier application.
 - [x] A .docx default CV shows "Only PDF files are accepted" and the old default CV stays.
 - [x] Privacy: Sara opening Ali's profile URL sees "You don't have access to this page".
+- [ ] A default CV with tiny hidden text shows "This CV contains hidden text. Please upload a clean CV." and is not saved; white text on a dark header uploads.
