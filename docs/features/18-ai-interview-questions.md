@@ -112,6 +112,7 @@ With one click, AI writes eight interview questions based on the job and the can
 - Candidates never see the questions.
 - Questions never ask about age, religion, marital status or other personal matters.
 - AI only suggests questions. HR decides what to ask and makes every hiring decision.
+- HR's own questions and hints are checked for prompt injection (see "Prompt injection" in AGENTS.md), in the browser and again on the server. Blocked questions are not added.
 - The AI rules from Feature 11 apply (personal details removed, server-only key, prompts in `prompts/`).
 
 ## Error Cases
@@ -125,6 +126,7 @@ With one click, AI writes eight interview questions based on the job and the can
 | Screening not done yet (no CV text) | "Questions need a finished CV screening" | The Generate button is disabled until screening is done. |
 | Empty custom question | "Question can't be empty" | Does not add it. |
 | Custom question without a type | "Please choose a question type" | Does not add it. |
+| Custom question or hint contains prompt injection | "This text contains content that isn't allowed. Please remove it and try again." | Does not add it. Never shows why the text was blocked. |
 
 ## Acceptance Criteria
 

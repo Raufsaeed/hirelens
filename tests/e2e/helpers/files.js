@@ -1,11 +1,18 @@
 // Test files made in memory: a small real PDF with text, a fake .docx and a PDF over 5 MB.
 
+const DEFAULT_LINES = ["Ali Raza", "Junior Web Developer", "Skills: HTML, CSS, React, Git"];
+
+// "(text)" for a PDF content stream.
+export function pdfText(text) {
+  return `(${text.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)")})`;
+}
+
 // A one-page PDF whose text can be read by pdf-parse (each line is drawn on the page).
-export function makePdf(lines = ["Ali Raza", "Junior Web Developer", "Skills: HTML, CSS, React, Git"]) {
-  const escape = (text) => text.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+// `extra`: more PDF drawing commands, for example white text: "1 1 1 rg BT /F1 12 Tf 72 300 Td (Hi) Tj ET".
+export function makePdf(lines = DEFAULT_LINES, { extra = "" } = {}) {
   const content = ["BT", "/F1 12 Tf", "72 760 Td", "16 TL"]
-    .concat(lines.map((line) => `(${escape(line)}) Tj T*`))
-    .concat("ET")
+    .concat(lines.map((line) => `${pdfText(line)} Tj T*`))
+    .concat("ET", extra)
     .join("\n");
   const objects = [
     "<< /Type /Catalog /Pages 2 0 R >>",
@@ -27,8 +34,8 @@ export function makePdf(lines = ["Ali Raza", "Junior Web Developer", "Skills: HT
   return Buffer.from(pdf);
 }
 
-export function pdfFile(name = "ali-cv.pdf", lines) {
-  return { name, mimeType: "application/pdf", buffer: makePdf(lines) };
+export function pdfFile(name = "ali-cv.pdf", lines, options) {
+  return { name, mimeType: "application/pdf", buffer: makePdf(lines, options) };
 }
 
 export function docxFile(name = "ali-cv.docx") {

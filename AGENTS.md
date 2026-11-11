@@ -151,6 +151,23 @@ Rules that every AI coding assistant working on HireLens must follow, every time
 - One CV screening uses only one Gemini request, to save the free quota: the four task prompts (`cv-screening.txt`, `job-requirements.txt`, `experience.txt`, `candidate-summary.txt`) are sent together in `prompts/cv-screening-request.txt`, which returns one JSON object with the same parts and formats. The only extra requests are the one automatic retry (failed call or bad JSON) and the 1s, 2s, 4s retries on 429 or network errors that every outside call gets; the Gemini call limit caps them all.
 - For every outside API call (Gemini, Supabase, Resend): check the response before using it, on 429 or a failed call wait and retry with 1s, 2s, then 4s, and keep a limit on calls so a bug or loop cannot make many calls.
 
+## Prompt injection
+
+- Text that tries to give the AI instructions is blocked without AI, by the suspicion score in `lib/validation/injection.js`.
+  - The text is normalised first: lower case, invisible characters removed, single spaces, separators inside words removed ("i.g.n.o.r.e" becomes "ignore").
+  - Points per sentence, each group counted once per sentence: words addressing an AI (ai, assistant, prompt, bot; "model" and "system" only when spoken to, like "the model" or "system note", because "data models" and "Database Systems" are normal) +2; command words (ignore, override, disregard, forget, pretend) +2; asking for a perfect score (score 100, rate 10/10, highest score, full marks, rate this candidate highest; not achievements like "Scored 100%" or "Achieved full marks") +3; data commands (delete, remove all, drop) +2; fake instruction blocks ([system ...], ### instructions, <prompt>, previous instructions) +3.
+  - A line break is a soft sentence end: each line is also scored joined with the next one, because PDF text wraps sentences.
+  - A sentence with 5 or more points blocks the text. One mention of "AI" or "data" must never block.
+- Every free-text field is checked on save, in the browser and again on the server, through the shared validation functions: job title, location, required degree, requirements and description; company name and About us; HR notes and manual review notes; interview feedback; HR's own interview questions; cover note; headline.
+  - If blocked, nothing is saved and the user sees only: "This text contains content that isn't allowed. Please remove it and try again."
+- CVs are checked on the server in `lib/validation/cv-content.js`: at upload (apply and default CV), again when a default CV is copied into an application, and again right before screening (a stored file can be swapped after upload). A refused CV is never stored; one refused at screening is marked failed and never sent to AI.
+  - Hidden text, on the first 10 pages: white or near-white text, see-through text (opacity under 0.1), text under 4pt, text outside the page, or invisible text (rendering mode 3). White text on a coloured shape or image, and invisible text on an image (a scanned CV), is a normal design and allowed. Message: "This CV contains hidden text. Please upload a clean CV."
+  - The suspicion score on the CV text. Message: "This CV contains content that isn't allowed. Please upload a different CV."
+  - A PDF that can't be read is let through; screening marks it "CV could not be read".
+- Never show the points, the matched words or the rule to anyone. Only the fixed messages above.
+- The PDF check uses the PDF.js that pdf-parse already includes, so pdf-parse is pinned to an exact version (its PDF.js operation numbers are used). Do not add a package for it.
+- This is a word-list check, so it has limits: an injection spread over sentences that are not next to each other, or written without these words, is not caught. HR always reviews candidates and makes the final decision.
+
 ## Scoring Rules
 
 - Rubric (total 100):

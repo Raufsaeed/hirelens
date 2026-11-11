@@ -48,6 +48,7 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
 
 - Only HR of the job's company can read or write `interview_feedback`.
 - Rating must be a whole number from 1 to 5.
+- Strengths and concerns are checked for prompt injection (see "Prompt injection" in AGENTS.md), in the browser and again on the server. Blocked feedback is not saved.
 - Candidates can never read `interview_feedback`, so they never see rating, strengths, concerns or recommendation.
 - The recommendation never changes the pipeline status by itself.
 - Row Level Security enforces these rules in the database.
@@ -57,6 +58,7 @@ After an interview, HR records a rating, strengths, concerns and a recommendatio
 | Case | Message Shown | What the System Does |
 |------|---------------|----------------------|
 | Feedback missing rating or recommendation | "Please add a rating and a recommendation" | Does not save. |
+| Strengths or concerns contain prompt injection | "This text contains content that isn't allowed. Please remove it and try again." | Does not save. Never shows why the text was blocked. |
 | Network or server failure | "Something went wrong, please try again" | Keeps what HR typed; never shows a raw error. |
 
 ## Acceptance Criteria

@@ -374,6 +374,13 @@ export async function readCvText(path) {
   return Buffer.from(await data.arrayBuffer()).toString("latin1");
 }
 
+// Overwrites a stored CV behind the app's back, like someone swapping the file after a clean upload.
+export async function replaceStoredCv(path, buffer) {
+  const admin = adminClient();
+  const { error } = await admin.storage.from("cvs").upload(path, buffer, { contentType: "application/pdf", upsert: true });
+  if (error) throw error;
+}
+
 // Removes a candidate's default CV behind the app's back (Feature 20: "deleted while applying").
 export async function clearDefaultCv(userId) {
   const admin = adminClient();
