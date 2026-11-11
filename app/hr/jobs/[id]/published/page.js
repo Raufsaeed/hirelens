@@ -26,7 +26,7 @@ async function JobPublished({ params }) {
   const job = await getCompanyJob(profile.company_id, id);
   if (!job || job.status !== "open" || !job.slug) notFound();
 
-  const url = `${await siteOrigin()}/jobs/${job.slug}`;
+  const url = `${siteOrigin()}/jobs/${job.slug}`;
 
   return (
     <section className="flex max-w-form animate-fade-up flex-col gap-6 rounded-card border border-border bg-surface p-4 shadow-card sm:p-6">
