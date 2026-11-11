@@ -60,6 +60,7 @@ HR opens a candidate to see the full AI breakdown and the evidence behind it (an
 
 - HR sees only candidates who applied to their own company's jobs.
 - Notes cannot be edited or deleted in this version.
+- Notes are checked for prompt injection (see "Prompt injection" in AGENTS.md), in the browser and again on the server. Blocked notes are not saved.
 - AI never shortlists or rejects. Every status change is a click by HR.
 - Hired and Rejected are final; their status never changes (Feature 15).
 - CV links are signed and short-lived. The bucket is never public.
@@ -73,6 +74,7 @@ HR opens a candidate to see the full AI breakdown and the evidence behind it (an
 | Another company's candidate URL | "You don't have access to this page" | Shows no candidate data. |
 | Screening still pending | "Screening pending" | Shows "Retry screening" (Feature 11); the rest of the page still works. |
 | Empty note | "Note can't be empty" | Does not save. |
+| Note contains prompt injection | "This text contains content that isn't allowed. Please remove it and try again." | Does not save. Never shows why the text was blocked. |
 | Network or server failure | "Something went wrong, please try again" | Keeps typed notes; never shows a raw error. |
 
 ## Acceptance Criteria

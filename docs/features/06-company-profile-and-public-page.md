@@ -67,6 +67,7 @@ HR edits the company's name, logo, About us, website and location in Company Set
 - Only HR of that company can update it.
 - Only HR of that company can upload or replace its logo in `logos`. Anyone can view logos. Logos must be PNG or JPG, under 2 MB. CVs are never stored in `logos`.
 - Website must start with `http://` or `https://`.
+- Company name and About us are checked for prompt injection (see "Prompt injection" in AGENTS.md), in the browser and again on the server. Blocked text is not saved.
 - The page lists only Open jobs. Drafts and Closed jobs are never shown.
 - The page never shows private data: no HR names or emails, no applicant counts, no candidates.
 - Each slug is unique and stays the same when the company name changes.
@@ -79,6 +80,7 @@ HR edits the company's name, logo, About us, website and location in Company Set
 | Logo is not a PNG or JPG, or is over 2 MB | "Logo must be a PNG or JPG under 2 MB" | Does not upload the file; the old logo stays. |
 | About us too long | "About us can be up to 1,000 characters" | Shows a character counter and does not save. |
 | Invalid website | "Please enter a valid website, for example https://abctech.com" | Does not save. |
+| Company name or About us contains prompt injection | "This text contains content that isn't allowed. Please remove it and try again." under that field | Does not save. Never shows why the text was blocked. |
 | Candidate opens Company Settings | "You don't have access to this page" | Shows no settings. |
 | Unknown company slug | "This company could not be found" | Shows no data and a link to browse jobs. |
 | Company has no open jobs | "ABC Tech has no open jobs right now" | Shows the company details without a job list. |

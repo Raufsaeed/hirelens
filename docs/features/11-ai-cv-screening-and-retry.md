@@ -201,6 +201,8 @@ These AI rules also apply to Features 05 and 18.
 
 - AI runs only on the server. The Gemini key is never sent to the browser.
 - Personal details are always removed before any CV text is sent to AI.
+- Right before screening (including Retry and Re-screen), the stored CV is checked again for hidden text and prompt injection (see "Prompt injection" in AGENTS.md), because a stored file can be swapped after upload. A refused CV is never sent to AI.
+- The manual review note is checked for prompt injection like any HR note (Feature 14).
 - All totals, percentages, years and rankings are calculated in code, never by AI.
 - Prompts live only in `prompts/` as `.txt` files.
 - Only HR of the job's company can see screening results or start a retry.
@@ -214,6 +216,8 @@ These AI rules also apply to Features 05 and 18.
 |------|---------------|----------------------|
 | Scanned PDF or almost no text | "CV could not be read" (HR only) | Sets status `failed`; HR can open the original CV and review it by hand. |
 | PDF is damaged or can't be opened | "CV could not be read" (HR only) | Sets status `failed` and saves the error message. |
+| Stored CV has hidden text or prompt injection | "CV could not be read" (HR only) | Sets status `failed` without calling AI and saves the error message; HR can open the original CV and review it by hand. |
+| Manual review note contains prompt injection | "This text contains content that isn't allowed. Please remove it and try again." | Does not save the note. |
 | Gemini unavailable or times out | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`. |
 | Invalid JSON from AI | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`; saves the error message. |
 | Retry clicked while screening is running | "Screening is already in progress" | Ignores the repeat click. |
