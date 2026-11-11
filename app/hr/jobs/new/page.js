@@ -1,6 +1,9 @@
 import JobForm from "@/components/jobs/JobForm";
 import PageHeader from "@/components/nav/PageHeader";
 
+// On Vercel: the AI job description writer waits for Gemini (and its retries).
+export const maxDuration = 60;
+
 export const metadata = { title: "Post a job · HireLens" };
 
 export default function NewJobPage() {

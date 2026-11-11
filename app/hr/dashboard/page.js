@@ -6,6 +6,9 @@ import PageHeader from "@/components/nav/PageHeader";
 import Button from "@/components/ui/Button";
 import TextLink from "@/components/ui/TextLink";
 
+// On Vercel: "Send today's summary" sends several emails, each with retries.
+export const maxDuration = 60;
+
 export const metadata = { title: "Dashboard · HireLens" };
 
 // HR Dashboard: one card per job with status, applicants and deadline.
