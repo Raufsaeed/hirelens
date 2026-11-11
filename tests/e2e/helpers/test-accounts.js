@@ -125,7 +125,8 @@ export async function findApplications(candidateId) {
 }
 
 // Creates an application directly, with its first history row (for tests that need one).
-export async function createApplication({ job, candidate, status = "applied", cvText }) {
+// `fields`: more columns to set, for example an old updated_at (the update trigger only runs on updates).
+export async function createApplication({ job, candidate, status = "applied", cvText, fields = {} }) {
   const admin = adminClient();
   const path = `${candidate.id}/applications/${job.id}/ali-cv.pdf`;
   if (cvText) {
@@ -142,6 +143,7 @@ export async function createApplication({ job, candidate, status = "applied", cv
       cv_file_path: path,
       phone: "0300 1234567",
       status,
+      ...fields,
     })
     .select("*")
     .single();

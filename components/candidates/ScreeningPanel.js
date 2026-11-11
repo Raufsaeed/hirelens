@@ -43,6 +43,16 @@ function periodLabel(item) {
 export default function ScreeningPanel({ candidate, cvHref }) {
   const { screening, screening_status: status, jobs: job } = candidate;
 
+  // Queued or checking for over 5 minutes: it may have stopped (for example a server time limit).
+  if (candidate.screeningStuck) {
+    return (
+      <StatusCard icon={Hourglass} tone="bg-warning-bg text-warning" title="Screening is taking too long">
+        <p className="text-ink-muted">It may have stopped. You can try again.</p>
+        <RetryScreeningButton applicationId={candidate.id} />
+      </StatusCard>
+    );
+  }
+
   if (status === "queued" || status === "processing") {
     return (
       <StatusCard icon={FileText} tone="bg-primary-tint text-on-primary-tint animate-pulse" title="AI is checking this CV…">

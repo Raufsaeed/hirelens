@@ -198,6 +198,40 @@ test("a scanned CV shows CV could not be read; Sara opens it and saves a manual 
   expect(saved.screening.score).toBeNull();
 });
 
+test("a screening stuck in checking for over 5 minutes offers Retry screening; a fresh one doesn't", async ({ page }) => {
+  const email = testEmail("omar-screen");
+  createdEmails.push(email);
+  const omar = await createAccount({ role: "candidate", fullName: "Omar Shah", email });
+  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+  // Already viewed, so opening it doesn't refresh updated_at (the time the 5 minutes count from).
+  const stuck = await createApplication({
+    job,
+    candidate: { ...omar, fullName: "Omar Shah" },
+    cvText: makePdf(ALI_CV),
+    fields: { screening_status: "processing", updated_at: tenMinutesAgo, viewed_at: tenMinutesAgo },
+  });
+
+  const freshEmail = testEmail("zara-screen");
+  createdEmails.push(freshEmail);
+  const zara = await createAccount({ role: "candidate", fullName: "Zara Malik", email: freshEmail });
+  await createApplication({
+    job,
+    candidate: { ...zara, fullName: "Zara Malik" },
+    cvText: makePdf(ALI_CV),
+    fields: { screening_status: "processing", viewed_at: new Date().toISOString() },
+  });
+
+  await openWithSession(page, saraCookies, `/hr/candidates?job=${job.id}`);
+  await expect(candidateRow(page, "Omar Shah").getByRole("button", { name: "Retry screening" })).toBeVisible();
+  await expect(candidateRow(page, "Zara Malik").getByText("Screening…")).toBeVisible();
+  await expect(candidateRow(page, "Zara Malik").getByRole("button", { name: "Retry screening" })).toHaveCount(0);
+
+  await candidateRow(page, "Omar Shah").getByRole("link", { name: "Omar Shah" }).click();
+  await expect(page.getByRole("heading", { name: "Screening is taking too long" })).toBeVisible();
+  await page.getByRole("button", { name: "Retry screening" }).click();
+  await expect.poll(async () => (await findApplication(stuck.id)).screening_status, { timeout: 60000 }).toBe("done");
+});
+
 // The only test that calls the real Gemini API. Run it with: RUN_REAL_AI=1 npm run test:e2e
 test("real Gemini: screens a CV with evidence and matches skills by meaning", async ({ page, browser }) => {
   test.skip(!process.env.RUN_REAL_AI, "Set RUN_REAL_AI=1 to call the real Gemini API");

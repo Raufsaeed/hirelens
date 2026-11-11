@@ -208,6 +208,7 @@ These AI rules also apply to Features 05 and 18.
 - Only HR of the job's company can see screening results or start a retry.
 - Candidates never see screening results (Feature 09).
 - A failed or pending screening never blocks the application or the rest of the candidates list.
+- A screening that has been Queued or "AI is checking" for over 5 minutes (for example the server stopped, or Vercel's time limit cut it off) counts as stuck: the candidates list and Candidate Detail show "Retry screening". The 5 minutes count from the application's last update, the same rule the server uses to take it over again.
 - Row Level Security enforces these rules in the database.
 
 ## Error Cases
@@ -221,6 +222,7 @@ These AI rules also apply to Features 05 and 18.
 | Gemini unavailable or times out | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`. |
 | Invalid JSON from AI | "Screening pending" with "Retry screening" (HR only) | Retries once, then sets status `pending`; saves the error message. |
 | Retry clicked while screening is running | "Screening is already in progress" | Ignores the repeat click. |
+| Screening stuck in Queued or checking for over 5 minutes | "Screening is taking too long" with "Retry screening" (HR only) | Lets HR start the screening again. |
 | AI still unavailable after retry | "AI is still unavailable, try again in a few minutes" | Keeps the candidate `pending`. |
 
 ## Acceptance Criteria

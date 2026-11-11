@@ -231,7 +231,7 @@ export default function CandidatesTable({ rows, requirements, initialSearch = ""
                 const rank = rankOf.get(row.id);
                 const done = row.screening_status === "done" && row.screening?.score != null;
                 const isRetrying = retrying[row.id];
-                const canRetry = ["pending", "queued"].includes(row.screening_status);
+                const canRetry = ["pending", "queued"].includes(row.screening_status) || row.screeningStuck;
                 const found = row.screening?.requirements_result?.filter((item) => item.found).length;
                 return (
                   <tr
