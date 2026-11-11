@@ -17,6 +17,9 @@ import { getCurrentProfile } from "@/lib/auth/current-user";
 import { getCandidate, markCandidateViewed } from "@/lib/candidates/queries";
 import { formatDay } from "@/lib/format-date";
 
+// On Vercel: CV screening (Gemini, its retries and its call limit) can take longer than the default time limit. Used by Retry screening and interview questions.
+export const maxDuration = 300;
+
 export const metadata = { title: "Candidate · HireLens" };
 
 // Candidate Detail (Features 11 and 14): screening, Open original CV, notes, Shortlist and Reject. HR only.

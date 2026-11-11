@@ -1,6 +1,9 @@
 import JobForm from "@/components/jobs/JobForm";
 import PageHeader from "@/components/nav/PageHeader";
 
+// On Vercel: the AI job description writer can wait for a Gemini call slot and its retries (same limit as Edit Job).
+export const maxDuration = 300;
+
 export const metadata = { title: "Post a job · HireLens" };
 
 export default function NewJobPage() {

@@ -7,6 +7,9 @@ import { AI_TEST_COOKIE, aiTestModeFrom } from "@/lib/ai/test-mode";
 import { screenApplication } from "@/lib/screening/run";
 import { notifyApplicationReceived } from "@/lib/email/notify";
 
+// On Vercel: CV screening runs after the response (after()), within this function's time limit.
+export const maxDuration = 300;
+
 // POST /api/applications: the apply form sends the details and the PDF CV here.
 // A route (not a server action) so the browser can show upload progress for files up to 5 MB.
 export async function POST(request) {

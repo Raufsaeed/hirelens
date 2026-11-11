@@ -13,6 +13,9 @@ import RetryButton from "@/components/ui/RetryButton";
 import { getCurrentProfile } from "@/lib/auth/current-user";
 import { listCandidateJobs, listJobCandidates } from "@/lib/candidates/queries";
 
+// On Vercel: CV screening (Gemini, its retries and its call limit) can take longer than the default time limit. Used by Retry screening.
+export const maxDuration = 300;
+
 export const metadata = { title: "Candidates · HireLens" };
 
 // Ranked candidates for one of the company's jobs (Feature 12). ?job=<id> picks the job; ?q= pre-fills search.
