@@ -139,6 +139,6 @@ A logged-in candidate applies to an open job with a PDF CV. The CV is stored pri
 - [x] A .docx file shows "Only PDF files are accepted", and a 7 MB PDF shows "File must be under 5 MB".
 - [x] Applying twice shows "You have already applied to this job", and submitting after the deadline shows "Applications for this job closed on 20 Oct".
 - [x] The job page shows the applied banner with "View my application" instead of Apply now; a withdrawn application shows the warning banner; a logged-out visitor still sees Apply now.
-- [ ] A CV with an injection line shows "This CV contains content that isn't allowed. Please upload a different CV." and is not saved.
-- [ ] A CV with white hidden text shows "This CV contains hidden text. Please upload a clean CV." and is not saved.
-- [ ] The server blocks injected text even when the browser check is skipped.
+- [x] A CV with an injection line shows "This CV contains content that isn't allowed. Please upload a different CV." and is not saved.
+- [x] A CV with white hidden text shows "This CV contains hidden text. Please upload a clean CV." and is not saved.
+- [x] The server blocks injected text even when the browser check is skipped.

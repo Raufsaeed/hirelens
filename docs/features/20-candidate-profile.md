@@ -118,4 +118,4 @@ Each candidate has a profile with basic details and one default CV. The apply fo
 - [x] Replacing the default CV does not change the CV Sara sees on an earlier application.
 - [x] A .docx default CV shows "Only PDF files are accepted" and the old default CV stays.
 - [x] Privacy: Sara opening Ali's profile URL sees "You don't have access to this page".
-- [ ] A default CV with tiny hidden text shows "This CV contains hidden text. Please upload a clean CV." and is not saved; white text on a dark header uploads.
+- [x] A default CV with tiny hidden text shows "This CV contains hidden text. Please upload a clean CV." and is not saved; white text on a dark header uploads.
