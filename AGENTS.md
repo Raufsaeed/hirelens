@@ -89,11 +89,19 @@ Rules that every AI coding assistant working on HireLens must follow, every time
   - Images only: PNG or JPG, under 2 MB, at `{company_id}/logo.{png or jpg}`.
   - Only HR of that company can upload or replace a logo. Anyone can read it.
   - Never store CVs in `logos`.
-- There is no scheduler, because the app runs only on localhost:
+- There is no scheduler (none is set up on localhost or on Vercel):
   - Whenever a job is read (job lists, job page, apply submit, HR pages), if `apply_by` has passed and the job is still open, the server closes it with `closed_reason` `deadline`.
   - The daily summary email (Feature 23) is sent from a server route that HR triggers with a "Send today's summary" button, for the demo. A real scheduled job is a future step.
 - Email confirmation is off in Supabase for development and the demo, so sign up logs the user in straight away. Turning it on is a future step.
-- The app runs only on localhost. There is no hosting for now.
+- The app runs on localhost and can also be deployed on Vercel:
+  - Links in emails, password reset, email change and the job link use `NEXT_PUBLIC_SITE_URL` (`lib/site-url.js`), falling back to `http://localhost:3000`. Never build links from request headers (`Host`, `Origin`, `X-Forwarded-*`): anyone can fake them.
+  - Work after the response (CV screening on apply, emails) uses Next.js `after()`, which Vercel keeps alive with `waitUntil` until it ends. Never start background work with a promise that nothing waits for.
+  - Pages and routes that call Gemini set `export const maxDuration` (300 seconds for CV screening, 60 for the job description writer and the daily summary). Add it to any new page or route that screens CVs or calls Gemini.
+  - Files read from disk at run time must be listed in `outputFileTracingIncludes` in `next.config.mjs` (today: `prompts/*.txt` and the PDF.js worker). Test fixtures are excluded.
+  - pdf-parse is loaded only through `lib/screening/pdf.js`, which imports `pdf-parse/worker` so the canvas helpers and the PDF.js worker are bundled with each function.
+  - Vercel needs these environment variables (names only): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`, `RESEND_API_KEY`, `NEXT_PUBLIC_SITE_URL`.
+  - The Gemini call limit (`lib/retry.js`) is kept in each server instance's memory, so on Vercel it is per instance, not shared.
+  - The development-only test switches (`hl_ai_test`, `hl_email_test` cookies) and `/dev-check` are off in production, so on Vercel they do nothing.
 - Tables are created only through SQL that you give the user to run in the Supabase SQL Editor. Never assume a table exists.
 - Save every SQL file you give the user in supabase/sql/, named after its feature (for example 01-authentication.sql), and commit it with that feature.
 - Before writing SQL for a feature, check the SQL already given for earlier features and reuse the same table, column and status names.

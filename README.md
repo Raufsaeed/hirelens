@@ -85,9 +85,30 @@ HireLens has 23 features, covering 23 user flows. AI-powered features are marked
 
 **Good to know:**
 
-- The app runs only on your own computer (localhost). There is no online hosting yet.
+- The app runs on your own computer (localhost), and it can also be deployed on Vercel (see below).
 - There is no scheduler: past-deadline jobs close whenever jobs are read, and HR sends the daily applicant summary with the **Send today's summary** button on the Dashboard.
 - Emails are sent from Resend's test sender (`onboarding@resend.dev`). A free Resend account only delivers to the email address of that Resend account; emails to other addresses are logged as failed.
+
+## Deploy on Vercel
+
+1. Push the project to GitHub and import it in Vercel (Add New → Project). Vercel detects Next.js; keep the default build settings.
+2. In the Vercel project, open **Settings → Environment Variables** and add these (copy the values from your `.env.local`, never into code or chat):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `GEMINI_API_KEY`
+   - `RESEND_API_KEY`
+   - `NEXT_PUBLIC_SITE_URL`: your Vercel address, for example `https://hirelens.vercel.app` (no slash at the end). Email, password reset and job links use it.
+3. In Supabase, open **Authentication → URL Configuration**:
+   - Set **Site URL** to the same address.
+   - Add `https://your-address/auth/callback` to **Redirect URLs**, so password reset and email change links work.
+4. Deploy. Then open the site, sign up, post a job and apply with a PDF CV to check that screening finishes.
+
+**Good to know on Vercel:**
+
+- CV screening runs in the background after the candidate applies, and is allowed up to 5 minutes (`maxDuration`). This needs Vercel's Fluid compute, which is on by default for new projects. If your plan allows less, lower the `maxDuration` values in the files under `app/`.
+- `NEXT_PUBLIC_SITE_URL` is read when the app is built, so redeploy after changing it.
+- `/dev-check` and the test switches only work in local development.
 
 ## Running the tests
 
